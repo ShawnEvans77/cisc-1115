@@ -108,11 +108,6 @@ function Exams(): React.ReactElement {
         </p>
       </div>
 
-      {/* Divider */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2.5rem" }}>
-        <hr style={{ border: "none", borderTop: "1.5px solid #E8E3DC" }} />
-      </div>
-
       {/* Exam list */}
       <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 2.5rem 8rem" }}>
         {exams.map((exam: Exam, i: number) => (
@@ -148,11 +143,12 @@ function Exams(): React.ReactElement {
                   className="exam-label"
                   style={{
                     fontFamily: "'Playfair Display', serif",
-                    fontSize: "clamp(2.5rem, 7vw, 6rem)",
-                    fontWeight: 700,
+                    fontSize: "clamp(2.5rem, 6vw, 4.5rem)", // Significantly larger
+                    fontWeight: 400, // Still unbolded
+                    textTransform: "lowercase", // Still lowercase
                     color: "#1A1208",
                     lineHeight: 1,
-                    letterSpacing: "-0.02em",
+                    letterSpacing: "-0.03em", // Tighter tracking for large text
                     transition: "color 0.2s",
                     marginBottom: "0.5rem",
                   }}
@@ -168,7 +164,7 @@ function Exams(): React.ReactElement {
                     color: "#A89F94",
                   }}
                 >
-                  PDF &nbsp;·&nbsp; Opens in new tab
+                  PDF
                 </span>
               </div>
 
