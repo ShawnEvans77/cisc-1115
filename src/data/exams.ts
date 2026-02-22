@@ -28,16 +28,28 @@ export const exams: Exam[] = [
         explanation: `The key insight here is using integer division and the modulo operator to progressively "peel off" each unit.\n\nWe start with the largest unit (miles) by dividing total inches by the number of inches in a mile (5280 × 12 = 63360). Then we use % to get the remainder and repeat the process for yards, feet, and finally the leftover inches.\n\nThe order matters — always extract the biggest unit first, then work down.`,
         solution: `public class Fall2020Question2 {
     public static void main(String[] args) {
+
+        // creating the inches variable
         int inches = 245897;
 
+        // 5280 feet are in one mile. 5280*12 is the number of 
+        // inches in a mile. Divide inches by (5280*12) to see 
+        // how many miles are in it.
         int miles = inches / (5280 * 12);
 
+        // remove the miles using the modulus operator.
         int remainingYards = inches % (5280 * 12);
+
+        // 36 inches are in one yard.
         int yards = remainingYards / 36;
 
-        int remainingFeet = inches % 36;
+        // remove all yards.
+        int remainingFeet = inches % 36; 
+
+        // 12 inches in one foot.
         int feet = remainingFeet / 12;
 
+        // remove the remaining feet.
         int remainingInches = inches % 12;
 
         System.out.printf(
