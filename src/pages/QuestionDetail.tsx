@@ -228,16 +228,17 @@ function QuestionDetail(): React.ReactElement {
         }
 
         .code-scroll-wrapper pre {
-          font-family: 'DM Mono', monospace;
-          font-size: 1.05rem;
-          line-height: 2;
-          color: #1A1208;
-          margin: 0;
-          padding: 2rem 2.5rem;
-          white-space: pre;
-          width: max-content;
-          min-width: 100%;
-        }
+  font-family: 'DM Mono', monospace;
+  font-size: 1.05rem;
+  line-height: 2;
+  color: #1A1208;
+  margin: 0;
+  padding: 2rem 2.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  width: 100%;
+  min-width: 0;
+}
 
         @media (max-width: 640px) {
           .solution-block { padding: 1.25rem; }
