@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { exams } from "../data/exams";
 
@@ -17,7 +17,6 @@ function highlightJava(code: string): React.ReactElement[] {
     let i = 0;
 
     while (i < line.length) {
-      // Single-line comment
       if (line[i] === "/" && line[i + 1] === "/") {
         tokens.push(
           <span key={i} style={{ color: "#9E8A80", fontStyle: "italic" }}>
@@ -28,7 +27,6 @@ function highlightJava(code: string): React.ReactElement[] {
         continue;
       }
 
-      // String literal
       if (line[i] === '"') {
         let j = i + 1;
         while (j < line.length && line[j] !== '"') {
@@ -45,7 +43,6 @@ function highlightJava(code: string): React.ReactElement[] {
         continue;
       }
 
-      // Number
       if (/[0-9]/.test(line[i])) {
         let j = i;
         while (j < line.length && /[0-9.]/.test(line[j])) j++;
@@ -58,7 +55,6 @@ function highlightJava(code: string): React.ReactElement[] {
         continue;
       }
 
-      // Word — keyword or identifier
       if (/[a-zA-Z_]/.test(line[i])) {
         let j = i;
         while (j < line.length && /[a-zA-Z0-9_]/.test(line[j])) j++;
@@ -76,7 +72,6 @@ function highlightJava(code: string): React.ReactElement[] {
         continue;
       }
 
-      // Punctuation / operators — subtle accent
       if (/[{}()[\];,.]/.test(line[i])) {
         tokens.push(
           <span key={i} style={{ color: "#8A7570" }}>
@@ -87,7 +82,6 @@ function highlightJava(code: string): React.ReactElement[] {
         continue;
       }
 
-      // Everything else
       tokens.push(<span key={i}>{line[i]}</span>);
       i++;
     }
@@ -104,6 +98,15 @@ function QuestionDetail(): React.ReactElement {
   const { examId, questionId } = useParams<{ examId: string; questionId: string }>();
   const exam = exams.find((e) => e.id === examId);
   const question = exam?.questions.find((q) => q.id === questionId);
+  const [copied, setCopied] = useState(false);
+
+  function handleCopy() {
+    if (!question) return;
+    navigator.clipboard.writeText(question.solution).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
 
   if (!exam || !question) {
     return (
@@ -201,6 +204,25 @@ function QuestionDetail(): React.ReactElement {
           transition: color 0.18s;
         }
         .muted-link:hover { color: #E07B00; }
+        .copy-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background-color: #E07B00;
+  border: none;
+  border-radius: 3px;
+  padding: 0.65rem 1.75rem;
+  cursor: pointer;
+  transition: background-color 0.18s;
+}
+.copy-btn:hover {
+  background-color: #C96E00;
+}
+.copy-btn.copied {
+  background-color: #6B8E6B;
+}
         @media (max-width: 640px) {
           .solution-block { padding: 1.5rem; }
         }
@@ -323,9 +345,9 @@ function QuestionDetail(): React.ReactElement {
                 key={i}
                 style={{
                   fontFamily: "'Lora', serif",
-                  fontSize: "1.2rem",
+                  fontSize: "1.3rem",
                   color: "#1A1208",
-                  lineHeight: 1.85,
+                  lineHeight: 1.9,
                   marginBottom: "0.5rem",
                 }}
               >
@@ -357,9 +379,9 @@ function QuestionDetail(): React.ReactElement {
                 key={i}
                 style={{
                   fontFamily: "'Lora', serif",
-                  fontSize: "1.2rem",
+                  fontSize: "1.3rem",
                   color: "#1A1208",
-                  lineHeight: 1.85,
+                  lineHeight: 1.9,
                   marginBottom: "0.5rem",
                 }}
               >
@@ -371,18 +393,33 @@ function QuestionDetail(): React.ReactElement {
 
         {/* Solution */}
         <div className="solution-block">
-          <p
+          <div
             style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.72rem",
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "#E07B00",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               marginBottom: "1.25rem",
             }}
           >
-            Solution
-          </p>
+            <p
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                fontSize: "0.72rem",
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "#E07B00",
+                margin: 0,
+              }}
+            >
+              Solution
+            </p>
+            <button
+  onClick={handleCopy}
+  className={`copy-btn${copied ? " copied" : ""}`}
+>
+  {copied ? "✓ Copied!" : "Copy code"}
+</button>
+          </div>
           <div
             style={{
               backgroundColor: "#F5F2EE",
@@ -390,14 +427,13 @@ function QuestionDetail(): React.ReactElement {
               borderRadius: "4px",
               padding: "2rem 2.5rem",
               overflowX: "auto",
-              marginTop: "0.5rem",
             }}
           >
             <pre
               style={{
                 fontFamily: "'DM Mono', monospace",
-                fontSize: "1.05rem",
-                lineHeight: 2,
+                fontSize: "1.15rem",
+                lineHeight: 2.1,
                 color: "#1A1208",
                 margin: 0,
                 whiteSpace: "pre",

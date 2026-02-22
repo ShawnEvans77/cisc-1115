@@ -8,51 +8,15 @@ function ExamDetail(): React.ReactElement {
 
   if (!exam) {
     return (
-      <div
-        style={{
-          fontFamily: "'Lora', serif",
-          backgroundColor: "#FAFAF8",
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div style={{ fontFamily: "'Lora', serif", backgroundColor: "#FAFAF8", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ textAlign: "center" }}>
-          <p
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.75rem",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#E07B00",
-              marginBottom: "1rem",
-            }}
-          >
+          <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#E07B00", marginBottom: "1rem" }}>
             404
           </p>
-          <h1
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(2rem, 5vw, 3.5rem)",
-              fontWeight: 700,
-              color: "#1A1208",
-              marginBottom: "1.5rem",
-            }}
-          >
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, color: "#1A1208", marginBottom: "1.5rem" }}>
             Exam not found
           </h1>
-          <Link
-            to="/solutions"
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.8rem",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "#E07B00",
-              textDecoration: "none",
-            }}
-          >
+          <Link to="/solutions" style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#E07B00", textDecoration: "none" }}>
             ← Back to solutions
           </Link>
         </div>
@@ -73,44 +37,13 @@ function ExamDetail(): React.ReactElement {
           border-radius: 4px;
           transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
         }
-        .question-card:hover {
-          border-color: #E07B00;
-          box-shadow: 0 4px 24px rgba(224,123,0,0.08);
-          transform: translateY(-2px);
-        }
-        .question-card:hover .q-title {
-          color: #E07B00;
-        }
-        .question-card:hover .q-arrow {
-          transform: translateX(6px);
-          color: #E07B00;
-        }
-        .q-arrow {
-          transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), color 0.2s;
-          color: #C8BFAF;
-          font-size: 1.5rem;
-          font-family: 'DM Mono', monospace;
-          flex-shrink: 0;
-        }
-        .q-title {
-          transition: color 0.2s;
-        }
-        .topic-tag {
-          display: inline-block;
-          font-family: 'DM Mono', monospace;
-          font-size: 0.7rem;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          color: #9E8A80;
-          border: 1px solid #E8E3DC;
-          padding: 0.2rem 0.6rem;
-          border-radius: 2px;
-          margin-right: 0.4rem;
-          margin-top: 0.6rem;
-        }
-        @media (max-width: 640px) {
-          .question-card { padding: 1.5rem; }
-        }
+        .question-card:hover { border-color: #E07B00; box-shadow: 0 4px 24px rgba(224,123,0,0.08); transform: translateY(-2px); }
+        .question-card:hover .q-title { color: #E07B00; }
+        .question-card:hover .q-arrow { transform: translateX(6px); color: #E07B00; }
+        .q-arrow { transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), color 0.2s; color: #C8BFAF; font-size: 1.5rem; font-family: 'DM Mono', monospace; flex-shrink: 0; }
+        .q-title { transition: color 0.2s; }
+        .topic-tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #9E8A80; border: 1px solid #E8E3DC; padding: 0.2rem 0.6rem; border-radius: 2px; margin-right: 0.4rem; margin-top: 0.6rem; }
+        @media (max-width: 640px) { .question-card { padding: 1.5rem; } }
       `}</style>
 
       {/* Breadcrumb */}
@@ -118,32 +51,14 @@ function ExamDetail(): React.ReactElement {
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <Link
             to="/solutions"
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.72rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "#A89F94",
-              textDecoration: "none",
-              transition: "color 0.18s",
-            }}
+            style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#A89F94", textDecoration: "none", transition: "color 0.18s" }}
             onMouseEnter={e => (e.currentTarget.style.color = "#E07B00")}
             onMouseLeave={e => (e.currentTarget.style.color = "#A89F94")}
           >
             Solutions
           </Link>
-          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", color: "#C8BFAF" }}>
-            /
-          </span>
-          <span
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.72rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "#E07B00",
-            }}
-          >
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", color: "#C8BFAF" }}>/</span>
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#E07B00" }}>
             {exam.label}
           </span>
         </div>
@@ -151,51 +66,16 @@ function ExamDetail(): React.ReactElement {
 
       {/* Header */}
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 2.5rem 3rem" }}>
-        <p
-          style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: "0.75rem",
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "#E07B00",
-            marginBottom: "1rem",
-          }}
-        >
+        <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#E07B00", marginBottom: "1rem" }}>
           Brooklyn College &nbsp;·&nbsp; CISC 1115
         </p>
-        <h1
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(2.5rem, 6vw, 5rem)",
-            fontWeight: 700,
-            color: "#1A1208",
-            letterSpacing: "-0.02em",
-            lineHeight: 1,
-            marginBottom: "0.75rem",
-          }}
-        >
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.5rem, 6vw, 5rem)", fontWeight: 700, color: "#1A1208", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "0.75rem" }}>
           {exam.label}
         </h1>
-        <p
-          style={{
-            fontFamily: "'Lora', serif",
-            fontSize: "1rem",
-            fontStyle: "italic",
-            color: "#9E8A80",
-            marginBottom: "0.5rem",
-          }}
-        >
+        <p style={{ fontFamily: "'Lora', serif", fontSize: "1rem", fontStyle: "italic", color: "#9E8A80", marginBottom: "0.5rem" }}>
           Select a question to view its full solution.
         </p>
-        <p
-          style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: "0.72rem",
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            color: "#C8BFAF",
-          }}
-        >
+        <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#C8BFAF" }}>
           {exam.questions.length} questions available
         </p>
       </div>
@@ -214,54 +94,23 @@ function ExamDetail(): React.ReactElement {
               to={`/solutions/${exam.id}/${q.id}`}
               className="question-card"
             >
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "auto 1fr auto",
-                  alignItems: "center",
-                  gap: "2rem",
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: "'DM Mono', monospace",
-                    fontSize: "0.78rem",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "#FFFFFF",
-                    backgroundColor: "#E07B00",
-                    padding: "0.3rem 0.75rem",
-                    borderRadius: "2px",
-                    flexShrink: 0,
-                  }}
-                >
+              <div style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", alignItems: "center", gap: "2rem" }}>
+                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#FFFFFF", backgroundColor: "#E07B00", padding: "0.3rem 0.75rem", borderRadius: "2px", flexShrink: 0 }}>
                   {q.id.replace("question-", "Q").toUpperCase()}
                 </div>
-
                 <div>
                   <h2
                     className="q-title"
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
-                      fontWeight: 700,
-                      color: "#1A1208",
-                      lineHeight: 1.1,
-                      letterSpacing: "-0.01em",
-                      margin: 0,
-                    }}
+                    style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", fontWeight: 700, color: "#1A1208", lineHeight: 1.1, letterSpacing: "-0.01em", margin: 0 }}
                   >
                     {q.title}
                   </h2>
                   <div>
                     {q.topics.map((topic: string) => (
-                      <span key={topic} className="topic-tag">
-                        {topic}
-                      </span>
+                      <span key={topic} className="topic-tag">{topic}</span>
                     ))}
                   </div>
                 </div>
-
                 <span className="q-arrow">→</span>
               </div>
             </Link>
