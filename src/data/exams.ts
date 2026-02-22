@@ -63,14 +63,16 @@ export const exams: Exam[] = [
       {
         id: "question-5a",
         title: "Question 5a",
-        topics: ["Methods", "Conditionals"],
-        prompt: `Assume the six integers i, j, k, m, n exist and are all initialized.
+        topics: ["Max Method", "Nested Method Calls"],
+        prompt: `Assume the six integers i, j, k, m, n, and l exist and are all initialized.
 
 Assume there exists a method max3(), which accepts 3 integers as input and returns the largest integer.
 
 Write one Java statement to find the maximum of the six integers using any combination of Math.max() and max3().`,
-        explanation: "Explanation goes here.",
-        solution: "int max = Math.max(Math.max( Math.max(i, j), Math.max(k, l)), Math.max(m, n));",
+        explanation: `Java lacks a max method that accepts an arbitary number of arguments. The standard Math.max() method only accepts two integers. So, we need to 'cheat' in order to find the maximum of six integers.
+        
+        If we use max3 twice, we can find the maximum of (i, j, k) and (m, n, l) separately. After doing this, we send the maximum of those two sets to the two argument accepting Math.max() method. The maximum of those two sets are found and then compared. Logically, the result of a Math.max() call on the maximum of (i,j,k) and (m,n,l) should find the absolute highest number.`,
+        solution: `int max = Math.max(max3(i, j, k), max3(m, n, l));`
       },
       {
         id: "question-7",
@@ -91,16 +93,31 @@ Write one Java statement to find the maximum of the six integers using any combi
         id: "question-1",
         title: "Question 1",
         topics: ["Loops", "Nested Loops"],
-        prompt: `Write Java code to repeatedly print each single digit between 1 and 9 the number of times based upon its numeric value.\n\nThus, you would get a triangle of the shape below where 1 prints once, 2 twice … and 9 prints 9 times.`,
-        explanation: `This is a classic nested loop problem. The outer loop controls which digit we are currently printing (i goes from 1 to 9). The inner loop controls how many times that digit gets printed — it runs exactly i times.\n\nAfter the inner loop finishes printing i copies of the digit, we call System.out.println() with no arguments to move to the next line, which creates the triangle shape.\n\nThe key insight: the digit value and the repeat count are the same number, so we can use i for both.`,
+        prompt: `Write Java code to repeatedly print each single digit between 1 and 9 the number of times based upon its numeric value.\n\nThus, you would get a triangle of the shape below where 1 prints once, 2 twice … and 9 prints 9 times.
+        
+        
+        1
+22
+333
+4444
+55555
+666666
+7777777
+88888888
+999999999`,
+        explanation: `Two nested loops are needed to solve this problem. Any problem involving patterns is going to involve nested loops.\n\nThe outer for loop determines what digit is printed. The inner for loop determines how many times that digit is printed. When i = 1, that means 1 will be printed. j goes up to i, so 1 is only printed once. When i = 2, that means 2 will be printed. j goes up to 2, so 2 is printed twice. The process continues the same way up to 9.`,
         solution: `public class Spring2021Question1 {
     public static void main(String[] args) {
 
+        // outer for loop determines what digit is printed
         for (int i = 1; i <= 9; i++) {
+
+            // inner for loop determines how many times that digit is printed
             for (int j = 0; j < i; j++) {
                 System.out.print(i);
             }
 
+            // blank print statement so that separate digits are printed on different lines.
             System.out.println();
         }
 
