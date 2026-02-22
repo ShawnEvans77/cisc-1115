@@ -280,7 +280,7 @@ public class Fall2020Question7 {
     questions: [
       {
         id: "question-1",
-        title: "Question 1",
+        title: "question 1",
         topics: ["Loops", "Nested Loops"],
         prompt: `Write Java code to repeatedly print each single digit between 1 and 9 the number of times based upon its numeric value.\n\nThus, you would get a triangle of the shape below where 1 prints once, 2 twice … and 9 prints 9 times.\n\n1\n22\n333\n4444\n55555\n666666\n7777777\n88888888\n999999999`,
         explanation: `Two nested loops are needed to solve this problem. Any problem involving patterns is going to involve nested loops.\n\nThe outer for loop determines what digit is printed. The inner for loop determines how many times that digit is printed. When i = 1, that means 1 will be printed. j goes up to i, so 1 is only printed once. When i = 2, that means 2 will be printed. j goes up to 2, so 2 is printed twice. The process continues the same way up to 9.`,
@@ -370,7 +370,7 @@ public class Spring2021Question2 {
       },
       {
         id: "question-7",
-        title: "Question 7",
+        title: "question 7",
         topics: ["Recursion"],
         prompt: "Question prompt goes here.",
         explanation: "Explanation goes here.",
