@@ -127,7 +127,7 @@ y =  |  10 |  9  |  6  |  5  |  4   |
         id: "question-6",
         title: "question 6",
         topics: ["Strings", "Loops", "substring", "indexOf"],
-        prompt: `You are given a string containing a series of 9 digit zip codes with a dash separating the two parts and one space separating each full zip code from the next one. For example,\n\nString str="11230-1234 11011-3489 07621-8845";\n\nWrite Java code to print the first 5 digits of each zip code followed by the last 4 digits of the zip code as separate values.\n\nFor example:\n11230 1234\n11011 3489\n07621 8845\n\nNOTE: The first part of the full zip code is always 5 digits, the second part is always 4 digits and there's always a dash in between the two parts. Keep in mind that your code must handle a String that has any number of such pairs, not just the three in the example above.`,
+        prompt: `You are given a string containing a series of 9 digit zip codes with a dash separating the two parts and one space separating each full zip code from the next one. For example,\n\nString str = "11230-1234 11011-3489 07621-8845";\n\nWrite Java code to print the first 5 digits of each zip code followed by the last 4 digits of the zip code as separate values.\n\nSample output using the same str variable from above:\n11230 1234\n11011 3489\n07621 8845\n\nNOTE: The first part of the full zip code is always 5 digits, the second part is always 4 digits and there's always a dash in between the two parts. Keep in mind that your code must handle a String that has any number of such pairs, not just the three in the example above.`,
         explanation: `We solve this problem easily by using the split method. Split the input string based on spaces, creating an array of zip codes. For each zip code in the array, split it based on the dash, then print the first five & last four numbers of that zip code.`,
         solution: `public class Fall2020Question6 {
     public static void main(String[] args) {
@@ -153,7 +153,7 @@ y =  |  10 |  9  |  6  |  5  |  4   |
       {
         id: "question-7",
         title: "question 7",
-        topics: ["Recursion"],
+        topics: ["Scanner", "Sorting", "File I/O"],
         prompt: `Write a complete Java program, including at least one comment in the main program and one in each method, to do the following:
 The program will read in an unknown number of records from a file. Assume you won’t have more than 100 records in total, though the actual number of records can be less than 100. Each record contains a sales rep’s first name and miles traveled on two trips per year. For example, Pauline 167.8 567.0
 
@@ -283,7 +283,9 @@ public class Fall2020Question7 {
         title: "question 1",
         topics: ["Loops", "Nested Loops"],
         prompt: `Write Java code to repeatedly print each single digit between 1 and 9 the number of times based upon its numeric value.\n\nThus, you would get a triangle of the shape below where 1 prints once, 2 twice … and 9 prints 9 times.\n\n1\n22\n333\n4444\n55555\n666666\n7777777\n88888888\n999999999`,
-        explanation: `Two nested loops are needed to solve this problem. Any problem involving patterns is going to involve nested loops.\n\nThe outer for loop determines what digit is printed. The inner for loop determines how many times that digit is printed. When i = 1, that means 1 will be printed. j goes up to i, so 1 is only printed once. When i = 2, that means 2 will be printed. j goes up to 2, so 2 is printed twice. The process continues the same way up to 9.`,
+        explanation: `Two nested loops are needed to solve this problem. Any problem involving patterns is going to involve nested loops.\n\nThe outer for loop determines what digit is printed. The inner for loop determines how many times that digit is printed. 
+        
+        When i = 1, that means 1 will be printed. j goes up to i, so 1 is only printed once. When i = 2, that means 2 will be printed. j goes up to 2, so 2 is printed twice. The process continues the same way up to 9.`,
         solution: `public class Spring2021Question1 {
     public static void main(String[] args) {
 
@@ -355,32 +357,69 @@ public class Spring2021Question2 {
       {
         id: "question-5",
         title: "question 5",
-        topics: ["Arrays"],
-        prompt: `You are playing a game that has two dice – one die has 6 sides numbered 1 through 6 and the second die has 8 sides numbered 1 through 8. A turn involves rolling both die together.
+        topics: ["Arrays", "Random Numbers"],
+        prompt: `You are playing a game that has two dice. One die has 6 sides numbered 1 through 6 and the second die has 8 sides numbered 1 through 8. A turn involves rolling both die together.
 
-Write Java code to play 1,000 turns and keep track of the sum of the two dice in each roll i.e, (2 through 14).
+Write Java code to play 1,000 turns and keep track of the sum of the two dice in each roll i.e. Logically, the possible sums you can get range from 2 to 14.
 
 When all 1,000 turns have been completed, print a formatted table showing the value of the sum of the two dice (2 through 14) and the number of times that value occurred.`,
-        explanation: "Explanation goes here.",
+        explanation: `To solve this question, we will use an array as a histogram. A histogram tracks how many times certain rolls happened. We create an array of size 15. An array of size fiften will grant us indices 0 to 15, and from these indices we will only use 2 to 14.
+        
+        Recall the formula for generating a random number:
+
+        // raindInt from [min, max]
+        int randIntInclusive = (int) (Math.random() * (max - min + 1) + min);
+
+        // randInt from [min, max)
+        int randIntExclusive = (int) (Math.random() * (max - min) + min);
+
+        In this case, we will be using the inclusive formula. 
+
+        We begin by creating a number representing how many rolls will happen, and a number representing the max roll. We create a histogram array with a size of max roll plus one, since by doing this we can access index "max roll." For example, since the max roll is 14, we make the array of size 14+1, as that would give us access to an index 14.
+
+        We create an array going a thousand times, as we will roll one thousand times. We roll from [1, 6], then [1,8]. We sum these values together.
+
+        We then mark this summed roll in ths histogram using histogram[roll]++. If we rolled a five, then we add one to index five. If we rolled a five again, then index five becomes two. If we roll a ten, then we add one to index 10.
+
+        Meaning, after a few rolls, the histogram array could look like this:
+
+        {0, 0, 30, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 100, 0}
+
+        Index 2 is 30, so we rolled a 2 thirty times.
+        Index 7 is 50, so we rolled a 7 fifty times.
+        Index 13 is 100, so we rolled a 13 100 times.
+
+        We end the program by printing out a given dice sum and how many times it occurred.`,
         solution: `public class Spring2021Question5 {
     public static void main(String[] args) {
-        final int NUM_ROLLS = 1000;
+        // we are rolling a thousand times.
+        final int NUM_ROLLS = 1000; 
+
+        // the max roll possible roll is 14.
         final int MAX_ROLL = 14;
 
+        // an array of size 15, granting us access to index 2 to 14.
         int[] histogram = new int[MAX_ROLL + 1];
 
         for (int i = 0; i < NUM_ROLLS; i++) {
+
+            // rolling 1 to 6 and 1 to 8.
             int dieOneRoll = (int) (Math.random() * (6 - 1 + 1) + 1);
             int dieTwoRoll = (int) (Math.random() * (8 - 1 + 1) + 1);
 
+            // summing the rolls.
             int roll = dieOneRoll + dieTwoRoll;
 
+            // updating this roll in the histogram
             histogram[roll]++;
         }
 
         System.out.printf("%8s%8s\\n", "Dice Sum", "Count");
 
+        // print the possible roll and how many times it happened.
         for (int i = 2; i < histogram.length; i++) {
+
+            // printf for printing pretty
             System.out.printf("%8d%8d\\n", i, histogram[i]);
         }
     }
