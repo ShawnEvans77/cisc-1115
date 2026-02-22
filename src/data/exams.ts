@@ -27,7 +27,8 @@ export const exams: Exam[] = [
         topics: ["Tracing", "Loops"],
         prompt: `Trace the variables in the following code:\n\nint x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);`,
         explanation: `tba`,
-        solution: `    x |  y
+        solution: `    
+    x |  y
    --------
     5 | 10
     6 |  9
@@ -40,8 +41,23 @@ export const exams: Exam[] = [
   title: "question 1b",
   topics: ["Tracing", "Loops"],
   prompt: `Trace the variables in the following code:\n\nfor (int i = 0; i < 5; i = i + 2) {\n    for (int j = i; j > 0; j--) { }\n}`,
-  explanation: `tba`,
-  solution: `tba`,
+  explanation: `We start with i being equal to 0. j is equal to 0 since int j = i. However, j=0 is not greater than 0, so the inner loop does not execute.
+  
+  Then, i increments to 2. j is equal to 2 since int j = i. Since ths inner for loop condition is now valid, it executes. We have i=2 & j=2, then i=2 & j=1, then j goes down to zero, terminating the loop.
+
+  Then, i increments to 4. j is equal to 4 since int j = i. Inner for loop condition is valid once more. We have i=4 & j=4. j decrements down to 0 by one each time.`,
+  solution: `
+  i  |  j
+ ---------
+  0  |  -
+  2  |  2
+  2  |  1
+  2  |  0
+  4  |  4
+  4  |  3
+  4  |  2
+  4  |  1
+  4  |  0`,
 },
       {
         id: "question-2",
