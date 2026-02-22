@@ -2,6 +2,104 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { exams } from "../data/exams";
 
+const KEYWORDS = [
+  "public", "private", "protected", "class", "static", "void", "int", "long",
+  "double", "float", "boolean", "char", "String", "new", "return", "if", "else",
+  "for", "while", "do", "switch", "case", "break", "continue", "import", "package",
+  "null", "true", "false", "this", "super", "extends", "implements", "interface",
+  "final", "abstract", "try", "catch", "finally", "throw", "throws", "instanceof",
+];
+
+function highlightJava(code: string): React.ReactElement[] {
+  const lines = code.split("\n");
+  return lines.map((line, li) => {
+    const tokens: React.ReactElement[] = [];
+    let i = 0;
+
+    while (i < line.length) {
+      // Single-line comment
+      if (line[i] === "/" && line[i + 1] === "/") {
+        tokens.push(
+          <span key={i} style={{ color: "#9E8A80", fontStyle: "italic" }}>
+            {line.slice(i)}
+          </span>
+        );
+        i = line.length;
+        continue;
+      }
+
+      // String literal
+      if (line[i] === '"') {
+        let j = i + 1;
+        while (j < line.length && line[j] !== '"') {
+          if (line[j] === "\\") j++;
+          j++;
+        }
+        j++;
+        tokens.push(
+          <span key={i} style={{ color: "#B07D3A" }}>
+            {line.slice(i, j)}
+          </span>
+        );
+        i = j;
+        continue;
+      }
+
+      // Number
+      if (/[0-9]/.test(line[i])) {
+        let j = i;
+        while (j < line.length && /[0-9.]/.test(line[j])) j++;
+        tokens.push(
+          <span key={i} style={{ color: "#6B8E6B" }}>
+            {line.slice(i, j)}
+          </span>
+        );
+        i = j;
+        continue;
+      }
+
+      // Word — keyword or identifier
+      if (/[a-zA-Z_]/.test(line[i])) {
+        let j = i;
+        while (j < line.length && /[a-zA-Z0-9_]/.test(line[j])) j++;
+        const word = line.slice(i, j);
+        if (KEYWORDS.includes(word)) {
+          tokens.push(
+            <span key={i} style={{ color: "#E07B00", fontWeight: 600 }}>
+              {word}
+            </span>
+          );
+        } else {
+          tokens.push(<span key={i}>{word}</span>);
+        }
+        i = j;
+        continue;
+      }
+
+      // Punctuation / operators — subtle accent
+      if (/[{}()[\];,.]/.test(line[i])) {
+        tokens.push(
+          <span key={i} style={{ color: "#8A7570" }}>
+            {line[i]}
+          </span>
+        );
+        i++;
+        continue;
+      }
+
+      // Everything else
+      tokens.push(<span key={i}>{line[i]}</span>);
+      i++;
+    }
+
+    return (
+      <div key={li} style={{ minHeight: "1.5em" }}>
+        {tokens}
+      </div>
+    );
+  });
+}
+
 function QuestionDetail(): React.ReactElement {
   const { examId, questionId } = useParams<{ examId: string; questionId: string }>();
   const exam = exams.find((e) => e.id === examId);
@@ -83,21 +181,6 @@ function QuestionDetail(): React.ReactElement {
           padding: 2.5rem;
           margin-bottom: 1.5rem;
         }
-        .code-block {
-          background-color: #1A1208;
-          border-radius: 4px;
-          padding: 2rem;
-          overflow-x: auto;
-          margin-top: 1.5rem;
-        }
-        .code-block pre {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.88rem;
-          line-height: 1.8;
-          color: #FFF5E4;
-          margin: 0;
-          white-space: pre;
-        }
         .back-link {
           font-family: 'DM Mono', monospace;
           font-size: 0.8rem;
@@ -120,12 +203,11 @@ function QuestionDetail(): React.ReactElement {
         .muted-link:hover { color: #E07B00; }
         @media (max-width: 640px) {
           .solution-block { padding: 1.5rem; }
-          .code-block { padding: 1.25rem; }
         }
       `}</style>
 
       {/* Breadcrumb */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "3rem 2.5rem 0" }}>
+      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "3rem 2.5rem 0" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
           <Link
             to="/solutions"
@@ -176,7 +258,7 @@ function QuestionDetail(): React.ReactElement {
       </div>
 
       {/* Header */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 2.5rem 3rem" }}>
+      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "2rem 2.5rem 3rem" }}>
         <p
           style={{
             fontFamily: "'DM Mono', monospace",
@@ -212,12 +294,14 @@ function QuestionDetail(): React.ReactElement {
       </div>
 
       {/* Divider */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2.5rem" }}>
+      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 2.5rem" }}>
         <hr style={{ border: "none", borderTop: "1.5px solid #E8E3DC" }} />
       </div>
 
       {/* Solution content */}
-      <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "3rem 2.5rem 8rem" }}>
+      <section style={{ maxWidth: "1400px", margin: "0 auto", padding: "3rem 2.5rem 8rem" }}>
+
+        {/* The Question */}
         <div className="solution-block">
           <p
             style={{
@@ -226,23 +310,32 @@ function QuestionDetail(): React.ReactElement {
               letterSpacing: "0.16em",
               textTransform: "uppercase",
               color: "#E07B00",
-              marginBottom: "1rem",
+              marginBottom: "1.25rem",
             }}
           >
             The Question
           </p>
-          <p
-            style={{
-              fontFamily: "'Lora', serif",
-              fontSize: "1.05rem",
-              color: "#1A1208",
-              lineHeight: 1.8,
-            }}
-          >
-            Question prompt goes here.
-          </p>
+          {question.prompt.split("\n").map((line, i) =>
+            line.trim() === "" ? (
+              <br key={i} />
+            ) : (
+              <p
+                key={i}
+                style={{
+                  fontFamily: "'Lora', serif",
+                  fontSize: "1.2rem",
+                  color: "#1A1208",
+                  lineHeight: 1.85,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                {line}
+              </p>
+            )
+          )}
         </div>
 
+        {/* Explanation */}
         <div className="solution-block">
           <p
             style={{
@@ -251,23 +344,32 @@ function QuestionDetail(): React.ReactElement {
               letterSpacing: "0.16em",
               textTransform: "uppercase",
               color: "#E07B00",
-              marginBottom: "1rem",
+              marginBottom: "1.25rem",
             }}
           >
             Explanation
           </p>
-          <p
-            style={{
-              fontFamily: "'Lora', serif",
-              fontSize: "1.05rem",
-              color: "#1A1208",
-              lineHeight: 1.8,
-            }}
-          >
-            Written explanation goes here.
-          </p>
+          {question.explanation.split("\n").map((line, i) =>
+            line.trim() === "" ? (
+              <br key={i} />
+            ) : (
+              <p
+                key={i}
+                style={{
+                  fontFamily: "'Lora', serif",
+                  fontSize: "1.2rem",
+                  color: "#1A1208",
+                  lineHeight: 1.85,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                {line}
+              </p>
+            )
+          )}
         </div>
 
+        {/* Solution */}
         <div className="solution-block">
           <p
             style={{
@@ -276,14 +378,32 @@ function QuestionDetail(): React.ReactElement {
               letterSpacing: "0.16em",
               textTransform: "uppercase",
               color: "#E07B00",
-              marginBottom: "1rem",
+              marginBottom: "1.25rem",
             }}
           >
             Solution
           </p>
-          <div className="code-block">
-            <pre>
-              {"// Solution code goes here"}
+          <div
+            style={{
+              backgroundColor: "#F5F2EE",
+              border: "1.5px solid #E8E3DC",
+              borderRadius: "4px",
+              padding: "2rem 2.5rem",
+              overflowX: "auto",
+              marginTop: "0.5rem",
+            }}
+          >
+            <pre
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                fontSize: "1.05rem",
+                lineHeight: 2,
+                color: "#1A1208",
+                margin: 0,
+                whiteSpace: "pre",
+              }}
+            >
+              {highlightJava(question.solution)}
             </pre>
           </div>
         </div>

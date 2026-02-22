@@ -2,6 +2,9 @@ export interface Question {
   id: string;
   title: string;
   topics: string[];
+  prompt: string;
+  explanation: string;
+  solution: string;
 }
 
 export interface Exam {
@@ -17,9 +20,49 @@ export const exams: Exam[] = [
     label: "Fall 2020",
     year: "2020",
     questions: [
-      { id: "question-2",  title: "Question 2",  topics: ["Arrays", "Loops"] },
-      { id: "question-5a", title: "Question 5a", topics: ["Methods", "Conditionals"] },
-      { id: "question-7",  title: "Question 7",  topics: ["Recursion"] },
+      {
+        id: "question-2",
+        title: "Question 2",
+        topics: ["Arithmetic", "Modulo", "Variables"],
+        prompt: `Assume the existence of an int variable called inches. Compute and print how many miles, yards, feet and inches that number represents.\n\nThe rules are: 1 foot equals 12 inches, 36 inches equals 1 yard, and 5280 feet equals 1 mile.\n\nFor example, if int inches = 245897, then the output is:\n\n245897 inches equals 3 miles 1550 yards 1 foot and 5 inches`,
+        explanation: `The key insight here is using integer division and the modulo operator to progressively "peel off" each unit.\n\nWe start with the largest unit (miles) by dividing total inches by the number of inches in a mile (5280 × 12 = 63360). Then we use % to get the remainder and repeat the process for yards, feet, and finally the leftover inches.\n\nThe order matters — always extract the biggest unit first, then work down.`,
+        solution: `public class Fall2020Question2 {
+    public static void main(String[] args) {
+        int inches = 245897;
+
+        int miles = inches / (5280 * 12);
+
+        int remainingYards = inches % (5280 * 12);
+        int yards = remainingYards / 36;
+
+        int remainingFeet = inches % 36;
+        int feet = remainingFeet / 12;
+
+        int remainingInches = inches % 12;
+
+        System.out.printf(
+            "%d inches equals %d miles %d yards %d foot and %d inches\\n",
+            inches, miles, yards, feet, remainingInches
+        );
+    }
+}`,
+      },
+      {
+        id: "question-5a",
+        title: "Question 5a",
+        topics: ["Methods", "Conditionals"],
+        prompt: "Question prompt goes here.",
+        explanation: "Explanation goes here.",
+        solution: "// Solution code goes here",
+      },
+      {
+        id: "question-7",
+        title: "Question 7",
+        topics: ["Recursion"],
+        prompt: "Question prompt goes here.",
+        explanation: "Explanation goes here.",
+        solution: "// Solution code goes here",
+      },
     ],
   },
   {
@@ -27,11 +70,46 @@ export const exams: Exam[] = [
     label: "Spring 2021",
     year: "2021",
     questions: [
-      { id: "question-1",  title: "Question 1",  topics: ["Variables", "Types"] },
-      { id: "question-2",  title: "Question 2",  topics: ["Loops"] },
-      { id: "question-5",  title: "Question 5",  topics: ["Arrays"] },
-      { id: "question-6",  title: "Question 6",  topics: ["OOP"] },
-      { id: "question-7",  title: "Question 7",  topics: ["Recursion"] },
+      {
+        id: "question-1",
+        title: "Question 1",
+        topics: ["Variables", "Types"],
+        prompt: "Question prompt goes here.",
+        explanation: "Explanation goes here.",
+        solution: "// Solution code goes here",
+      },
+      {
+        id: "question-2",
+        title: "Question 2",
+        topics: ["Loops"],
+        prompt: "Question prompt goes here.",
+        explanation: "Explanation goes here.",
+        solution: "// Solution code goes here",
+      },
+      {
+        id: "question-5",
+        title: "Question 5",
+        topics: ["Arrays"],
+        prompt: "Question prompt goes here.",
+        explanation: "Explanation goes here.",
+        solution: "// Solution code goes here",
+      },
+      {
+        id: "question-6",
+        title: "Question 6",
+        topics: ["OOP"],
+        prompt: "Question prompt goes here.",
+        explanation: "Explanation goes here.",
+        solution: "// Solution code goes here",
+      },
+      {
+        id: "question-7",
+        title: "Question 7",
+        topics: ["Recursion"],
+        prompt: "Question prompt goes here.",
+        explanation: "Explanation goes here.",
+        solution: "// Solution code goes here",
+      },
     ],
   },
 ];
