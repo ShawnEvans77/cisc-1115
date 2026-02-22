@@ -73,7 +73,7 @@ function ExamDetail(): React.ReactElement {
           {exam.label}
         </h1>
         <p style={{ fontFamily: "'Lora', serif", fontSize: "1rem", fontStyle: "italic", color: "#9E8A80", marginBottom: "0.5rem" }}>
-          Select a question to view its full solution.
+          select a question to view its solution
         </p>
         <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#C8BFAF" }}>
           {exam.questions.length} questions available

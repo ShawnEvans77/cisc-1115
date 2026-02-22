@@ -18,7 +18,7 @@ export interface Exam {
 export const exams: Exam[] = [
   {
     id: "fall-2020",
-    label: "Fall 2020",
+    label: "fall 2020",
     year: "2020",
     questions: [
       {
@@ -138,7 +138,7 @@ export const exams: Exam[] = [
   },
   {
     id: "spring-2021",
-    label: "Spring 2021",
+    label: "spring 2021",
     year: "2021",
     questions: [
       {
