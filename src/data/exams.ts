@@ -96,8 +96,35 @@ export const exams: Exam[] = [
             </div>
           </div>
         `,
-        explanation: `Pretend you're entering this equation into Google to calculate it. It is a simple combination of Math methods and several parantheses.`,
-        solution: `double answer = ( (x*x) - 1 / (y+3) ) / (1/z + Math.sqrt(x));`,
+        explanation: `Pretend you're entering this equation into Google to calculate it. It is a simple combination of Math.sqrt(), Math.pow(), and several parentheses.`,
+        solution: `double result = (Math.pow(x, 2) - (1.0 / (y + 3))) / ((1.0 / z) + Math.sqrt(x));`,
+      },
+      {
+        id: "question-6",
+        title: "Question 6",
+        topics: ["Strings", "Loops", "substring", "indexOf"],
+        prompt: `You are given a string containing a series of 9 digit zip codes with a dash separating the two parts and one space separating each full zip code from the next one. For example,\n\nString str="11230-1234 11011-3489 07621-8845";\n\nWrite Java code to print the first 5 digits of each zip code followed by the last 4 digits of the zip code as separate values.\n\nFor example:\n11230 1234\n11011 3489\n07621 8845\n\nNOTE: The first part of the full zip code is always 5 digits, the second part is always 4 digits and there's always a dash in between the two parts. Keep in mind that your code must handle a String that has any number of such pairs, not just the three in the example above.`,
+        explanation: `We solve this problem easily by using the split method. Split the input string based on spaces, creating an array of zip codes. For each zip code in the array, split it based on the dash, then print the first five & last four numbers of that zip code.`,
+        solution: `public class Fall2020Question6 {
+    public static void main(String[] args) {
+
+        String str = "11230-1234 11011-3489 07261-8845";
+
+        // create an array of zip codes
+        String[] codes = str.split(" ");
+        // codes = {"11230-1234", "11011-3489", "07261-8845"}
+
+        // for every zip code in the array of zip codes
+        for (int i = 0; i < codes.length; i++) {
+            // split the current zip code based on the dashes
+            String[] parts = codes[i].split("-"); 
+
+            // print the first five numbers of the zip code, then the last four
+            // seperated by space
+            System.out.println(parts[0] + " " + parts[1]);
+        }
+    }
+}`,
       },
       {
         id: "question-7",
@@ -141,7 +168,7 @@ export const exams: Exam[] = [
       {
         id: "question-2",
         title: "Question 2",
-        topics: ["Scanner", "Strings"],
+        topics: ["Scanner"],
         prompt: `Write Java code to read strings of lower-case letters from the keyboard and count the number of vowels in each word.\n\n(vowels are a, e, i, o and u).\n\nWhen all strings have been read in, print the string that has the largest number of vowels (duplicates included) and how many vowels were in the string. When more than one string has the greatest number of vowels, print the first string found with that number.\n\nFor example,\n\nGiven input: she of groceries yourselves here radio\n\nThe output is: groceries – 4 vowels`,
         explanation: `The solution, for the most part, is a direct regurgitation of the prompt. Start by creating a Scanner. Create an empty string that will represent the string with the most vowels. Create a tracker that remembers how many vowels were in the string with the most vowels.\n\nCreate a while loop bounded by the scanner hasNext() method, a boolean method telling you if there is anything more to read from the input stream. Read in the current string and create a variable representing how many vowels are inside of it. Next, create a for loop to count how many vowels are in that string.\n\nUse an if statement that checks if this string has more vowels than the tracker for the highest vowel count string. If it does, update the tracker.\n\nAt the program's end, print the highest vowel string and how many vowels it had.`,
         solution: `import java.util.Scanner;
