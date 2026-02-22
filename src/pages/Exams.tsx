@@ -40,11 +40,18 @@ function Exams(): React.ReactElement {
         .exam-link {
           display: block;
           border-top: 1.5px solid #E8E3DC;
-          padding: 4rem 0;
+          padding: 4rem 1rem;
           text-decoration: none;
+          margin-left: -1rem;
+          margin-right: -1rem;
+          border-radius: 4px;
+          transition: background 0.22s cubic-bezier(0.22,1,0.36,1);
         }
         .exam-link:last-child {
           border-bottom: 1.5px solid #E8E3DC;
+        }
+        .exam-link:hover {
+          background-color: rgba(224,123,0,0.04);
         }
         .exam-link:hover .exam-label {
           color: #E07B00;
@@ -61,7 +68,7 @@ function Exams(): React.ReactElement {
           flex-shrink: 0;
         }
         @media (max-width: 640px) {
-          .exam-link { padding: 2.5rem 0; }
+          .exam-link { padding: 2.5rem 1rem; }
           .exam-arrow { font-size: 1.5rem; }
         }
       `}</style>
@@ -110,68 +117,69 @@ function Exams(): React.ReactElement {
 
       {/* Exam list */}
       <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 2.5rem 8rem" }}>
-        {exams.map((exam: Exam, i: number) => (
-          <a
-            key={exam.pdf}
-            href={exam.pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="exam-link fade-up"
-            style={{ animationDelay: `${0.2 + i * 0.12}s` }}
-          >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "3rem 1fr auto",
-                alignItems: "center",
-                gap: "2.5rem",
-              }}
+        {exams.map((exam: Exam, i: number): React.ReactElement => {
+          return (
+            <a
+              key={exam.pdf}
+              href={exam.pdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="exam-link fade-up"
+              style={{ animationDelay: `${0.2 + i * 0.12}s` }}
             >
-              <span
+              <div
                 style={{
-                  fontFamily: "'DM Mono', monospace",
-                  fontSize: "1rem",
-                  color: "#C8BFAF",
-                  fontWeight: 400,
+                  display: "grid",
+                  gridTemplateColumns: "3rem 1fr auto",
+                  alignItems: "center",
+                  gap: "2.5rem",
                 }}
               >
-                {exam.index}
-              </span>
-
-              <div>
-                <h2
-                  className="exam-label"
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: "clamp(2.5rem, 6vw, 4.5rem)", // Significantly larger
-                    fontWeight: 400, // Still unbolded
-                    textTransform: "lowercase", // Still lowercase
-                    color: "#1A1208",
-                    lineHeight: 1,
-                    letterSpacing: "-0.03em", // Tighter tracking for large text
-                    transition: "color 0.2s",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  {exam.label}
-                </h2>
                 <span
                   style={{
                     fontFamily: "'DM Mono', monospace",
-                    fontSize: "0.78rem",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "#A89F94",
+                    fontSize: "1rem",
+                    color: "#C8BFAF",
+                    fontWeight: 400,
                   }}
                 >
-                  PDF
+                  {exam.index}
                 </span>
-              </div>
 
-              <span className="exam-arrow">→</span>
-            </div>
-          </a>
-        ))}
+                <div>
+                  <h2
+                    className="exam-label"
+                    style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: "clamp(1.5rem, 3.5vw, 2.75rem)",
+                      fontWeight: 400,
+                      color: "#1A1208",
+                      lineHeight: 1,
+                      letterSpacing: "-0.03em",
+                      transition: "color 0.2s",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    {exam.label}
+                  </h2>
+                  <span
+                    style={{
+                      fontFamily: "'DM Mono', monospace",
+                      fontSize: "0.78rem",
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      color: "#A89F94",
+                    }}
+                  >
+                    PDF
+                  </span>
+                </div>
+
+                <span className="exam-arrow">→</span>
+              </div>
+            </a>
+          );
+        })}
       </section>
     </div>
   );

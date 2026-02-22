@@ -5,29 +5,25 @@ const sections = [
   {
     label: "solutions",
     path: "/solutions",
-    description:
-      "past exam questions with fully commented, step-by-step solutions",
+    description: "past exam questions with fully commented, step-by-step solutions",
     index: "01",
   },
   {
     label: "exams",
     path: "/exams",
-    description:
-      "raw exams from previous semesters",
+    description: "raw exams from previous semesters",
     index: "02",
   },
   {
     label: "notes",
     path: "/notes",
-    description:
-      "examples of important algorithims & other things",
+    description: "examples of important algorithims & other things",
     index: "03",
   },
   {
     label: "contact",
     path: "/contact",
-    description:
-      "get in touch with me",
+    description: "get in touch with me",
     index: "04",
   },
 ];
@@ -78,11 +74,16 @@ function Home() {
         .card-link {
           display: block;
           border-top: 1.5px solid #E8E3DC;
-          padding: 3.5rem 0;
+          padding: 3.5rem 1rem;
           cursor: pointer;
           text-decoration: none;
+          margin-left: -1rem;
+          margin-right: -1rem;
+          border-radius: 4px;
+          transition: background 0.22s cubic-bezier(0.22,1,0.36,1);
         }
         .card-link:last-child { border-bottom: 1.5px solid #E8E3DC; }
+        .card-link:hover { background-color: rgba(224,123,0,0.04); }
         .card-link:hover .card-arrow { transform: translateX(6px); color: #E07B00; }
         .card-link:hover .card-label { color: #E07B00; }
         .card-arrow {
@@ -102,7 +103,7 @@ function Home() {
         @media (max-width: 640px) {
           .cta-group { flex-direction: column; align-items: stretch; }
           .cta-btn { text-align: center; padding: 1rem 1.5rem; }
-          .card-link { padding: 2rem 0; }
+          .card-link { padding: 2rem 1rem; }
           .card-grid { grid-template-columns: 2rem 1fr auto; gap: 1rem; }
           .card-arrow { font-size: 1.25rem; }
         }
