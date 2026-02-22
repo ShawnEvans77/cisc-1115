@@ -110,51 +110,11 @@ function QuestionDetail(): React.ReactElement {
 
   if (!exam || !question) {
     return (
-      <div
-        style={{
-          fontFamily: "'Lora', serif",
-          backgroundColor: "#FAFAF8",
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div style={{ fontFamily: "'Lora', serif", backgroundColor: "#FAFAF8", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
         <div style={{ textAlign: "center" }}>
-          <p
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.75rem",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#E07B00",
-              marginBottom: "1rem",
-            }}
-          >
-            404
-          </p>
-          <h1
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(2rem, 5vw, 3.5rem)",
-              fontWeight: 700,
-              color: "#1A1208",
-              marginBottom: "1.5rem",
-            }}
-          >
-            Question not found
-          </h1>
-          <Link
-            to="/solutions"
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.8rem",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "#E07B00",
-              textDecoration: "none",
-            }}
-          >
+          <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#E07B00", marginBottom: "1rem" }}>404</p>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, color: "#1A1208", marginBottom: "1.5rem" }}>Question not found</h1>
+          <Link to="/solutions" style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#E07B00", textDecoration: "none" }}>
             ← Back to solutions
           </Link>
         </div>
@@ -163,8 +123,26 @@ function QuestionDetail(): React.ReactElement {
   }
 
   return (
-    <div style={{ fontFamily: "'Lora', serif", backgroundColor: "#FAFAF8", minHeight: "100vh" }}>
+    <div style={{
+      fontFamily: "'Lora', serif",
+      backgroundColor: "#FAFAF8",
+      minHeight: "100vh",
+      width: "100%",
+      maxWidth: "100vw",
+      overflowX: "hidden",
+      boxSizing: "border-box",
+    }}>
       <style>{`
+        *, *::before, *::after { box-sizing: border-box; }
+
+        .qd-container {
+          width: 100%;
+          max-width: 1400px;
+          margin: 0 auto;
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
         .topic-tag {
           display: inline-block;
           font-family: 'DM Mono', monospace;
@@ -176,14 +154,29 @@ function QuestionDetail(): React.ReactElement {
           padding: 0.2rem 0.6rem;
           border-radius: 2px;
           margin-right: 0.4rem;
+          margin-top: 0.3rem;
         }
+
         .solution-block {
           background-color: #FFFFFF;
           border: 1.5px solid #E8E3DC;
           border-radius: 4px;
           padding: 2.5rem;
           margin-bottom: 1.5rem;
+          width: 100%;
+          min-width: 0;
+          overflow: hidden;
         }
+
+        .solution-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.25rem;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
         .back-link {
           font-family: 'DM Mono', monospace;
           font-size: 0.8rem;
@@ -194,6 +187,7 @@ function QuestionDetail(): React.ReactElement {
           transition: opacity 0.18s;
         }
         .back-link:hover { opacity: 0.7; }
+
         .muted-link {
           font-family: 'DM Mono', monospace;
           font-size: 0.8rem;
@@ -204,44 +198,67 @@ function QuestionDetail(): React.ReactElement {
           transition: color 0.18s;
         }
         .muted-link:hover { color: #E07B00; }
+
         .copy-btn {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #FFFFFF;
-  background-color: #E07B00;
-  border: none;
-  border-radius: 3px;
-  padding: 0.65rem 1.75rem;
-  cursor: pointer;
-  transition: background-color 0.18s;
-}
-.copy-btn:hover {
-  background-color: #C96E00;
-}
-.copy-btn.copied {
-  background-color: #6B8E6B;
-}
+          font-family: 'DM Mono', monospace;
+          font-size: 0.8rem;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: #FFFFFF;
+          background-color: #E07B00;
+          border: none;
+          border-radius: 3px;
+          padding: 0.65rem 1.75rem;
+          cursor: pointer;
+          transition: background-color 0.18s;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        .copy-btn:hover { background-color: #C96E00; }
+        .copy-btn.copied { background-color: #6B8E6B; }
+
+        .code-scroll-wrapper {
+          width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          background-color: #F5F2EE;
+          border: 1.5px solid #E8E3DC;
+          border-radius: 4px;
+          margin-top: 0.5rem;
+        }
+
+        .code-scroll-wrapper pre {
+          font-family: 'DM Mono', monospace;
+          font-size: 1.05rem;
+          line-height: 2;
+          color: #1A1208;
+          margin: 0;
+          padding: 2rem 2.5rem;
+          white-space: pre;
+          width: max-content;
+          min-width: 100%;
+        }
+
         @media (max-width: 640px) {
-          .solution-block { padding: 1.5rem; }
+          .solution-block { padding: 1.25rem; }
+          .code-scroll-wrapper pre {
+            font-size: 0.8rem;
+            line-height: 1.75;
+            padding: 1.25rem;
+          }
+          .copy-btn {
+            width: 100%;
+            text-align: center;
+          }
         }
       `}</style>
 
       {/* Breadcrumb */}
-      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "3rem 2.5rem 0" }}>
+      <div className="qd-container" style={{ paddingTop: "3rem" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
           <Link
             to="/solutions"
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.72rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "#A89F94",
-              textDecoration: "none",
-              transition: "color 0.18s",
-            }}
+            style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#A89F94", textDecoration: "none", transition: "color 0.18s" }}
             onMouseEnter={e => (e.currentTarget.style.color = "#E07B00")}
             onMouseLeave={e => (e.currentTarget.style.color = "#A89F94")}
           >
@@ -250,107 +267,50 @@ function QuestionDetail(): React.ReactElement {
           <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", color: "#C8BFAF" }}>/</span>
           <Link
             to={`/solutions/${exam.id}`}
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.72rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "#A89F94",
-              textDecoration: "none",
-              transition: "color 0.18s",
-            }}
+            style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#A89F94", textDecoration: "none", transition: "color 0.18s" }}
             onMouseEnter={e => (e.currentTarget.style.color = "#E07B00")}
             onMouseLeave={e => (e.currentTarget.style.color = "#A89F94")}
           >
             {exam.label}
           </Link>
           <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", color: "#C8BFAF" }}>/</span>
-          <span
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.72rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "#E07B00",
-            }}
-          >
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#E07B00" }}>
             {question.title}
           </span>
         </div>
       </div>
 
       {/* Header */}
-      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "2rem 2.5rem 3rem" }}>
-        <p
-          style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: "0.75rem",
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "#E07B00",
-            marginBottom: "1rem",
-          }}
-        >
+      <div className="qd-container" style={{ paddingTop: "2rem", paddingBottom: "3rem" }}>
+        <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#E07B00", marginBottom: "1rem" }}>
           {exam.label} &nbsp;·&nbsp; CISC 1115
         </p>
-        <h1
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(2rem, 5vw, 4rem)",
-            fontWeight: 700,
-            color: "#1A1208",
-            letterSpacing: "-0.02em",
-            lineHeight: 1.05,
-            marginBottom: "1rem",
-          }}
-        >
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 5vw, 4rem)", fontWeight: 700, color: "#1A1208", letterSpacing: "-0.02em", lineHeight: 1.05, marginBottom: "1rem" }}>
           {question.title}
         </h1>
         <div>
           {question.topics.map((topic: string) => (
-            <span key={topic} className="topic-tag">
-              {topic}
-            </span>
+            <span key={topic} className="topic-tag">{topic}</span>
           ))}
         </div>
       </div>
 
       {/* Divider */}
-      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 2.5rem" }}>
+      <div className="qd-container">
         <hr style={{ border: "none", borderTop: "1.5px solid #E8E3DC" }} />
       </div>
 
-      {/* Solution content */}
-      <section style={{ maxWidth: "1400px", margin: "0 auto", padding: "3rem 2.5rem 8rem" }}>
+      {/* Content */}
+      <section className="qd-container" style={{ paddingTop: "3rem", paddingBottom: "8rem" }}>
 
         {/* The Question */}
         <div className="solution-block">
-          <p
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.72rem",
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "#E07B00",
-              marginBottom: "1.25rem",
-            }}
-          >
+          <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#E07B00", marginBottom: "1.25rem" }}>
             The Question
           </p>
           {question.prompt.split("\n").map((line, i) =>
-            line.trim() === "" ? (
-              <br key={i} />
-            ) : (
-              <p
-                key={i}
-                style={{
-                  fontFamily: "'Lora', serif",
-                  fontSize: "1.3rem",
-                  color: "#1A1208",
-                  lineHeight: 1.9,
-                  marginBottom: "0.5rem",
-                }}
-              >
+            line.trim() === "" ? <br key={i} /> : (
+              <p key={i} style={{ fontFamily: "'Lora', serif", fontSize: "clamp(1rem, 2.5vw, 1.3rem)", color: "#1A1208", lineHeight: 1.9, marginBottom: "0.5rem" }}>
                 {line}
               </p>
             )
@@ -359,32 +319,12 @@ function QuestionDetail(): React.ReactElement {
 
         {/* Explanation */}
         <div className="solution-block">
-          <p
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.72rem",
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "#E07B00",
-              marginBottom: "1.25rem",
-            }}
-          >
+          <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#E07B00", marginBottom: "1.25rem" }}>
             Explanation
           </p>
           {question.explanation.split("\n").map((line, i) =>
-            line.trim() === "" ? (
-              <br key={i} />
-            ) : (
-              <p
-                key={i}
-                style={{
-                  fontFamily: "'Lora', serif",
-                  fontSize: "1.3rem",
-                  color: "#1A1208",
-                  lineHeight: 1.9,
-                  marginBottom: "0.5rem",
-                }}
-              >
+            line.trim() === "" ? <br key={i} /> : (
+              <p key={i} style={{ fontFamily: "'Lora', serif", fontSize: "clamp(1rem, 2.5vw, 1.3rem)", color: "#1A1208", lineHeight: 1.9, marginBottom: "0.5rem" }}>
                 {line}
               </p>
             )
@@ -393,70 +333,23 @@ function QuestionDetail(): React.ReactElement {
 
         {/* Solution */}
         <div className="solution-block">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "1.25rem",
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: "0.72rem",
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "#E07B00",
-                margin: 0,
-              }}
-            >
+          <div className="solution-header">
+            <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#E07B00", margin: 0 }}>
               Solution
             </p>
-            <button
-  onClick={handleCopy}
-  className={`copy-btn${copied ? " copied" : ""}`}
->
-  {copied ? "✓ Copied!" : "Copy code"}
-</button>
+            <button onClick={handleCopy} className={`copy-btn${copied ? " copied" : ""}`}>
+              {copied ? "✓ Copied!" : "Copy code"}
+            </button>
           </div>
-          <div
-            style={{
-              backgroundColor: "#F5F2EE",
-              border: "1.5px solid #E8E3DC",
-              borderRadius: "4px",
-              padding: "2rem 2.5rem",
-              overflowX: "auto",
-            }}
-          >
-            <pre
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: "1.15rem",
-                lineHeight: 2.1,
-                color: "#1A1208",
-                margin: 0,
-                whiteSpace: "pre",
-              }}
-            >
+          <div className="code-scroll-wrapper">
+            <pre>
               {highlightJava(question.solution)}
             </pre>
           </div>
         </div>
 
         {/* Bottom nav */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: "3rem",
-            paddingTop: "2rem",
-            borderTop: "1.5px solid #E8E3DC",
-            flexWrap: "wrap",
-            gap: "1rem",
-          }}
-        >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "3rem", paddingTop: "2rem", borderTop: "1.5px solid #E8E3DC", flexWrap: "wrap", gap: "1rem" }}>
           <Link to={`/solutions/${exam.id}`} className="back-link">
             ← All {exam.label} questions
           </Link>
