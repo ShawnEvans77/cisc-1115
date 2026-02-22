@@ -63,17 +63,6 @@ function ExamDetail(): React.ReactElement {
   return (
     <div style={{ fontFamily: "'Lora', serif", backgroundColor: "#FAFAF8", minHeight: "100vh" }}>
       <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .fade-up {
-          opacity: 0;
-          animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        .delay-1 { animation-delay: 0.05s; }
-        .delay-2 { animation-delay: 0.15s; }
-
         .question-card {
           display: block;
           text-decoration: none;
@@ -119,7 +108,6 @@ function ExamDetail(): React.ReactElement {
           margin-right: 0.4rem;
           margin-top: 0.6rem;
         }
-
         @media (max-width: 640px) {
           .question-card { padding: 1.5rem; }
         }
@@ -127,10 +115,7 @@ function ExamDetail(): React.ReactElement {
 
       {/* Breadcrumb */}
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "3rem 2.5rem 0" }}>
-        <div
-          className="fade-up delay-1"
-          style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-        >
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <Link
             to="/solutions"
             style={{
@@ -147,13 +132,7 @@ function ExamDetail(): React.ReactElement {
           >
             Solutions
           </Link>
-          <span
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.72rem",
-              color: "#C8BFAF",
-            }}
-          >
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", color: "#C8BFAF" }}>
             /
           </span>
           <span
@@ -173,7 +152,6 @@ function ExamDetail(): React.ReactElement {
       {/* Header */}
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 2.5rem 3rem" }}>
         <p
-          className="fade-up delay-1"
           style={{
             fontFamily: "'DM Mono', monospace",
             fontSize: "0.75rem",
@@ -186,7 +164,6 @@ function ExamDetail(): React.ReactElement {
           Brooklyn College &nbsp;·&nbsp; CISC 1115
         </p>
         <h1
-          className="fade-up delay-1"
           style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: "clamp(2.5rem, 6vw, 5rem)",
@@ -200,7 +177,6 @@ function ExamDetail(): React.ReactElement {
           {exam.label}
         </h1>
         <p
-          className="fade-up delay-2"
           style={{
             fontFamily: "'Lora', serif",
             fontSize: "1rem",
@@ -212,7 +188,6 @@ function ExamDetail(): React.ReactElement {
           Select a question to view its full solution.
         </p>
         <p
-          className="fade-up delay-2"
           style={{
             fontFamily: "'DM Mono', monospace",
             fontSize: "0.72rem",
@@ -232,13 +207,12 @@ function ExamDetail(): React.ReactElement {
 
       {/* Question cards */}
       <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "3rem 2.5rem 8rem" }}>
-        {exam.questions.map((q, i): React.ReactElement => {
+        {exam.questions.map((q): React.ReactElement => {
           return (
             <Link
               key={q.id}
               to={`/solutions/${exam.id}/${q.id}`}
-              className="question-card fade-up"
-              style={{ animationDelay: `${0.2 + i * 0.08}s` }}
+              className="question-card"
             >
               <div
                 style={{

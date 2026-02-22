@@ -64,18 +64,6 @@ function QuestionDetail(): React.ReactElement {
   return (
     <div style={{ fontFamily: "'Lora', serif", backgroundColor: "#FAFAF8", minHeight: "100vh" }}>
       <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .fade-up {
-          opacity: 0;
-          animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        .delay-1 { animation-delay: 0.05s; }
-        .delay-2 { animation-delay: 0.15s; }
-        .delay-3 { animation-delay: 0.25s; }
-
         .topic-tag {
           display: inline-block;
           font-family: 'DM Mono', monospace;
@@ -88,7 +76,6 @@ function QuestionDetail(): React.ReactElement {
           border-radius: 2px;
           margin-right: 0.4rem;
         }
-
         .solution-block {
           background-color: #FFFFFF;
           border: 1.5px solid #E8E3DC;
@@ -96,7 +83,6 @@ function QuestionDetail(): React.ReactElement {
           padding: 2.5rem;
           margin-bottom: 1.5rem;
         }
-
         .code-block {
           background-color: #1A1208;
           border-radius: 4px;
@@ -104,7 +90,6 @@ function QuestionDetail(): React.ReactElement {
           overflow-x: auto;
           margin-top: 1.5rem;
         }
-
         .code-block pre {
           font-family: 'DM Mono', monospace;
           font-size: 0.88rem;
@@ -113,19 +98,26 @@ function QuestionDetail(): React.ReactElement {
           margin: 0;
           white-space: pre;
         }
-
-        .code-block .comment {
-          color: #9E8A80;
-        }
-
-        .code-block .keyword {
+        .back-link {
+          font-family: 'DM Mono', monospace;
+          font-size: 0.8rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
           color: #E07B00;
+          text-decoration: none;
+          transition: opacity 0.18s;
         }
-
-        .code-block .string {
-          color: #C8B98A;
+        .back-link:hover { opacity: 0.7; }
+        .muted-link {
+          font-family: 'DM Mono', monospace;
+          font-size: 0.8rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #A89F94;
+          text-decoration: none;
+          transition: color 0.18s;
         }
-
+        .muted-link:hover { color: #E07B00; }
         @media (max-width: 640px) {
           .solution-block { padding: 1.5rem; }
           .code-block { padding: 1.25rem; }
@@ -134,10 +126,7 @@ function QuestionDetail(): React.ReactElement {
 
       {/* Breadcrumb */}
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "3rem 2.5rem 0" }}>
-        <div
-          className="fade-up delay-1"
-          style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}
-        >
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
           <Link
             to="/solutions"
             style={{
@@ -189,7 +178,6 @@ function QuestionDetail(): React.ReactElement {
       {/* Header */}
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 2.5rem 3rem" }}>
         <p
-          className="fade-up delay-1"
           style={{
             fontFamily: "'DM Mono', monospace",
             fontSize: "0.75rem",
@@ -202,7 +190,6 @@ function QuestionDetail(): React.ReactElement {
           {exam.label} &nbsp;·&nbsp; CISC 1115
         </p>
         <h1
-          className="fade-up delay-1"
           style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: "clamp(2rem, 5vw, 4rem)",
@@ -215,7 +202,7 @@ function QuestionDetail(): React.ReactElement {
         >
           {question.title}
         </h1>
-        <div className="fade-up delay-2">
+        <div>
           {question.topics.map((topic: string) => (
             <span key={topic} className="topic-tag">
               {topic}
@@ -229,9 +216,9 @@ function QuestionDetail(): React.ReactElement {
         <hr style={{ border: "none", borderTop: "1.5px solid #E8E3DC" }} />
       </div>
 
-      {/* Solution content — placeholder until real content added */}
+      {/* Solution content */}
       <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "3rem 2.5rem 8rem" }}>
-        <div className="solution-block fade-up delay-3">
+        <div className="solution-block">
           <p
             style={{
               fontFamily: "'DM Mono', monospace",
@@ -252,24 +239,11 @@ function QuestionDetail(): React.ReactElement {
               lineHeight: 1.8,
             }}
           >
-            Question prompt goes here. Add the full question text to{" "}
-            <code
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: "0.9rem",
-                backgroundColor: "#F5F4F0",
-                padding: "0.1rem 0.4rem",
-                borderRadius: "2px",
-                color: "#E07B00",
-              }}
-            >
-              src/data/exams.ts
-            </code>
-            .
+            Question prompt goes here.
           </p>
         </div>
 
-        <div className="solution-block fade-up delay-3">
+        <div className="solution-block">
           <p
             style={{
               fontFamily: "'DM Mono', monospace",
@@ -290,11 +264,11 @@ function QuestionDetail(): React.ReactElement {
               lineHeight: 1.8,
             }}
           >
-            Written explanation goes here. Walk through the approach step by step before showing the code.
+            Written explanation goes here.
           </p>
         </div>
 
-        <div className="solution-block fade-up delay-3">
+        <div className="solution-block">
           <p
             style={{
               fontFamily: "'DM Mono', monospace",
@@ -309,19 +283,13 @@ function QuestionDetail(): React.ReactElement {
           </p>
           <div className="code-block">
             <pre>
-              <span className="comment">{"// Solution code goes here\n"}</span>
-              <span className="keyword">{"public static void "}</span>
-              {"main(String[] args) {\n"}
-              {"    "}
-              <span className="comment">{"// your code\n"}</span>
-              {"}"}
+              {"// Solution code goes here"}
             </pre>
           </div>
         </div>
 
-        {/* Nav between questions */}
+        {/* Bottom nav */}
         <div
-          className="fade-up delay-3"
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -333,34 +301,10 @@ function QuestionDetail(): React.ReactElement {
             gap: "1rem",
           }}
         >
-          <Link
-            to={`/solutions/${exam.id}`}
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.8rem",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "#E07B00",
-              textDecoration: "none",
-            }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = "0.7")}
-            onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-          >
+          <Link to={`/solutions/${exam.id}`} className="back-link">
             ← All {exam.label} questions
           </Link>
-          <Link
-            to="/solutions"
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.8rem",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "#A89F94",
-              textDecoration: "none",
-            }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#E07B00")}
-            onMouseLeave={e => (e.currentTarget.style.color = "#A89F94")}
-          >
+          <Link to="/solutions" className="muted-link">
             All semesters →
           </Link>
         </div>
