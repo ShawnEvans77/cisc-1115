@@ -202,7 +202,7 @@ public class Fall2020Question7 {
         writer.println();
 
         for (int i = 0; i < numSalesRep; i++) {
-            writer.printf("%10s %10.2f\n", names[i], averageTripLength[i]);
+            writer.printf("%10s %10.2f\\n", names[i], averageTripLength[i]);
         }
 
         writer.close();
