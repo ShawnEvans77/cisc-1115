@@ -219,32 +219,39 @@ function QuestionDetail(): React.ReactElement {
 
         .code-scroll-wrapper {
           width: 100%;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
           background-color: #F5F2EE;
           border: 1.5px solid #E8E3DC;
           border-radius: 4px;
           margin-top: 0.5rem;
+          overflow: hidden;
         }
 
         .code-scroll-wrapper pre {
-  font-family: 'DM Mono', monospace;
-  font-size: 1.25rem;
-  line-height: 2;
-  color: #1A1208;
-  margin: 0;
-  padding: 2rem 2.5rem;
-  white-space: pre-wrap;
-  word-break: break-word;
-  width: 100%;
-  min-width: 0;
-}
+          font-family: 'DM Mono', monospace;
+          font-size: 1.25rem;
+          line-height: 2;
+          color: #1A1208;
+          margin: 0;
+          padding: 2rem 2.5rem;
+          white-space: pre-wrap;
+          word-break: break-word;
+          width: 100%;
+          min-width: 0;
+        }
+
+        .math-display {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 1.25rem 1rem 0.25rem 1rem;
+          overflow-x: auto;
+        }
 
         @media (max-width: 640px) {
           .solution-block { padding: 1.25rem; }
           .code-scroll-wrapper pre {
             font-size: 1rem;
-            line-height: 1.75;
+            line-height: 1.85;
             padding: 1.25rem;
           }
           .copy-btn {
@@ -315,6 +322,12 @@ function QuestionDetail(): React.ReactElement {
                 {line}
               </p>
             )
+          )}
+          {question.mathHtml && (
+            <div
+              className="math-display"
+              dangerouslySetInnerHTML={{ __html: question.mathHtml }}
+            />
           )}
         </div>
 
