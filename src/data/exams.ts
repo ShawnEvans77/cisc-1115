@@ -25,25 +25,15 @@ export const exams: Exam[] = [
         id: "question-1a",
         title: "question 1a",
         topics: ["Tracing", "Loops"],
-        prompt: `Trace the variables in the following code:
-        
-         \tint x = 5;
-         int y = 10;
-        \tdo{
- x++;
- y--;
- while (y >8){
- x = x+2;
- y = y-3;
- }
- } while (x < 10);
-`,
+        prompt: `Trace the variables in the following code:\n\nint x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);`,
         explanation: `tba`,
-        solution: `--------------------------------------------------
-x =  |  5  |  6  |  8  |  9  |  10  |
---------------------------------------------------
-y =  |  10 |  9  |  6  |  5  |  4   |
---------------------------------------------------`,
+        solution: `    x |  y
+   --------
+    5 | 10
+    6 |  9
+    8 |  6
+    9 |  5
+   10 |  4`,
       },
       {
         id: "question-2",

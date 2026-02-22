@@ -317,12 +317,20 @@ function QuestionDetail(): React.ReactElement {
             The Question
           </p>
           {question.prompt.split("\n").map((line, i) =>
-            line.trim() === "" ? <br key={i} /> : (
-              <p key={i} style={{ fontFamily: "'Lora', serif", fontSize: "clamp(1rem, 2.5vw, 1.3rem)", color: "#1A1208", lineHeight: 1.9, marginBottom: "0.5rem" }}>
-                {line}
-              </p>
-            )
-          )}
+  line.trim() === "" ? <br key={i} /> : (
+    <p key={i} style={{
+      fontFamily: "'Lora', serif",
+      fontSize: "clamp(1rem, 2.5vw, 1.3rem)",
+      color: "#1A1208",
+      lineHeight: 1.9,
+      marginBottom: "0.5rem",
+      whiteSpace: "pre-wrap",
+    }}>
+      {line}
+    </p>
+  )
+)}
+
           {question.mathHtml && (
             <div
               className="math-display"
