@@ -36,6 +36,14 @@ export const exams: Exam[] = [
    10 |  4`,
       },
       {
+  id: "question-1b",
+  title: "question 1b",
+  topics: ["Tracing", "Loops"],
+  prompt: `Trace the variables in the following code:\n\nfor (int i = 0; i < 5; i = i + 2) {\n    for (int j = i; j > 0; j--) { }\n}`,
+  explanation: `tba`,
+  solution: `tba`,
+},
+      {
         id: "question-2",
         title: "question 2",
         topics: ["Arithmetic", "Modulo", "Variables"],
@@ -76,6 +84,37 @@ export const exams: Exam[] = [
 }`,
       },
       {
+  id: "question-3",
+  title: "question 3",
+  topics: ["Number Systems", "Binary", "Hexadecimal"],
+  prompt: `Show the work you used to perform the following conversions:\n\na. 1100110 (base 2) to base 10\n\nb. AB (base 16) to base 10\n\nc. 65 (base 10) to base 2`,
+  explanation: `tba`,
+  solution: `a. 1100110 (base 2) to base 10:
+
+    1×2⁶ + 1×2⁵ + 0×2⁴ + 0×2³ + 1×2² + 1×2¹ + 0×2⁰
+  = 64  + 32  +  0  +  0  +  4  +  2  +  0
+  = 102
+
+b. AB (base 16) to base 10:
+
+    A×16¹ + B×16⁰
+  = 10×16 + 11×1
+  = 160   + 11
+  = 171
+
+c. 65 (base 10) to base 2:
+
+    65 ÷ 2 = 32 remainder 1
+    32 ÷ 2 = 16 remainder 0
+    16 ÷ 2 =  8 remainder 0
+     8 ÷ 2 =  4 remainder 0
+     4 ÷ 2 =  2 remainder 0
+     2 ÷ 2 =  1 remainder 0
+     1 ÷ 2 =  0 remainder 1
+
+    Answer: 1000001`,
+},
+      {
         id: "question-5a",
         title: "question 5a",
         topics: ["Max Method", "Nested Method Calls"],
@@ -113,6 +152,20 @@ export const exams: Exam[] = [
         explanation: `Pretend you're entering this equation into Google to calculate it. It is a simple combination of Math.sqrt(), Math.pow(), and several parentheses.`,
         solution: `double result = (Math.pow(x, 2) - (1.0 / (y + 3))) / ((1.0 / z) + Math.sqrt(x));`,
       },
+      {
+  id: "question-5c",
+  title: "question 5c",
+  topics: ["Binary Search", "Arrays"],
+  prompt: `Perform a binary search on the following array searching for the number 18:\n\nint[] nums = {12, 77, 87, 89, 100, 117, 125, 189, 235, 529, 1000};\n\nList the low, mid and high values at each step until the algorithm stops. Do NOT write any code. Enter into the table below the low, mid and high values as the binary search progresses. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
+  explanation: `tba`,
+  solution: `  Low | Mid  | High
+ ----------------------
+    0 |   5  |   10
+    0 |   2  |    4
+    0 |   1  |    1
+    0 |   0  |    0
+       not found`,
+},
       {
         id: "question-6",
         title: "question 6",
