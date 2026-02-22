@@ -250,7 +250,7 @@ function QuestionDetail(): React.ReactElement {
         @media (max-width: 640px) {
           .solution-block { padding: 1.25rem; }
           .code-scroll-wrapper pre {
-            font-size: 1rem;
+            font-size: 0.85rem;
             line-height: 1.85;
             padding: 1.25rem;
           }

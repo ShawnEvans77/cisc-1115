@@ -128,11 +128,124 @@ export const exams: Exam[] = [
       },
       {
         id: "question-7",
-        title: "Question 7",
+        title: "question 7",
         topics: ["Recursion"],
-        prompt: "Question prompt goes here.",
+        prompt: `Write a complete Java program, including at least one comment in the main program and one in each method, to do the following:
+The program will read in an unknown number of records from a file. Assume you won’t have more than 100 records in total, though the actual number of records can be less than 100. Each record contains a sales rep’s first name and miles traveled on two trips per year. For example, Pauline 167.8 567.0
+
+Main:
+  • Declare an output file to be used in main and passed to one or more methods from main. All output from main and methods will be printed to this file.
+  • Invoke the first method (below) to read the data from the input file, compute averages and store information in the arrays. The method returns the number of records read in.
+  • Next, invoke the second method (below) which computes the average length of all trips and then prints to the output file how many individual averages are above, equal to and below the overall average.
+  • Finally, invoke the third method (below) to sort the name and individual average trip length arrays in parallel
+  • In main, print to the output file each sales rep name and average trip length. The names and average trip length should print in columns, right adjusted. All trip lengths should be printed with two decimal places.
+
+Methods:
+  1. This method has two parameters: a String array for names and a double array for the average trip length per individual sales rep. It returns an integer
+    a. Declare the input file, read the records in the file and store each first name in an array (assume there are no
+    duplicate names) and the average number of miles travelled for that sales rep in another array. You do not need to
+    store the individual trip length.
+    b. Return the number of sales rep records read in.
+  2. This method has three parameters – the output file, double array of individual average trip length and an integer representing the total number of records read in.
+    a. Compute the overall average trip length across all sales reps.
+    b. Compute and print to the output file how many sales reps individual average trip length were above the overall
+    average trip length, below the overall average trip length and equal to the overall average trip length.
+  3. This method has three parameters – String array of names, double array of individual average trip length and an integer
+  representing the total number of records read in by the first
+  method.
+    a. Sort the sales rep names in descending (reverse) alphabetical order synchronizing the individual sales rep’s average trip length in the parallel array. `,
         explanation: "Explanation goes here.",
-        solution: "// Solution code goes here",
+        solution: `import java.util.Scanner;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.File;
+
+public class Fall2020Question7 {
+
+    public static void main(String[] args) throws IOException {
+
+        String[] names = new String[100];
+        double[] averageTripLength = new double[100];
+
+        int numSalesRep = readData(names, averageTripLength);
+
+        PrintWriter writer = new PrintWriter("fall_2020_output.txt");
+
+        computeTripLength(averageTripLength, writer, numSalesRep);
+
+        sortArray(names, averageTripLength, numSalesRep);
+
+        writer.println();
+
+        for (int i = 0; i < numSalesRep; i++) {
+            writer.printf("%10s %10.2f\n", names[i], averageTripLength[i]);
+        }
+
+        writer.close();
+
+    }
+
+    public static int readData(String[] names, double[] averageTripLength) throws IOException {
+        File file = new File("fall_2020_input.txt");
+        Scanner sc = new Scanner(file);
+
+        int numSalesRep = 0;
+
+        while (sc.hasNext()) {
+            names[numSalesRep] = sc.next();
+            averageTripLength[numSalesRep] = (sc.nextDouble() + sc.nextDouble()) / 2.0;
+            numSalesRep++;
+        }
+
+        sc.close();
+
+        return numSalesRep;
+    }
+
+    public static void computeTripLength(double[] averageTripLength, PrintWriter pw, int numRecords) {
+        double sum = 0;
+
+        for (int i = 0; i < numRecords; i++) {
+            sum += averageTripLength[i];
+        }
+
+        double average = (sum / numRecords);
+
+        int aboveAverage = 0;
+        int belowAverage = 0;
+        int equalAverage = 0;
+
+        for (int i = 0; i < numRecords; i++) {
+            if (averageTripLength[i] == average)
+                equalAverage++;
+            else if (averageTripLength[i] > average)
+                aboveAverage++;
+            else if (averageTripLength[i] < average)
+                belowAverage++;
+        }
+
+        pw.println("Above Average: " + aboveAverage);
+        pw.println("Below Average: " + belowAverage);
+        pw.println("Equal to the Average: " + equalAverage);
+    }
+
+    public static void sortArray(String[] names, double[] averageTripLength, int numRecords) {
+
+        for (int i = 0; i < numRecords; i++) {
+            for (int j = 0; j < numRecords - i - 1; j++) {
+                if (names[j].compareTo(names[j+1]) < 0) {
+                    String temp = names[j + 1];
+                    names[j + 1] = names[j];
+                    names[j] = temp;
+
+                    double temp2 = averageTripLength[j + 1];
+                    averageTripLength[j + 1] = averageTripLength[j];
+                    averageTripLength[j] = temp2;
+                }
+            }
+        }
+    }
+}`,
       },
     ],
   },
