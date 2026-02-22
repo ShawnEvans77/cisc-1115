@@ -141,7 +141,7 @@ export const exams: Exam[] = [
       {
         id: "question-2",
         title: "Question 2",
-        topics: ["Scanner"],
+        topics: ["Scanner", "Strings"],
         prompt: `Write Java code to read strings of lower-case letters from the keyboard and count the number of vowels in each word.\n\n(vowels are a, e, i, o and u).\n\nWhen all strings have been read in, print the string that has the largest number of vowels (duplicates included) and how many vowels were in the string. When more than one string has the greatest number of vowels, print the first string found with that number.\n\nFor example,\n\nGiven input: she of groceries yourselves here radio\n\nThe output is: groceries – 4 vowels`,
         explanation: `The solution, for the most part, is a direct regurgitation of the prompt. Start by creating a Scanner. Create an empty string that will represent the string with the most vowels. Create a tracker that remembers how many vowels were in the string with the most vowels.\n\nCreate a while loop bounded by the scanner hasNext() method, a boolean method telling you if there is anything more to read from the input stream. Read in the current string and create a variable representing how many vowels are inside of it. Next, create a for loop to count how many vowels are in that string.\n\nUse an if statement that checks if this string has more vowels than the tracker for the highest vowel count string. If it does, update the tracker.\n\nAt the program's end, print the highest vowel string and how many vowels it had.`,
         solution: `import java.util.Scanner;
