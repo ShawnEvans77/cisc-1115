@@ -51,9 +51,13 @@ export const exams: Exam[] = [
         id: "question-5a",
         title: "Question 5a",
         topics: ["Methods", "Conditionals"],
-        prompt: "Question prompt goes here.",
+        prompt: `Assume the six integers i, j, k, m, n exist and are all initialized.
+
+Assume there exists a method max3(), which accepts 3 integers as input and returns the largest integer.
+
+Write one Java statement to find the maximum of the six integers using any combination of Math.max() and max3().`,
         explanation: "Explanation goes here.",
-        solution: "// Solution code goes here",
+        solution: "int max = Math.max(Math.max( Math.max(i, j), Math.max(k, l)), Math.max(m, n));",
       },
       {
         id: "question-7",
