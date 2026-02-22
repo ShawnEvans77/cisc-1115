@@ -9,8 +9,8 @@ interface Solution {
 }
 
 const solutions: Solution[] = [
-  { label: "Fall 2020",   year: "2020", path: "/solutions/fall-2020",   index: "01" },
-  { label: "Spring 2021", year: "2021", path: "/solutions/spring-2021", index: "02" },
+  { label: "fall 2020",   year: "2020", path: "/solutions/fall-2020",   index: "01" },
+  { label: "spring 2021", year: "2021", path: "/solutions/spring-2021", index: "02" },
 ];
 
 function Solutions(): React.ReactElement {
@@ -50,16 +50,11 @@ function Solutions(): React.ReactElement {
           Brooklyn College &nbsp;·&nbsp; CISC 1115
         </p>
         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.5rem, 6vw, 5rem)", fontWeight: 700, color: "#1A1208", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "0.75rem" }}>
-          Solutions
+          solutions
         </h1>
         <p style={{ fontFamily: "'Lora', serif", fontSize: "1rem", fontStyle: "italic", color: "#9E8A80" }}>
-          Select a semester to browse its solutions.
+          select a semester to browse its solutions
         </p>
-      </div>
-
-      {/* Divider */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2.5rem" }}>
-        <hr style={{ border: "none", borderTop: "1.5px solid #E8E3DC" }} />
       </div>
 
       {/* Solution list */}
@@ -83,7 +78,7 @@ function Solutions(): React.ReactElement {
                     {solution.label}
                   </h2>
                   <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A89F94" }}>
-                    {solution.year} &nbsp;·&nbsp; View solutions
+                    {solution.year} &nbsp;·&nbsp; 
                   </span>
                 </div>
                 <span className="solution-arrow">→</span>

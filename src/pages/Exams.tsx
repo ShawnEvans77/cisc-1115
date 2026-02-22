@@ -9,13 +9,13 @@ interface Exam {
 
 const exams: Exam[] = [
   {
-    label: "Fall 2020",
+    label: "fall 2020",
     year: "2020",
     pdf: "/exams/fall-2020.pdf",
     index: "01",
   },
   {
-    label: "Spring 2021",
+    label: "spring 2021",
     year: "2021",
     pdf: "/exams/spring-2021.pdf",
     index: "02",
@@ -26,17 +26,6 @@ function Exams(): React.ReactElement {
   return (
     <div style={{ fontFamily: "'Lora', serif", backgroundColor: "#FAFAF8", minHeight: "100vh" }}>
       <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(28px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .fade-up {
-          opacity: 0;
-          animation: fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        .delay-1 { animation-delay: 0.05s; }
-        .delay-2 { animation-delay: 0.15s; }
-
         .exam-link {
           display: block;
           border-top: 1.5px solid #E8E3DC;
@@ -76,7 +65,6 @@ function Exams(): React.ReactElement {
       {/* Header */}
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "5rem 2.5rem 3rem" }}>
         <p
-          className="fade-up delay-1"
           style={{
             fontFamily: "'DM Mono', monospace",
             fontSize: "0.75rem",
@@ -89,7 +77,6 @@ function Exams(): React.ReactElement {
           Brooklyn College &nbsp;·&nbsp; CISC 1115
         </p>
         <h1
-          className="fade-up delay-1"
           style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: "clamp(2.5rem, 6vw, 5rem)",
@@ -100,10 +87,9 @@ function Exams(): React.ReactElement {
             marginBottom: "0.75rem",
           }}
         >
-          Past Exams
+          past exams
         </h1>
         <p
-          className="fade-up delay-2"
           style={{
             fontFamily: "'Lora', serif",
             fontSize: "1rem",
@@ -111,21 +97,20 @@ function Exams(): React.ReactElement {
             color: "#9E8A80",
           }}
         >
-          Click any exam to open the PDF.
+          click any exam to open the pdf
         </p>
       </div>
 
       {/* Exam list */}
       <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 2.5rem 8rem" }}>
-        {exams.map((exam: Exam, i: number): React.ReactElement => {
+        {exams.map((exam: Exam): React.ReactElement => {
           return (
             <a
               key={exam.pdf}
               href={exam.pdf}
               target="_blank"
               rel="noopener noreferrer"
-              className="exam-link fade-up"
-              style={{ animationDelay: `${0.2 + i * 0.12}s` }}
+              className="exam-link"
             >
               <div
                 style={{

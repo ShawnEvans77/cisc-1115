@@ -127,10 +127,68 @@ Write one Java statement to find the maximum of the six integers using any combi
       {
         id: "question-2",
         title: "Question 2",
-        topics: ["Loops"],
-        prompt: "Question prompt goes here.",
-        explanation: "Explanation goes here.",
-        solution: "// Solution code goes here",
+        topics: ["Scanner"],
+        prompt: `Write Java code to read strings of lower-case letters from the keyboard and count the number of vowels in each word. 
+        
+        (vowels are a,e,i,o and u).
+
+When all strings have been read in, print the string that has the largest number of vowels (duplicates included) and how many vowels were in the string. When more than one string has the greatest number of vowels, print the first string found with that number.
+
+For example,
+
+Given input: she of groceries yourselves here radio
+
+The output is: groceries – 4 vowels`,
+        explanation: `The solution, for the most part, is a direct regurgitation of the prompt. Start by creating a Scanner. Create an empty string that will represent the string with the most vowels. Create a tracker that remembers how many vowels were in the string with the most vowels.
+        
+        Create a while loop bounded by the scanner hasNext() method, a boolean method telling you if there is anything more to read from the input stream. Read in the current string and create a variable representing how many vowels are inside of it. Next, create a for loop to count how many vowels are in that string.
+        
+        Use an if statement that checks if this string has more vowels than the tracker for the highest vowel count string. If it does, update the tracker.
+        
+        At the program's end, print the highest vowel string and how many vowels it had.`,
+        solution: `import java.util.Scanner;
+public class Spring2021Question2 {
+    public static void main(String[] args) {
+
+        // create the scanner, most vowel string, and vowel count tracker
+        Scanner sc = new Scanner(System.in);
+        String mostVowelsString = "";
+        int highestVowelCount = 0;
+
+        System.out.println("Enter some words: ");
+
+        // while there are still tokens in the input stream
+        while (sc.hasNext()) {
+
+            // read from the input stream
+            String word = sc.next();
+            int numVowels = 0;
+
+            // count how many vowels are in this string
+            for (int i = 0; i < word.length(); i++) {
+                char letter = word.charAt(i);
+
+                if (letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u') {
+                    numVowels++;
+                }
+            }
+
+            // if this string has more vowels than the tracker, update it
+            if (highestVowelCount < numVowels) {
+                highestVowelCount = numVowels;
+                mostVowelsString = word;
+            }
+
+        }
+
+        // print the highest vowel string and how many vowels it had
+        System.out.println();
+        System.out.printf("%s - %d vowels", mostVowelsString, highestVowelCount);
+
+        sc.close();
+    }
+
+}`,
       },
       {
         id: "question-5",
