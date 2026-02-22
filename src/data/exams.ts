@@ -73,10 +73,22 @@ export const exams: Exam[] = [
       {
         id: "question-1",
         title: "Question 1",
-        topics: ["Variables", "Types"],
-        prompt: "Question prompt goes here.",
-        explanation: "Explanation goes here.",
-        solution: "// Solution code goes here",
+        topics: ["Loops", "Nested Loops"],
+        prompt: `Write Java code to repeatedly print each single digit between 1 and 9 the number of times based upon its numeric value.\n\nThus, you would get a triangle of the shape below where 1 prints once, 2 twice … and 9 prints 9 times.`,
+        explanation: `This is a classic nested loop problem. The outer loop controls which digit we are currently printing (i goes from 1 to 9). The inner loop controls how many times that digit gets printed — it runs exactly i times.\n\nAfter the inner loop finishes printing i copies of the digit, we call System.out.println() with no arguments to move to the next line, which creates the triangle shape.\n\nThe key insight: the digit value and the repeat count are the same number, so we can use i for both.`,
+        solution: `public class Spring2021Question1 {
+    public static void main(String[] args) {
+
+        for (int i = 1; i <= 9; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print(i);
+            }
+
+            System.out.println();
+        }
+
+    }
+}`,
       },
       {
         id: "question-2",
