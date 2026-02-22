@@ -229,7 +229,7 @@ function QuestionDetail(): React.ReactElement {
 
         .code-scroll-wrapper pre {
   font-family: 'DM Mono', monospace;
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   line-height: 2;
   color: #1A1208;
   margin: 0;
@@ -243,7 +243,7 @@ function QuestionDetail(): React.ReactElement {
         @media (max-width: 640px) {
           .solution-block { padding: 1.25rem; }
           .code-scroll-wrapper pre {
-            font-size: 0.8rem;
+            font-size: 1rem;
             line-height: 1.75;
             padding: 1.25rem;
           }
