@@ -276,7 +276,7 @@ Methods:
   representing the total number of records read in by the first
   method.
     a. Sort the sales rep names in descending (reverse) alphabetical order synchronizing the individual sales rep’s average trip length in the parallel array. `,
-        explanation: `The readData() method involves using a Scanner to read input from a text stream by using a while loop bounded by the hasNext() method. We use a counter in conjunction with the .next() and .nextDouble() methods to move data from the file into our arrays.
+        explanation: `The readData() method involves using a Scanner to read input from a text stream by using a while loop bounded by the hasNext() method. We use a counter in conjunction with the .next() and .nextDouble() methods to move data from the file into our arrays. Since the file is structured like "Pauline 167.8 567.0", we read in the name using sc.next(), and we calculate the average through (sc.nextDouble()+sc.nextDouble()) / 2.0 as each person has two trip lengths.
         
         computeTripLength() is self explanatory.
         
