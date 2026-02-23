@@ -479,7 +479,7 @@ When all 1,000 turns have been completed, print a formatted table showing the va
 
         In this case, we will be using the inclusive formula. 
 
-        We begin by creating a number representing how many rolls will happen, and a number representing the max roll. We create a histogram array with a size of max roll plus one, since by doing this we can access index "max roll." For example, since the max roll is 14, we make the array of size 14+1, as that would give us access to an index 14. An array of size 15 has indices 0 to 14.
+        We begin by creating a variable representing how many rolls will happen, and a variable representing the highest possible roll. We create a histogram array with a size of max roll plus one, since by doing this we can access index "max roll." For example, since the max roll is 14, we make the array of size 14+1, as that would give us access to an index 14. An array of size 15 has indices 0 to 14.
 
         We create a loop going a thousand times, as we will roll one thousand times. We roll from [1, 6], then [1,8]. We sum these values together.
 
@@ -532,7 +532,7 @@ When all 1,000 turns have been completed, print a formatted table showing the va
       {
         id: "question-6",
         title: "question 6",
-        topics: ["OOP"],
+        topics: ["Arrays", "Scanner"],
         prompt: `Write Java code to do the following:
 
 Read an arbitary amount of numbers from the keyboard with each number being between 1 and 100.
@@ -540,24 +540,34 @@ Read an arbitary amount of numbers from the keyboard with each number being betw
 If a number entered is not between 1 and 100, print an error message.
 
 If a -1 is read in, end the loop, then print which numbers between 1 and 100 the program did not read in.`,
-        explanation: "Explanation goes here.",
+        explanation: `The main notable thing we do here is using a histogram to track which numbers were read in, represented by an array. We create an array of size 101, and we use indices 1 to 100. We use a while loop continuing until a -1 is entered. 
+        
+        We print the error message for if the number is not between 1 and 100. Otherwise, when reading a valid number, we update the appropiate index in the histogram. If a 35 was read in, add one to index 35. If a 67 was read in, add one to index 67.
+        
+        We conclude the program by printing which indices still have a value of zero. A value of zero indicates we never read in that number.`,
         solution: `import java.util.Scanner;
 public class Spring2021Question6 {
     public static void main(String[] args) {
 
+        // creating the histogram.
         int[] histogram = new int[101];
 
+        // creating the scanner.
         Scanner sc = new Scanner(System.in);
 
+        // read in a number.
         int number = sc.nextInt();
 
         System.out.println("Enter some numbers between 1 and 100. Enter -1 to terminate the program: ");
 
+        // continue until we arrive to a -1
         while (number != -1) {
 
+            // error condition
             if (number < 1 || number > 100) {
                 System.out.println("ERROR: Number must be between 1 and 100.");
             } else {
+                // adding one to the number in the histogram
                 histogram[number]++;
             }
 
@@ -567,6 +577,7 @@ public class Spring2021Question6 {
         System.out.println("The following numbers were not read in: ");
 
         for (int i = 1; i < histogram.length; i++) {
+            // a value of zero means this number was not read in.
             if (histogram[i] == 0) {
                 System.out.print(i + " ");
             }
