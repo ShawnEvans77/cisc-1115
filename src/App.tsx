@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop.tsx";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       className="min-h-screen flex flex-col"
       style={{ backgroundColor: "#FFFFFF", fontFamily: "'DM Sans', sans-serif" }}
     >
+      <ScrollToTop />
       <Navbar />
       <main className="flex-1">
         <Outlet />
