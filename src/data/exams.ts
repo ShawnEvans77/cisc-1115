@@ -26,23 +26,22 @@ export const exams: Exam[] = [
         title: "question 1a",
         topics: ["Tracing", "Loops"],
         prompt: `Trace the variables in the following code:\n\nint x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);`,
-        explanation: `x and y begin at 5 and 10.  x=5 and y=10.
+        explanation: `We want to write all of the different values x and y take throughout the program.
         
-        We increment x and decrement y. 5+1 = 6, 10-1 = 9. x=6 and x=9.
+        x and y begin at 5 and 10. We write down that x=5 and y=10.
         
-        y=9 is greater than 8, so the inner while loop executes. We add 2 to x=6, so x becomes 8. Subtract 3 from y, it becomes 6. x=8 and y=6.
+        We increment x and decrement y. 5+1 = 6, 10-1 = 9. We write that x=6 and x=9.
         
-        y=6 is not bigger than 8, so the inner while loop terminates.
+        y=9 is greater than 8, so the inner while loop executes. We add 2 to x=6, so x becomes 8. Subtract 3 from y, it becomes 6. We write that x=8 and y=6.
         
-        x=8 is lower than 10, so the outer do while loop continues.
+        y=6 is not bigger than 8, so the inner while loop terminates. x=8 is lower than 10, so the while loop continues.
         
-        Decrement x and y. x=8, y=6 becomes x=9, y=5. 
+        Decrement x and y. We write that x=9 and y=5. 
         
         y is not greater than 8. x is still less than 10. We continue to the next do while iteration while skipping the inner do while loop.
         
-        Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 10 is not less than 10, all loops cease and the program concludes.`,
-        solution: `    
-    x |  y
+        Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 10 is not less than 10, all loops cease and the program concludes. We write that x=10 and y=4.`,
+        solution: `    x |  y
    --------
     5 | 10
     6 |  9
@@ -55,11 +54,13 @@ export const exams: Exam[] = [
   title: "question 1b",
   topics: ["Tracing", "Loops"],
   prompt: `Trace the variables in the following code:\n\nfor (int i = 0; i < 5; i = i + 2) {\n    for (int j = i; j > 0; j--) { }\n}`,
-  explanation: `We start with i being equal to 0. j is equal to 0 since int j = i. However, j=0 is not greater than 0, so the inner loop does not execute.
+  explanation: `We want to write all of the different values i and j take throughout the program.
   
-  Then, i increments to 2. j is equal to 2 since int j = i. Since this inner for loop condition is now valid, it executes. We have i=2 & j=2, then i=2 & j=1, then j goes down to zero, terminating the loop.
+  We start with i being equal to 0. j is equal to 0 since int j = i. However, j=0 is not greater than 0, so the inner loop does not execute. We write i=0 and nothing for j.
+  
+  Then, i increments to 2. j is equal to 2 since int j = i. Since this inner for loop condition is now valid, it executes. We have i=2 & j=2, then i=2 & j=1, then j goes down to zero, terminating the loop. We write that i=2 and j=2, then i=2 and j=1, then i=2 and j=0.
 
-  Then, i increments to 4. j is equal to 4 since int j = i. Inner for loop condition is valid once more. We have i=4 & j=4. j decrements down to 0 by one each time.`,
+  Then, i increments to 4. j is equal to 4 since int j = i. Inner for loop condition is valid once more. We have i=4 & j=4. Do you notice the patern? j decrements down to 0 by one each time. We write that i=4 and j=4, i=4 and j=3, i=4 and j=2, and so on.`,
   solution: `
   i  |  j
  ---------
@@ -201,19 +202,29 @@ c. 1000001
   title: "question 5c",
   topics: ["Binary Search", "Arrays"],
   prompt: `Perform a binary search on the following array searching for the number 18:\n\nint[] nums = {12, 77, 87, 89, 100, 117, 125, 189, 235, 529, 1000};\n\nList the low, mid and high values at each step until the algorithm stops. Do NOT write any code. Enter into the table below the low, mid and high values as the binary search progresses. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
-  explanation: `tba`,
+  explanation: `The array has 11 values, with the minimum index being 0 and the maximum index being 10. Recall that binary search involves jumping to the middle in search of your number. If the middle is too small, move right. If the middle is too big, move left.
+
+  (0+10)/2 is 5. Write in {0, 5, 10}. nums[5] is 117, which is bigger than 18. Due to this, we move left by changing high to mid-1. The new high becomes 4.
+  
+  (0+4)/2 is 2. Write in {0, 2, 4}. nums[2] is 87, which is bigger than 18. Due to this, we move left by changing high to mid-1. The new high becomes 1.
+  
+  (0+1)/2 is 0, since the decimal is truncated in integer division. Write in {0, 0, 1}. nums[0] is 12, which is smaller than 18. Due to this, we move right by changing low to mid+1. The new low becomes 1.
+  
+  (1+1)/2 is 1. Write in {1, 1, 1}. nums[1] is 77, which is bigger than 18. Due to this, we move left by changing high to mid-1. The new high becomes 0.
+  
+  Write in {1, -, 0}. The binary search while loop condition, while (low <= high), has been violated. We failed to find 18.`,
   solution: `  Low | Mid  | High
  ----------------------
     0 |   5  |   10
     0 |   2  |    4
-    0 |   1  |    1
-    0 |   0  |    0
-       not found`,
+    0 |   0  |    1
+    1 |   1  |    1
+    1 |   -  |    0`,
 },
       {
         id: "question-6",
         title: "question 6",
-        topics: ["Strings", "Loops", "substring", "indexOf"],
+        topics: ["Strings", "Loops", "Split", "Arrays"],
         prompt: `You are given a string containing a series of 9 digit zip codes with a dash separating the two parts and one space separating each full zip code from the next one. For example,\n\nString str = "11230-1234 11011-3489 07621-8845";\n\nWrite Java code to print the first 5 digits of each zip code followed by the last 4 digits of the zip code as separate values.\n\nSample output using the same str variable from above:\n11230 1234\n11011 3489\n07621 8845\n\nNOTE: The first part of the full zip code is always 5 digits, the second part is always 4 digits and there's always a dash in between the two parts. Keep in mind that your code must handle a String that has any number of such pairs, not just the three in the example above.`,
         explanation: `We solve this problem easily by using the split method. Split the input string based on spaces, creating an array of zip codes. For each zip code in the array, split it based on the dash, then print the first five & last four numbers of that zip code.`,
         solution: `public class Fall2020Question6 {
@@ -368,7 +379,7 @@ public class Fall2020Question7 {
       {
         id: "question-1",
         title: "question 1",
-        topics: ["Loops", "Nested Loops", "Patterns"],
+        topics: ["Nested Loops", "Patterns"],
         prompt: `Write Java code to repeatedly print each single digit between 1 and 9 the number of times based upon its numeric value.\n\nThus, you would get a triangle of the shape below where 1 prints once, 2 twice … and 9 prints 9 times.\n\n1\n22\n333\n4444\n55555\n666666\n7777777\n88888888\n999999999`,
         explanation: `Two nested loops are needed to solve this problem. Any problem involving patterns is going to involve nested loops.\n\nThe outer for loop determines what digit is printed. The inner for loop determines how many times that digit is printed. 
         
@@ -520,11 +531,51 @@ When all 1,000 turns have been completed, print a formatted table showing the va
       },
       {
         id: "question-6",
-        title: "Question 6",
+        title: "question 6",
         topics: ["OOP"],
-        prompt: "Question prompt goes here.",
+        prompt: `Write Java code to do the following:
+
+Read an arbitary amount of numbers from the keyboard with each number being between 1 and 100.
+
+If a number entered is not between 1 and 100, print an error message.
+
+If a -1 is read in, end the loop, then print which numbers between 1 and 100 the program did not read in.`,
         explanation: "Explanation goes here.",
-        solution: "// Solution code goes here",
+        solution: `import java.util.Scanner;
+public class Spring2021Question6 {
+    public static void main(String[] args) {
+
+        int[] histogram = new int[101];
+
+        Scanner sc = new Scanner(System.in);
+
+        int number = sc.nextInt();
+
+        System.out.println("Enter some numbers between 1 and 100. Enter -1 to terminate the program: ");
+
+        while (number != -1) {
+
+            if (number < 1 || number > 100) {
+                System.out.println("ERROR: Number must be between 1 and 100.");
+            } else {
+                histogram[number]++;
+            }
+
+            number = sc.nextInt();
+        }
+
+        System.out.println("The following numbers were not read in: ");
+
+        for (int i = 1; i < histogram.length; i++) {
+            if (histogram[i] == 0) {
+                System.out.print(i + " ");
+            }
+        }
+
+        sc.close();
+    }
+
+}`,
       },
       {
         id: "question-7",
