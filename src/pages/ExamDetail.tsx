@@ -89,6 +89,17 @@ function ExamDetail(): React.ReactElement {
         .search-input::placeholder { color: #C8BFAF; font-style: italic; }
         .search-input:focus { border-bottom-color: #E07B00; }
 
+        .back-link {
+          font-family: 'DM Mono', monospace;
+          font-size: 0.8rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #E07B00;
+          text-decoration: none;
+          transition: opacity 0.18s;
+        }
+        .back-link:hover { opacity: 0.7; }
+
         @media (max-width: 640px) {
           .question-card { padding: 1.5rem; }
         }
@@ -135,7 +146,6 @@ function ExamDetail(): React.ReactElement {
           spellCheck={false}
         />
 
-        {/* Result count — only shows while searching */}
         {query.trim() && (
           <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A89F94", marginTop: "0.85rem" }}>
             {filteredQuestions.length === 0
@@ -143,6 +153,11 @@ function ExamDetail(): React.ReactElement {
               : `${filteredQuestions.length} of ${exam.questions.length} questions`}
           </p>
         )}
+      </div>
+
+      {/* Divider */}
+      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2.5rem" }}>
+        <hr style={{ border: "none", borderTop: "1.5px solid #E8E3DC" }} />
       </div>
 
       {/* Question cards */}
@@ -204,6 +219,13 @@ function ExamDetail(): React.ReactElement {
             </Link>
           ))
         )}
+
+        {/* Bottom nav */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "3rem", paddingTop: "2rem", borderTop: "1.5px solid #E8E3DC" }}>
+          <Link to="/solutions" className="back-link">
+            ← All semesters
+          </Link>
+        </div>
       </section>
     </div>
   );
