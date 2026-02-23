@@ -276,7 +276,11 @@ Methods:
   representing the total number of records read in by the first
   method.
     a. Sort the sales rep names in descending (reverse) alphabetical order synchronizing the individual sales rep’s average trip length in the parallel array. `,
-        explanation: "Explanation goes here.",
+        explanation: `The readData() method involves using a Scanner to read input from a text stream by using a while loop bounded by the hasNext() method. We use a counter in conjunction with the .next() and .nextDouble() methods to move data from the file into our arrays.
+        
+        computeTripLength() is self explanatory.
+        
+        The sorting involves the compareTo() method, which we use for comparing strings. s1.compareTo(s2) > 0 is equivalent to "s1 > s2." s1.compareTo(s2) < 0 is equivalent to "s1 < s2."`,
         solution: `import java.util.Scanner;
 import java.io.IOException;
 import java.io.PrintWriter;
