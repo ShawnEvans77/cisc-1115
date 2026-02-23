@@ -8,8 +8,11 @@ interface Exam {
 }
 
 const exams: Exam[] = [
-  { label: "fall 2020", year: "2020", pdf: "/exams/fall-2020.pdf", index: "01" },
-  { label: "spring 2021", year: "2021", pdf: "/exams/spring-2021.pdf", index: "02" },
+  { label: "fall 2017",   year: "2017", pdf: "/exams/fall-2017.pdf",   index: "01" },
+  { label: "fall 2018",   year: "2018", pdf: "/exams/fall-2018.pdf",   index: "02" },
+  { label: "fall 2020",   year: "2020", pdf: "/exams/fall-2020.pdf",   index: "03" },
+  { label: "spring 2021", year: "2021", pdf: "/exams/spring-2021.pdf", index: "04" },
+  { label: "spring 2023", year: "2023", pdf: "/exams/spring-2023.pdf", index: "05" },
 ];
 
 function Exams(): React.ReactElement {
