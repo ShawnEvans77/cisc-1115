@@ -479,11 +479,11 @@ When all 1,000 turns have been completed, print a formatted table showing the va
 
         In this case, we will be using the inclusive formula. 
 
-        We begin by creating a number representing how many rolls will happen, and a number representing the max roll. We create a histogram array with a size of max roll plus one, since by doing this we can access index "max roll." For example, since the max roll is 14, we make the array of size 14+1, as that would give us access to an index 14.
+        We begin by creating a number representing how many rolls will happen, and a number representing the max roll. We create a histogram array with a size of max roll plus one, since by doing this we can access index "max roll." For example, since the max roll is 14, we make the array of size 14+1, as that would give us access to an index 14. An array of size 15 has indices 0 to 14.
 
-        We create an array going a thousand times, as we will roll one thousand times. We roll from [1, 6], then [1,8]. We sum these values together.
+        We create a loop going a thousand times, as we will roll one thousand times. We roll from [1, 6], then [1,8]. We sum these values together.
 
-        We then mark this summed roll in ths histogram using histogram[roll]++. If we rolled a five, then we add one to index five. If we rolled a five again, then index five becomes two. If we roll a ten, then we add one to index 10.
+        We then mark this summed roll in this histogram using histogram[roll]++. If we rolled a five, then we add one to index five. If we rolled a five again, then index five becomes two. If we roll a ten, then we add one to index 10.
 
         Meaning, after a few rolls, the histogram array could look like this:
 
