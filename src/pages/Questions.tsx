@@ -1,20 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { exams } from "../data/exams";
-
-interface Semester {
-  label: string;
-  year: string;
-  path: string;
-  index: string;
-}
-
-const semesters: Semester[] = exams.map((e, i) => ({
-  label: e.label,
-  year: e.year,
-  path: `/questions/${e.id}`,
-  index: String(i + 1).padStart(2, "0"),
-}));
+import { highlight } from "../utils/highlight";
 
 type SemesterResult = {
   type: "semester";
@@ -35,21 +22,6 @@ type QuestionResult = {
 };
 
 type SearchResult = SemesterResult | QuestionResult;
-
-function highlight(text: string, query: string): React.ReactElement {
-  if (!query.trim()) return <>{text}</>;
-  const idx = text.toLowerCase().indexOf(query.toLowerCase());
-  if (idx === -1) return <>{text}</>;
-  return (
-    <>
-      {text.slice(0, idx)}
-      <mark style={{ backgroundColor: "rgba(224,123,0,0.18)", color: "#E07B00", borderRadius: "2px", padding: "0 2px" }}>
-        {text.slice(idx, idx + query.length)}
-      </mark>
-      {text.slice(idx + query.length)}
-    </>
-  );
-}
 
 function Questions(): React.ReactElement {
   const [query, setQuery] = useState("");
@@ -124,7 +96,6 @@ function Questions(): React.ReactElement {
           font-family: 'DM Mono', monospace;
           flex-shrink: 0;
         }
-
         .search-input {
           width: 100%;
           background: transparent;
@@ -142,7 +113,6 @@ function Questions(): React.ReactElement {
         }
         .search-input::placeholder { color: #C8BFAF; font-style: italic; }
         .search-input:focus { border-bottom-color: #E07B00; }
-
         .result-card {
           display: block;
           text-decoration: none;
@@ -176,14 +146,12 @@ function Questions(): React.ReactElement {
           margin-right: 0.35rem;
           margin-top: 0.4rem;
         }
-
         @media (max-width: 640px) {
           .solution-link { padding: 2.5rem 1rem; }
           .solution-arrow { font-size: 1.5rem; }
         }
       `}</style>
 
-      {/* Header */}
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "5rem 2.5rem 3rem" }}>
         <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#E07B00", marginBottom: "1.25rem" }}>
           Brooklyn College &nbsp;·&nbsp; CISC 1115
@@ -207,14 +175,11 @@ function Questions(): React.ReactElement {
 
         {showResults && (
           <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A89F94", marginTop: "1rem" }}>
-            {results.length === 0
-              ? "no results"
-              : `${results.length} result${results.length === 1 ? "" : "s"}`}
+            {results.length === 0 ? "no results" : `${results.length} result${results.length === 1 ? "" : "s"}`}
           </p>
         )}
       </div>
 
-      {/* Results or semester list */}
       {showResults ? (
         <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "1rem 2.5rem 8rem" }}>
           {results.length === 0 ? (
@@ -227,20 +192,13 @@ function Questions(): React.ReactElement {
             results.map((r) => {
               if (r.type === "semester") {
                 return (
-                  <Link
-                    key={`semester-${r.examId}`}
-                    to={`/questions/${r.examId}`}
-                    className="result-card"
-                  >
+                  <Link key={`semester-${r.examId}`} to={`/questions/${r.examId}`} className="result-card">
                     <div style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: "2rem" }}>
                       <div>
                         <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#A89F94", marginBottom: "0.4rem" }}>
                           semester
                         </p>
-                        <h2
-                          className="result-title"
-                          style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.4rem, 3vw, 2.2rem)", fontWeight: 700, color: "#1A1208", letterSpacing: "-0.02em", lineHeight: 1.1, margin: 0 }}
-                        >
+                        <h2 className="result-title" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.4rem, 3vw, 2.2rem)", fontWeight: 700, color: "#1A1208", letterSpacing: "-0.02em", lineHeight: 1.1, margin: 0 }}>
                           {highlight(r.examLabel, query)}
                         </h2>
                         <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#A89F94", marginTop: "0.5rem" }}>
@@ -254,27 +212,18 @@ function Questions(): React.ReactElement {
               }
 
               return (
-                <Link
-                  key={`${r.examId}-${r.questionId}`}
-                  to={`/questions/${r.examId}/${r.questionId}`}
-                  className="result-card"
-                >
+                <Link key={`${r.examId}-${r.questionId}`} to={`/questions/${r.examId}/${r.questionId}`} className="result-card">
                   <div style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: "2rem" }}>
                     <div>
                       <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#E07B00", marginBottom: "0.4rem" }}>
                         {r.examLabel}
                       </p>
-                      <h2
-                        className="result-title"
-                        style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.2rem, 2.5vw, 1.6rem)", fontWeight: 700, color: "#1A1208", letterSpacing: "-0.01em", lineHeight: 1.1, margin: 0 }}
-                      >
+                      <h2 className="result-title" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.2rem, 2.5vw, 1.6rem)", fontWeight: 700, color: "#1A1208", letterSpacing: "-0.01em", lineHeight: 1.1, margin: 0 }}>
                         {highlight(r.title, query)}
                       </h2>
                       <div style={{ marginTop: "0.1rem" }}>
                         {r.topics.map(t => (
-                          <span key={t} className="result-tag">
-                            {highlight(t, query)}
-                          </span>
+                          <span key={t} className="result-tag">{highlight(t, query)}</span>
                         ))}
                       </div>
                       {(() => {
@@ -286,10 +235,7 @@ function Questions(): React.ReactElement {
                         if (idx === -1) return null;
                         const start = Math.max(0, idx - 40);
                         const end = Math.min(r.prompt.length, idx + sq.length + 60);
-                        const snippet =
-                          (start > 0 ? "…" : "") +
-                          r.prompt.slice(start, end) +
-                          (end < r.prompt.length ? "…" : "");
+                        const snippet = (start > 0 ? "…" : "") + r.prompt.slice(start, end) + (end < r.prompt.length ? "…" : "");
                         return (
                           <p style={{ fontFamily: "'Lora', serif", fontSize: "0.88rem", fontStyle: "italic", color: "#9E8A80", marginTop: "0.6rem", lineHeight: 1.6 }}>
                             {highlight(snippet, query)}
@@ -306,25 +252,18 @@ function Questions(): React.ReactElement {
         </section>
       ) : (
         <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 2.5rem 8rem" }}>
-          {semesters.map((semester: Semester): React.ReactElement => (
-            <Link
-              key={semester.path}
-              to={semester.path}
-              className="solution-link"
-            >
+          {exams.map((exam, i) => (
+            <Link key={exam.id} to={`/questions/${exam.id}`} className="solution-link">
               <div style={{ display: "grid", gridTemplateColumns: "3rem 1fr auto", alignItems: "center", gap: "2.5rem" }}>
                 <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "1rem", color: "#C8BFAF", fontWeight: 400 }}>
-                  {semester.index}
+                  {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h2
-                    className="solution-label"
-                    style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.5rem, 3.5vw, 2.75rem)", fontWeight: 400, color: "#1A1208", lineHeight: 1, letterSpacing: "-0.03em", transition: "color 0.2s", marginBottom: "0.5rem" }}
-                  >
-                    {semester.label}
+                  <h2 className="solution-label" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.5rem, 3.5vw, 2.75rem)", fontWeight: 400, color: "#1A1208", lineHeight: 1, letterSpacing: "-0.03em", transition: "color 0.2s", marginBottom: "0.5rem" }}>
+                    {exam.label}
                   </h2>
                   <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A89F94" }}>
-                    {semester.year}
+                    {exam.year}
                   </span>
                 </div>
                 <span className="solution-arrow">→</span>
