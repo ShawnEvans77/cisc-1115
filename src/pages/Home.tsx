@@ -220,7 +220,7 @@ function Home() {
               onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#C96E00")}
               onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#E07B00")}
             >
-              Browse solutions
+              solutions
             </Link>
             <Link
               to="/exams"
@@ -229,7 +229,7 @@ function Home() {
               onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#4A3025")}
               onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#5C3D2E")}
             >
-              Past exams
+              exams
             </Link>
             <Link
               to="/notes"
@@ -238,7 +238,7 @@ function Home() {
               onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#8A7570")}
               onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#9E8A80")}
             >
-              Read notes
+              notes
             </Link>
           </div>
         </div>
