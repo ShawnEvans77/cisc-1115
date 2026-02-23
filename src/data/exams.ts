@@ -251,7 +251,7 @@ c. 1000001
       {
         id: "question-7",
         title: "question 7",
-        topics: ["Scanner", "Sorting", "File I/O"],
+        topics: ["Arrays", "Scanner", "Sorting", "File I/O"],
         prompt: `Write a complete Java program, including at least one comment in the main program and one in each method, to do the following:
 The program will read in an unknown number of records from a file. Assume you won’t have more than 100 records in total, though the actual number of records can be less than 100. Each record contains a sales rep’s first name and miles traveled on two trips per year. For example, Pauline 167.8 567.0
 
