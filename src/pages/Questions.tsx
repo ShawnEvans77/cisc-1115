@@ -2,17 +2,19 @@ import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { exams } from "../data/exams";
 
-interface Solution {
+interface Semester {
   label: string;
   year: string;
   path: string;
   index: string;
 }
 
-const solutions: Solution[] = [
-  { label: "fall 2020",   year: "2020", path: "/solutions/fall-2020",   index: "01" },
-  { label: "spring 2021", year: "2021", path: "/solutions/spring-2021", index: "02" },
-];
+const semesters: Semester[] = exams.map((e, i) => ({
+  label: e.label,
+  year: e.year,
+  path: `/questions/${e.id}`,
+  index: String(i + 1).padStart(2, "0"),
+}));
 
 type SemesterResult = {
   type: "semester";
@@ -49,7 +51,7 @@ function highlight(text: string, query: string): React.ReactElement {
   );
 }
 
-function Solutions(): React.ReactElement {
+function Questions(): React.ReactElement {
   const [query, setQuery] = useState("");
 
   const results = useMemo((): SearchResult[] => {
@@ -59,7 +61,6 @@ function Solutions(): React.ReactElement {
     const matches: SearchResult[] = [];
 
     for (const exam of exams) {
-      // semester-level match — "fall", "spring", "fall 2020", "2021", etc.
       if (
         exam.label.toLowerCase().includes(q) ||
         exam.year.toLowerCase().includes(q) ||
@@ -72,10 +73,9 @@ function Solutions(): React.ReactElement {
           year: exam.year,
           questionCount: exam.questions.length,
         });
-        continue; // don't also show individual questions for a semester-level match
+        continue;
       }
 
-      // question-level match
       for (const question of exam.questions) {
         if (
           question.title.toLowerCase().includes(q) ||
@@ -189,17 +189,16 @@ function Solutions(): React.ReactElement {
           Brooklyn College &nbsp;·&nbsp; CISC 1115
         </p>
         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.5rem, 6vw, 5rem)", fontWeight: 700, color: "#1A1208", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "0.75rem" }}>
-          solutions
+          questions
         </h1>
         <p style={{ fontFamily: "'Lora', serif", fontSize: "1rem", fontStyle: "italic", color: "#9E8A80", marginBottom: "3rem" }}>
-          select a semester to browse its solutions
+          select a semester to browse its questions
         </p>
 
-        {/* Search */}
         <input
           className="search-input"
           type="text"
-          placeholder="search solutions..."
+          placeholder="search questions..."
           value={query}
           onChange={e => setQuery(e.target.value)}
           autoComplete="off"
@@ -230,7 +229,7 @@ function Solutions(): React.ReactElement {
                 return (
                   <Link
                     key={`semester-${r.examId}`}
-                    to={`/solutions/${r.examId}`}
+                    to={`/questions/${r.examId}`}
                     className="result-card"
                   >
                     <div style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: "2rem" }}>
@@ -257,7 +256,7 @@ function Solutions(): React.ReactElement {
               return (
                 <Link
                   key={`${r.examId}-${r.questionId}`}
-                  to={`/solutions/${r.examId}/${r.questionId}`}
+                  to={`/questions/${r.examId}/${r.questionId}`}
                   className="result-card"
                 >
                   <div style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: "2rem" }}>
@@ -307,25 +306,25 @@ function Solutions(): React.ReactElement {
         </section>
       ) : (
         <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 2.5rem 8rem" }}>
-          {solutions.map((solution: Solution): React.ReactElement => (
+          {semesters.map((semester: Semester): React.ReactElement => (
             <Link
-              key={solution.path}
-              to={solution.path}
+              key={semester.path}
+              to={semester.path}
               className="solution-link"
             >
               <div style={{ display: "grid", gridTemplateColumns: "3rem 1fr auto", alignItems: "center", gap: "2.5rem" }}>
                 <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "1rem", color: "#C8BFAF", fontWeight: 400 }}>
-                  {solution.index}
+                  {semester.index}
                 </span>
                 <div>
                   <h2
                     className="solution-label"
                     style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.5rem, 3.5vw, 2.75rem)", fontWeight: 400, color: "#1A1208", lineHeight: 1, letterSpacing: "-0.03em", transition: "color 0.2s", marginBottom: "0.5rem" }}
                   >
-                    {solution.label}
+                    {semester.label}
                   </h2>
                   <span style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A89F94" }}>
-                    {solution.year}
+                    {semester.year}
                   </span>
                 </div>
                 <span className="solution-arrow">→</span>
@@ -338,4 +337,4 @@ function Solutions(): React.ReactElement {
   );
 }
 
-export default Solutions;
+export default Questions;

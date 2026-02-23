@@ -29,7 +29,7 @@ function Exams(): React.ReactElement {
         .exam-link {
           display: block;
           border-top: 1.5px solid #E8E3DC;
-          padding: 4rem 1rem;
+          padding: 3.5rem 1rem;
           text-decoration: none;
           margin-left: -1rem;
           margin-right: -1rem;

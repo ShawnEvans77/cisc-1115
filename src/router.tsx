@@ -4,6 +4,9 @@ import Home from "./pages/Home";
 import Solutions from "./pages/Solutions";
 import ExamDetail from "./pages/ExamDetail";
 import QuestionDetail from "./pages/QuestionDetail";
+import Questions from "./pages/Questions";
+import QuestionBankDetail from "./pages/QuestionBankDetail";
+import QuestionOnly from "./pages/QuestionOnly";
 import Exams from "./pages/Exams";
 import Notes from "./pages/Notes";
 import TopicCategory from "./pages/TopicCategory";
@@ -20,6 +23,9 @@ export const router = createBrowserRouter([
       { path: "solutions",                                  element: <Solutions /> },
       { path: "solutions/:examId",                          element: <ExamDetail /> },
       { path: "solutions/:examId/:questionId",              element: <QuestionDetail /> },
+      { path: "questions",                                  element: <Questions /> },
+      { path: "questions/:examId",                          element: <QuestionBankDetail /> },
+      { path: "questions/:examId/:questionId",              element: <QuestionOnly /> },
       { path: "exams",                                      element: <Exams /> },
       { path: "notes",                                      element: <Notes /> },
       { path: "notes/:category",                            element: <TopicCategory /> },

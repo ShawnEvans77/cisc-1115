@@ -3,28 +3,34 @@ import { Link } from "react-router-dom";
 
 const sections = [
   {
-    label: "solutions",
-    path: "/solutions",
-    description: "past exam questions with fully commented, step-by-step solutions",
-    index: "01",
-  },
-  {
     label: "exams",
     path: "/exams",
     description: "raw exams from previous semesters",
+    index: "01",
+  },
+  {
+    label: "questions",
+    path: "/questions",
+    description: "past exam questions",
     index: "02",
+  },
+  {
+    label: "solutions",
+    path: "/solutions",
+    description: "past exam questions with fully commented, step-by-step solutions",
+    index: "03",
   },
   {
     label: "notes",
     path: "/notes",
     description: "examples of important algorithims & other things",
-    index: "03",
+    index: "04",
   },
   {
     label: "contact",
     path: "/contact",
     description: "get in touch with me",
-    index: "04",
+    index: "05",
   },
 ];
 
@@ -214,6 +220,24 @@ function Home() {
 
           <div className="fade-up delay-3 cta-group">
             <Link
+              to="/exams"
+              className="cta-btn"
+              style={{ backgroundColor: "#d57b4e", color: "#FFFFFF" }}
+              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#3A7A9E")}
+              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#4A90B8")}
+            >
+              exams
+            </Link>
+            <Link
+              to="/questions"
+              className="cta-btn"
+              style={{ backgroundColor: "#4A6741", color: "#FFFFFF" }}
+              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#3A5233")}
+              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#4A6741")}
+            >
+              questions
+            </Link>
+            <Link
               to="/solutions"
               className="cta-btn"
               style={{ backgroundColor: "#E07B00", color: "#FFFFFF" }}
@@ -221,15 +245,6 @@ function Home() {
               onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#E07B00")}
             >
               solutions
-            </Link>
-            <Link
-              to="/exams"
-              className="cta-btn"
-              style={{ backgroundColor: "#5C3D2E", color: "#FFFFFF" }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#4A3025")}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#5C3D2E")}
-            >
-              exams
             </Link>
             <Link
               to="/notes"

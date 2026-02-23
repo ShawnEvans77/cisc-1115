@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const centerLinks = [
-  { label: "solutions", path: "/solutions" },
   { label: "exams", path: "/exams" },
+  { label: "questions", path: "/questions"},
+  { label: "solutions", path: "/solutions" },
   { label: "notes", path: "/notes" },
 ];
 
