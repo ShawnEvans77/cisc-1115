@@ -76,7 +76,7 @@ export const exams: Exam[] = [
       {
         id: "question-2",
         title: "question 2",
-        topics: ["Arithmetic", "Modulo", "Variables"],
+        topics: ["Arithmetic", "Modulo"],
         prompt: `Assume the existence of an int variable called inches. Compute and print how many miles, yards, feet and inches that number represents.\n\nThe rules are: 1 foot equals 12 inches, 36 inches equals 1 yard, and 5280 feet equals 1 mile.\n\nFor example, if int inches = 245897, then the output is:\n\n245897 inches equals 3 miles 1550 yards 1 foot and 5 inches`,
         explanation: `To solve this problem, you must use the modulo and division operator.\n\nStart by dividing inches by the total number of inches in a mile (5280 x 12), then 'strip off' those miles using the modulo operator. We strip off the miles so that we are left with how many yards were in the original variable. You repeat the process when you divide the remaining yards by 36, the number of inches in a yard. This process continues and you eventually arrive at the solution.\n\nThey can ask different variants of this problem. Sometimes it is coins, sometimes it is hours. Remember to start large then work your way down, stripping off units as necessary.`,
         solution: `public class Fall2020Question2 {
@@ -118,29 +118,43 @@ export const exams: Exam[] = [
   title: "question 3",
   topics: ["Number Systems", "Binary", "Hexadecimal"],
   prompt: `Show the work you used to perform the following conversions:\n\na. 1100110 (base 2) to base 10\n\nb. AB (base 16) to base 10\n\nc. 65 (base 10) to base 2`,
-  explanation: `tba`,
-  solution: `a. 1100110 (base 2) to base 10:
+  explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5x10²) + (1x10¹) + (2x10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreths place, and so on. The same idea applies to other bases.
+  
+  For a, it has six digits, with 4 of them being filled in with ones. Label the rightmost digit 2⁰, the second rightmost digit 2¹, and so on. Since only the 2⁶, 2⁵, 2², and 2¹ places are filled in with ones, sum them together. 1×2⁶ + 1×2⁵ + 0×2⁴ + 0×2³ + 1×2² + 1×2¹ + 0×2⁰ yields the base 10 sum 102, our answer.
+  
+  For b, we know that in hexadecimal, A = 10, and B = 11. Therefore, to yield the answer, we perform 10×16¹ + 11×16⁰ = 171.
+  
+  For c, simply write out the numbers 64, 32, 16, 8, 4, 2, and 1. From these numbers, we will make 65. (64+1) makes 65. Therefore, to express this in binary, we simply write out 1000001. The leftmost 1 represents 64, the rightmost 1 reprents the 1 added to 64 in order to make 65.`,
+  solution: `a. 102
 
+    1100110
     1×2⁶ + 1×2⁵ + 0×2⁴ + 0×2³ + 1×2² + 1×2¹ + 0×2⁰
+
   = 64  + 32  +  0  +  0  +  4  +  2  +  0
   = 102
 
-b. AB (base 16) to base 10:
+b. 171
 
+    AB
     A×16¹ + B×16⁰
+
   = 10×16 + 11×1
   = 160   + 11
   = 171
 
-c. 65 (base 10) to base 2:
+c. 1000001
 
-    65 ÷ 2 = 32 remainder 1
-    32 ÷ 2 = 16 remainder 0
-    16 ÷ 2 =  8 remainder 0
-     8 ÷ 2 =  4 remainder 0
-     4 ÷ 2 =  2 remainder 0
-     2 ÷ 2 =  1 remainder 0
-     1 ÷ 2 =  0 remainder 1
+    65
+
+    64: 1
+    32: 0
+    16: 0
+    8 : 0
+    4 : 0
+    2 : 0
+    1 : 1
+
+    64 + 1 = 65
 
     Answer: 1000001`,
 },
