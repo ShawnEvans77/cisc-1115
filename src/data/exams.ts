@@ -290,15 +290,21 @@ public class Fall2020Question7 {
 
     public static void main(String[] args) throws IOException {
 
+
+        // creating two arrays with no more than 100 records.
         String[] names = new String[100];
         double[] averageTripLength = new double[100];
 
+        // readData returns the number of records read in.
         int numSalesRep = readData(names, averageTripLength);
 
+        // PrintWriter for printing to the output file.
         PrintWriter writer = new PrintWriter("fall_2020_output.txt");
 
+        // Calculates the average & average differences.
         computeTripLength(averageTripLength, writer, numSalesRep);
 
+        // Sorts in parallel.
         sortArray(names, averageTripLength, numSalesRep);
 
         writer.println();
@@ -312,12 +318,18 @@ public class Fall2020Question7 {
     }
 
     public static int readData(String[] names, double[] averageTripLength) throws IOException {
+
+        // reading from the input file.
         File file = new File("fall_2020_input.txt");
         Scanner sc = new Scanner(file);
 
+        // the number of sales rep in the file.
         int numSalesRep = 0;
 
+        // while the scanner has more things to read
         while (sc.hasNext()) {
+
+            // read in the sales' rep name & average trip length into the two arrays.
             names[numSalesRep] = sc.next();
             averageTripLength[numSalesRep] = (sc.nextDouble() + sc.nextDouble()) / 2.0;
             numSalesRep++;
@@ -329,6 +341,8 @@ public class Fall2020Question7 {
     }
 
     public static void computeTripLength(double[] averageTripLength, PrintWriter pw, int numRecords) {
+
+        // method is self explanatory
         double sum = 0;
 
         for (int i = 0; i < numRecords; i++) {
@@ -357,6 +371,9 @@ public class Fall2020Question7 {
 
     public static void sortArray(String[] names, double[] averageTripLength, int numRecords) {
 
+        // basic bubble sort. compareTo used for string comparison. names[j].compareTo(names[j+1]) < 0
+        // is the same as names[j] < names[j+1]
+        // we swap both the person's name & trip length to make sure everything lines up properly.
         for (int i = 0; i < numRecords; i++) {
             for (int j = 0; j < numRecords - i - 1; j++) {
                 if (names[j].compareTo(names[j+1]) < 0) {
