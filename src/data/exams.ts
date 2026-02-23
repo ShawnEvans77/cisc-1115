@@ -280,7 +280,7 @@ Methods:
         
         computeTripLength() is self explanatory.
         
-        The sorting involves the compareTo() method, which we use for comparing strings. s1.compareTo(s2) > 0 is equivalent to "s1 > s2." s1.compareTo(s2) < 0 is equivalent to "s1 < s2. This solution uses BubbleSort, SelectionSort and InsertionSort solutions are also valid."`,
+        The sorting involves the compareTo() method, which we use for comparing strings. s1.compareTo(s2) > 0 is equivalent to "s1 > s2." s1.compareTo(s2) < 0 is equivalent to "s1 < s2." This solution uses BubbleSort, SelectionSort and InsertionSort solutions are also valid."`,
         solution: `import java.util.Scanner;
 import java.io.IOException;
 import java.io.PrintWriter;
