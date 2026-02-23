@@ -26,7 +26,21 @@ export const exams: Exam[] = [
         title: "question 1a",
         topics: ["Tracing", "Loops"],
         prompt: `Trace the variables in the following code:\n\nint x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);`,
-        explanation: `tba`,
+        explanation: `x and y begin at 5 and 10.  x=5 and y=10.
+        
+        We increment x and decrement y. 5+1 = 6, 10-1 = 9. x=6 and x=9.
+        
+        y=9 is greater than 8, so the inner while loop executes. We add 2 to x=6, so x becomes 8. Subtract 3 from y, it becomes 6. x=8 and y=6.
+        
+        y=6 is not bigger than 8, so the inner while loop terminates.
+        
+        x=8 is lower than 10, so the outer do while loop continues.
+        
+        Decrement x and y. x=8, y=6 becomes x=9, y=5. 
+        
+        y is not greater than 8. x is still less than 10. We continue to the next do while iteration while skipping the inner do while loop.
+        
+        Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 10 is not less than 10, all loops cease and the program concludes.`,
         solution: `    
     x |  y
    --------
@@ -43,7 +57,7 @@ export const exams: Exam[] = [
   prompt: `Trace the variables in the following code:\n\nfor (int i = 0; i < 5; i = i + 2) {\n    for (int j = i; j > 0; j--) { }\n}`,
   explanation: `We start with i being equal to 0. j is equal to 0 since int j = i. However, j=0 is not greater than 0, so the inner loop does not execute.
   
-  Then, i increments to 2. j is equal to 2 since int j = i. Since ths inner for loop condition is now valid, it executes. We have i=2 & j=2, then i=2 & j=1, then j goes down to zero, terminating the loop.
+  Then, i increments to 2. j is equal to 2 since int j = i. Since this inner for loop condition is now valid, it executes. We have i=2 & j=2, then i=2 & j=1, then j goes down to zero, terminating the loop.
 
   Then, i increments to 4. j is equal to 4 since int j = i. Inner for loop condition is valid once more. We have i=4 & j=4. j decrements down to 0 by one each time.`,
   solution: `
