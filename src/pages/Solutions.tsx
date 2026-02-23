@@ -215,11 +215,6 @@ function Solutions(): React.ReactElement {
         )}
       </div>
 
-      {/* Divider */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2.5rem" }}>
-        <hr style={{ border: "none", borderTop: "1.5px solid #E8E3DC" }} />
-      </div>
-
       {/* Results or semester list */}
       {showResults ? (
         <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "1rem 2.5rem 8rem" }}>
