@@ -24,7 +24,7 @@ export const exams: Exam[] = [
       {
         id: "question-1a",
         title: "question 1a",
-        topics: ["Tracing", "Loops"],
+        topics: ["Loops", "Tracing"],
         prompt: `Trace the variables in the following code:\n\nint x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);`,
         explanation: `We want to write all of the different values x and y take throughout the program.
         
@@ -52,7 +52,7 @@ export const exams: Exam[] = [
       {
   id: "question-1b",
   title: "question 1b",
-  topics: ["Tracing", "Loops"],
+  topics: ["Loops", "Tracing"],
   prompt: `Trace the variables in the following code:\n\nfor (int i = 0; i < 5; i = i + 2) {\n    for (int j = i; j > 0; j--) { }\n}`,
   explanation: `We want to write all of the different values i and j take throughout the program.
   
@@ -117,7 +117,7 @@ export const exams: Exam[] = [
       {
   id: "question-3",
   title: "question 3",
-  topics: ["Number Systems", "Binary Numbers", "Hexadecimal"],
+  topics: ["Binary Numbers", "Number Systems", "Hexadecimal"],
   prompt: `Show the work you used to perform the following conversions:\n\na. 1100110 (base 2) to base 10\n\nb. AB (base 16) to base 10\n\nc. 65 (base 10) to base 2`,
   explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5x10²) + (1x10¹) + (2x10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreths place, and so on. The same idea applies to other bases.
   
@@ -200,7 +200,7 @@ c. 1000001
       {
   id: "question-5c",
   title: "question 5c",
-  topics: ["Binary Search", "Arrays"],
+  topics: ["Arrays", "Binary Search"],
   prompt: `Perform a binary search on the following array searching for the number 18:\n\nint[] nums = {12, 77, 87, 89, 100, 117, 125, 189, 235, 529, 1000};\n\nList the low, mid and high values at each step until the algorithm stops. Do NOT write any code. Enter into the table below the low, mid and high values as the binary search progresses. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
   explanation: `The array has 11 values, with the minimum index being 0 and the maximum index being 10. Recall that binary search involves jumping to the middle in search of your number. If the middle is too small, move right. If the middle is too big, move left.
 
@@ -224,7 +224,7 @@ c. 1000001
       {
         id: "question-6",
         title: "question 6",
-        topics: ["Strings", "Loops", "Split", "Arrays"],
+        topics: ["Arrays",  "Loops", "Split", "Strings"],
         prompt: `You are given a string containing a series of 9 digit zip codes with a dash separating the two parts and one space separating each full zip code from the next one. For example,\n\nString str = "11230-1234 11011-3489 07621-8845";\n\nWrite Java code to print the first 5 digits of each zip code followed by the last 4 digits of the zip code as separate values.\n\nSample output using the same str variable from above:\n11230 1234\n11011 3489\n07621 8845\n\nNOTE: The first part of the full zip code is always 5 digits, the second part is always 4 digits and there's always a dash in between the two parts. Keep in mind that your code must handle a String that has any number of such pairs, not just the three in the example above.`,
         explanation: `We solve this problem easily by using the split method. Split the input string based on spaces, creating an array of zip codes. For each zip code in the array, split it based on the dash, then print the first five & last four numbers of that zip code.`,
         solution: `public class Fall2020Question6 {
@@ -251,7 +251,7 @@ c. 1000001
       {
         id: "question-7",
         title: "question 7",
-        topics: ["Arrays", "Scanner", "Sorting", "File I/O"],
+        topics: ["Arrays", "File", "Scanner", "Sorting"],
         prompt: `Write a complete Java program, including at least one comment in the main program and one in each method, to do the following:
 The program will read in an unknown number of records from a file. Assume you won’t have more than 100 records in total, though the actual number of records can be less than 100. Each record contains a sales rep’s first name and miles traveled on two trips per year. For example, Pauline 167.8 567.0
 
@@ -426,7 +426,7 @@ public class Fall2020Question7 {
       {
         id: "question-2",
         title: "question 2",
-        topics: ["Scanner", "Strings", "Characters"],
+        topics: ["Characters", "Scanner", "Strings"],
         prompt: `Write Java code to read strings of lower-case letters from the keyboard and count the number of vowels in each word.\n\nVowels are the letters a, e, i, o, and u.\n\nWhen all strings have been read in, print the string that has the largest number of vowels (duplicates included) and how many vowels were in the string. When more than one string has the greatest number of vowels, print the first string found with that number.\n\nFor example, given input: 
 
 she of groceries yourselves here radio
