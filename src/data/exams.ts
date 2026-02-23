@@ -117,7 +117,7 @@ export const exams: Exam[] = [
       {
   id: "question-3",
   title: "question 3",
-  topics: ["Number Systems", "Binary", "Hexadecimal"],
+  topics: ["Number Systems", "Binary Numbers", "Hexadecimal"],
   prompt: `Show the work you used to perform the following conversions:\n\na. 1100110 (base 2) to base 10\n\nb. AB (base 16) to base 10\n\nc. 65 (base 10) to base 2`,
   explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5x10²) + (1x10¹) + (2x10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreths place, and so on. The same idea applies to other bases.
   
