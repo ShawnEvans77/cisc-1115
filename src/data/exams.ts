@@ -620,7 +620,7 @@ public class Spring2021Question6 {
       {
   id: "question-8",
   title: "question 8",
-  topics: ["Arrays", "File I/O", "Sorting"],
+  topics: ["Arrays", "File", "Scanner", "Sorting"],
   prompt: `Write a complete Java program with comments in main and in each method to do the following.
   
 A city is divided into 100 neighborhoods, each with a unique name. Every three months, each neighborhood reports the prices of four houses sold; not all neighborhoods have sales to report every three months. A file contains the sales data in the format:
