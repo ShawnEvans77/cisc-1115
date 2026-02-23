@@ -199,7 +199,7 @@ function Solutions(): React.ReactElement {
         <input
           className="search-input"
           type="text"
-          placeholder="search across all questions, topics..."
+          placeholder="search solutions..."
           value={query}
           onChange={e => setQuery(e.target.value)}
           autoComplete="off"
