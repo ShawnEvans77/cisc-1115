@@ -610,13 +610,124 @@ public class Spring2021Question6 {
 }`,
       },
       {
-        id: "question-7",
-        title: "question 7",
-        topics: ["Recursion"],
-        prompt: "Question prompt goes here.",
-        explanation: "Explanation goes here.",
-        solution: "// Solution code goes here",
+        id: 'question-7',
+        title: 'question 7',
+        topics: ["Binary Numbers", "Hexadecimal", "Number Systems"],
+        prompt: `tba`,
+        explanation: `tba`,
+        solution: `tba`
       },
+      {
+  id: "question-8",
+  title: "question 8",
+  topics: ["Arrays", "File I/O", "Sorting"],
+  prompt: `Write a complete Java program with comments in main and in each method to do the following.
+  
+A city is divided into 100 neighborhoods, each with a unique name. Every three months, each neighborhood reports the prices of four houses sold; not all neighborhoods have sales to report every three months. A file contains the sales data in the format:
+
+neighborhood price price price price
+For example, Midtown 23055 10000 19000 32009 (Note: prices are in whole dollars)
+
+Design a Java class with a main method that does the following:
+1. Invokes method readData which reads the data from the input file, stores values into arrays and returns the number of records read in.
+2. Invokes method modifyData, passing an array of double as the parameter. The method modifies the value in the array based on rules specified below.
+3. Invokes method sortArrays to parallel sort the arrays of double and String. The method should be invoked only once.
+4. In main, prints to a file the neighborhood name and average of the three neighborhoods that have the highest average prices, in descending order (highest average price first), and the three neighborhoods that have the lowest average prices in ascending order (lowest average price first). The neighborhood should be left adjusted, the price right adjusted with two decimal places and the header row should be included.
+
+Method Details:
+I. readData:
+   a. Receives an array of String and array of double
+   b. Reads the neighborhood name as String and the four prices as integer from a file
+   c. Stores the neighborhood name in the array of String and the average of the 4 prices in the array of double
+   d. Returns the number of neighborhood records read in as an integer
+II. modifyData:
+   a. Receives an array of double and an integer representing the number of records read in by readData
+   b. Computes the overall average home price for all homes read in by readData (the average of the averages)
+   c. Increases the average price for each neighborhood by 10% if the average home price for that neighborhood is below the overall average home price homes sold and decreases the average price for each neighborhood by 15% if the average home price for that neighborhood is above the overall average
+III. sortArrays:
+   a. Receives the arrays of double and String and an integer representing the number of records read in by readData as parameters
+   b. Parallel sorts the arrays, only for the number of records read in by readData, with the primary sort on the array of double in descending order`,
+  explanation: "Explanation goes here.",
+  solution: `import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class Spring2021Question7 {
+
+    public static void main(String[] args) throws IOException {
+
+        final int MAX_NEIGHBORHOODS = 100;
+
+        String[] neighborhoods = new String[MAX_NEIGHBORHOODS];
+        double[] averagePrices = new double[MAX_NEIGHBORHOODS];
+
+        int numRecords = readData(neighborhoods, averagePrices);
+
+        modifyData(neighborhoods, averagePrices, numRecords);
+        sortArrays(neighborhoods, averagePrices, numRecords);
+
+        PrintWriter writer = new PrintWriter("spring_2021_output.txt");
+
+        writer.printf("%-15s%s\\n", "Neighborhood", "Avg Price");
+        for (int i = 0; i < 3; i++) {
+            writer.printf("%-15s%9.2f\\n", neighborhoods[i], averagePrices[i]);
+        }
+
+        writer.close();
+    }
+
+    public static int readData(String[] neighborhoods, double[] averagePrices) throws IOException {
+        Scanner sc = new Scanner(new File("spring_2021_input.txt"));
+        int numNeighborhoods = 0;
+
+        while (sc.hasNext()) {
+            neighborhoods[numNeighborhoods] = sc.next();
+            averagePrices[numNeighborhoods] = (sc.nextDouble() + sc.nextDouble() + sc.nextDouble() + sc.nextDouble()) / 4.0;
+            numNeighborhoods++;
+        }
+
+        sc.close();
+        return numNeighborhoods;
+    }
+
+    public static void modifyData(String[] neighborhoods, double[] averagePrices, int numRecords) {
+        double sum = 0;
+
+        for (int i = 0; i < numRecords; i++) {
+            sum += averagePrices[i];
+        }
+
+        double average = sum / numRecords;
+
+        for (int i = 0; i < numRecords; i++) {
+            if (average < averagePrices[i]) {
+                averagePrices[i] -= averagePrices[i] * .15;
+            } else if (average > averagePrices[i]) {
+                averagePrices[i] -= averagePrices[i] * .10;
+            }
+        }
+    }
+
+    public static void sortArrays(String[] neighborhoods, double[] averagePrices, int numRecords) {
+
+        for (int i = 0; i < numRecords; i++) {
+            for (int j = 0; j < numRecords; j++) {
+                if (averagePrices[j] < averagePrices[j + 1]) {
+
+                    String tempString = neighborhoods[j + 1];
+                    neighborhoods[j + 1] = neighborhoods[j];
+                    neighborhoods[j] = tempString;
+
+                    double tempDouble = averagePrices[j + 1];
+                    averagePrices[j + 1] = averagePrices[j];
+                    averagePrices[j] = tempDouble;
+                }
+            }
+        }
+    }
+}`,
+},
     ],
   },
 ];
