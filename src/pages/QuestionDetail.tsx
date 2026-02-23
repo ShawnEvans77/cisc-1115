@@ -303,11 +303,6 @@ function QuestionDetail(): React.ReactElement {
         </div>
       </div>
 
-      {/* Divider */}
-      <div className="qd-container">
-        <hr style={{ border: "none", borderTop: "1.5px solid #E8E3DC" }} />
-      </div>
-
       {/* Content */}
       <section className="qd-container" style={{ paddingTop: "3rem", paddingBottom: "8rem" }}>
 
