@@ -1,0 +1,145 @@
+/* ── Semester Card ─────────────────────────────────────────── */
+.semester-card {
+  display: block;
+  border-top: 1.5px solid #E8E3DC;
+  padding: 3.5rem 1rem;
+  text-decoration: none;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  border-radius: 4px;
+  transition: background 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.semester-card:last-child {
+  border-bottom: 1.5px solid #E8E3DC;
+}
+.semester-card:hover {
+  background-color: rgba(224, 123, 0, 0.04);
+}
+.semester-card:hover .semester-card-label {
+  color: #E07B00;
+}
+.semester-card:hover .semester-card-arrow {
+  transform: translateX(8px);
+  color: #E07B00;
+}
+
+.semester-card-grid {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.semester-card-index {
+  font-family: 'DM Mono', monospace;
+  font-size: 1rem;
+  color: #C8BFAF;
+  font-weight: 400;
+}
+
+.semester-card-label {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+  font-weight: 400;
+  color: #1A1208;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  transition: color 0.2s;
+  margin-bottom: 0.5rem;
+}
+
+.semester-card-sublabel {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A89F94;
+}
+
+.semester-card-arrow {
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s;
+  color: #C8BFAF;
+  font-size: 2.5rem;
+  font-family: 'DM Mono', monospace;
+  flex-shrink: 0;
+}
+
+/* ── Search Input ──────────────────────────────────────────── */
+.search-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #D8D0C8;
+  outline: none;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 400;
+  color: #1A1208;
+  padding: 0.75rem 0;
+  letter-spacing: -0.01em;
+  transition: border-color 0.2s;
+  caret-color: #E07B00;
+}
+.search-input::placeholder {
+  color: #C8BFAF;
+  font-style: italic;
+}
+.search-input:focus {
+  border-bottom-color: #E07B00;
+}
+
+/* ── Result Cards (search results) ────────────────────────── */
+.result-card {
+  display: block;
+  text-decoration: none;
+  border-top: 1.5px solid #E8E3DC;
+  padding: 2rem 0;
+  transition: background 0.18s;
+  border-radius: 2px;
+}
+.result-card:last-child {
+  border-bottom: 1.5px solid #E8E3DC;
+}
+.result-card:hover {
+  background-color: rgba(224, 123, 0, 0.03);
+}
+.result-card:hover .result-title {
+  color: #E07B00;
+}
+.result-card:hover .result-arrow {
+  transform: translateX(5px);
+  color: #E07B00;
+}
+.result-title {
+  transition: color 0.18s;
+}
+.result-arrow {
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.18s;
+  color: #C8BFAF;
+  font-size: 1.25rem;
+  font-family: 'DM Mono', monospace;
+  flex-shrink: 0;
+}
+.result-tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9E8A80;
+  border: 1px solid #E8E3DC;
+  padding: 0.15rem 0.55rem;
+  border-radius: 2px;
+  margin-right: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+/* ── Mobile ────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .semester-card {
+    padding: 2.5rem 1rem;
+  }
+  .semester-card-arrow {
+    font-size: 1.5rem;
+  }
+}
