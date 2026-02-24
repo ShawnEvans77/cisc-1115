@@ -4,19 +4,21 @@ export interface Answer {
   language?: string;         // e.g. "java"
 }
 
+// src/types/index.ts
+
 export interface Question {
   id: string;
-  questionNumber: number;
-  prompt: string;            // the actual question text
-  topics: string[];          // e.g. ["arrays", "loops"]
-  difficulty: "easy" | "medium" | "hard";
-  answer: Answer;
+  title: string;
+  topics: string[];
+  prompt: string;
+  mathHtml?: string;
+  explanation: string;
+  solution: string;
 }
 
 export interface Exam {
   id: string;
-  term: "Fall" | "Spring" | "Summer";
-  year: number;
-  examType: "Midterm" | "Final" | "Quiz";
+  label: string;
+  year: string;
   questions: Question[];
 }
