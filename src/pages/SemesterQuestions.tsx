@@ -2,7 +2,7 @@
 import React from "react";
 import { QuestionListPage } from "../components/QuestionListPage";
 
-function QuestionBankDetail(): React.ReactElement {
+function SemesterQuestions(): React.ReactElement {
   return (
     <QuestionListPage
       basePath="/questions"
@@ -11,4 +11,4 @@ function QuestionBankDetail(): React.ReactElement {
   );
 }
 
-export default QuestionBankDetail;
+export default SemesterQuestions;

@@ -94,7 +94,7 @@ function highlightJava(code: string): React.ReactElement[] {
   });
 }
 
-function QuestionDetail(): React.ReactElement {
+function SolutionDetail(): React.ReactElement {
   const { examId, questionId } = useParams<{ examId: string; questionId: string }>();
   const exam = exams.find((e) => e.id === examId);
   const question = exam?.questions.find((q) => q.id === questionId);
@@ -379,4 +379,4 @@ function QuestionDetail(): React.ReactElement {
   );
 }
 
-export default QuestionDetail;
+export default SolutionDetail;

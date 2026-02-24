@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { exams } from "../data/exams";
 
-function QuestionOnly(): React.ReactElement {
+function QuestionDetail(): React.ReactElement {
   const { examId, questionId } = useParams<{ examId: string; questionId: string }>();
   const exam = exams.find((e) => e.id === examId);
   const question = exam?.questions.find((q) => q.id === questionId);
@@ -191,4 +191,4 @@ function QuestionOnly(): React.ReactElement {
   );
 }
 
-export default QuestionOnly;
+export default QuestionDetail;
