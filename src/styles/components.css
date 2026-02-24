@@ -692,3 +692,206 @@
   .home-card-arrow     { font-size: 1.25rem; }
   .question-card       { padding: 1.5rem; }
 }
+
+* ─────────────────────────────────────────────────────────────────────────────
+   Detail pages — QuestionDetail & SolutionDetail
+   Append to the bottom of components.css
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Page shell ── */
+
+.detail-root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.detail-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* ── Header ── */
+
+.detail-header {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.detail-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+
+.detail-topics {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* ── Content section ── */
+
+.detail-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 8rem;
+}
+
+
+/* ── Content block (white card) ── */
+
+.content-block {
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  padding: 2.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.content-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.content-block-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin: 0;
+}
+
+.content-block-body {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--color-ink);
+  line-height: 1.9;
+  margin-bottom: 0.5rem;
+  white-space: pre-wrap;
+}
+
+
+/* ── Math display ── */
+
+.math-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem 1rem 0.25rem;
+  overflow-x: auto;
+}
+
+
+/* ── Code block ── */
+
+.code-scroll-wrapper {
+  width: 100%;
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.code-scroll-wrapper pre {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  line-height: 2;
+  color: var(--color-ink);
+  margin: 0;
+  padding: 2rem 2.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  width: 100%;
+  min-width: 0;
+}
+
+.code-line {
+  min-height: 1.5em;
+}
+
+
+/* ── Copy button ── */
+
+.copy-btn {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  background-color: var(--color-orange);
+  border: none;
+  border-radius: 3px;
+  padding: 0.65rem 1.75rem;
+  cursor: pointer;
+  transition: background-color 0.18s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.copy-btn:hover  { background-color: var(--color-orange-hover); }
+.copy-btn.copied { background-color: #6B8E6B; } /* code-green — intentional one-off */
+
+
+/* ── Solution link (orange CTA) ── */
+
+.solution-link {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  background-color: var(--color-orange);
+  border-radius: 3px;
+  padding: 0.65rem 1.75rem;
+  text-decoration: none;
+  transition: background-color 0.18s;
+  white-space: nowrap;
+}
+.solution-link:hover { background-color: var(--color-orange-hover); }
+
+
+/* ── Muted link ── */
+
+.muted-link {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-subtle);
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.muted-link:hover { color: var(--color-orange); }
+
+
+/* ── Responsive ── */
+
+@media (max-width: 640px) {
+  .content-block         { padding: 1.25rem; }
+  .code-scroll-wrapper pre {
+    font-size: 0.83rem;
+    line-height: 1.85;
+    padding: 1.25rem;
+  }
+  .copy-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
