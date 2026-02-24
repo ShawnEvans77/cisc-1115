@@ -222,7 +222,10 @@ public class Spring2021Question6 {
       id: "question-7",
       title: "question 7",
       topics: ["Binary Numbers", "Hexadecimal", "Number Systems"],
-      prompt: `tba`,
+      prompt: `Perform the following conversions. You must show how you computed your answer.
+a. 1011111 (base 2) to base 10
+b. 246 (base 10) to base 2
+c. BA (base 16) to base 2`,
       explanation: `tba`,
       solution: `tba`,
     },
