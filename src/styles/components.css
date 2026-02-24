@@ -1,540 +1,70 @@
-/* ── Semester Card ─────────────────────────────────────────── */
-.semester-card {
-  display: block;
-  border-top: 1.5px solid #E8E3DC;
-  padding: 3.5rem 1rem;
-  text-decoration: none;
-  margin-left: -1rem;
-  margin-right: -1rem;
-  border-radius: 4px;
-  transition: background 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.semester-card:last-child {
-  border-bottom: 1.5px solid #E8E3DC;
-}
-.semester-card:hover {
-  background-color: rgba(224, 123, 0, 0.04);
-}
-.semester-card:hover .semester-card-label {
-  color: #E07B00;
-}
-.semester-card:hover .semester-card-arrow {
-  transform: translateX(8px);
-  color: #E07B00;
-}
-
-.semester-card-grid {
-  display: grid;
-  grid-template-columns: 3rem 1fr auto;
-  align-items: center;
-  gap: 2.5rem;
-}
-
-.semester-card-index {
-  font-family: 'DM Mono', monospace;
-  font-size: 1rem;
-  color: #C8BFAF;
-  font-weight: 400;
-}
-
-.semester-card-label {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.5rem, 3.5vw, 2.75rem);
-  font-weight: 400;
-  color: #1A1208;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  transition: color 0.2s;
-  margin-bottom: 0.5rem;
-}
-
-.semester-card-sublabel {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #A89F94;
-}
-
-.semester-card-arrow {
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s;
-  color: #C8BFAF;
-  font-size: 2.5rem;
-  font-family: 'DM Mono', monospace;
-  flex-shrink: 0;
-}
-
-/* ── Search Input ──────────────────────────────────────────── */
-.search-input {
-  width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1.5px solid #D8D0C8;
-  outline: none;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-  font-weight: 400;
-  color: #1A1208;
-  padding: 0.75rem 0;
-  letter-spacing: -0.01em;
-  transition: border-color 0.2s;
-  caret-color: #E07B00;
-}
-.search-input::placeholder {
-  color: #C8BFAF;
-  font-style: italic;
-}
-.search-input:focus {
-  border-bottom-color: #E07B00;
-}
-
-/* ── Result Cards (search results) ────────────────────────── */
-.result-card {
-  display: block;
-  text-decoration: none;
-  border-top: 1.5px solid #E8E3DC;
-  padding: 2rem 0;
-  transition: background 0.18s;
-  border-radius: 2px;
-}
-.result-card:last-child {
-  border-bottom: 1.5px solid #E8E3DC;
-}
-.result-card:hover {
-  background-color: rgba(224, 123, 0, 0.03);
-}
-.result-card:hover .result-title {
-  color: #E07B00;
-}
-.result-card:hover .result-arrow {
-  transform: translateX(5px);
-  color: #E07B00;
-}
-.result-title {
-  transition: color 0.18s;
-}
-.result-arrow {
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.18s;
-  color: #C8BFAF;
-  font-size: 1.25rem;
-  font-family: 'DM Mono', monospace;
-  flex-shrink: 0;
-}
-.result-tag {
-  display: inline-block;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #9E8A80;
-  border: 1px solid #E8E3DC;
-  padding: 0.15rem 0.55rem;
-  border-radius: 2px;
-  margin-right: 0.35rem;
-  margin-top: 0.4rem;
-}
-
-/* ── Mobile ────────────────────────────────────────────────── */
-@media (max-width: 640px) {
-  .semester-card {
-    padding: 2.5rem 1rem;
-  }
-  .semester-card-arrow {
-    font-size: 1.5rem;
-  }
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   src/styles/components.css
-   Paste the :root block at the very top of your existing components.css,
-   then append the remaining sections at the bottom.
-   ───────────────────────────────────────────────────────────────────────────── */
-
-/* ── Design tokens (mirrors src/styles/theme.ts) ── */
+/* ─────────────────────────────────────────────────────────────
+   Design Tokens (matches original inline values exactly)
+   ───────────────────────────────────────────────────────────── */
 
 :root {
-  /* colors */
   --color-orange:        #E07B00;
   --color-orange-hover:  #C96E00;
-  --color-orange-light:  #FFF3E0;
   --color-white:         #FFFFFF;
   --color-off-white:     #FAFAF8;
-  --color-surface:       #F5F4F0;
+  --color-surface:       #F5F2EE;
   --color-ink:           #1A1208;
   --color-muted:         #6B6355;
   --color-subtle:        #A89F94;
   --color-border:        #E8E3DC;
   --color-border-strong: #C8BFAF;
-  --color-syrup:         #C8813A;
-  --color-cream:         #FFF8EE;
-  --color-forest:        #4A6741;
 
-  /* fonts */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Playfair Display', serif;
+  --font-body:    'Lora', serif;
   --font-mono:    'DM Mono', monospace;
 }
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Existing classes (unchanged — kept here for reference)
-   ───────────────────────────────────────────────────────────────────────────── */
-
-/* .semester-card, .semester-card-grid, .semester-card-index,
-   .semester-card-label, .semester-card-sublabel, .semester-card-arrow
-   .search-input
-   .result-card, .result-title, .result-arrow, .result-tag              */
-
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Animations
-   ───────────────────────────────────────────────────────────────────────────── */
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.fade-up {
-  opacity: 0;
-  animation: fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.delay-1 { animation-delay: 0.05s; }
-.delay-2 { animation-delay: 0.18s; }
-.delay-3 { animation-delay: 0.30s; }
-.delay-4 { animation-delay: 0.44s; }
-.delay-5 { animation-delay: 0.56s; }
-
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Home — root
-   ───────────────────────────────────────────────────────────────────────────── */
-
-.home-root {
-  font-family: var(--font-body);
-  background-color: var(--color-off-white);
-  min-height: 100vh;
-}
-
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Home — hero
-   ───────────────────────────────────────────────────────────────────────────── */
-
-.hero-section {
-  position: relative;
-  min-height: 88vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.hero-grid-bg {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(92, 61, 46, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(92, 61, 46, 0.07) 1px, transparent 1px);
-  background-size: 64px 64px;
-  pointer-events: none;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
-}
-
-/* height is set via inline style (dynamic loaded state) — position via data attr */
-.hero-line {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  background-color: var(--color-orange);
-  opacity: 0.5;
-  transition: height 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
-}
-.hero-line[data-position="top"]    { top: 0; }
-.hero-line[data-position="bottom"] { bottom: 0; }
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 3.5rem 2.5rem 4rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-orange);
-  margin-bottom: 2rem;
-}
-
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 18vw, 13rem);
-  font-weight: 700;
-  line-height: 0.88;
-  letter-spacing: -0.02em;
-  color: var(--color-ink);
-  margin-bottom: 5rem;
-}
-
-.hero-title-accent {
-  color: var(--color-orange);
-}
-
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Home — CTA buttons
-   ───────────────────────────────────────────────────────────────────────────── */
-
-.cta-group {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* --cta-bg is set per-instance as a CSS custom property via inline style */
-.cta-btn {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 500;
-  padding: 0.9rem 2.2rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  white-space: nowrap;
-  color: var(--color-white);
-  background-color: var(--cta-bg);
-  transition: filter 0.18s;
-}
-.cta-btn:hover {
-  filter: brightness(0.85);
-}
-
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Home — divider
-   ───────────────────────────────────────────────────────────────────────────── */
-
-.home-divider-wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 2.5rem;
-}
-
-.home-divider {
-  border: none;
-  border-top: 1.5px solid var(--color-border);
-}
-
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Home — sections list
-   ───────────────────────────────────────────────────────────────────────────── */
-
-.home-sections-wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 5rem 2.5rem 8rem;
-  position: relative;
-  z-index: 1;
-}
-
-.home-sections-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-subtle);
-  margin-bottom: 3rem;
-}
-
-.home-card-link {
-  display: block;
-  border-top: 1.5px solid var(--color-border);
-  padding: 3.5rem 1rem;
-  text-decoration: none;
-  margin-left: -1rem;
-  margin-right: -1rem;
-  border-radius: 4px;
-  transition: background 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.home-card-link:last-child {
-  border-bottom: 1.5px solid var(--color-border);
-}
-.home-card-link:hover {
-  background-color: rgba(224, 123, 0, 0.04);
-}
-.home-card-link:hover .home-card-arrow {
-  transform: translateX(6px);
-  color: var(--color-orange);
-}
-.home-card-link:hover .home-card-label {
-  color: var(--color-orange);
-}
-
-.home-card-grid {
-  display: grid;
-  grid-template-columns: 3rem 1fr auto;
-  align-items: center;
-  gap: 2.5rem;
-}
-
-.home-card-index {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--color-border-strong);
-}
-
-.home-card-label {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 3.5rem);
-  font-weight: 700;
-  color: var(--color-ink);
-  margin-bottom: 0.6rem;
-  transition: color 0.2s;
-}
-
-.home-card-desc {
-  font-family: var(--font-body);
-  font-size: clamp(0.9rem, 2vw, 1.05rem);
-  color: var(--color-muted);
-  line-height: 1.7;
-  max-width: 580px;
-}
-
-.home-card-arrow {
-  font-family: var(--font-mono);
-  font-size: 2rem;
-  color: var(--color-subtle);
-  flex-shrink: 0;
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s;
-}
-
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Responsive
-   ───────────────────────────────────────────────────────────────────────────── */
-
-@media (max-width: 640px) {
-  .cta-group          { flex-direction: column; align-items: stretch; }
-  .cta-btn            { text-align: center; padding: 1rem 1.5rem; }
-  .home-card-link     { padding: 2rem 1rem; }
-  .home-card-grid     { grid-template-columns: 2rem 1fr auto; gap: 1rem; }
-  .home-card-arrow    { font-size: 1.25rem; }
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Shared page layout
-   Used by: Solutions, Questions, Exams, Notes, and any future list pages
-   ───────────────────────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   Root Layout (matches inline root div)
+   ───────────────────────────────────────────────────────────── */
 
 .page-root {
   font-family: var(--font-body);
   background-color: var(--color-off-white);
   min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
-.page-header {
-  max-width: 1100px;
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   Container (matches .qd-container)
+   ───────────────────────────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 5rem 2.5rem 3rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
-.page-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-orange);
-  margin-bottom: 1.25rem;
-}
 
-.page-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 700;
-  color: var(--color-ink);
-  letter-spacing: -0.02em;
-  line-height: 1;
-  margin-bottom: 0.75rem;
-}
-
-.page-subtitle {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--color-subtle);
-  margin-bottom: 3rem;
-}
-
-.page-section {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2rem 2.5rem 8rem;
-}
-
-.search-result-count {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-subtle);
-  margin-top: 1rem;
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Empty state
-   Used by: Exams, and any future filtered list with no results
-   ───────────────────────────────────────────────────────────────────────────── */
-
-.empty-state {
-  padding-top: 4rem;
-  text-align: center;
-}
-
-.empty-state-text {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-style: italic;
-  color: var(--color-border-strong);
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
+/* ─────────────────────────────────────────────────────────────
    Breadcrumb
-   ───────────────────────────────────────────────────────────────────────────── */
+   ───────────────────────────────────────────────────────────── */
 
 .breadcrumb-wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 3rem 2.5rem 0;
+  padding-top: 3rem;
 }
 
 .breadcrumb {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.breadcrumb-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .breadcrumb-link {
@@ -546,6 +76,7 @@
   text-decoration: none;
   transition: color 0.18s;
 }
+
 .breadcrumb-link:hover {
   color: var(--color-orange);
 }
@@ -565,81 +96,38 @@
 }
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Question card
-   ───────────────────────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   Page Header
+   ───────────────────────────────────────────────────────────── */
 
-.question-card {
-  display: block;
-  text-decoration: none;
-  background-color: var(--color-white);
-  border: 1.5px solid var(--color-border);
-  padding: 2rem 2.5rem;
-  margin-bottom: 1rem;
-  border-radius: 4px;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-}
-.question-card:hover {
-  border-color: var(--color-orange);
-  box-shadow: 0 4px 24px rgba(224, 123, 0, 0.08);
-  transform: translateY(-2px);
-}
-.question-card:hover .q-title  { color: var(--color-orange); }
-.question-card:hover .q-arrow  { transform: translateX(6px); color: var(--color-orange); }
-
-.question-card-grid {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 2rem;
+.page-header {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
 }
 
-.question-card-badge {
+.page-eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-white);
-  background-color: var(--color-orange);
-  padding: 0.3rem 0.75rem;
-  border-radius: 2px;
-  flex-shrink: 0;
-  align-self: start;
-  margin-top: 0.25rem;
+  color: var(--color-orange);
+  margin-bottom: 1rem;
 }
 
-.question-card-title {
+.page-title {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
   color: var(--color-ink);
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  margin: 0;
-  transition: color 0.2s;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
 }
 
-.question-card-topics {
-  display: flex;
-  flex-wrap: wrap;
-}
 
-.question-card-snippet {
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  font-style: italic;
-  color: var(--color-subtle);
-  margin-top: 0.6rem;
-  line-height: 1.6;
-}
-
-.q-arrow {
-  font-family: var(--font-mono);
-  font-size: 1.5rem;
-  color: var(--color-border-strong);
-  flex-shrink: 0;
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s;
-}
+/* ─────────────────────────────────────────────────────────────
+   Topic Tag (EXACT match to old inline)
+   ───────────────────────────────────────────────────────────── */
 
 .topic-tag {
   display: inline-block;
@@ -647,22 +135,155 @@
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-subtle);
-  border: 1px solid var(--color-border);
+  color: #9E8A80;
+  border: 1.5px solid var(--color-border);
   padding: 0.2rem 0.6rem;
-  border-radius: 2px;
+  border-radius: 4px;
   margin-right: 0.4rem;
-  margin-top: 0.6rem;
+  margin-top: 0.3rem;
 }
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Detail page layout extras
-   ───────────────────────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   Section Wrapper
+   ───────────────────────────────────────────────────────────── */
 
-.page-section--detail {
+.page-section {
   padding-top: 3rem;
+  padding-bottom: 8rem;
 }
+
+
+/* ─────────────────────────────────────────────────────────────
+   Solution Block (EXACT old numbers)
+   ───────────────────────────────────────────────────────────── */
+
+.solution-block {
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  padding: 2.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   Section Label (The Question / Explanation / Solution)
+   ───────────────────────────────────────────────────────────── */
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin-bottom: 1.25rem;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   Paragraph (Question + Explanation)
+   ───────────────────────────────────────────────────────────── */
+
+.body-paragraph {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--color-ink);
+  line-height: 1.9;
+  margin-bottom: 0.5rem;
+  white-space: pre-wrap;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   Math Display
+   ───────────────────────────────────────────────────────────── */
+
+.math-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem 1rem 0.25rem 1rem;
+  overflow-x: auto;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   Solution Header
+   ───────────────────────────────────────────────────────────── */
+
+.solution-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   Copy Button (EXACT old numbers)
+   ───────────────────────────────────────────────────────────── */
+
+.copy-btn {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  background-color: var(--color-orange);
+  border: none;
+  border-radius: 3px;
+  padding: 0.65rem 1.75rem;
+  cursor: pointer;
+  transition: background-color 0.18s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.copy-btn:hover {
+  background-color: var(--color-orange-hover);
+}
+
+.copy-btn.copied {
+  background-color: #6B8E6B;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   Code Block Wrapper
+   ───────────────────────────────────────────────────────────── */
+
+.code-scroll-wrapper {
+  width: 100%;
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.code-scroll-wrapper pre {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  line-height: 2;
+  color: var(--color-ink);
+  margin: 0;
+  padding: 2rem 2.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   Bottom Navigation
+   ───────────────────────────────────────────────────────────── */
 
 .detail-bottom-nav {
   display: flex;
@@ -671,6 +292,8 @@
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1.5px solid var(--color-border);
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .back-link {
@@ -682,38 +305,44 @@
   text-decoration: none;
   transition: opacity 0.18s;
 }
+
 .back-link:hover {
   opacity: 0.7;
 }
 
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   404 / not-found state
-   ───────────────────────────────────────────────────────────────────────────── */
-
-.not-found-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.muted-link {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-subtle);
+  text-decoration: none;
+  transition: color 0.18s;
 }
 
-.not-found-content {
-  text-align: center;
-}
-
-.not-found-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  color: var(--color-ink);
-  margin-bottom: 1.5rem;
+.muted-link:hover {
+  color: var(--color-orange);
 }
 
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Responsive
-   ───────────────────────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   Mobile (EXACT old breakpoints & values)
+   ───────────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
-  .question-card { padding: 1.25rem; }
+
+  .solution-block {
+    padding: 1.25rem;
+  }
+
+  .code-scroll-wrapper pre {
+    font-size: 0.83rem;
+    line-height: 1.85;
+    padding: 1.25rem;
+  }
+
+  .copy-btn {
+    width: 100%;
+    text-align: center;
+  }
 }
