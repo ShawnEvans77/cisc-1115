@@ -1,40 +1,28 @@
+// src/pages/Home.tsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { colors } from "../styles/theme";
+
+// ── Data ──────────────────────────────────────────────────────────────────────
 
 const sections = [
-  {
-    label: "exams",
-    path: "/exams",
-    description: "raw exams from previous semesters",
-    index: "01",
-  },
-  {
-    label: "questions",
-    path: "/questions",
-    description: "past exam questions",
-    index: "02",
-  },
-  {
-    label: "solutions",
-    path: "/solutions",
-    description: "past exam questions with fully commented, step-by-step solutions",
-    index: "03",
-  },
-  {
-    label: "notes",
-    path: "/notes",
-    description: "examples of important algorithims & other things",
-    index: "04",
-  },
-  {
-    label: "contact",
-    path: "/contact",
-    description: "get in touch with me",
-    index: "05",
-  },
+  { index: "01", label: "exams",     path: "/exams",     description: "raw exams from previous semesters" },
+  { index: "02", label: "questions", path: "/questions", description: "past exam questions" },
+  { index: "03", label: "solutions", path: "/solutions", description: "past exam questions with fully commented, step-by-step solutions" },
+  { index: "04", label: "notes",     path: "/notes",     description: "examples of important algorithms & other things" },
+  { index: "05", label: "contact",   path: "/contact",   description: "get in touch with me" },
 ];
 
-function Home() {
+const ctaButtons = [
+  { label: "exams",     path: "/exams",     color: colors.syrup  },
+  { label: "questions", path: "/questions", color: colors.forest  },
+  { label: "solutions", path: "/solutions", color: colors.orange  },
+  { label: "notes",     path: "/notes",     color: colors.subtle  },
+];
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+function HeroLine({ position }: { position: "top" | "bottom" }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -43,298 +31,84 @@ function Home() {
   }, []);
 
   return (
-    <div style={{ fontFamily: "'Lora', serif", backgroundColor: "#FAFAF8", minHeight: "100vh" }}>
-      <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(28px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .fade-up {
-          opacity: 0;
-          animation: fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        .delay-1 { animation-delay: 0.05s; }
-        .delay-2 { animation-delay: 0.18s; }
-        .delay-3 { animation-delay: 0.30s; }
-        .delay-4 { animation-delay: 0.44s; }
-        .delay-5 { animation-delay: 0.56s; }
+    <div
+      className="hero-line"
+      data-position={position}
+      style={{ height: loaded ? "48px" : "0" }}
+    />
+  );
+}
 
-        .cta-group {
-          display: flex;
-          gap: 1rem;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-        .cta-btn {
-          display: inline-block;
-          font-family: 'DM Mono', monospace;
-          font-weight: 500;
-          font-size: 0.8rem;
-          padding: 0.9rem 2.2rem;
-          text-decoration: none;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          transition: background 0.18s, color 0.18s, border-color 0.18s;
-          white-space: nowrap;
-        }
-        .card-link {
-          display: block;
-          border-top: 1.5px solid #E8E3DC;
-          padding: 3.5rem 1rem;
-          cursor: pointer;
-          text-decoration: none;
-          margin-left: -1rem;
-          margin-right: -1rem;
-          border-radius: 4px;
-          transition: background 0.22s cubic-bezier(0.22,1,0.36,1);
-        }
-        .card-link:last-child { border-bottom: 1.5px solid #E8E3DC; }
-        .card-link:hover { background-color: rgba(224,123,0,0.04); }
-        .card-link:hover .card-arrow { transform: translateX(6px); color: #E07B00; }
-        .card-link:hover .card-label { color: #E07B00; }
-        .card-arrow {
-          transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), color 0.2s;
-          color: #A89F94;
-          font-size: 2rem;
-          font-family: 'DM Mono', monospace;
-          flex-shrink: 0;
-        }
-        .card-grid {
-          display: grid;
-          grid-template-columns: 3rem 1fr auto;
-          align-items: center;
-          gap: 2.5rem;
-        }
+function CtaButton({ label, path, color }: { label: string; path: string; color: string }) {
+  return (
+    <Link
+      to={path}
+      className="cta-btn"
+      style={{ "--cta-bg": color } as React.CSSProperties}
+    >
+      {label}
+    </Link>
+  );
+}
 
-        @media (max-width: 640px) {
-          .cta-group { flex-direction: column; align-items: stretch; }
-          .cta-btn { text-align: center; padding: 1rem 1.5rem; }
-          .card-link { padding: 2rem 1rem; }
-          .card-grid { grid-template-columns: 2rem 1fr auto; gap: 1rem; }
-          .card-arrow { font-size: 1.25rem; }
-        }
-      `}</style>
+function SectionRow({ index, label, description, path }: typeof sections[0]) {
+  return (
+    <Link to={path} className="home-card-link">
+      <div className="home-card-grid">
+        <span className="home-card-index">{index}</span>
+        <div>
+          <h2 className="home-card-label">{label}</h2>
+          <p className="home-card-desc">{description}</p>
+        </div>
+        <span className="home-card-arrow">→</span>
+      </div>
+    </Link>
+  );
+}
 
-      {/* ── Hero ── */}
-      <section
-        style={{
-          position: "relative",
-          minHeight: "88vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          overflow: "hidden",
-        }}
-      >
-        {/* Grid background */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "linear-gradient(rgba(92,61,46,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(92,61,46,0.07) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-            pointerEvents: "none",
-            maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)",
-          }}
-        />
+// ── Page ──────────────────────────────────────────────────────────────────────
 
-        {/* Vertical line — top */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "1px",
-            height: loaded ? "48px" : "0",
-            backgroundColor: "#E07B00",
-            opacity: 0.5,
-            transition: "height 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s",
-          }}
-        />
+function Home() {
+  return (
+    <div className="home-root">
 
-        {/* Vertical line — bottom */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "1px",
-            height: loaded ? "48px" : "0",
-            backgroundColor: "#E07B00",
-            opacity: 0.5,
-            transition: "height 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s",
-          }}
-        />
+      <section className="hero-section">
+        <div className="hero-grid-bg" />
+        <HeroLine position="top" />
+        <HeroLine position="bottom" />
 
-        {/* Hero content */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 1,
-            maxWidth: "1100px",
-            width: "100%",
-            margin: "0 auto",
-            padding: "3.5rem 2.5rem 4rem",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <p
-            className="fade-up delay-1"
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "0.75rem",
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#E07B00",
-              marginBottom: "2rem",
-            }}
-          >
+        <div className="hero-content">
+          <p className="fade-up delay-1 hero-eyebrow">
             Brooklyn College &nbsp;·&nbsp; Computer Science
           </p>
 
-          <h1
-            className="fade-up delay-2"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(4rem, 18vw, 13rem)",
-              fontWeight: 700,
-              lineHeight: 0.88,
-              letterSpacing: "-0.02em",
-              color: "#1A1208",
-              marginBottom: "5rem",
-            }}
-          >
-            cisc
-            <br />
-            <span style={{ color: "#E07B00" }}>1115</span>
+          <h1 className="fade-up delay-2 hero-title">
+            cisc<br />
+            <span className="hero-title-accent">1115</span>
           </h1>
 
           <div className="fade-up delay-3 cta-group">
-            <Link
-              to="/exams"
-              className="cta-btn"
-              style={{ backgroundColor: "#d57b4e", color: "#FFFFFF" }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#3A7A9E")}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#4A90B8")}
-            >
-              exams
-            </Link>
-            <Link
-              to="/questions"
-              className="cta-btn"
-              style={{ backgroundColor: "#4A6741", color: "#FFFFFF" }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#3A5233")}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#4A6741")}
-            >
-              questions
-            </Link>
-            <Link
-              to="/solutions"
-              className="cta-btn"
-              style={{ backgroundColor: "#E07B00", color: "#FFFFFF" }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#C96E00")}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#E07B00")}
-            >
-              solutions
-            </Link>
-            <Link
-              to="/notes"
-              className="cta-btn"
-              style={{ backgroundColor: "#9E8A80", color: "#FFFFFF" }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#8A7570")}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#9E8A80")}
-            >
-              notes
-            </Link>
+            {ctaButtons.map((btn) => (
+              <CtaButton key={btn.path} {...btn} />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── Divider ── */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2.5rem" }}>
-        <hr style={{ border: "none", borderTop: "1.5px solid #E8E3DC" }} />
+      <div className="home-divider-wrap">
+        <hr className="home-divider" />
       </div>
 
-      {/* ── What's inside ── */}
-      <section
-        style={{
-          maxWidth: "1100px",
-          margin: "0 auto",
-          padding: "5rem 2.5rem 8rem",
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
-        <p
-          className="fade-up delay-4"
-          style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: "0.72rem",
-            fontWeight: 500,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "#A89F94",
-            marginBottom: "3rem",
-          }}
-        >
-          What's inside
-        </p>
+      <section className="home-sections-wrap">
+        <p className="fade-up delay-4 home-sections-eyebrow">What's inside</p>
 
         <div className="fade-up delay-5">
           {sections.map((s) => (
-            <Link key={s.path} to={s.path} className="card-link">
-              <div className="card-grid">
-                <span
-                  style={{
-                    fontFamily: "'DM Mono', monospace",
-                    fontSize: "1rem",
-                    color: "#C8BFAF",
-                    fontWeight: 400,
-                  }}
-                >
-                  {s.index}
-                </span>
-                <div>
-                  <h2
-                    className="card-label"
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "clamp(1.5rem, 4vw, 3.5rem)",
-                      fontWeight: 700,
-                      color: "#1A1208",
-                      marginBottom: "0.6rem",
-                      transition: "color 0.2s",
-                    }}
-                  >
-                    {s.label}
-                  </h2>
-                  <p
-                    style={{
-                      fontFamily: "'Lora', serif",
-                      fontSize: "clamp(0.9rem, 2vw, 1.05rem)",
-                      color: "#6B6355",
-                      lineHeight: 1.7,
-                      maxWidth: "580px",
-                    }}
-                  >
-                    {s.description}
-                  </p>
-                </div>
-                <span className="card-arrow">→</span>
-              </div>
-            </Link>
+            <SectionRow key={s.path} {...s} />
           ))}
         </div>
       </section>
+
     </div>
   );
 }
