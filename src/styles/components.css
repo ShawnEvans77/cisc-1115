@@ -715,5 +715,5 @@
    ───────────────────────────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
-  .question-card { padding: 1.25rem; }
+  .question-card { padding: 1.5rem; }
 }
