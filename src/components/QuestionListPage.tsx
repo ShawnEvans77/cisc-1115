@@ -42,7 +42,7 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
 
   // ── Page ─────────────────────────────────────────────────────────────────────
 
-  const parentLabel = basePath.slice(1); // "solutions" | "questions"
+  const parentLabel = basePath.slice(1);
   const showResults = query.trim().length > 0;
   const resultLabel = filteredQuestions.length === 0
     ? "no results"
@@ -56,7 +56,7 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
         { label: exam.label },
       ]} />
 
-      <div className="page-header">
+      <div className="page-header page-header--detail">
         <p className="page-eyebrow">Brooklyn College &nbsp;·&nbsp; CISC 1115</p>
         <h1 className="page-title">{exam.label}</h1>
         <p className="page-subtitle">{subtitle}</p>
