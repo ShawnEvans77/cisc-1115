@@ -18,7 +18,24 @@ function getInitialTheme(): Theme {
   return "light";
 }
 
+function applyThemeInstant(theme: Theme) {
+  // Used on initial load — no animation
+  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.style.colorScheme = theme;
+  let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.name = "theme-color";
+    document.head.appendChild(meta);
+  }
+  meta.content = THEME_COLORS[theme];
+}
+
 function applyTheme(theme: Theme) {
+  // Add class so transition CSS fires — remove it after transition completes
+  document.body.classList.add("theme-switching");
+  setTimeout(() => document.body.classList.remove("theme-switching"), 300);
+
   document.documentElement.setAttribute("data-theme", theme);
   document.documentElement.style.colorScheme = theme;
 
@@ -35,7 +52,7 @@ function applyTheme(theme: Theme) {
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
     const initial = getInitialTheme();
-    applyTheme(initial);
+    applyThemeInstant(initial);
     return initial;
   });
 

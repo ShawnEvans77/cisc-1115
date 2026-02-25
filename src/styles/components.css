@@ -58,12 +58,15 @@
   --color-navbar-dark:   #0F0D0B;
 }
 
-/* Smooth theme transitions — colors only, not layout */
-*, *::before, *::after {
+/* Smooth theme transitions — only fires during active switch, not on every render */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
   transition:
-    background-color 0.28s ease,
-    border-color     0.28s ease,
-    color            0.28s ease;
+    background-color 0.22s ease,
+    border-color     0.22s ease,
+    color            0.22s ease !important;
 }
 
 /* ── Dark mode overrides that can't be handled by variables alone ── */
