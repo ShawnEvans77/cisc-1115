@@ -7,7 +7,7 @@ function Footer() {
       <span className="footer-logo">cisc 1115</span>
 
       <p className="footer-tagline">
-        a study resource for Brooklyn College CISC 1115 students
+        a study resource for brooklyn college cisc 1115 students
       </p>
 
       <Link to="/contact" className="footer-contribute">
