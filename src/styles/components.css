@@ -32,10 +32,10 @@
   --color-orange-hover:  #CF7410;
   --color-orange-light:  rgba(232, 134, 26, 0.1);
 
-  /* Backgrounds — warm dark brown-blacks, NOT cold */
-  --color-white:         #1C1814;
-  --color-off-white:     #100E0B;
-  --color-surface:       #191511;
+  /* Backgrounds — deep warm blacks, matching portfolio #0d0c0b */
+  --color-white:         #161210;
+  --color-off-white:     #0D0B09;
+  --color-surface:       #131109;
 
   /* Text — warm cream, not harsh white */
   --color-ink:           #EDE5D8;
@@ -52,7 +52,7 @@
   --color-forest:        #5F8A55;
 
   /* Dark-mode-only extras */
-  --color-navbar-dark:   #14120F;
+  --color-navbar-dark:   #0F0D0B;
 }
 
 /* Smooth theme transitions — colors only, not layout */
@@ -121,6 +121,95 @@
 /* Scrollbar */
 [data-theme="dark"] ::-webkit-scrollbar-track { background: var(--color-off-white); }
 [data-theme="dark"] ::-webkit-scrollbar-thumb { background: var(--color-border-strong); }
+
+/* Eyebrow text — "Brooklyn College · Computer Science" → warm cream in dark */
+[data-theme="dark"] .hero-eyebrow,
+[data-theme="dark"] .page-eyebrow { color: rgba(237, 229, 216, 0.65); }
+
+/* CTA buttons — portfolio-style: bordered, transparent, cream text on dark */
+[data-theme="dark"] .cta-btn {
+  background-color: transparent !important;
+  color: var(--color-ink) !important;
+  border: 1px solid var(--color-border-strong) !important;
+}
+[data-theme="dark"] .cta-btn:hover {
+  background-color: rgba(237, 229, 216, 0.08) !important;
+  border-color: var(--color-ink) !important;
+}
+
+/* Semester / home cards in dark */
+[data-theme="dark"] .home-card-link:hover,
+[data-theme="dark"] .semester-card:hover {
+  background-color: rgba(232, 134, 26, 0.04) !important;
+}
+
+/* Hero "1115" accent — goes cream in dark (orange clashes on near-black) */
+[data-theme="dark"] .hero-title-accent {
+  color: var(--color-ink);
+  opacity: 0.88;
+}
+
+/* Solution link (VIEW SOLUTION button) — bordered transparent like CTA buttons */
+[data-theme="dark"] .solution-link {
+  background-color: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-border-strong);
+}
+[data-theme="dark"] .solution-link:hover {
+  background-color: rgba(237, 229, 216, 0.07);
+  border-color: var(--color-ink);
+}
+
+/* Copy button — same treatment */
+[data-theme="dark"] .copy-btn {
+  background-color: transparent;
+  color: var(--color-orange);
+  border: 1px solid var(--color-orange);
+}
+[data-theme="dark"] .copy-btn:hover {
+  background-color: rgba(232, 134, 26, 0.1);
+}
+[data-theme="dark"] .copy-btn.copied {
+  background-color: transparent;
+  color: #6B9E6B;
+  border-color: #6B9E6B;
+}
+
+/* Content blocks — go deeper than the page bg for contrast */
+[data-theme="dark"] .content-block {
+  background-color: #111009;
+  border-color: var(--color-border);
+}
+
+/* "THE QUESTION" / "THE EXPLANATION" label — drop orange, go muted cream */
+[data-theme="dark"] .content-block-label {
+  color: rgba(237, 229, 216, 0.35);
+}
+
+/* Footer logo + back links — cream white in dark */
+[data-theme="dark"] .footer-logo { color: var(--color-ink); }
+[data-theme="dark"] .back-link   { color: var(--color-ink); }
+[data-theme="dark"] .back-link:hover { opacity: 0.6; }
+
+/* Code block inside content — even deeper */
+[data-theme="dark"] .code-scroll-wrapper {
+  background-color: #111009;
+  border-color: var(--color-border);
+}
+
+/* Question cards — richer dark surface */
+[data-theme="dark"] .question-card {
+  background-color: #111009;
+  border-color: var(--color-border);
+}
+[data-theme="dark"] .question-card:hover {
+  border-color: var(--color-orange);
+  box-shadow: 0 4px 24px rgba(232, 134, 26, 0.08);
+}
+[data-theme="dark"] .question-card-badge {
+  background-color: rgba(232, 134, 26, 0.15);
+  color: var(--color-orange);
+}
 
 
 /* ─────────────────────────────────────────────────────────────────────────────

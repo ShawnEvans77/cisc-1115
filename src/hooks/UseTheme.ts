@@ -1,31 +1,34 @@
 // src/hooks/useTheme.ts
-// ─────────────────────────────────────────────────────────────────────────────
-// Manages light/dark theme.
-// Priority: localStorage → system prefers-color-scheme → light
-// Applies [data-theme="light"|"dark"] to <html> so CSS variables cascade site-wide.
-// ─────────────────────────────────────────────────────────────────────────────
-
 import { useState, useEffect } from "react";
 
 type Theme = "light" | "dark";
 
 const STORAGE_KEY = "maple-theme";
+const THEME_COLORS = {
+  light: "#E07B00",  // orange navbar
+  dark:  "#0F0D0B",  // deep warm black
+};
 
 function getInitialTheme(): Theme {
-  // 1. Stored preference
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === "light" || stored === "dark") return stored;
   } catch {}
-
-  // 2. System preference
   if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
-
   return "light";
 }
 
 function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
+
+  // Mobile browser chrome color (address bar, bottom bar on iOS/Android)
+  let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.name = "theme-color";
+    document.head.appendChild(meta);
+  }
+  meta.content = THEME_COLORS[theme];
 }
 
 export function useTheme() {
@@ -35,14 +38,12 @@ export function useTheme() {
     return initial;
   });
 
-  // Keep <html data-theme> in sync whenever theme changes
   useEffect(() => {
     applyTheme(theme);
     try { localStorage.setItem(STORAGE_KEY, theme); } catch {}
   }, [theme]);
 
-  // Also listen for system preference changes (e.g. user changes OS setting
-  // while the tab is open) — only applies if user has no stored preference
+  // Sync with OS-level changes when no stored preference
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const handler = (e: MediaQueryListEvent) => {
