@@ -1,24 +1,18 @@
-export interface Answer {
-  explanation: string;       // full commented explanation
-  code?: string;             // optional code snippet
-  language?: string;         // e.g. "java"
-}
-
 // src/types/index.ts
 
 export interface Question {
-  id: string;
-  title: string;
-  topics: string[];
-  prompt: string;
-  mathHtml?: string;
+  id:          string;
+  title:       string;
+  topics:      string[];
+  prompt:      string;
+  mathLatex?:  string;   // LaTeX string, rendered by <MathDisplay>
   explanation: string;
-  solution: string;
+  solution:    string;
 }
 
 export interface Exam {
-  id: string;
-  label: string;
-  year: string;
+  id:        string;
+  label:     string;
+  year:      string;
   questions: Question[];
 }

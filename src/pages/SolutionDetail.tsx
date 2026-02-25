@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { exams } from "../data/exams";
 import { QuestionPageLayout, QuestionNotFound } from "../components/QuestionPageLayout";
-import { ContentBlock, PromptLines } from "../components/ContentBlock";
+import { ContentBlock, PromptLines, QuestionMath } from "../components/ContentBlock";
 import { highlightJava } from "../utils/highlightJava";
 
 function SolutionDetail(): React.ReactElement {
@@ -41,9 +41,7 @@ function SolutionDetail(): React.ReactElement {
     >
       <ContentBlock label="The Question">
         <PromptLines text={question.prompt} />
-        {question.mathHtml && (
-          <div className="math-display" dangerouslySetInnerHTML={{ __html: question.mathHtml }} />
-        )}
+        {question.mathLatex && <QuestionMath latex={question.mathLatex} />}
       </ContentBlock>
 
       <ContentBlock label="Explanation">

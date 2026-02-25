@@ -1,10 +1,11 @@
 // src/components/ContentBlock.tsx
 import React from "react";
+import { MathDisplay } from "./MathDisplay";
 
 interface ContentBlockProps {
-  label: string;
-  children: React.ReactNode;
-  headerSlot?: React.ReactNode; // optional right-side slot (e.g. copy button)
+  label:       string;
+  children:    React.ReactNode;
+  headerSlot?: React.ReactNode;
 }
 
 export function ContentBlock({ label, children, headerSlot }: ContentBlockProps) {
@@ -19,7 +20,7 @@ export function ContentBlock({ label, children, headerSlot }: ContentBlockProps)
   );
 }
 
-// Renders newline-delimited text (prompt / explanation bodies)
+// Renders newline-delimited prompt / explanation text
 export function PromptLines({ text }: { text: string }) {
   return (
     <>
@@ -30,4 +31,9 @@ export function PromptLines({ text }: { text: string }) {
       )}
     </>
   );
+}
+
+// Renders a LaTeX equation block — replaces the old mathHtml dangerouslySetInnerHTML approach
+export function QuestionMath({ latex }: { latex: string }) {
+  return <MathDisplay latex={latex} block />;
 }

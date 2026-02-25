@@ -150,8 +150,74 @@
   color: var(--color-orange);
 }
 
+.result-card-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 2rem;
+}
+
+.result-card-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-subtle);
+  margin-bottom: 0.4rem;
+}
+
+.result-card-eyebrow--orange {
+  color: var(--color-orange);
+}
+
 .result-title {
   transition: color 0.18s;
+}
+
+.result-title--semester {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.result-title--question {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.result-card-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-subtle);
+  margin-top: 0.5rem;
+}
+
+.result-card-tags {
+  margin-top: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* Prompt snippet — shown underneath tags when prompt also matches */
+.result-card-snippet {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--color-subtle);
+  margin-top: 0.6rem;
+  line-height: 1.6;
 }
 
 .result-arrow {
@@ -172,8 +238,6 @@
   border: 1px solid var(--color-border);
   padding: 0.15rem 0.55rem;
   border-radius: 2px;
-  margin-right: 0.35rem;
-  margin-top: 0.4rem;
 }
 
 
@@ -761,6 +825,7 @@
   align-items: center;
   padding: 1.25rem 1rem 0.25rem;
   overflow-x: auto;
+  font-size: 1.5rem;
 }
 
 

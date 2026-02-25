@@ -157,28 +157,7 @@ c. 1000001
       title: "question 5b",
       topics: ["Equations", "Math Methods"],
       prompt: `Write a Java expression that would compute the following:`,
-      mathHtml: `
-        <div style="display:flex;justify-content:center;align-items:center;padding:2.5rem 1rem">
-          <div style="display:inline-flex;flex-direction:column;align-items:center;gap:0px">
-            <div style="display:flex;align-items:center;gap:0.5rem;padding-bottom:0.5rem;border-bottom:2.5px solid #1A1208;font-size:1.5rem;font-family:'DM Mono',monospace">
-              <span>x<sup style="font-size:0.75em">2</sup></span>
-              <span style="margin:0 0.25rem">&#8722;</span>
-              <div style="display:inline-flex;flex-direction:column;align-items:center">
-                <span style="border-bottom:1.5px solid #1A1208;padding-bottom:0.2rem;padding-left:0.3rem;padding-right:0.3rem;font-size:1.1rem">1</span>
-                <span style="padding-top:0.2rem;font-size:1.1rem">(y + 3)</span>
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;gap:0.5rem;padding-top:0.5rem;font-size:1.5rem;font-family:'DM Mono',monospace">
-              <div style="display:inline-flex;flex-direction:column;align-items:center">
-                <span style="border-bottom:1.5px solid #1A1208;padding-bottom:0.2rem;padding-left:0.5rem;padding-right:0.5rem;font-size:1.1rem">1</span>
-                <span style="padding-top:0.2rem;font-size:1.1rem">z</span>
-              </div>
-              <span style="margin:0 0.25rem">+</span>
-              <span>&#8730;x</span>
-            </div>
-          </div>
-        </div>
-      `,
+      mathLatex: `\\frac{x^2 - \\dfrac{1}{(y+3)}}{\\dfrac{1}{z} + \\sqrt{x}}`,
       explanation: `Pretend you're entering this equation into Google to calculate it. It is a simple combination of Math.sqrt(), Math.pow(), and several parentheses.`,
       solution: `double result = (Math.pow(x, 2) - (1.0 / (y + 3))) / ((1.0 / z) + Math.sqrt(x));`,
     },
