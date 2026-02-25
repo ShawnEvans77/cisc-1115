@@ -11,10 +11,7 @@ function PageNotFound() {
       <div className="not-found-inner">
         <p className="not-found-code">404</p>
 
-        <h1 className="not-found-heading">
-          page not<br />
-          <span className="not-found-heading-italic">found</span>
-        </h1>
+        <h1 className="not-found-heading">page not found</h1>
 
         <p className="not-found-path">{location.pathname}</p>
 

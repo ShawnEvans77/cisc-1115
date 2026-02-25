@@ -1155,9 +1155,119 @@
    404 / not-found
    ───────────────────────────────────────────────────────────────────────────── */
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   404 / not-found
-   ───────────────────────────────────────────────────────────────────────────── */
+/* ── Inline 404 (used inside exam/question pages) ── */
+.not-found-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 58px);
+  padding: 4rem 2rem;
+}
+
+.not-found-content {
+  text-align: center;
+}
+
+.not-found-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 1.5rem;
+}
+
+/* ── Full-page 404 (PageNotFound.tsx) ── */
+.not-found-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-off-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.not-found-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.not-found-code {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin-bottom: 1.25rem;
+}
+
+.not-found-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  margin-bottom: 1.75rem;
+  white-space: nowrap;
+}
+
+.not-found-heading-italic {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.not-found-path {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--color-subtle);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 0.35rem 0.9rem;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+.not-found-message {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--color-subtle);
+  margin-bottom: 2rem;
+}
+
+.not-found-btn {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #fff;
+  background-color: rgba(224, 123, 0, 0.08);
+  border: 1px solid rgba(224, 123, 0, 0.40);
+  padding: 0.9rem 2.2rem;
+  transition: background-color 0.22s, color 0.22s;
+}
+.not-found-btn:hover {
+  background-color: var(--color-orange);
+  color: #fff;
+}
+[data-theme="dark"] .not-found-btn {
+  background-color: rgba(232, 134, 26, 0.08);
+  border-color: rgba(232, 134, 26, 0.35);
+}
+[data-theme="dark"] .not-found-btn:hover {
+  background-color: var(--color-orange);
+}
 
 .not-found-root {
   min-height: 100vh;
