@@ -16,6 +16,7 @@
         var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
         var theme = stored || (prefersDark ? "dark" : "light");
         document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.style.colorScheme = theme;
         var meta = document.querySelector('meta[name="theme-color"]');
         if (meta) meta.content = theme === "dark" ? "#0F0D0B" : "#E07B00";
       })();

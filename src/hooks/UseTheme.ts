@@ -20,6 +20,7 @@ function getInitialTheme(): Theme {
 
 function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.style.colorScheme = theme;
 
   // Mobile browser chrome color (address bar, bottom bar on iOS/Android)
   let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');

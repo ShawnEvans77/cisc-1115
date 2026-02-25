@@ -6,6 +6,7 @@
 
 :root,
 [data-theme="light"] {
+  color-scheme: light;
   --color-orange:        #E07B00;
   --color-orange-hover:  #C96E00;
   --color-orange-light:  #FFF3E0;
@@ -27,6 +28,8 @@
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
+
   /* Warm amber — not flat orange */
   --color-orange:        #E8861A;
   --color-orange-hover:  #CF7410;
