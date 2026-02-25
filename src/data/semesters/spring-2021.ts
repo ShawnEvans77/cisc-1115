@@ -96,34 +96,51 @@ public class Spring2021Question2 {
 
 Write Java code to play 1,000 turns and keep track of the sum of the two dice in each roll i.e. Logically, the possible sums you can get range from 2 to 14.
 
-When all 1,000 turns have been completed, print a formatted table showing the value of the sum of the two dice (2 through 14) and the number of times that value occurred.`,
+When all 1,000 turns have been completed, print a formatted table showing the value of the sum of the two dice (2 through 14) and the number of times that value occurred.
+
+Your output should look similar to this. Note that the numbers in your output will be different to this sample. Each dice sum is randomly generated when the program executes.
+
+Dice Sum    Count
+            2           11
+            3           36
+            4           56
+            5           93
+            6           109
+            7           130
+            8           110
+            9           136
+            10          99
+            11           92
+            12          60
+            13          47
+            14          21`,
       explanation: `To solve this question, we will use an array as a histogram. A histogram tracks how many times certain rolls happened. We create an array of size 15. An array of size fiften will grant us indices 0 to 15, and from these indices we will only use 2 to 14.
         
-        Recall the formula for generating a random number:
+Recall the formula for generating a random number:
 
-        // randInt from [min, max]
-        int randIntInclusive = (int) (Math.random() * (max - min + 1) + min);
+// randInt from [min, max]
+int randIntInclusive = (int) (Math.random() * (max - min + 1) + min);
 
-        // randInt from [min, max)
-        int randIntExclusive = (int) (Math.random() * (max - min) + min);
+// randInt from [min, max)
+int randIntExclusive = (int) (Math.random() * (max - min) + min);
 
-        In this case, we will be using the inclusive formula. 
+In this case, we will be using the inclusive formula. 
 
-        We begin by creating a variable representing how many rolls will happen, and a variable representing the highest possible roll. We create a histogram array with a size of max roll plus one, since by doing this we can access index "max roll." For example, since the max roll is 14, we make the array of size 14+1, as that would give us access to an index 14. An array of size 15 has indices 0 to 14.
+We begin by creating a variable representing how many rolls will happen, and a variable representing the highest possible roll. We create a histogram array with a size of max roll plus one, since by doing this we can access index "max roll." For example, since the max roll is 14, we make the array of size 14+1, as that would give us access to an index 14. An array of size 15 has indices 0 to 14.
 
-        We create a loop going a thousand times, as we will roll one thousand times. We roll from [1, 6], then [1,8]. We sum these values together.
+We create a loop going a thousand times, as we will roll one thousand times. We roll from [1, 6], then [1,8]. We sum these values together.
 
-        We then mark this summed roll in this histogram using histogram[roll]++. If we rolled a five, then we add one to index five. If we rolled a five again, then index five becomes two. If we roll a ten, then we add one to index 10.
+We then mark this summed roll in this histogram using histogram[roll]++. If we rolled a five, then we add one to index five. If we rolled a five again, then index five becomes two. If we roll a ten, then we add one to index 10.
 
-        Meaning, after a few rolls, the histogram array could look like this:
+Meaning, after a few rolls, the histogram array could look like this:
 
-        {0, 0, 30, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 100, 0}
+{0, 0, 30, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 100, 0}
 
-        Index 2 is 30, so we rolled a 2 thirty times.
-        Index 7 is 50, so we rolled a 7 fifty times.
-        Index 13 is 100, so we rolled a 13 100 times.
+Index 2 is 30, so we rolled a 2 thirty times.
+Index 7 is 50, so we rolled a 7 fifty times.
+Index 13 is 100, so we rolled a 13 100 times.
 
-        We end the program by printing out a given dice sum and how many times it occurred.`,
+We end the program by printing out a given dice sum and how many times it occurred.`,
       solution: `public class Spring2021Question5 {
     public static void main(String[] args) {
         // we are rolling a thousand times.
@@ -182,9 +199,9 @@ The following numbers were not read in:
 12 13 14 16 17 18 19 21 22 24 25 27 28 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 51 52 53 54 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 100 `,
       explanation: `The main notable thing we do here is using a histogram to track which numbers were read in, represented by an array. We create an array of size 101, and we use indices 1 to 100. We use a while loop continuing until a -1 is entered. 
         
-        We print the error message for if the number is not between 1 and 100. Otherwise, when reading a valid number, we update the appropiate index in the histogram. If a 35 was read in, add one to index 35. If a 67 was read in, add one to index 67.
+We print the error message for if the number is not between 1 and 100. Otherwise, when reading a valid number, we update the appropiate index in the histogram. If a 35 was read in, add one to index 35. If a 67 was read in, add one to index 67.
         
-        We conclude the program by printing which indices still have a value of zero. A value of zero indicates we never read in that number.`,
+We conclude the program by printing which indices still have a value of zero. A value of zero indicates we never read in that number.`,
       solution: `import java.util.Scanner;
 public class Spring2021Question6 {
     public static void main(String[] args) {
