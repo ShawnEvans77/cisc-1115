@@ -4,7 +4,8 @@
 
 /* ── Design tokens ── */
 
-:root {
+:root,
+[data-theme="light"] {
   --color-orange:        #E07B00;
   --color-orange-hover:  #C96E00;
   --color-orange-light:  #FFF3E0;
@@ -24,6 +25,102 @@
   --font-body:    'Lora', Georgia, serif;
   --font-mono:    'DM Mono', monospace;
 }
+
+[data-theme="dark"] {
+  /* Warm amber — not flat orange */
+  --color-orange:        #E8861A;
+  --color-orange-hover:  #CF7410;
+  --color-orange-light:  rgba(232, 134, 26, 0.1);
+
+  /* Backgrounds — warm dark brown-blacks, NOT cold */
+  --color-white:         #1C1814;
+  --color-off-white:     #100E0B;
+  --color-surface:       #191511;
+
+  /* Text — warm cream, not harsh white */
+  --color-ink:           #EDE5D8;
+  --color-muted:         #A09282;
+  --color-subtle:        #6E6358;
+
+  /* Borders — warm, not gray */
+  --color-border:        #2C261E;
+  --color-border-strong: #3D3529;
+
+  /* Accents */
+  --color-syrup:         #CF8040;
+  --color-cream:         #1C1814;
+  --color-forest:        #5F8A55;
+
+  /* Dark-mode-only extras */
+  --color-navbar-dark:   #14120F;
+}
+
+/* Smooth theme transitions — colors only, not layout */
+*, *::before, *::after {
+  transition:
+    background-color 0.28s ease,
+    border-color     0.28s ease,
+    color            0.28s ease;
+}
+
+/* ── Dark mode overrides that can't be handled by variables alone ── */
+
+/* Navbar: drop orange bg, use deep warm charcoal */
+[data-theme="dark"] .navbar {
+  background-color: var(--color-navbar-dark);
+  border-bottom: 1px solid var(--color-border);
+}
+[data-theme="dark"] .navbar-logo       { color: var(--color-ink); }
+[data-theme="dark"] .navbar-link       { color: rgba(237, 229, 216, 0.65); }
+[data-theme="dark"] .navbar-link:hover { background-color: rgba(255,255,255,0.05); color: var(--color-ink); }
+[data-theme="dark"] .navbar-link--active {
+  color: var(--color-orange);
+  background-color: rgba(232, 134, 26, 0.1);
+}
+[data-theme="dark"] .navbar .theme-toggle,
+[data-theme="dark"] .navbar-right .theme-toggle {
+  color: var(--color-subtle);
+  border-color: var(--color-border-strong);
+}
+[data-theme="dark"] .navbar .theme-toggle:hover,
+[data-theme="dark"] .navbar-right .theme-toggle:hover {
+  color: var(--color-orange);
+  border-color: var(--color-orange);
+}
+
+/* Mobile navbar in dark */
+[data-theme="dark"] .navbar-mobile-menu {
+  background-color: #1A1612;
+  border-bottom: 1px solid var(--color-border);
+}
+[data-theme="dark"] .navbar-mobile-link { color: rgba(237, 229, 216, 0.75); }
+[data-theme="dark"] .navbar-mobile-link--active { color: var(--color-orange); background: rgba(232,134,26,0.1); }
+
+/* Hero grid — needs to read against the dark bg */
+[data-theme="dark"] .hero-grid-bg {
+  background-image:
+    linear-gradient(rgba(200, 175, 130, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 175, 130, 0.09) 1px, transparent 1px);
+}
+
+/* CTA buttons — keep them readable in dark */
+[data-theme="dark"] .cta-btn { color: #F5EFE4; }
+
+/* Content blocks (white cards) — go warm dark instead */
+[data-theme="dark"] .content-block {
+  background-color: var(--color-white);
+  border-color: var(--color-border);
+}
+
+/* Code block in dark */
+[data-theme="dark"] .prompt-code-block {
+  background-color: rgba(255,255,255,0.03);
+  border-color: var(--color-border);
+}
+
+/* Scrollbar */
+[data-theme="dark"] ::-webkit-scrollbar-track { background: var(--color-off-white); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: var(--color-border-strong); }
 
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -819,6 +916,22 @@
    Math display
    ───────────────────────────────────────────────────────────────────────────── */
 
+/* Inline code block inside a prompt or explanation */
+.prompt-code-block {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+  background-color: rgba(26, 18, 8, 0.04);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-orange);
+  border-radius: 3px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  white-space: pre;
+}
+
 .math-display {
   display: flex;
   justify-content: center;
@@ -927,10 +1040,215 @@
 
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   Navbar
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.navbar {
+  background-color: var(--color-orange);
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  height: 58px;
+  position: relative;
+}
+
+.navbar-logo {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.navbar-logo:hover { opacity: 0.8; }
+
+/* Center links — absolutely centered in the bar */
+.navbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+}
+
+.navbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding-right: 0.75rem;
+}
+
+.navbar-link {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+  background-color: transparent;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0 1.6rem;
+  height: 100%;
+  transition: background 0.15s, color 0.15s;
+}
+.navbar-link:hover       { background-color: rgba(0, 0, 0, 0.08); }
+.navbar-link--active     { color: #1A1208; background-color: rgba(0, 0, 0, 0.15); }
+
+/* Override theme-toggle colors inside the navbar so it matches the orange bar */
+.navbar .theme-toggle,
+.navbar-right .theme-toggle {
+  color: rgba(255, 255, 255, 0.75);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.navbar .theme-toggle:hover,
+.navbar-right .theme-toggle:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+/* Mobile hamburger — hidden on desktop */
+.navbar-mobile-btn {
+  display: none;
+}
+
+.navbar-mobile-menu {
+  display: none;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Footer
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.footer {
+  border-top: 1.5px solid var(--color-border);
+  background-color: var(--color-off-white);
+  padding: 1.75rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-orange);
+}
+
+.footer-tagline {
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-style: italic;
+  color: var(--color-subtle);
+  margin: 0;
+}
+
+.footer-contribute {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.footer-contribute:hover { color: var(--color-orange); }
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Theme toggle button
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  color: var(--color-subtle);
+  padding: 0;
+  flex-shrink: 0;
+  /* skip the global color transition for this element so the spin feels snappy */
+  transition: color 0.18s, border-color 0.18s, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.theme-toggle:hover {
+  color: var(--color-orange);
+  border-color: var(--color-orange);
+  transform: rotate(20deg);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
    Responsive — mobile
    ───────────────────────────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
+  /* navbar */
+  .navbar-center     { display: none; }
+  .navbar-right      { display: none; }
+
+  .navbar-mobile-btn {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 0 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    height: 100%;
+  }
+
+  .navbar-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-orange-hover);
+  }
+
+  .navbar-mobile-link {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.15s;
+  }
+  .navbar-mobile-link:hover          { background-color: rgba(0, 0, 0, 0.1); }
+  .navbar-mobile-link--active        { color: #1A1208; background-color: rgba(0, 0, 0, 0.15); }
+
+  .navbar-mobile-theme {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+  }
+  .navbar-mobile-theme .theme-toggle {
+    color: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
   /* list page containers */
   .page-header          { padding: 3rem 1rem 2rem; }
   .page-section         { padding: 1.5rem 1rem 6rem; }
