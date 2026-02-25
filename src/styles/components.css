@@ -541,7 +541,6 @@
   justify-content: center;
 }
 
-/* Per-instance: set --cta-color, --cta-bg, --cta-border via inline style */
 .cta-btn {
   display: inline-block;
   font-family: var(--font-mono);
@@ -552,14 +551,54 @@
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  color:            var(--cta-color);
+  color: #fff;
   background-color: var(--cta-bg);
-  border:           1px solid var(--cta-border);
-  transition: background-color 0.22s, color 0.22s;
+  border: 1px solid transparent;
+  transition: background-color 0.22s, color 0.22s, border-color 0.22s;
 }
-.cta-btn:hover {
-  background-color: var(--cta-color);
-  color: var(--color-off-white);
+
+/* Orange — exams, solutions */
+.cta-btn--orange {
+  color:            #fff;
+  background-color: rgba(224, 123, 0, 0.08);
+  border-color:     rgba(224, 123, 0, 0.40);
+}
+.cta-btn--orange:hover {
+  background-color: #E07B00;
+  color: #fff;
+}
+
+/* Blue — questions */
+.cta-btn--blue {
+  color:            #fff;
+  background-color: rgba(126, 184, 212, 0.08);
+  border-color:     rgba(126, 184, 212, 0.40);
+}
+.cta-btn--blue:hover {
+  background-color: #7EB8D4;
+  color: #fff;
+}
+
+/* Neutral — notes */
+.cta-btn--neutral {
+  color:            #fff;
+  background-color: rgba(168, 159, 148, 0.08);
+  border-color:     rgba(168, 159, 148, 0.35);
+}
+.cta-btn--neutral:hover {
+  background-color: #A89F94;
+  color: #fff;
+}
+
+/* Green — optional forest accent */
+.cta-btn--green {
+  color:            #fff;
+  background-color: rgba(74, 103, 65, 0.08);
+  border-color:     rgba(74, 103, 65, 0.35);
+}
+.cta-btn--green:hover {
+  background-color: #4A6741;
+  color: #fff;
 }
 
 .home-divider-wrap {
@@ -1116,22 +1155,90 @@
    404 / not-found
    ───────────────────────────────────────────────────────────────────────────── */
 
-.not-found-center {
+/* ─────────────────────────────────────────────────────────────────────────────
+   404 / not-found
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.not-found-root {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--color-off-white);
+  position: relative;
+  overflow: hidden;
 }
 
-.not-found-content {
+.not-found-inner {
+  position: relative;
+  z-index: 1;
   text-align: center;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.not-found-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  color: var(--color-ink);
+.not-found-code {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-orange);
   margin-bottom: 1.5rem;
+}
+
+.not-found-heading {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 14vw, 10rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: var(--color-ink);
+  margin-bottom: 2rem;
+}
+
+.not-found-heading-italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-orange);
+}
+
+.not-found-path {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--color-subtle);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 0.4rem 1rem;
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+}
+
+.not-found-message {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-muted);
+  margin-bottom: 2.5rem;
+}
+
+.not-found-btn {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  text-decoration: none;
+  border: 1px solid rgba(224, 123, 0, 0.4);
+  background-color: rgba(224, 123, 0, 0.06);
+  padding: 0.75rem 2rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+.not-found-btn:hover {
+  background-color: var(--color-orange);
+  color: var(--color-off-white);
 }
 
 
