@@ -1,7 +1,6 @@
 // src/pages/Home.tsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { colors } from "../styles/theme";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -14,10 +13,10 @@ const sections = [
 ];
 
 const ctaButtons = [
-  { label: "exams",     path: "/exams",     color: colors.syrup  },
-  { label: "questions", path: "/questions", color: colors.forest  },
-  { label: "solutions", path: "/solutions", color: colors.orange  },
-  { label: "notes",     path: "/notes",     color: colors.subtle  },
+  { label: "exams",     path: "/exams",     variant: "syrup"   },
+  { label: "questions", path: "/questions", variant: "green"   },
+  { label: "solutions", path: "/solutions", variant: "orange"  },
+  { label: "notes",     path: "/notes",     variant: "neutral" },
 ];
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -32,20 +31,15 @@ function HeroLine({ position }: { position: "top" | "bottom" }) {
 
   return (
     <div
-      className="hero-line"
+      className={`hero-line${loaded ? " hero-line--loaded" : ""}`}
       data-position={position}
-      style={{ height: loaded ? "48px" : "0" }}
     />
   );
 }
 
-function CtaButton({ label, path, color }: { label: string; path: string; color: string }) {
+function CtaButton({ label, path, variant }: { label: string; path: string; variant: string }) {
   return (
-    <Link
-      to={path}
-      className="cta-btn"
-      style={{ "--cta-bg": color } as React.CSSProperties}
-    >
+    <Link to={path} className={`cta-btn cta-btn--${variant}`}>
       {label}
     </Link>
   );

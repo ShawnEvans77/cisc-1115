@@ -19,7 +19,7 @@ function PageNotFound() {
           This page doesn't exist or was moved.
         </p>
 
-        <Link to="/" className="not-found-btn">← back home</Link>
+        <Link to="/" className="cta-btn cta-btn--solid">← back home</Link>
       </div>
     </div>
   );
