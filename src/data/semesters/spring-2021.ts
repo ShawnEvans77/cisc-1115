@@ -7,7 +7,7 @@ export const spring2021: Exam = {
   year: "2021",
   questions: [
     {
-      id: "question-1",
+      id: "1",
       title: "question 1",
       topics: ["Loops", "Patterns"],
       prompt: `Write Java code to repeatedly print each single digit between 1 and 9 the number of times based upon its numeric value.\n\nThus, you would get a triangle of the shape below where 1 prints once, 2 twice … and 9 prints 9 times.\n\n1\n22\n333\n4444\n55555\n666666\n7777777\n88888888\n999999999`,
@@ -33,7 +33,7 @@ export const spring2021: Exam = {
 }`,
     },
     {
-      id: "question-2",
+      id: "2",
       title: "question 2",
       topics: ["Characters", "Scanner", "Strings"],
       prompt: `Write Java code to read strings of lower-case letters from the keyboard and count the number of vowels in each word.\n\nVowels are the letters a, e, i, o, and u.\n\nWhen all strings have been read in, print the string that has the largest number of vowels (duplicates included) and how many vowels were in the string. When more than one string has the greatest number of vowels, print the first string found with that number.\n\nFor example, given input: 
@@ -89,7 +89,7 @@ public class Spring2021Question2 {
 }`,
     },
     {
-      id: "question-5",
+      id: "5",
       title: "question 5",
       topics: ["Arrays", "Random Numbers"],
       prompt: `You are playing a game that has two dice. One die has 6 sides numbered 1 through 6 and the second die has 8 sides numbered 1 through 8. A turn involves rolling both die together.
@@ -160,7 +160,7 @@ When all 1,000 turns have been completed, print a formatted table showing the va
 }`,
     },
     {
-      id: "question-6",
+      id: "6",
       title: "question 6",
       topics: ["Arrays", "Scanner"],
       prompt: `Write Java code to do the following:
@@ -229,7 +229,7 @@ public class Spring2021Question6 {
 }`,
     },
 {
-  id: "question-7",
+  id: "7",
   title: "question 7",
   topics: ["Binary Numbers", "Hexadecimal", "Number Systems"],
   prompt: `Perform the following conversions. You must show how you computed your answer.
@@ -280,7 +280,7 @@ c. 10111010
     Answer: 10111010`,
 },
     {
-      id: "question-8",
+      id: "8",
       title: "question 8",
       topics: ["Arrays", "File", "Scanner", "Sorting"],
       prompt: `Write a complete Java program with comments in main and in each method to do the following.

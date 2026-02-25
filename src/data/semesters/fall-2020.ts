@@ -7,7 +7,7 @@ export const fall2020: Exam = {
   year: "2020",
   questions: [
     {
-      id: "question-1a",
+      id: "1a",
       title: "question 1a",
       topics: ["Loops", "Tracing"],
       prompt: `Trace the variables in the following code:\n\nint x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);`,
@@ -35,7 +35,7 @@ Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 
    10 |  4`,
     },
     {
-      id: "question-1b",
+      id: "1b",
       title: "question 1b",
       topics: ["Loops", "Tracing"],
       prompt: `Trace the variables in the following code:\n\nfor (int i = 0; i < 5; i = i + 2) {\n    for (int j = i; j > 0; j--) { }\n}`,
@@ -60,7 +60,7 @@ Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 
   4  |  0`,
     },
     {
-      id: "question-2",
+      id: "2",
       title: "question 2",
       topics: ["Arithmetic", "Modulo"],
       prompt: `Assume the existence of an int variable called inches. Compute and print how many miles, yards, feet and inches that number represents.\n\nThe rules are: 1 foot equals 12 inches, 36 inches equals 1 yard, and 5280 feet equals 1 mile.\n\nFor example, if int inches = 245897, then the output is:\n\n245897 inches equals 3 miles 1550 yards 1 foot and 5 inches`,
@@ -100,7 +100,7 @@ Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 
 }`,
     },
     {
-      id: "question-3",
+      id: "3",
       title: "question 3",
       topics: ["Binary Numbers", "Number Systems", "Hexadecimal"],
       prompt: `Show the work you used to perform the following conversions:\n\na. 1100110 (base 2) to base 10\n\nb. AB (base 16) to base 10\n\nc. 65 (base 10) to base 2`,
@@ -145,7 +145,7 @@ c. 1000001
     Answer: 1000001`,
     },
     {
-      id: "question-5a",
+      id: "5a",
       title: "question 5a",
       topics: ["Math Methods"],
       prompt: `Assume the six integers i, j, k, m, n, and l exist and are all initialized.\n\nAssume there exists a method max3(), which accepts 3 integers as input and returns the largest integer.\n\nWrite one Java statement to find the maximum of the six integers using any combination of Math.max() and max3().`,
@@ -153,7 +153,7 @@ c. 1000001
       solution: `int max = Math.max(max3(i, j, k), max3(m, n, l));`,
     },
     {
-      id: "question-5b",
+      id: "5b",
       title: "question 5b",
       topics: ["Equations", "Math Methods"],
       prompt: `Write a Java expression that would compute the following:`,
@@ -162,7 +162,7 @@ c. 1000001
       solution: `double result = (Math.pow(x, 2) - (1.0 / (y + 3))) / ((1.0 / z) + Math.sqrt(x));`,
     },
     {
-      id: "question-5c",
+      id: "5c",
       title: "question 5c",
       topics: ["Arrays", "Binary Search"],
       prompt: `Perform a binary search on the following array searching for the number 18:\n\nint[] nums = {12, 77, 87, 89, 100, 117, 125, 189, 235, 529, 1000};\n\nList the low, mid and high values at each step until the algorithm stops. Do NOT write any code. Enter into the table below the low, mid and high values as the binary search progresses. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
@@ -186,7 +186,7 @@ c. 1000001
     1 |   -  |    0`,
     },
     {
-      id: "question-6",
+      id: "6",
       title: "question 6",
       topics: ["Arrays", "Loops", "Split", "Strings"],
       prompt: `You are given a string containing a series of 9 digit zip codes with a dash separating the two parts and one space separating each full zip code from the next one. For example,\n\nString str = "11230-1234 11011-3489 07621-8845";\n\nWrite Java code to print the first 5 digits of each zip code followed by the last 4 digits of the zip code as separate values.\n\nSample output using the same str variable from above:\n11230 1234\n11011 3489\n07621 8845\n\nNOTE: The first part of the full zip code is always 5 digits, the second part is always 4 digits and there's always a dash in between the two parts. Keep in mind that your code must handle a String that has any number of such pairs, not just the three in the example above.`,
@@ -213,7 +213,7 @@ c. 1000001
 }`,
     },
     {
-      id: "question-7",
+      id: "7",
       title: "question 7",
       topics: ["Arrays", "File", "Scanner", "Sorting"],
       prompt: `Write a complete Java program, including at least one comment in the main program and one in each method, to do the following:

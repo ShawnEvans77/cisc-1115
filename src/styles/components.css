@@ -110,7 +110,6 @@
 }
 
 /* CTA buttons — keep them readable in dark */
-[data-theme="dark"] .cta-btn { color: #F5EFE4; }
 
 /* Content blocks (white cards) — go warm dark instead */
 [data-theme="dark"] .content-block {
@@ -542,23 +541,25 @@
   justify-content: center;
 }
 
-/* --cta-bg set per-instance via inline style CSS custom property */
+/* Per-instance: set --cta-color, --cta-bg, --cta-border via inline style */
 .cta-btn {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 500;
   padding: 0.9rem 2.2rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  color: var(--color-white);
+  color:            var(--cta-color);
   background-color: var(--cta-bg);
-  transition: filter 0.18s;
+  border:           1px solid var(--cta-border);
+  transition: background-color 0.22s, color 0.22s;
 }
 .cta-btn:hover {
-  filter: brightness(0.85);
+  background-color: var(--cta-color);
+  color: var(--color-off-white);
 }
 
 .home-divider-wrap {
