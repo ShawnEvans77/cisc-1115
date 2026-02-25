@@ -13,19 +13,19 @@ export const fall2020: Exam = {
       prompt: `Trace the variables in the following code:\n\nint x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);`,
       explanation: `We want to write all of the different values x and y take throughout the program.
         
-        x and y begin at 5 and 10. We write down that x=5 and y=10.
+x and y begin at 5 and 10. We write down that x=5 and y=10.
         
-        We increment x and decrement y. 5+1 = 6, 10-1 = 9. We write that x=6 and x=9.
+We increment x and decrement y. 5+1 = 6, 10-1 = 9. We write that x=6 and x=9.
         
-        y=9 is greater than 8, so the inner while loop executes. We add 2 to x=6, so x becomes 8. Subtract 3 from y, it becomes 6. We write that x=8 and y=6.
+y=9 is greater than 8, so the inner while loop executes. We add 2 to x=6, so x becomes 8. Subtract 3 from y, it becomes 6. We write that x=8 and y=6.
         
-        y=6 is not bigger than 8, so the inner while loop terminates. x=8 is lower than 10, so the while loop continues.
+y=6 is not bigger than 8, so the inner while loop terminates. x=8 is lower than 10, so the while loop continues.
         
-        Decrement x and y. We write that x=9 and y=5. 
+Decrement x and y. We write that x=9 and y=5. 
         
-        y is not greater than 8. x is still less than 10. We continue to the next do while iteration while skipping the inner do while loop.
+y is not greater than 8. x is still less than 10. We continue to the next do while iteration while skipping the inner do while loop.
         
-        Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 10 is not less than 10, all loops cease and the program concludes. We write that x=10 and y=4.`,
+Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 10 is not less than 10, all loops cease and the program concludes. We write that x=10 and y=4.`,
       solution: `    x |  y
    --------
     5 | 10
