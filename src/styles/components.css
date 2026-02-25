@@ -497,6 +497,11 @@
   padding: 2rem 2.5rem 0;
 }
 
+/* detail pages where content container is 1400px */
+.breadcrumb-wrap--wide {
+  max-width: 1400px;
+}
+
 .breadcrumb {
   display: flex;
   align-items: center;

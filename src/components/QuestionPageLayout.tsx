@@ -24,7 +24,7 @@ export function QuestionPageLayout({
   return (
     <div className="page-root detail-root">
 
-      <Breadcrumb crumbs={[
+      <Breadcrumb wide crumbs={[
         { label: parentLabel,  to: basePath },
         { label: exam.label,   to: `${basePath}/${exam.id}` },
         { label: question.title },
