@@ -106,11 +106,11 @@ export const fall2020: Exam = {
       prompt: `Show the work you used to perform the following conversions:\n\na. 1100110 (base 2) to base 10\n\nb. AB (base 16) to base 10\n\nc. 65 (base 10) to base 2`,
       explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5x10²) + (1x10¹) + (2x10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreths place, and so on. The same idea applies to other bases.
   
-  For a, it has six digits, with 4 of them being filled in with ones. Label the rightmost digit 2⁰, the second rightmost digit 2¹, and so on. Since only the 2⁶, 2⁵, 2², and 2¹ places are filled in with ones, sum them together. 1×2⁶ + 1×2⁵ + 0×2⁴ + 0×2³ + 1×2² + 1×2¹ + 0×2⁰ yields the base 10 sum 102, our answer.
+For a, it has six digits, with 4 of them being filled in with ones. Label the rightmost digit 2⁰, the second rightmost digit 2¹, and so on. Since only the 2⁶, 2⁵, 2², and 2¹ places are filled in with ones, sum them together. 1×2⁶ + 1×2⁵ + 0×2⁴ + 0×2³ + 1×2² + 1×2¹ + 0×2⁰ yields the base 10 sum 102, our answer.
   
-  For b, we know that in hexadecimal, A = 10, and B = 11. Therefore, to yield the answer, we perform 10×16¹ + 11×16⁰ = 171.
+For b, we know that in hexadecimal, A = 10, and B = 11. Therefore, to yield the answer, we perform 10×16¹ + 11×16⁰ = 171.
   
-  For c, simply write out the numbers 64, 32, 16, 8, 4, 2, and 1. From these numbers, we will make 65. (64+1) makes 65. Therefore, to express this in binary, we simply write out 1000001. The leftmost 1 represents 64, the rightmost 1 reprents the 1 added to 64 in order to make 65.`,
+For c, simply write out the numbers 64, 32, 16, 8, 4, 2, and 1. From these numbers, we will make 65. (64+1) makes 65. Therefore, to express this in binary, we simply write out 1000001. The leftmost 1 represents 64, the rightmost 1 reprents the 1 added to 64 in order to make 65.`,
       solution: `a. 102
 
     1100110

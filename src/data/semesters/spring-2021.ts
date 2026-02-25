@@ -218,17 +218,57 @@ public class Spring2021Question6 {
 
 }`,
     },
-    {
-      id: "question-7",
-      title: "question 7",
-      topics: ["Binary Numbers", "Hexadecimal", "Number Systems"],
-      prompt: `Perform the following conversions. You must show how you computed your answer.
+{
+  id: "question-7",
+  title: "question 7",
+  topics: ["Binary Numbers", "Hexadecimal", "Number Systems"],
+  prompt: `Perform the following conversions. You must show how you computed your answer.
 a. 1011111 (base 2) to base 10
 b. 246 (base 10) to base 2
 c. BA (base 16) to base 2`,
-      explanation: `tba`,
-      solution: `tba`,
-    },
+
+  explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5×10²) + (1×10¹) + (2×10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreds place, and so on. The same idea applies to other bases.
+
+For a, the number has seven digits. Label the rightmost digit 2⁰, the second rightmost digit 2¹, and so on. Since the 2⁶, 2⁴, 2³, 2², 2¹, and 2⁰ places are filled in with ones, sum them together. 1×2⁶ + 0×2⁵ + 1×2⁴ + 1×2³ + 1×2² + 1×2¹ + 1×2⁰ yields the base 10 sum 95, our answer.
+
+For b, simply write out the numbers 128, 64, 32, 16, 8, 4, 2, and 1. From these numbers, we will make 246. (128+64+32+16+4+2) makes 246. Therefore, to express this in binary, we simply write out 11110110. The leftmost 1 represents 128, and each following 1s represents 64, 32, 16, 4, and 2 being added together to make 246. The 0s represent the numbers we do not use.
+
+For c, we know that in hexadecimal, B = 1011 and A = 1010. Concatenating them together yields 10111010, our answer.`,
+
+  solution: `a. 95
+
+    1011111
+    1×2⁶ + 0×2⁵ + 1×2⁴ + 1×2³ + 1×2² + 1×2¹ + 1×2⁰
+
+  = 64  +  0  + 16  +  8  +  4  +  2  +  1
+  = 95
+
+b. 11110110
+
+    246
+
+    128: 1
+    64 : 1
+    32 : 1
+    16 : 1
+    8  : 0
+    4  : 1
+    2  : 1
+    1  : 0
+
+    128 + 64 + 32 + 16 + 4 + 2 = 246
+
+    Answer: 11110110
+
+c. 10111010
+
+    BA
+
+    B = 11 = 1011
+    A = 10 = 1010
+
+    Answer: 10111010`,
+},
     {
       id: "question-8",
       title: "question 8",
