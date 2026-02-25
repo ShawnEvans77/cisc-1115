@@ -21,11 +21,8 @@ function getPromptSnippet(prompt: string, query: string): string | null {
 }
 
 export function QuestionCard({ question: q, examId, query, basePath }: QuestionCardProps) {
-  const sq       = query.trim().toLowerCase();
-  const inTitle  = sq && q.title.toLowerCase().includes(sq);
-  const inTopics = sq && q.topics.some(t => t.toLowerCase().includes(sq));
-  const snippet  = (!inTitle && !inTopics) ? getPromptSnippet(q.prompt, query) : null;
-  const badge    = q.id.replace("question-", "Q").toUpperCase();
+  const snippet = getPromptSnippet(q.prompt, query);
+  const badge   = q.id.replace("question-", "Q").toUpperCase();
 
   return (
     <Link to={`${basePath}/${examId}/${q.id}`} className="question-card">
