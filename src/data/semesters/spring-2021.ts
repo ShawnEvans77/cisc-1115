@@ -169,7 +169,17 @@ Read an arbitary amount of numbers from the keyboard with each number being betw
 
 If a number entered is not between 1 and 100, print an error message.
 
-If a -1 is read in, end the loop, then print which numbers between 1 and 100 the program did not read in.`,
+If a -1 is read in, end the loop, then print which numbers between 1 and 100 the program did not read in.
+
+Sample output:
+
+Enter some numbers between 1 and 100. Enter -1 to terminate the program: 
+
+1 2 3 4 5 6 7 8 9 10 11 15 20 50 55 75 99 98 97 96 23 26 29 -1
+
+The following numbers were not read in: 
+
+12 13 14 16 17 18 19 21 22 24 25 27 28 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 51 52 53 54 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 100 `,
       explanation: `The main notable thing we do here is using a histogram to track which numbers were read in, represented by an array. We create an array of size 101, and we use indices 1 to 100. We use a while loop continuing until a -1 is entered. 
         
         We print the error message for if the number is not between 1 and 100. Otherwise, when reading a valid number, we update the appropiate index in the histogram. If a 35 was read in, add one to index 35. If a 67 was read in, add one to index 67.
