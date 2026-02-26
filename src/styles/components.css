@@ -1478,6 +1478,11 @@
     background-color: var(--color-orange-hover);
   }
 
+  /* Dark override must live here — outside @layer rules lose to non-layered media queries */
+  [data-theme="dark"] .navbar-mobile-menu {
+    background-color: var(--color-navbar-dark);
+  }
+
   .navbar-mobile-link {
     font-family: var(--font-mono);
     font-size: 0.88rem;
