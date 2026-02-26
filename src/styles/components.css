@@ -4,6 +4,11 @@
    Zero magic strings — every value traces to a design token.
    ───────────────────────────────────────────────────────────────────────────── */
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   BREAKPOINTS (CSS vars don't work in @media — update all occurrences together)
+   --breakpoint-mobile: 750px
+   ───────────────────────────────────────────────────────────────────────────── */
+
 @layer tokens, base, components, dark;
 
 
@@ -422,7 +427,6 @@
     transition: background-color 0.22s, color 0.22s, border-color 0.22s;
   }
 
-  /* Syrup brown — exams */
   .cta-btn--syrup {
     background-color: var(--color-syrup);
     border-color:     var(--color-syrup);
@@ -432,7 +436,6 @@
     border-color:     var(--color-syrup-hover);
   }
 
-  /* Forest green — questions */
   .cta-btn--green {
     background-color: var(--color-forest);
     border-color:     var(--color-forest);
@@ -442,7 +445,6 @@
     border-color:     var(--color-forest-hover);
   }
 
-  /* Orange — solutions */
   .cta-btn--orange {
     background-color: var(--color-orange);
     border-color:     var(--color-orange);
@@ -452,7 +454,6 @@
     border-color:     var(--color-orange-hover);
   }
 
-  /* Subtle gray — notes */
   .cta-btn--neutral {
     background-color: var(--color-subtle);
     border-color:     var(--color-subtle);
@@ -462,7 +463,6 @@
     border-color:     var(--color-subtle-hover);
   }
 
-  /* Blue — auxiliary */
   .cta-btn--blue {
     background-color: var(--color-blue);
     border-color:     var(--color-blue);
@@ -472,7 +472,6 @@
     border-color:     var(--color-blue-hover);
   }
 
-  /* Solid orange — standalone CTAs (e.g. 404 page) */
   .cta-btn--solid {
     background-color: var(--color-orange);
     border-color:     var(--color-orange);
@@ -989,6 +988,46 @@
 
 
   /* ─────────────────────────────────────────────────────────────────────────
+     Contact rows
+     ───────────────────────────────────────────────────────────────────────── */
+
+  .contact-rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-row {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem 2.5rem;
+    border-top: 1px solid var(--color-border);
+    margin: 0 -2.5rem;
+    border-radius: 2px;
+  }
+
+  .contact-row--last {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .contact-row-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    flex-shrink: 0;
+  }
+
+  .contact-row-value {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink);
+  }
+
+
+  /* ─────────────────────────────────────────────────────────────────────────
      Empty state
      ───────────────────────────────────────────────────────────────────────── */
 
@@ -1214,7 +1253,6 @@
      404 / Not Found
      ───────────────────────────────────────────────────────────────────────── */
 
-  /* Inline 404 (inside exam/question pages) */
   .not-found-center {
     display: flex;
     align-items: center;
@@ -1233,7 +1271,6 @@
     margin-bottom: 1.5rem;
   }
 
-  /* Full-page 404 */
   .not-found-root {
     min-height: 100vh;
     display: flex;
@@ -1304,14 +1341,10 @@
 
 /* ═════════════════════════════════════════════════════════════════════════════
    LAYER: dark
-   All dark mode overrides. Scoped to [data-theme="dark"].
-   Where a component uses a token that already flips in the tokens layer
-   (e.g. --color-white, --color-off-white), no override is needed here.
    ═════════════════════════════════════════════════════════════════════════════ */
 
 @layer dark {
 
-  /* Navbar — drop orange bar, use deep warm charcoal */
   [data-theme="dark"] .navbar {
     background-color: var(--color-navbar-dark);
     border-bottom: 1px solid var(--color-border);
@@ -1337,32 +1370,26 @@
     border-color: var(--color-orange);
   }
 
-  /* Mobile navbar */
   [data-theme="dark"] .navbar-mobile-menu {
     background-color: var(--color-navbar-mobile-dark);
     border-bottom: 1px solid var(--color-border);
   }
-  [data-theme="dark"] .navbar-mobile-link {
-    color: rgba(var(--rgb-ink), 0.75);
-  }
+  [data-theme="dark"] .navbar-mobile-link       { color: rgba(var(--rgb-ink), 0.75); }
   [data-theme="dark"] .navbar-mobile-link--active {
     color: var(--color-orange);
     background-color: var(--color-orange-light);
   }
 
-  /* Eyebrows — tone down from orange to muted cream */
   [data-theme="dark"] .hero-eyebrow,
   [data-theme="dark"] .page-eyebrow {
     color: rgba(var(--rgb-ink), 0.65);
   }
 
-  /* Hero accent "1115" — orange clashes on near-black bg */
   [data-theme="dark"] .hero-title-accent {
     color: var(--color-ink);
     opacity: 0.88;
   }
 
-  /* ALL cta-btn variants → uniform ghost in dark */
   [data-theme="dark"] .cta-btn {
     background-color: transparent !important;
     color: var(--color-ink) !important;
@@ -1374,18 +1401,14 @@
     color: var(--color-ink) !important;
   }
 
-  /* Content blocks — deeper than page bg for contrast */
   [data-theme="dark"] .content-block {
     background-color: var(--color-content-deep);
     border-color: var(--color-border);
   }
-
-  /* "THE QUESTION" label — drop orange, go muted cream */
   [data-theme="dark"] .content-block-label {
     color: rgba(var(--rgb-ink), 0.35);
   }
 
-  /* Code block */
   [data-theme="dark"] .prompt-code-block {
     background-color: rgba(var(--rgb-white), 0.03);
     border-color: var(--color-border);
@@ -1395,7 +1418,6 @@
     border-color: var(--color-border);
   }
 
-  /* Question cards */
   [data-theme="dark"] .question-card {
     background-color: var(--color-content-deep);
     border-color: var(--color-border);
@@ -1409,7 +1431,6 @@
     color: var(--color-orange);
   }
 
-  /* Solution link */
   [data-theme="dark"] .solution-link {
     background-color: transparent;
     color: var(--color-ink);
@@ -1420,7 +1441,6 @@
     border-color: var(--color-ink);
   }
 
-  /* Copy button */
   [data-theme="dark"] .copy-btn {
     background-color: transparent;
     color: var(--color-orange);
@@ -1435,13 +1455,11 @@
     border-color: var(--color-copy-success);
   }
 
-  /* Card hover tints */
   [data-theme="dark"] .home-card-link:hover,
   [data-theme="dark"] .semester-card:hover {
     background-color: rgba(var(--rgb-orange), 0.04) !important;
   }
 
-  /* Footer + back links */
   [data-theme="dark"] .footer-logo        { color: var(--color-ink); }
   [data-theme="dark"] .back-link          { color: var(--color-ink); }
   [data-theme="dark"] .back-link:hover    { opacity: 0.6; }
@@ -1451,11 +1469,12 @@
 
 /* ═════════════════════════════════════════════════════════════════════════════
    Responsive — mobile
+   Breakpoint: 750px  (see BREAKPOINTS comment at top of file)
    Outside @layer intentionally — media queries in layers can have specificity
    surprises across browsers. Kept flat for reliability.
    ═════════════════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 640px) {
+@media (max-width: 750px) {
 
   .navbar-center { display: none; }
   .navbar-right  { display: none; }
@@ -1542,70 +1561,17 @@
   .home-card-link  { padding: 2rem 1rem; }
   .home-card-grid  { grid-template-columns: 2rem 1fr auto; gap: 1rem; }
   .home-card-arrow { font-size: 1.25rem; }
-}
 
-
-  /* ─────────────────────────────────────────────────────────────────────────
-     Contact rows
-     ───────────────────────────────────────────────────────────────────────── */
-
-  .contact-rows {
-    display: flex;
-    flex-direction: column;
-  }
-
+  /* Contact rows — stack label above value, prevent overflow */
   .contact-row {
-    display: grid;
-    grid-template-columns: 10rem 1fr auto;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 1.25rem 0;
-    border-top: 1px solid var(--color-border);
-    text-decoration: none;
-    transition: background 0.15s;
-    margin: 0 -2.5rem;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-    border-radius: 2px;
-  }
-
-  .contact-row--last {
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .contact-row:hover {
-    background-color: rgba(var(--rgb-orange), 0.04);
-  }
-
-  .contact-row:hover .contact-row-value {
-    color: var(--color-orange);
-  }
-
-  .contact-row:hover .contact-row-arrow {
-    transform: translateX(5px);
-    color: var(--color-orange);
-  }
-
-  .contact-row-label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-subtle);
-    flex-shrink: 0;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    margin: 0 -1rem;
+    padding: 1rem 1rem;
   }
 
   .contact-row-value {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--color-ink);
-    transition: color 0.18s;
+    font-size: 0.88rem;
+    word-break: break-all;
   }
-
-  .contact-row-arrow {
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    color: var(--color-border-strong);
-    flex-shrink: 0;
-    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.18s;
-  }
+}
