@@ -8,7 +8,7 @@ function Contact() {
         <p className="page-eyebrow">Brooklyn College · CISC 1115</p>
         <h1 className="page-title">contact</h1>
         <p className="page-subtitle" style={{ marginBottom: 0 }}>
-          get in touch, report an issue, or contribute exam data
+          get in touch with me
         </p>
       </div>
 
