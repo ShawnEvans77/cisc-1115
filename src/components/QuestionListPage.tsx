@@ -76,10 +76,6 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
         )}
       </div>
 
-      <div className="home-divider-wrap">
-        <hr className="home-divider" />
-      </div>
-
       <section className="page-section page-section--detail">
         {filteredQuestions.length === 0 ? (
           <div className="empty-state">

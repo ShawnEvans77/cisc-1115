@@ -240,51 +240,8 @@
     border-color: var(--color-pure-white);
   }
 
-  /* Mobile Navbar Base Styles */
-  .navbar-mobile-btn {
-    display: none;
-    align-items: center;
-    margin-left: auto;
-    padding: 0 1.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--color-pure-white);
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    height: 100%;
-  }
-
-  .navbar-mobile-menu {
-    display: none;
-    flex-direction: column;
-    background-color: var(--color-orange-hover);
-  }
-
-  .navbar-mobile-link {
-    font-family: var(--font-mono);
-    font-size: 0.88rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(var(--rgb-white), 0.9);
-    text-decoration: none;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid rgba(var(--rgb-white), 0.1);
-    transition: background 0.15s;
-  }
-  .navbar-mobile-link:hover       { background-color: rgba(var(--rgb-black), 0.1); }
-  .navbar-mobile-link--active     { color: var(--color-ink); background-color: rgba(var(--rgb-black), 0.15); }
-
-  .navbar-mobile-theme {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1.5rem;
-  }
-  .navbar-mobile-theme .theme-toggle {
-    color: rgba(var(--rgb-white), 0.75);
-    border-color: rgba(var(--rgb-white), 0.35);
-  }
+  .navbar-mobile-btn  { display: none; }
+  .navbar-mobile-menu { display: none; }
 
 
   /* ─────────────────────────────────────────────────────────────────────────
@@ -1056,7 +1013,7 @@
   .detail-header {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem 2.5rem 3rem;
+    padding: 2rem 2.5rem 0.5rem;
   }
 
   .detail-title {
@@ -1074,7 +1031,7 @@
   .detail-content {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 3rem 2.5rem 8rem;
+    padding: 1rem 2.5rem 8rem;
   }
 
   .detail-bottom-nav {
@@ -1377,29 +1334,17 @@
     border-color: var(--color-orange);
   }
 
-  /* Mobile navbar Dark Overrides */
-  [data-theme="dark"] .navbar-mobile-btn {
-    color: var(--color-ink);
-  }
-
-[data-theme="dark"] .navbar-mobile-menu {
-    background-color: var(--color-navbar-dark);
+  /* Mobile navbar */
+  [data-theme="dark"] .navbar-mobile-menu {
+    background-color: var(--color-navbar-mobile-dark);
     border-bottom: 1px solid var(--color-border);
   }
   [data-theme="dark"] .navbar-mobile-link {
     color: rgba(var(--rgb-ink), 0.75);
-    border-bottom-color: var(--color-border);
-  }
-  [data-theme="dark"] .navbar-mobile-link:hover {
-    background-color: rgba(var(--rgb-white), 0.05);
   }
   [data-theme="dark"] .navbar-mobile-link--active {
     color: var(--color-orange);
     background-color: var(--color-orange-light);
-  }
-  [data-theme="dark"] .navbar-mobile-theme .theme-toggle {
-    color: var(--color-subtle);
-    border-color: var(--color-border-strong);
   }
 
   /* Eyebrows — tone down from orange to muted cream */
@@ -1507,17 +1452,54 @@
    surprises across browsers. Kept flat for reliability.
    ═════════════════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 640px) {
+@media (max-width: 800px) {
 
   .navbar-center { display: none; }
   .navbar-right  { display: none; }
 
   .navbar-mobile-btn {
     display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 0 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-pure-white);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    height: 100%;
   }
 
   .navbar-mobile-menu {
     display: flex;
+    flex-direction: column;
+    background-color: var(--color-orange-hover);
+  }
+
+  .navbar-mobile-link {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(var(--rgb-white), 0.9);
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(var(--rgb-white), 0.1);
+    transition: background 0.15s;
+  }
+  .navbar-mobile-link:hover       { background-color: rgba(var(--rgb-black), 0.1); }
+  .navbar-mobile-link--active     { color: var(--color-ink); background-color: rgba(var(--rgb-black), 0.15); }
+
+  .navbar-mobile-theme {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+  }
+  .navbar-mobile-theme .theme-toggle {
+    color: rgba(var(--rgb-white), 0.75);
+    border-color: rgba(var(--rgb-white), 0.35);
   }
 
   .page-header       { padding: 3rem 1rem 2rem; }
