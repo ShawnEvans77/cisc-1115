@@ -105,7 +105,7 @@
     --rgb-ink:    237, 229, 216;
 
     /* Hero grid — warmer, lower contrast on near-black bg */
-    --color-hero-grid: rgba(200, 175, 130, 0.15);
+    --color-hero-grid: rgba(200, 175, 130, 0.10);
 
     /* Dark-only surfaces — no light-mode equivalent */
     --color-navbar-dark:        #0a0908;
