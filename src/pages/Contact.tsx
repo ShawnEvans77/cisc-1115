@@ -24,7 +24,7 @@ function Contact() {
             <p className="content-block-label">the person</p>
           </div>
           <p className="content-block-body">
-            Hi, I'm Shawn Evans, a CS Grad from Brooklyn College. I built this site to make studying for CISC 1115 easier. If you have past exams, corrections, or feedback, I'd love to hear from you.
+            Hi, I'm Shawn Evans, a CS Grad from Brooklyn College. I built this platform because I noticed a gap between what students know compared to what they are expected to know. If you have past exams, corrections, or feedback, I'd love to hear from you.
           </p>
         </div>
 
