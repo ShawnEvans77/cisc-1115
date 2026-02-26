@@ -627,7 +627,10 @@
     padding: 2rem 2.5rem 8rem;
   }
 
-  .page-section--detail { padding-top: 3rem; }
+  .page-section--detail    { padding-top: 3rem; }
+
+  /* Question list pages only — pulls cards up closer to the search bar */
+  .page-section--questions { padding-top: 0.25rem; }
 
   .search-result-count {
     font-family: var(--font-mono);

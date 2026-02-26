@@ -76,7 +76,7 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
         )}
       </div>
 
-      <section className="page-section page-section--detail">
+      <section className="page-section page-section--questions">
         {filteredQuestions.length === 0 ? (
           <div className="empty-state">
             <p className="empty-state-text">nothing found for "{query}"</p>
