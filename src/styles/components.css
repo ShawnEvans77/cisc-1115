@@ -1522,8 +1522,8 @@
   .semester-card-grid  { gap: 1rem; }
   .semester-card-arrow { font-size: 1.5rem; }
 
-  .detail-header  { padding: 1.5rem 1rem 2rem; }
-  .detail-content { padding: 1.5rem 1rem 6rem; }
+  .detail-header  { padding: 1.5rem 1rem 0.5rem; }
+  .detail-content { padding: 0.75rem 1rem 6rem; }
   .content-block  { padding: 1.25rem 1rem; }
 
   .code-scroll-wrapper pre {
