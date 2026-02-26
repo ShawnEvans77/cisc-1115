@@ -108,9 +108,9 @@
     --color-hero-grid: rgba(200, 175, 130, 0.09);
 
     /* Dark-only surfaces — no light-mode equivalent */
-    --color-navbar-dark:        #0a0908;
-    --color-content-deep:       #0a0905;
-    --color-navbar-mobile-dark: #1A1612;
+    --color-navbar-dark:        #000000;
+    --color-content-deep:       #000000;
+    --color-navbar-mobile-dark: #000000;
   }
 }
 
