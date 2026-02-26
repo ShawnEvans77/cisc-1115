@@ -24,11 +24,11 @@ function Contact() {
             <p className="content-block-label">the person</p>
           </div>
           <p className="content-block-body">
-            Hi, I'm Shawn Evans — a CS student at Brooklyn College. I built this site to make studying for CISC 1115 easier. If you have past exams, corrections, or feedback, I'd love to hear from you.
+            Hi, I'm Shawn Evans, a CS Grad from Brooklyn College. I built this site to make studying for CISC 1115 easier. If you have past exams, corrections, or feedback, I'd love to hear from you.
           </p>
         </div>
 
-        {/* Contact links */}
+        {/* Contact info — plain text, copy/pastable */}
         <div className="content-block">
           <div className="content-block-header">
             <p className="content-block-label">reach me</p>
@@ -36,29 +36,25 @@ function Contact() {
 
           <div className="contact-rows">
 
-            <a href="mailto:shawnevans328@gmail.com" className="contact-row">
+            <div className="contact-row">
               <span className="contact-row-label">personal email</span>
               <span className="contact-row-value">shawnevans328@gmail.com</span>
-              <span className="contact-row-arrow">→</span>
-            </a>
+            </div>
 
-            <a href="mailto:shawn.evans75@bcmail.cuny.edu" className="contact-row">
+            <div className="contact-row">
               <span className="contact-row-label">cuny email</span>
               <span className="contact-row-value">shawn.evans75@bcmail.cuny.edu</span>
-              <span className="contact-row-arrow">→</span>
-            </a>
+            </div>
 
-            <a href="https://github.com/ShawnEvans77" target="_blank" rel="noopener noreferrer" className="contact-row">
+            <div className="contact-row">
               <span className="contact-row-label">github</span>
               <span className="contact-row-value">github.com/ShawnEvans77</span>
-              <span className="contact-row-arrow">→</span>
-            </a>
+            </div>
 
-            <a href="https://github.com/ShawnEvans77/cisc-1115" target="_blank" rel="noopener noreferrer" className="contact-row contact-row--last">
+            <div className="contact-row contact-row--last">
               <span className="contact-row-label">this repo</span>
-              <span className="contact-row-value">ShawnEvans77/cisc-1115</span>
-              <span className="contact-row-arrow">→</span>
-            </a>
+              <span className="contact-row-value">github.com/ShawnEvans77/cisc-1115</span>
+            </div>
 
           </div>
         </div>
