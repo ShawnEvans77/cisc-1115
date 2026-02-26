@@ -83,8 +83,8 @@
     --color-forest-hover: #4A7040;
 
     /* Surfaces */
-    --color-white:     #161210;
-    --color-off-white: #0D0B09;
+    --color-white:     #0d0b0a;
+    --color-off-white: #000000;
     --color-surface:   #131109;
     --color-cream:     #1C1814;
 
@@ -105,11 +105,11 @@
     --rgb-ink:    237, 229, 216;
 
     /* Hero grid — warmer, lower contrast on near-black bg */
-    --color-hero-grid: rgba(200, 175, 130, 0.09);
+    --color-hero-grid: rgba(200, 175, 130, 0.15);
 
     /* Dark-only surfaces — no light-mode equivalent */
-    --color-navbar-dark:        #0F0D0B;
-    --color-content-deep:       #111009;
+    --color-navbar-dark:        #0a0908;
+    --color-content-deep:       #0a0905;
     --color-navbar-mobile-dark: #1A1612;
   }
 }
