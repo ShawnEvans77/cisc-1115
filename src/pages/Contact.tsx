@@ -51,10 +51,9 @@ function Contact() {
               <span className="contact-row-value">github.com/ShawnEvans77</span>
             </div>
 
-            
             <div className="contact-row contact-row">
               <span className="contact-row-label">portfolio</span>
-              <span className="contact-row-value">https://shawnevans.vercel.app/</span>
+              <span className="contact-row-value">shawnevans.vercel.app/</span>
             </div>
 
             <div className="contact-row contact-row">
@@ -64,7 +63,7 @@ function Contact() {
 
             <div className="contact-row contact-row--last">
               <span className="contact-row-label">solutions repo</span>
-              <span className="contact-row-value">https://github.com/ShawnEvans77/cisc-1115-final-key</span>
+              <span className="contact-row-value">github.com/ShawnEvans77/cisc-1115-final-key</span>
             </div>
 
           </div>
