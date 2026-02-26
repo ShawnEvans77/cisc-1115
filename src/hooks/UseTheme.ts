@@ -5,8 +5,8 @@ type Theme = "light" | "dark";
 
 const STORAGE_KEY = "maple-theme";
 const THEME_COLORS = {
-  light: "#E07B00",  // orange navbar
-  dark:  "#0F0D0B",  // deep warm black
+  light: "#FAFAF8",  // site off-white background
+  dark:  "#000000",  // pitch black
 };
 
 function getInitialTheme(): Theme {
@@ -39,7 +39,7 @@ function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
   document.documentElement.style.colorScheme = theme;
 
-  // Mobile browser chrome color (address bar, bottom bar on iOS/Android)
+  // Mobile browser chrome color + Android nav bar icons
   let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
   if (!meta) {
     meta = document.createElement("meta");
