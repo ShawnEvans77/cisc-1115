@@ -65,7 +65,7 @@ function Contact() {
             <p className="content-block-label">contribute</p>
           </div>
           <p className="content-block-body">
-            Missing a semester? Have a past exam or solutions not yet on the site? Open a pull request on the repo or send me an email — every contribution helps the next student.
+            Missing a semester? Have a past exam or solutions not yet on the site? Open a pull request on the repo or send me an email, every contribution helps the next student.
           </p>
           <div style={{ marginTop: "1.5rem" }}>
             <a
