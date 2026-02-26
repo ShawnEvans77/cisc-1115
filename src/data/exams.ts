@@ -10,8 +10,10 @@ import type { Exam } from "../types";
 
 import { fall2020 }   from "./semesters/fall-2020";
 import { spring2021 } from "./semesters/spring-2021";
+import { spring2023 } from "./semesters/spring-2023";
 
 export const exams: Exam[] = [
   fall2020,
   spring2021,
+  spring2023
 ];
