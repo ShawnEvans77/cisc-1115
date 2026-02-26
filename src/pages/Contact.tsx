@@ -4,13 +4,19 @@ function Contact() {
   return (
     <div className="page-root">
 
-      <div className="page-header">
+      <div className="page-header" style={{ paddingBottom: "1.5rem" }}>
         <p className="page-eyebrow">Brooklyn College · CISC 1115</p>
         <h1 className="page-title">contact</h1>
-        <p className="page-subtitle">get in touch, report an issue, or contribute exam data</p>
+        <p className="page-subtitle" style={{ marginBottom: 0 }}>
+          get in touch, report an issue, or contribute exam data
+        </p>
       </div>
 
-      <div className="page-section" style={{ paddingTop: "0.5rem" }}>
+      <div className="home-divider-wrap">
+        <hr className="home-divider" />
+      </div>
+
+      <div className="page-section" style={{ paddingTop: "2rem" }}>
 
         {/* About */}
         <div className="content-block">
@@ -18,7 +24,7 @@ function Contact() {
             <p className="content-block-label">the person</p>
           </div>
           <p className="content-block-body">
-            Hi, I'm Shawn Evans, a a CS grad at Brooklyn College. I built this site to make studying for CISC 1115 easier. If you have past exams, corrections, or feedback, I'd love to hear from you.
+            Hi, I'm Shawn Evans — a CS student at Brooklyn College. I built this site to make studying for CISC 1115 easier. If you have past exams, corrections, or feedback, I'd love to hear from you.
           </p>
         </div>
 
@@ -67,7 +73,7 @@ function Contact() {
           </p>
           <div style={{ marginTop: "1.5rem" }}>
             <a
-              href="https://github.com/ShawnEvans77/cisc-1115/pulls"
+              href="https://github.com/ShawnEvans77/cisc-1115"
               target="_blank"
               rel="noopener noreferrer"
               className="solution-link"

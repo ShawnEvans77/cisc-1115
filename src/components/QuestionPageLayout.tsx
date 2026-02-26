@@ -40,6 +40,10 @@ export function QuestionPageLayout({
         </div>
       </div>
 
+      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "1rem 2.5rem 0" }}>
+        <hr className="home-divider" />
+      </div>
+
       <section className="detail-content">
         {children}
         <div className="detail-bottom-nav">
