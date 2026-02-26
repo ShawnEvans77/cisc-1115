@@ -1452,7 +1452,7 @@
    surprises across browsers. Kept flat for reliability.
    ═════════════════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 800px) {
+@media (max-width: 640px) {
 
   .navbar-center { display: none; }
   .navbar-right  { display: none; }
