@@ -47,7 +47,7 @@ export const searching: NoteTopic = {
         {
           type:    "text",
           label:   "Overview",
-          content: `Linear search checks each element in the array one by one from left to right until it finds the target or reaches the end.\n\nIt works on both sorted and unsorted arrays. No preprocessing is required.\n\nBest case is O(1) — the target is the first element. Worst and average case are O(N) — the target is at the end or not present. Space complexity is O(1).`,
+          content: `Linear search is the most basic way of finding an element in an array. Starting from the beginning of the array, you check every single element to see if it matches your target.`,
         },
         {
           type:    "code",
