@@ -13,11 +13,40 @@ export const searching: NoteTopic = {
         {
           type:    "text",
           label:   "Overview",
-          content: `Binary search works on sorted arrays only. Binary search returns the index of a specified target in a sorted array. It returns -1 if it fails to find the target.
+          content: `Binary search is a searching algorithim that only works on sorted arrays. Binary search returns the index of a specified target in a sorted array. It returns -1 if it fails to find the target.
     
-I have an array of {1,2,3,4,5,6,7,8,9,10}. Let's say I'm looking for the number 9. Why would I search through the array one by one for 9? If I wanted to find 9, I would first jump to the middle of the array. The middle of the array is 6. 6 is too small. So, I move right. I ignore the left-half of the array and only look at {7,8,9,10}. I jump to the middle of this array. The middle is 8. 8 is too small, so I move right again. Then, when I get to {9,10}, I find 9 at the middle and the number is found. See how much quicker this is as opposed to going one by one?
+To do binary search, jump to the middle of the array. If the middle is too big, ignore the entire right half of the array and focus on the left half. If the middle is too small, ignore the left half of the array and focus on the right half. Repeat this until the number is found. 
 
-If I am searching for a number in a sorted array, I use binary search. To do binary search, jump to the middle of the array. If the middle is too big, ignore the entire right half of the array and focus on the left half. If the middle is too small, ignore the left half of the array and focus on the right half. This takes less steps compared to going one by one through the array.`,
+Suppose we have:
+
+int[] A = {2,4,6,8,10,12,14,16,18,20,24,28,30,36,40,45,47,49,100}
+
+Let's trace the binary search algorithm. We are looking for the number 36.
+
+We create start & end pointers. On the first iteration of binary search, start = 0 & end = 18, since the last index of this array is 18.
+
+(0 + 18)/2 is 9. We have found the middle index. A[9] is 20 which is smaller than 36. So, we must move right and ignore the left portion of the array.
+
+To move left, we change start to mid+1. The new start becomes 10.
+
+We are now only looking at {24,28,30,36,40,45,47,49,100}, completely discarding the left portion. We do the process again. start = 10 & end = 18. (10+18)/2 is 14.
+
+A[14], the middle number, is 40, which is now too big. So, let's move left. To move left, we change end to mid-1. The new end becomes 13.
+
+We are now looking at {24, 28, 30, 36}. The process happens again. start = 10 & end = 13. (10+13)/2 is 11.5, but we truncate the decimal, so the current mid is 11. A[11] = 28, which is too small. Move right. start = mid+1.
+
+The new start becomes 12. We are now looking at {30, 36} where start = 12 and end = 13. We calculate the mid as (12+13)/2 which is 12.5, truncated to 12. A[12] is 30, which is still smaller than 36. We move right again by setting start to mid+1, making the new start 13.
+
+Now both start and end are 13. We calculate the mid as (13+13)/2 which is 13. We check A[13] and find it is 36. The target is found at index 13 and the search is complete.
+
+Binary Search questions will typically ask you to create a chart of the values of start & mid & end. In this case, our chart is: 
+
+Start | Mid | End
+0     | 9   | 18
+10    | 14  | 18
+10    | 11  | 13
+12    | 12  | 13
+13    | 13  | 13`,
         },
         {
           type:    "code",
