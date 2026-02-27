@@ -1579,3 +1579,34 @@
     word-break: break-all;
   }
 }
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ADD THESE to components.css
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Note card grid — same as question-card but no badge column ── */
+
+.note-card-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* ── Replaces the inline style on NotePageLayout's divider wrapper ── */
+/* (Also add this to QuestionPageLayout to remove its inline style)  */
+
+.detail-divider-wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2.5rem 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ADD THESE ROUTES to your App.tsx / router:
+
+   <Route path="/notes"                       element={<Notes />} />
+   <Route path="/notes/:topicId"              element={<NotesTopic />} />
+   <Route path="/notes/:topicId/:entryId"     element={<NotesDetail />} />
+   ───────────────────────────────────────────────────────────────────────────── */

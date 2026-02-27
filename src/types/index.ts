@@ -16,3 +16,22 @@ export interface Exam {
   year:      string;
   questions: Question[];
 }
+
+export type NoteSection = {
+  type:    "text" | "code";
+  label:   string;
+  content: string;
+};
+
+export type NoteEntry = {
+  id:       string;
+  title:    string;
+  tags:     string[];
+  sections: NoteSection[];
+};
+
+export type NoteTopic = {
+  id:      string;
+  label:   string;
+  entries: NoteEntry[];
+};

@@ -9,8 +9,8 @@ import QuestionBankDetail from "./pages/SemesterQuestions";
 import QuestionOnly from "./pages/QuestionDetail";
 import Exams from "./pages/Exams";
 import Notes from "./pages/Notes";
-import TopicCategory from "./pages/TopicCategory";
-import TopicDetail from "./pages/TopicDetail";
+import TopicCategory from "./pages/NotesTopic";
+import TopicDetail   from "./pages/NotesDetail";
 import Contact from "./pages/Contact";
 import PageNotFound from "./pages/PageNotFound";
 
@@ -28,8 +28,8 @@ export const router = createBrowserRouter([
       { path: "questions/:examId/:questionId",              element: <QuestionOnly /> },
       { path: "exams",                                      element: <Exams /> },
       { path: "notes",                                      element: <Notes /> },
-      { path: "notes/:category",                            element: <TopicCategory /> },
-      { path: "notes/:category/:topic",                     element: <TopicDetail /> },
+      { path: "notes/:topicId",                             element: <TopicCategory /> },
+      { path: "notes/:topicId/:entryId",                    element: <TopicDetail /> },
       { path: "contact",                                    element: <Contact /> },
       { path: "*",                                          element: <PageNotFound /> },
     ],
