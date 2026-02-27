@@ -42,11 +42,11 @@ Now both start and end are 13. We calculate the mid as (13+13)/2 which is 13. We
 Binary Search questions will typically ask you to create a chart of the values of start & mid & end. In this case, our chart is: 
 
 Start | Mid | End
-0     | 9   | 18
-10    | 14  | 18
-10    | 11  | 13
-12    | 12  | 13
-13    | 13  | 13`,
+0     |   9   | 18
+10    |   14  | 18
+10    |  11  | 13
+12    |   12  | 13
+13    |   13  | 13`,
         },
         {
           type:    "code",
