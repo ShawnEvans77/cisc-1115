@@ -13,12 +13,33 @@ export const sorting: NoteTopic = {
         {
           type:    "text",
           label:   "Overview",
-          content: `Bubble sort repeatedly steps through the array, compares adjacent elements, and swaps them if they are in the wrong order. The pass is repeated until no swaps are needed, meaning the array is sorted.\n\nEach full pass \"bubbles\" the largest unsorted element to its correct position at the end of the array. Because of this, you need at most n-1 passes for an array of size n.\n\nTime complexity is O(N²) in the average and worst case. It is O(N) in the best case (already sorted) if you add an early-exit flag. Space complexity is O(1) — it sorts in place.`,
+          content: `Bubble sort is an algorithim that sorts an array. It takes elements from the beginning of the array and bubbles them into their proper place. For example,
+          
+Given int[] A = {10,9,8,7,6,50}
+
+This array is not sorted. So, Bubble Sort starts with the 10. It does a series of comparison to put 10 into its proper place. 10 is bigger than 9, so we swap 10 and 9.
+
+{9,10,8,7,6,50}
+
+10 is bigger than 8. Swap.
+
+{9,8,10,7,6,50}
+
+10 is bigger than 7. Swap.
+
+{9,8,7,10,6,50}
+
+10 is bigger than 6. Swap.
+
+{9,8,7,6,10,50}
+
+As you see, 10 is now in its proper place. We repeat this process for all other numbers on subsequent iteration. Eventually, we arrive at a sorted array, {6,7,8,9,10,50}.`,
         },
         {
           type:    "code",
           label:   "Implementation",
           content: `public static void bubbleSort(int[] nums) {
+
         for (int i = 0; i < nums.length; i++) {
             boolean swapped = false;
             for (int j = 0; j < nums.length - i - 1; j++) {
