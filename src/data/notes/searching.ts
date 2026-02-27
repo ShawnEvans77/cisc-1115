@@ -41,12 +41,15 @@ Now both start and end are 13. We calculate the mid as (13+13)/2 which is 13. We
 
 Binary Search questions will typically ask you to create a chart of the values of start & mid & end. In this case, our chart is: 
 
+------------------
 Start | Mid | End
-0     |   9   | 18
-10    |   14  | 18
-10    |  11  | 13
-12    |   12  | 13
-13    |   13  | 13`,
+------------------
+0        |   9   |   18
+10       |  14   |   18
+10       |  11    |  13
+12       |  12    |  13
+13       |  13    |  13
+-----------------`,
         },
         {
           type:    "code",
@@ -97,13 +100,19 @@ Start | Mid | End
         {
           type:    "code",
           label:   "Implementation",
-          content: `public static int linearSearch(int[] arr, int target) {
-    for (int i = 0; i < arr.length; i++) {
-        if (arr[i] == target) {
-            return i; // return index of match
+          content: `public static int linearSearch(int[] nums, int target) {
+
+    // for every element in the array
+    for (int i = 0; i < nums.length; i++) {
+
+        // if the current number is the same as the target
+        if (nums[i] == target) {
+            // return the index of the target
+            return i; 
         }
     }
-    return -1; // not found
+    // return -1 if the target cannot be found.
+    return -1; 
 }`,
         },
       ],
