@@ -28,8 +28,16 @@ export const spring2023: Exam = {
     return C; 
 }`
 
-    }
+    },
+    {
+  id: "6",
+  title: "question 6",
+  topics: ["Equations", "Math Methods"],
+  prompt: `Write a Java expression that would compute the following:`,
+  mathLatex: `w = \\sqrt{\\dfrac{\\sqrt{\\dfrac{x+y}{z}} - 1}{(1+x)^2}}`,
+  explanation: `Pretend you're entering this equation into Google to calculate it. It is a simple combination of Math.sqrt(), Math.pow(), and several parentheses.`,
+  solution: `double result = Math.sqrt((Math.sqrt((x + y) / z) - 1) / Math.pow(1 + x, 2));`,
+},
 
     ]
-
 };
