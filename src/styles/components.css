@@ -231,7 +231,7 @@
     transition: background 0.15s, color 0.15s;
   }
   .navbar-link:hover       { background-color: rgba(var(--rgb-black), 0.08); }
-  .navbar-link--active     { color: var(--color-ink); background-color: rgba(var(--rgb-black), 0.15); }
+  .navbar-link--active     { color: var(--color-pure-white); background-color: rgba(var(--rgb-black), 0.15); }
 
   /* Theme toggle inside the orange navbar bar */
   .navbar .theme-toggle,
