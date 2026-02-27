@@ -1517,7 +1517,7 @@
     transition: background 0.15s;
   }
   .navbar-mobile-link:hover       { background-color: rgba(var(--rgb-black), 0.1); }
-  .navbar-mobile-link--active     { color: var(--color-ink); background-color: rgba(var(--rgb-black), 0.15); }
+  .navbar-mobile-link--active     { color: var(--color-pure-white); background-color: rgba(var(--rgb-black), 0.15); }
 
   .navbar-mobile-theme {
     display: flex;
