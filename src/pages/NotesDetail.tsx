@@ -1,10 +1,27 @@
 // src/pages/NotesDetail.tsx
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { notes } from "../data/notes";
 import { NotePageLayout, NoteNotFound } from "../components/NotePageLayout";
 import { ContentBlock, PromptLines } from "../components/ContentBlock";
 import { highlightJava } from "../utils/highlightJava";
+
+function CopyButton({ content }: { content: string }) {
+  const [copied, setCopied] = useState(false);
+
+  function handleCopy() {
+    navigator.clipboard.writeText(content).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
+  return (
+    <button onClick={handleCopy} className={`copy-btn${copied ? " copied" : ""}`}>
+      {copied ? "✓ Copied!" : "Copy code"}
+    </button>
+  );
+}
 
 function NotesDetail(): React.ReactElement {
   const { topicId, entryId } = useParams<{ topicId: string; entryId: string }>();
@@ -36,7 +53,11 @@ function NotesDetail(): React.ReactElement {
             <PromptLines text={section.content} />
           </ContentBlock>
         ) : (
-          <ContentBlock key={i} label={section.label}>
+          <ContentBlock
+            key={i}
+            label={section.label}
+            headerSlot={<CopyButton content={section.content} />}
+          >
             <div className="code-scroll-wrapper">
               <pre>{highlightJava(section.content)}</pre>
             </div>

@@ -11,6 +11,26 @@ export const sorting: NoteTopic = {
       tags:  ["Algorithm", "O(N²)"],
       sections: [
         {
+          type:    "code",
+          label:   "Implementation",
+          content: `public static void bubbleSort(int[] nums) {
+
+        for (int i = 0; i < nums.length; i++) {
+            boolean swapped = false;
+            for (int j = 0; j < nums.length - i - 1; j++) {
+                if (nums[j] > nums[j+1]) {
+                    int temp = nums[j+1];
+                    nums[j+1] = nums[j];
+                    nums[j] = temp;
+                    swapped = true;
+                }
+            }
+            if (swapped == false)
+                break;
+        }
+    }`,
+        },
+        {
           type:    "text",
           label:   "Overview",
           content: `Bubble sort is an algorithim that sorts an array. It takes elements from the beginning of the array and bubbles them into their proper place. For example,
@@ -35,26 +55,6 @@ This array is not sorted. So, Bubble Sort starts with the 10. It does a series o
 
 As you see, 10 is now in its proper place. We repeat this process for all other numbers on subsequent iteration. Eventually, we arrive at a sorted array, {6,7,8,9,10,50}.`,
         },
-        {
-          type:    "code",
-          label:   "Implementation",
-          content: `public static void bubbleSort(int[] nums) {
-
-        for (int i = 0; i < nums.length; i++) {
-            boolean swapped = false;
-            for (int j = 0; j < nums.length - i - 1; j++) {
-                if (nums[j] > nums[j+1]) {
-                    int temp = nums[j+1];
-                    nums[j+1] = nums[j];
-                    nums[j] = temp;
-                    swapped = true;
-                }
-            }
-            if (swapped == false)
-                break;
-        }
-    }`,
-        },
       ],
     },
     {
@@ -62,11 +62,6 @@ As you see, 10 is now in its proper place. We repeat this process for all other 
       title: "quick sort",
       tags:  ["Algorithm", "O(N LOG N)"],
       sections: [
-        {
-          type:    "text",
-          label:   "Overview",
-          content: `Quick sort is a divide-and-conquer algorithm. It picks a pivot element, partitions the array so that all elements less than the pivot come before it and all elements greater come after it, then recursively sorts the two sub-arrays.\n\nThe choice of pivot matters. A bad pivot (always the smallest or largest element) degrades to O(N²). Picking the middle element or a random element avoids this in practice.\n\nAverage and best-case time complexity is O(N log N). Worst case is O(N²). Space complexity is O(log N) due to the recursive call stack.`,
-        },
         {
           type:    "code",
           label:   "Implementation",
@@ -97,6 +92,11 @@ private static int partition(int[] arr, int low, int high) {
 
     return i + 1;
 }`,
+        },
+        {
+          type:    "text",
+          label:   "Overview",
+          content: `Quick sort is a divide-and-conquer algorithm. It picks a pivot element, partitions the array so that all elements less than the pivot come before it and all elements greater come after it, then recursively sorts the two sub-arrays.\n\nThe choice of pivot matters. A bad pivot (always the smallest or largest element) degrades to O(N²). Picking the middle element or a random element avoids this in practice.\n\nAverage and best-case time complexity is O(N log N). Worst case is O(N²). Space complexity is O(log N) due to the recursive call stack.`,
         },
       ],
     },
