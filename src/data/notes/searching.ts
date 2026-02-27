@@ -19,7 +19,7 @@ To do binary search, jump to the middle of the array. If the middle is too big, 
 
 Suppose we have:
 
-int[] A = {2,4,6,8,10,12,14,16,18,20,24,28,30,36,40,45,47,49,100}
+int[] A = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 30, 36, 40, 45, 47, 49, 100}
 
 Let's trace the binary search algorithm. We are looking for the number 36.
 
@@ -29,7 +29,7 @@ We create start & end pointers. On the first iteration of binary search, start =
 
 To move left, we change start to mid+1. The new start becomes 10.
 
-We are now only looking at {24,28,30,36,40,45,47,49,100}, completely discarding the left portion. We do the process again. start = 10 & end = 18. (10+18)/2 is 14.
+We are now only looking at {24, 28, 30, 36, 40, 45, 47, 49, 100}, completely discarding the left portion. We do the process again. start = 10 & end = 18. (10+18)/2 is 14.
 
 A[14], the middle number, is 40, which is now too big. So, let's move left. To move left, we change end to mid-1. The new end becomes 13.
 
