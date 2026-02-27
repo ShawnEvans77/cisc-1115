@@ -1474,7 +1474,7 @@
    surprises across browsers. Kept flat for reliability.
    ═════════════════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 750px) {
+@media (max-width: 850px) {
 
   .navbar-center { display: none; }
   .navbar-right  { display: none; }
@@ -1549,7 +1549,7 @@
   .content-block  { padding: 1.25rem 1rem; }
 
   .code-scroll-wrapper pre {
-    font-size: 0.83rem;
+    font-size: 0.95rem;
     line-height: 1.85;
     padding: 1rem;
   }
