@@ -23,7 +23,7 @@ int[] A = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 30, 36, 40, 45, 47, 49, 1
 
 Let's trace the binary search algorithm. We are looking for the number 36.
 
-We create start & end pointers. On the first iteration of binary search, start = 0 & end = 18, since the last index of this array is 18.
+We create two varables, start and end. On the first iteration of binary search, start = 0 & end = 18, since the last index of this array is 18.
 
 (0 + 18)/2 is 9. We have found the middle index. A[9] is 20 which is smaller than 36. So, we must move right and ignore the left portion of the array.
 
