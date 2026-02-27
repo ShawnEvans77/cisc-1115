@@ -8,7 +8,7 @@ export const sorting: NoteTopic = {
     {
       id:    "bubble-sort",
       title: "bubble sort",
-      tags:  ["Algorithm", "O(N²)", "In-Place"],
+      tags:  ["Algorithm", "O(N²)"],
       sections: [
         {
           type:    "text",
@@ -39,7 +39,7 @@ export const sorting: NoteTopic = {
     {
       id:    "quick-sort",
       title: "quick sort",
-      tags:  ["Algorithm", "O(N LOG N)", "Divide & Conquer"],
+      tags:  ["Algorithm", "O(N LOG N)"],
       sections: [
         {
           type:    "text",

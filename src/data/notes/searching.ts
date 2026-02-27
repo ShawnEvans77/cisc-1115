@@ -89,7 +89,7 @@ Start | Mid | End
     {
       id:    "linear-search",
       title: "linear search",
-      tags:  ["Algorithm", "O(N)", "Sequential"],
+      tags:  ["Algorithm", "O(N)"],
       sections: [
         {
           type:    "text",
