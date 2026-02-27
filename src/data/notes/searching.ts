@@ -55,35 +55,34 @@ Start | Mid | End
           type:    "code",
           label:   "Implementation",
           content: `public static int binarySearch(int[] nums, int target) {
+    // start and end pointers
+    int start = 0;
+    int end = nums.length - 1;
 
-        // start and end pointers
-        int start = 0;
-        int end = nums.length - 1;
+    // while start pointer is less than the end pointer.
+    while (start <= end) { 
+        // calculate the middle index
+        int mid = (start + end) / 2;
 
-        // while start pointer is less than the end pointer.
-        while (start <= end) { 
-            // calculate the middle index
-            int mid = (start + end) / 2;
+        // if the middle is the target
+        if (target == nums[mid])
+            // simply return the middle index
+            return mid;
 
-            // if the middle is the target
-            if (target == nums[mid])
-                // simply return the middle index
-                return mid;
+        // if the middle is too big
+        else if (target < nums[mid])
+            // move left, ignore entire right half of the array
+            end = mid - 1;
+          
+        // if the middle is too small
+        else if (target > nums[mid])
+            // move right, ignore entire left half of the array
+            start = mid + 1;
+    }
 
-            // if the middle is too big
-            else if (target < nums[mid])
-                // move left, ignore entire right half of the array
-                end = mid - 1;
-              
-            // if the middle is too small
-            else if (target > nums[mid])
-                // move right, ignore entire left half of the array
-                start = mid + 1;
-        }
-
-        // return -1 if the target cannot be found.
-        return -1;
-    }`,
+    // return -1 if the target cannot be found.
+    return -1;
+}`,
         },
       ],
     },
