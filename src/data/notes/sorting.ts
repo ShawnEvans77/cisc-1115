@@ -18,22 +18,20 @@ export const sorting: NoteTopic = {
         {
           type:    "code",
           label:   "Implementation",
-          content: `public static int binarySearch(int[] nums, int target) {
-        int start = 0;
-        int end = nums.length - 1;
-
-        while (start <= end) {
-            int mid = (start + end) / 2;
-       
-            if (target == nums[mid])
-                return mid;
-            else if (target < nums[mid])
-                end = mid - 1;
-            else if (target > nums[mid])
-                start = mid + 1;
+          content: `public static void bubbleSort(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            boolean swapped = false;
+            for (int j = 0; j < nums.length - i - 1; j++) {
+                if (nums[j] > nums[j+1]) {
+                    int temp = nums[j+1];
+                    nums[j+1] = nums[j];
+                    nums[j] = temp;
+                    swapped = true;
+                }
+            }
+            if (swapped == false)
+                break;
         }
-
-        return -1;
     }`,
         },
       ],

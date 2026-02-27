@@ -18,24 +18,23 @@ export const searching: NoteTopic = {
         {
           type:    "code",
           label:   "Implementation",
-          content: `public static int binarySearch(int[] arr, int target) {
-    int low  = 0;
-    int high = arr.length - 1;
+          content: `public static int binarySearch(int[] nums, int target) {
+        int start = 0;
+        int end = nums.length - 1;
 
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
-
-        if (arr[mid] == target) {
-            return mid;          // found
-        } else if (arr[mid] < target) {
-            low = mid + 1;       // search right half
-        } else {
-            high = mid - 1;      // search left half
+        while (start <= end) {
+            int mid = (start + end) / 2;
+       
+            if (target == nums[mid])
+                return mid;
+            else if (target < nums[mid])
+                end = mid - 1;
+            else if (target > nums[mid])
+                start = mid + 1;
         }
-    }
 
-    return -1; // not found
-}`,
+        return -1;
+    }`,
         },
       ],
     },
