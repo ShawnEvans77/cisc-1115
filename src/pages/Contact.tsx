@@ -38,40 +38,52 @@ function Contact() {
 
             <div className="contact-row">
               <span className="contact-row-label">personal email</span>
-              <span className="contact-row-text">shawnevans328@gmail.com</span>
+              <div className="contact-row-value">
+                <span className="contact-row-text">shawnevans328@gmail.com</span>
+              </div>
             </div>
 
             <div className="contact-row">
               <span className="contact-row-label">cuny email</span>
-              <span className="contact-row-text">shawn.evans75@bcmail.cuny.edu</span>
+              <div className="contact-row-value">
+                <span className="contact-row-text">shawn.evans75@bcmail.cuny.edu</span>
+              </div>
             </div>
 
             <div className="contact-row">
               <span className="contact-row-label">github</span>
-              <a href="https://github.com/ShawnEvans77" target="_blank" rel="noopener noreferrer" className="contact-row-link">
-                github.com/ShawnEvans77
-              </a>
+              <div className="contact-row-value">
+                <a href="https://github.com/ShawnEvans77" target="_blank" rel="noopener noreferrer" className="contact-row-link">
+                  github.com/ShawnEvans77
+                </a>
+              </div>
             </div>
 
             <div className="contact-row">
               <span className="contact-row-label">portfolio</span>
-              <a href="https://shawnevans.vercel.app/" target="_blank" rel="noopener noreferrer" className="contact-row-link">
-                shawnevans.vercel.app
-              </a>
+              <div className="contact-row-value">
+                <a href="https://shawnevans.vercel.app/" target="_blank" rel="noopener noreferrer" className="contact-row-link">
+                  shawnevans.vercel.app
+                </a>
+              </div>
             </div>
 
             <div className="contact-row">
               <span className="contact-row-label">this repo</span>
-              <a href="https://github.com/ShawnEvans77/cisc-1115" target="_blank" rel="noopener noreferrer" className="contact-row-link">
-                github.com/ShawnEvans77/cisc-1115
-              </a>
+              <div className="contact-row-value">
+                <a href="https://github.com/ShawnEvans77/cisc-1115" target="_blank" rel="noopener noreferrer" className="contact-row-link">
+                  github.com/ShawnEvans77/cisc-1115
+                </a>
+              </div>
             </div>
 
             <div className="contact-row contact-row--last">
               <span className="contact-row-label">solutions repo</span>
-              <a href="https://github.com/ShawnEvans77/cisc-1115-final-key" target="_blank" rel="noopener noreferrer" className="contact-row-link">
-                github.com/ShawnEvans77/cisc-1115-final-key
-              </a>
+              <div className="contact-row-value">
+                <a href="https://github.com/ShawnEvans77/cisc-1115-final-key" target="_blank" rel="noopener noreferrer" className="contact-row-link">
+                  github.com/ShawnEvans77/cisc-1115-final-key
+                </a>
+              </div>
             </div>
 
           </div>
