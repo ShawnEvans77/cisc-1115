@@ -936,6 +936,7 @@
     text-underline-offset: 3px;
     transition: color 0.18s, text-decoration-color 0.18s, text-underline-offset 0.18s;
     word-break: break-all;
+    align-self: start;
   }
   .contact-row-link:hover {
     color: var(--color-orange-hover);
