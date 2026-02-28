@@ -24,7 +24,7 @@ function Contact() {
             <p className="content-block-label">the person</p>
           </div>
           <p className="content-block-body">
-            Hi, I'm Shawn Evans, a CS Grad from Brooklyn College. I built this platform because I noticed a gap between what students know compared to what they are expected to know. If you have past exams, corrections, or feedback, I'd love to hear from you.
+            Hi, I'm Shawn Evans, a CS Grad from Brooklyn College. I built this platform because I noticed a gap between what students know compared to what they are expected to know. This platform aims to be an all in one resource for freshman Computer Science students.
           </p>
         </div>
 
@@ -38,16 +38,16 @@ function Contact() {
 
             <div className="contact-row">
               <span className="contact-row-label">personal email</span>
-              <a href="mailto:shawnevans328@gmail.com" className="contact-row-link">
+              <span className="contact-row-link">
                 shawnevans328@gmail.com
-              </a>
+              </span>
             </div>
 
             <div className="contact-row">
               <span className="contact-row-label">cuny email</span>
-              <a href="mailto:shawn.evans75@bcmail.cuny.edu" className="contact-row-link">
+              <span className="contact-row-link">
                 shawn.evans75@bcmail.cuny.edu
-              </a>
+              </span>
             </div>
 
             <div className="contact-row">
@@ -87,7 +87,7 @@ function Contact() {
             <p className="content-block-label">contribute</p>
           </div>
           <p className="content-block-body">
-            Missing a semester? Have a past exam or solutions not yet on the site? Open a pull request on the repo or send me an email, every contribution helps the next student.
+            Click here if you'd like to contribute to the site:
           </p>
           <div className="contribute-action">
             <a
