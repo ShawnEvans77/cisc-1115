@@ -38,16 +38,12 @@ function Contact() {
 
             <div className="contact-row">
               <span className="contact-row-label">personal email</span>
-              <span className="contact-row-link">
-                shawnevans328@gmail.com
-              </span>
+              <span className="contact-row-text">shawnevans328@gmail.com</span>
             </div>
 
             <div className="contact-row">
               <span className="contact-row-label">cuny email</span>
-              <span className="contact-row-link">
-                shawn.evans75@bcmail.cuny.edu
-              </span>
+              <span className="contact-row-text">shawn.evans75@bcmail.cuny.edu</span>
             </div>
 
             <div className="contact-row">
