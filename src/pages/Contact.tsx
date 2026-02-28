@@ -4,10 +4,10 @@ function Contact() {
   return (
     <div className="page-root">
 
-      <div className="page-header" style={{ paddingBottom: "1.5rem" }}>
+      <div className="page-header page-header--contact">
         <p className="page-eyebrow">Brooklyn College · CISC 1115</p>
         <h1 className="page-title">contact</h1>
-        <p className="page-subtitle" style={{ marginBottom: 0 }}>
+        <p className="page-subtitle page-subtitle--flush">
           get in touch with me
         </p>
       </div>
@@ -16,7 +16,7 @@ function Contact() {
         <hr className="home-divider" />
       </div>
 
-      <div className="page-section" style={{ paddingTop: "2rem" }}>
+      <div className="page-section page-section--contact">
 
         {/* About */}
         <div className="content-block">
@@ -28,7 +28,7 @@ function Contact() {
           </p>
         </div>
 
-        {/* Contact info — plain text, copy/pastable */}
+        {/* Contact info */}
         <div className="content-block">
           <div className="content-block-header">
             <p className="content-block-label">reach me</p>
@@ -38,32 +38,44 @@ function Contact() {
 
             <div className="contact-row">
               <span className="contact-row-label">personal email</span>
-              <span className="contact-row-value">shawnevans328@gmail.com</span>
+              <a href="mailto:shawnevans328@gmail.com" className="contact-row-link">
+                shawnevans328@gmail.com
+              </a>
             </div>
 
             <div className="contact-row">
               <span className="contact-row-label">cuny email</span>
-              <span className="contact-row-value">shawn.evans75@bcmail.cuny.edu</span>
+              <a href="mailto:shawn.evans75@bcmail.cuny.edu" className="contact-row-link">
+                shawn.evans75@bcmail.cuny.edu
+              </a>
             </div>
 
             <div className="contact-row">
               <span className="contact-row-label">github</span>
-              <span className="contact-row-value">github.com/ShawnEvans77</span>
+              <a href="https://github.com/ShawnEvans77" target="_blank" rel="noopener noreferrer" className="contact-row-link">
+                github.com/ShawnEvans77
+              </a>
             </div>
 
-            <div className="contact-row contact-row">
+            <div className="contact-row">
               <span className="contact-row-label">portfolio</span>
-              <span className="contact-row-value">shawnevans.vercel.app/</span>
+              <a href="https://shawnevans.vercel.app/" target="_blank" rel="noopener noreferrer" className="contact-row-link">
+                shawnevans.vercel.app
+              </a>
             </div>
 
-            <div className="contact-row contact-row">
+            <div className="contact-row">
               <span className="contact-row-label">this repo</span>
-              <span className="contact-row-value">github.com/ShawnEvans77/cisc-1115</span>
+              <a href="https://github.com/ShawnEvans77/cisc-1115" target="_blank" rel="noopener noreferrer" className="contact-row-link">
+                github.com/ShawnEvans77/cisc-1115
+              </a>
             </div>
 
             <div className="contact-row contact-row--last">
               <span className="contact-row-label">solutions repo</span>
-              <span className="contact-row-value">github.com/ShawnEvans77/cisc-1115-final-key</span>
+              <a href="https://github.com/ShawnEvans77/cisc-1115-final-key" target="_blank" rel="noopener noreferrer" className="contact-row-link">
+                github.com/ShawnEvans77/cisc-1115-final-key
+              </a>
             </div>
 
           </div>
@@ -77,7 +89,7 @@ function Contact() {
           <p className="content-block-body">
             Missing a semester? Have a past exam or solutions not yet on the site? Open a pull request on the repo or send me an email, every contribution helps the next student.
           </p>
-          <div style={{ marginTop: "1.5rem" }}>
+          <div className="contribute-action">
             <a
               href="https://github.com/ShawnEvans77/cisc-1115"
               target="_blank"
