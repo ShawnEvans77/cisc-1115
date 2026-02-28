@@ -1373,7 +1373,7 @@
   .detail-content { padding: 0.75rem 1rem 6rem; }
   .content-block  { padding: 1.25rem 1rem; }
 
-  .code-scroll-wrapper pre { font-size: 0.83rem; line-height: 1.85; padding: 1rem; }
+  .code-scroll-wrapper pre { font-size: 0.83rem; line-height: 1.85; padding: 1rem; tab-size: 2; }
 
   .copy-btn { width: 100%; text-align: center; }
 
