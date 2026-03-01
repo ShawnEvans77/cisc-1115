@@ -1,17 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import ScrollToTop from "./components/ScrollToTop.tsx";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ backgroundColor: "#FFFFFF", fontFamily: "'DM Sans', sans-serif" }}
-    >
+    <div className="app-root">
       <ScrollToTop />
       <Navbar />
-      <main className="flex-1">
+      <main className="app-main">
         <Outlet />
       </main>
       <Footer />
