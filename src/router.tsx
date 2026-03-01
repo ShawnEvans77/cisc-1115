@@ -1,18 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
-import Home from "./pages/Home";
-import Solutions from "./pages/Solutions";
-import ExamDetail from "./pages/SemesterSolutions";
-import QuestionDetail from "./pages/SolutionDetail";
-import Questions from "./pages/Questions";
-import QuestionBankDetail from "./pages/SemesterQuestions";
-import QuestionOnly from "./pages/QuestionDetail";
-import Exams from "./pages/Exams";
-import Notes from "./pages/Notes";
-import TopicCategory from "./pages/NotesTopic";
-import TopicDetail   from "./pages/NotesDetail";
-import Contact from "./pages/Contact";
-import PageNotFound from "./pages/PageNotFound";
+import App               from "./App";
+import Home              from "./pages/Home";
+import Contact           from "./pages/Contact";
+import PageNotFound      from "./pages/PageNotFound";
+import Exams             from "./pages/Exams";
+import Solutions         from "./pages/Solutions";
+import SemesterSolutions from "./pages/SemesterSolutions";
+import SolutionDetail    from "./pages/SolutionDetail";
+import Questions         from "./pages/Questions";
+import SemesterQuestions from "./pages/SemesterQuestions";
+import QuestionDetail    from "./pages/QuestionDetail";
+import Notes             from "./pages/Notes";
+import NotesTopic        from "./pages/NotesTopic";
+import NotesDetail       from "./pages/NotesDetail";
 
 export const router = createBrowserRouter([
   {
@@ -20,16 +20,21 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true,                                        element: <Home /> },
+
       { path: "solutions",                                  element: <Solutions /> },
-      { path: "solutions/:examId",                          element: <ExamDetail /> },
-      { path: "solutions/:examId/:questionId",              element: <QuestionDetail /> },
+      { path: "solutions/:examId",                          element: <SemesterSolutions /> },
+      { path: "solutions/:examId/:questionId",              element: <SolutionDetail /> },
+
       { path: "questions",                                  element: <Questions /> },
-      { path: "questions/:examId",                          element: <QuestionBankDetail /> },
-      { path: "questions/:examId/:questionId",              element: <QuestionOnly /> },
+      { path: "questions/:examId",                          element: <SemesterQuestions /> },
+      { path: "questions/:examId/:questionId",              element: <QuestionDetail /> },
+
       { path: "exams",                                      element: <Exams /> },
+
       { path: "notes",                                      element: <Notes /> },
-      { path: "notes/:topicId",                             element: <TopicCategory /> },
-      { path: "notes/:topicId/:entryId",                    element: <TopicDetail /> },
+      { path: "notes/:topicId",                             element: <NotesTopic /> },
+      { path: "notes/:topicId/:entryId",                    element: <NotesDetail /> },
+
       { path: "contact",                                    element: <Contact /> },
       { path: "*",                                          element: <PageNotFound /> },
     ],
