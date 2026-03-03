@@ -119,6 +119,8 @@ For c, simply write out the numbers 64, 32, 16, 8, 4, 2, and 1. From these numbe
   = 64  + 32  +  0  +  0  +  4  +  2  +  0
   = 102
 
+  Answer: 102
+
 b. 171
 
     AB
@@ -127,6 +129,8 @@ b. 171
   = 10×16 + 11×1
   = 160   + 11
   = 171
+
+  Answer: 171
 
 c. 1000001
 
