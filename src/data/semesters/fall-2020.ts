@@ -10,7 +10,7 @@ export const fall2020: Exam = {
       id: "1a",
       title: "question 1a",
       topics: ["Loops", "Tracing"],
-      prompt: `Trace the variables in the following code:\n[[code]]int x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);[[/code]]`,
+      prompt: `Trace the x and y variables in the following code. Write all of the values x and y take throughout the code snippet's execution.\n[[code]]int x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);[[/code]]`,
       explanation: `We want to write all of the different values x and y take throughout the program.
         
 x and y begin at 5 and 10. We write down that x=5 and y=10.
@@ -38,7 +38,7 @@ Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 
       id: "1b",
       title: "question 1b",
       topics: ["Loops", "Tracing"],
-      prompt: `Trace the variables in the following code:\n\nfor (int i = 0; i < 5; i = i + 2) {\n    for (int j = i; j > 0; j--) { }\n}`,
+      prompt: `Trace the variables in the following code. Write all of the values i and j take throughout the execution of the code snippet.\n[[code]]\n\nfor (int i = 0; i < 5; i = i + 2) {\n    for (int j = i; j > 0; j--) { }\n}[[/code]]`,
       explanation: `We want to write all of the different values i and j take throughout the program.
   
 We start with i being equal to 0. j is equal to 0 since int j = i. However, j=0 is not greater than 0, so the inner loop does not execute. We write i=0 and nothing for j.
@@ -194,7 +194,7 @@ Write in {1, -, 0}. The binary search while loop condition, while (low <= high),
       id: "6",
       title: "question 6",
       topics: ["Arrays", "Loops", "Split", "Strings"],
-      prompt: `You are given a string containing a series of 9 digit zip codes with a dash separating the two parts and one space separating each full zip code from the next one. For example,\n\nString str = "11230-1234 11011-3489 07621-8845";\n\nWrite Java code to print the first 5 digits of each zip code followed by the last 4 digits of the zip code as separate values.\n\nSample output using the same str variable from above:\n11230 1234\n11011 3489\n07621 8845\n\nNOTE: The first part of the full zip code is always 5 digits, the second part is always 4 digits and there's always a dash in between the two parts. Keep in mind that your code must handle a String that has any number of such pairs, not just the three in the example above.`,
+      prompt: `You are given a string containing a series of 9 digit zip codes with a dash separating the two parts and one space separating each full zip code from the next one. For example,\n[[code]]String str = "11230-1234 11011-3489 07621-8845";[[/code]]\n\nWrite Java code to print the first 5 digits of each zip code followed by the last 4 digits of the zip code as separate values.\n\nSample output using the same str variable from above:\n[[text]]11230 1234\n11011 3489\n07621 8845\n\n[[/text]]\nNOTE: The first part of the full zip code is always 5 digits, the second part is always 4 digits and there's always a dash in between the two parts. Keep in mind that your code must handle a String that has any number of such pairs, not just the three in the example above.`,
       explanation: `We solve this problem easily by using the split method. Split the input string based on spaces, creating an array of zip codes. For each zip code in the array, split it based on the dash, then print the first five & last four numbers of that zip code.`,
       solution: `public class Fall2020Question6 {
     public static void main(String[] args) {
