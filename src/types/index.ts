@@ -1,13 +1,14 @@
 // src/types/index.ts
 
 export interface Question {
-  id:          string;
-  title:       string;
-  topics:      string[];
-  prompt:      string;
-  mathLatex?:  string;   // LaTeX string, rendered by <MathDisplay>
-  explanation: string;
-  solution:    string;
+  id:            string;
+  title:         string;
+  topics:        string[];
+  prompt:        string;
+  mathLatex?:    string;             // LaTeX string, rendered by <MathDisplay>
+  explanation:   string;
+  solution:      string;
+  solutionType?: "java" | "text";   // defaults to "java" when absent
 }
 
 export interface Exam {

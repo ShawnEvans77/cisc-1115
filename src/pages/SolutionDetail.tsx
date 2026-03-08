@@ -44,6 +44,10 @@ function SolutionDetail(): React.ReactElement {
         {question.mathLatex && <QuestionMath latex={question.mathLatex} />}
       </ContentBlock>
 
+      <ContentBlock label="Explanation">
+        <PromptLines text={question.explanation} />
+      </ContentBlock>
+
       <ContentBlock
         label="Solution"
         headerSlot={
@@ -53,12 +57,8 @@ function SolutionDetail(): React.ReactElement {
         }
       >
         <div className="code-scroll-wrapper">
-          <pre>{highlightJava(question.solution)}</pre>
+          <pre>{question.solutionType === "text" ? question.solution : highlightJava(question.solution)}</pre>
         </div>
-      </ContentBlock>
-
-      <ContentBlock label="Explanation">
-        <PromptLines text={question.explanation} />
       </ContentBlock>
     </QuestionPageLayout>
   );

@@ -1,6 +1,8 @@
 // src/components/ContentBlock.tsx
 import React from "react";
 import { MathDisplay } from "./MathDisplay";
+import { parsePrompt } from "../utils/parsePrompt";
+import { highlightJava } from "../utils/highlightJava";
 
 interface ContentBlockProps {
   label:       string;
@@ -20,20 +22,45 @@ export function ContentBlock({ label, children, headerSlot }: ContentBlockProps)
   );
 }
 
-// Renders newline-delimited prompt / explanation text
-export function PromptLines({ text }: { text: string }) {
+// Renders a prompt string — prose, [[code]] blocks, and [[text]] blocks.
+// [[code]] → Java highlighting via highlightJava
+// [[text]] → monospace, no highlighting (tables, traces, binary search steps, etc.)
+export function PromptBody({ text }: { text: string }) {
+  const segments = parsePrompt(text);
+
   return (
     <>
-      {text.split("\n").map((line, i) =>
-        line.trim() === ""
-          ? <br key={i} />
-          : <p key={i} className="content-block-body">{line}</p>
-      )}
+      {segments.map((seg, i) => {
+        if (seg.type === "code") {
+          return (
+            <div key={i} className="code-scroll-wrapper">
+              <pre>{highlightJava(seg.content.trim())}</pre>
+            </div>
+          );
+        }
+
+        if (seg.type === "text-block") {
+          return (
+            <div key={i} className="code-scroll-wrapper">
+              <pre>{seg.content.trim()}</pre>
+            </div>
+          );
+        }
+
+        return seg.content.split("\n").map((line, j) =>
+          line.trim() === ""
+            ? <br key={`${i}-${j}`} />
+            : <p key={`${i}-${j}`} className="content-block-body">{line}</p>
+        );
+      })}
     </>
   );
 }
 
-// Renders a LaTeX equation block — replaces the old mathHtml dangerouslySetInnerHTML approach
+// Backward-compat alias — update call sites to PromptBody when convenient.
+export const PromptLines = PromptBody;
+
+// Renders a LaTeX equation block.
 export function QuestionMath({ latex }: { latex: string }) {
   return <MathDisplay latex={latex} block />;
 }

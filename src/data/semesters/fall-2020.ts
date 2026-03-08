@@ -10,7 +10,7 @@ export const fall2020: Exam = {
       id: "1a",
       title: "question 1a",
       topics: ["Loops", "Tracing"],
-      prompt: `Trace the variables in the following code:\n\nint x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);`,
+      prompt: `Trace the variables in the following code:\n[[code]]int x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);[[/code]]`,
       explanation: `We want to write all of the different values x and y take throughout the program.
         
 x and y begin at 5 and 10. We write down that x=5 and y=10.
@@ -46,6 +46,7 @@ We start with i being equal to 0. j is equal to 0 since int j = i. However, j=0 
 Then, i increments to 2. j is equal to 2 since int j = i. Since this inner for loop condition is now valid, it executes. We have i=2 & j=2, then i=2 & j=1, then j goes down to zero, terminating the loop. We write that i=2 and j=2, then i=2 and j=1, then i=2 and j=0.
 
 Then, i increments to 4. j is equal to 4 since int j = i. Inner for loop condition is valid once more. We have i=4 & j=4. Do you notice the patern? j decrements down to 0 by one each time. We write that i=4 and j=4, i=4 and j=3, i=4 and j=2, and so on.`,
+solutionType: "text",
       solution: `
   i  |  j
  ---------

@@ -1107,6 +1107,20 @@
     white-space: pre;
   }
 
+  /* Inline code block within a prompt — no border chrome, just monospace */
+  .prompt-code-segment {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--color-ink);
+    background-color: rgba(var(--rgb-ink), 0.03);
+    border-radius: 3px;
+    padding: 1rem 1.25rem;
+    margin: 0.75rem 0;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
   .math-display {
     display: flex;
     justify-content: center;
@@ -1324,6 +1338,7 @@
   [data-theme="dark"] .content-block-label { color: rgba(var(--rgb-ink), 0.35); }
 
   [data-theme="dark"] .prompt-code-block   { background-color: rgba(var(--rgb-white), 0.03); border-color: var(--color-border); }
+  [data-theme="dark"] .prompt-code-segment { background-color: rgba(var(--rgb-white), 0.03); }
   [data-theme="dark"] .code-scroll-wrapper { background-color: var(--color-content-deep); border-color: var(--color-border); }
 
   [data-theme="dark"] .question-card       { background-color: var(--color-content-deep); border-color: var(--color-border); }
