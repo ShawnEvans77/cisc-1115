@@ -99,30 +99,32 @@ Write Java code to play 1,000 turns and keep track of the sum of the two dice in
 When all 1,000 turns have been completed, print a formatted table showing the value of the sum of the two dice (2 through 14) and the number of times that value occurred.
 
 Your output should look similar to this. Note that the numbers in your output will be different to this sample. Each dice sum is randomly generated when the program executes.
-
+[[text]]
 Dice Sum    Count
-            2           11
-            3           36
-            4           56
-            5           93
-            6           109
-            7           130
-            8           110
-            9           136
-            10          99
-            11           92
-            12          60
-            13          47
-            14          21`,
+       2       11
+       3       36
+       4       56
+       5       93
+       6      109
+       7      130
+       8      110
+       9      136
+      10       99
+      11       92
+      12       60
+      13       47
+      14       21
+[[/text]]`,
       explanation: `To solve this question, we will use an array as a histogram. A histogram tracks how many times certain rolls happened. We create an array of size 15. An array of size fiften will grant us indices 0 to 15, and from these indices we will only use 2 to 14.
         
 Recall the formula for generating a random number:
-
+[[code]]
 // randInt from [min, max]
 int randIntInclusive = (int) (Math.random() * (max - min + 1) + min);
 
 // randInt from [min, max)
 int randIntExclusive = (int) (Math.random() * (max - min) + min);
+[[/code]]
 
 In this case, we will be using the inclusive formula. 
 
@@ -189,14 +191,13 @@ If a number entered is not between 1 and 100, print an error message.
 If a -1 is read in, end the loop, then print which numbers between 1 and 100 the program did not read in.
 
 Sample output:
-
+[[text]]
 Enter some numbers between 1 and 100. Enter -1 to terminate the program: 
-
 1 2 3 4 5 6 7 8 9 10 11 15 20 50 55 75 99 98 97 96 23 26 29 -1
 
 The following numbers were not read in: 
-
-12 13 14 16 17 18 19 21 22 24 25 27 28 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 51 52 53 54 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 100 `,
+12 13 14 16 17 18 19 21 22 24 25 27 28 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 51 52 53 54 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 100
+[[/text]]`,
       explanation: `The main notable thing we do here is using a histogram to track which numbers were read in, represented by an array. We create an array of size 101, and we use indices 1 to 100. We use a while loop continuing until a -1 is entered. 
         
 We print the error message for if the number is not between 1 and 100. Otherwise, when reading a valid number, we update the appropiate index in the histogram. If a 35 was read in, add one to index 35. If a 67 was read in, add one to index 67.
