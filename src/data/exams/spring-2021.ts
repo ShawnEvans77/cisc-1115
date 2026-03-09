@@ -262,6 +262,7 @@ For a, the number has seven digits. Label the rightmost digit 2⁰, the second r
 For b, simply write out the numbers 128, 64, 32, 16, 8, 4, 2, and 1. From these numbers, we will make 246. (128+64+32+16+4+2) makes 246. Therefore, to express this in binary, we simply write out 11110110. The leftmost 1 represents 128, and each following 1s represents 64, 32, 16, 4, and 2 being added together to make 246. The 0s represent the numbers we do not use.
 
 For c, we know that in hexadecimal, B = 1011 and A = 1010. Concatenating them together yields 10111010, our answer.`,
+solutionType: "text",
 
   solution: `a. 95
 
