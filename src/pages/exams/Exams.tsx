@@ -1,11 +1,11 @@
-// src/pages/Exams.tsx
+// src/pages/exams/Exams.tsx
 import React, { useState } from "react";
-import { SemesterCard } from "../components/SemesterCard";
+import { SemesterCard } from "../../components/ui/SemesterCard";
 
 interface Exam {
   label: string;
-  year: string;
-  pdf: string;
+  year:  string;
+  pdf:   string;
   index: string;
 }
 
@@ -26,7 +26,6 @@ function Exams(): React.ReactElement {
     : exams;
 
   const showResults = query.trim().length > 0;
-
   const resultLabel = filtered.length === 0
     ? "no results"
     : `${filtered.length} of ${exams.length} exams`;

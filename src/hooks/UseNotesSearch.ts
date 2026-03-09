@@ -1,28 +1,29 @@
 // src/hooks/useNotesSearch.ts
 import { useMemo } from "react";
 import { notes } from "../data/notes";
+import type { NoteSection } from "../types";
 
 type TopicResult = {
-  type:        "topic";
-  topicId:     string;
-  topicLabel:  string;
-  entryCount:  number;
+  type:       "topic";
+  topicId:    string;
+  topicLabel: string;
+  entryCount: number;
 };
 
 type EntryResult = {
-  type:        "entry";
-  topicId:     string;
-  topicLabel:  string;
-  entryId:     string;
-  title:       string;
-  tags:        string[];
-  preview:     string;
+  type:       "entry";
+  topicId:    string;
+  topicLabel: string;
+  entryId:    string;
+  title:      string;
+  tags:       string[];
+  preview:    string;
 };
 
 export type NoteSearchResult = TopicResult | EntryResult;
 
-function getPreview(sections: { type: string; content: string }[], query: string): string {
-  const textSection = sections.find(s => s.type === "text");
+function getPreview(sections: NoteSection[], query: string): string {
+  const textSection = sections.find((s: NoteSection) => s.type === "text");
   if (!textSection) return "";
 
   const content = textSection.content;
@@ -30,7 +31,6 @@ function getPreview(sections: { type: string; content: string }[], query: string
   const idx     = content.toLowerCase().indexOf(q);
 
   if (idx === -1) {
-    // query not in text — return opening of first text section
     return content.slice(0, 100) + (content.length > 100 ? "…" : "");
   }
 
@@ -61,13 +61,13 @@ export function useNotesSearch(query: string): NoteSearchResult[] {
       }
 
       for (const entry of topic.entries) {
-        const sectionMatch = entry.sections.some(s =>
+        const sectionMatch = entry.sections.some((s: NoteSection) =>
           s.content.toLowerCase().includes(q)
         );
 
         if (
           entry.title.toLowerCase().includes(q) ||
-          entry.tags.some(t => t.toLowerCase().includes(q)) ||
+          entry.tags.some((t: string) => t.toLowerCase().includes(q)) ||
           sectionMatch
         ) {
           matches.push({

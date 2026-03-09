@@ -1,7 +1,7 @@
-// src/components/Navbar.tsx
+// src/components/layout/Navbar.tsx
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ThemeToggle } from "./ThemeToggle";
+import { ThemeToggle } from "../ui/ThemeToggle";
 
 const centerLinks = [
   { label: "exams",     path: "/exams" },
@@ -13,7 +13,7 @@ const centerLinks = [
 const allLinks = [...centerLinks, { label: "contact", path: "/contact" }];
 
 function Navbar() {
-  const location  = useLocation();
+  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isActive = (path: string) => location.pathname.startsWith(path);
@@ -22,12 +22,10 @@ function Navbar() {
     <>
       <nav className="navbar">
 
-        {/* Logo */}
         <Link to="/" className="navbar-logo">
           cisc 1115
         </Link>
 
-        {/* Desktop — center links */}
         <div className="navbar-center">
           {centerLinks.map(link => (
             <Link
@@ -40,7 +38,6 @@ function Navbar() {
           ))}
         </div>
 
-        {/* Desktop — right side */}
         <div className="navbar-right">
           <ThemeToggle />
           <Link
@@ -51,7 +48,6 @@ function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile — hamburger */}
         <button
           className="navbar-mobile-btn"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -62,7 +58,6 @@ function Navbar() {
 
       </nav>
 
-      {/* Mobile dropdown */}
       {menuOpen && (
         <div className="navbar-mobile-menu">
           {allLinks.map(link => (

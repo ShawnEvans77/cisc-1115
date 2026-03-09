@@ -1,15 +1,15 @@
-// src/components/QuestionPageLayout.tsx
+// src/components/exams/QuestionPageLayout.tsx
 import React from "react";
 import { Link } from "react-router-dom";
-import type { Exam, Question } from "../types";
-import { Breadcrumb } from "./Breadcrumb";
+import type { Exam, Question } from "../../types";
+import { Breadcrumb } from "../ui/Breadcrumb";
 
 interface QuestionPageLayoutProps {
   exam:       Exam;
   question:   Question;
-  basePath:   string;           // "/questions" | "/solutions"
-  children:   React.ReactNode;  // content blocks
-  bottomNav:  React.ReactNode;  // left/right nav links
+  basePath:   string;
+  children:   React.ReactNode;
+  bottomNav:  React.ReactNode;
 }
 
 export function QuestionPageLayout({
@@ -19,7 +19,7 @@ export function QuestionPageLayout({
   children,
   bottomNav,
 }: QuestionPageLayoutProps) {
-  const parentLabel = basePath.slice(1); // "questions" | "solutions"
+  const parentLabel = basePath.slice(1);
 
   return (
     <div className="page-root detail-root">
@@ -40,7 +40,7 @@ export function QuestionPageLayout({
         </div>
       </div>
 
-      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "1rem 2.5rem 0" }}>
+      <div className="detail-divider-wrap">
         <hr className="home-divider" />
       </div>
 

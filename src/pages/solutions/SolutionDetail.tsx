@@ -1,15 +1,16 @@
-// src/pages/SolutionDetail.tsx
+// src/pages/solutions/SolutionDetail.tsx
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { exams } from "../data/exams";
-import { QuestionPageLayout, QuestionNotFound } from "../components/QuestionPageLayout";
-import { ContentBlock, PromptLines, QuestionMath } from "../components/ContentBlock";
-import { highlightJava } from "../utils/highlightJava";
+import { exams } from "../../data/exams";
+import type { Question } from "../../types";
+import { QuestionPageLayout, QuestionNotFound } from "../../components/exams/QuestionPageLayout";
+import { ContentBlock, PromptLines, QuestionMath } from "../../components/ui/ContentBlock";
+import { highlightJava } from "../../utils/highlightJava";
 
 function SolutionDetail(): React.ReactElement {
   const { examId, questionId } = useParams<{ examId: string; questionId: string }>();
   const exam     = exams.find(e => e.id === examId);
-  const question = exam?.questions.find(q => q.id === questionId);
+  const question = exam?.questions.find((q: Question) => q.id === questionId);
   const [copied, setCopied] = useState(false);
 
   if (!exam || !question) {

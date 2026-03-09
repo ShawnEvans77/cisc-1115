@@ -1,8 +1,8 @@
-// src/components/SearchResults.tsx
+// src/components/exams/SearchResults.tsx
 import React from "react";
 import { Link } from "react-router-dom";
-import { highlight } from "../utils/highlight";
-import type { SearchResult } from "../hooks/UseExamSearch";
+import { highlight } from "../../utils/highlight";
+import type { SearchResult } from "../../hooks/useExamSearch";
 
 interface SearchResultsProps {
   results:  SearchResult[];
@@ -10,16 +10,13 @@ interface SearchResultsProps {
   basePath: "/solutions" | "/questions";
 }
 
-// Extracts a ~100-char context window around the first match in the prompt.
 function getPromptSnippet(prompt: string, query: string): string | null {
   const q   = query.trim().toLowerCase();
   const idx = prompt.toLowerCase().indexOf(q);
   if (idx === -1) return null;
-
   const start   = Math.max(0, idx - 40);
   const end     = Math.min(prompt.length, idx + q.length + 60);
-  const snippet = (start > 0 ? "…" : "") + prompt.slice(start, end) + (end < prompt.length ? "…" : "");
-  return snippet;
+  return (start > 0 ? "…" : "") + prompt.slice(start, end) + (end < prompt.length ? "…" : "");
 }
 
 export function SearchResults({ results, query, basePath }: SearchResultsProps): React.ReactElement {
@@ -51,8 +48,6 @@ export function SearchResults({ results, query, basePath }: SearchResultsProps):
           );
         }
 
-        // Show prompt snippet if prompt matches — regardless of whether topics also matched.
-        // Both are shown simultaneously; snippet renders underneath the tags.
         const snippet = getPromptSnippet(r.prompt, query);
 
         return (

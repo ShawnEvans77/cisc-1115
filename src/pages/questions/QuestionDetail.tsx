@@ -1,14 +1,15 @@
-// src/pages/QuestionDetail.tsx
+// src/pages/questions/QuestionDetail.tsx
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { exams } from "../data/exams";
-import { QuestionPageLayout, QuestionNotFound } from "../components/QuestionPageLayout";
-import { ContentBlock, PromptLines, QuestionMath } from "../components/ContentBlock";
+import { exams } from "../../data/exams";
+import type { Question } from "../../types";
+import { QuestionPageLayout, QuestionNotFound } from "../../components/exams/QuestionPageLayout";
+import { ContentBlock, PromptLines, QuestionMath } from "../../components/ui/ContentBlock";
 
 function QuestionDetail(): React.ReactElement {
   const { examId, questionId } = useParams<{ examId: string; questionId: string }>();
   const exam     = exams.find(e => e.id === examId);
-  const question = exam?.questions.find(q => q.id === questionId);
+  const question = exam?.questions.find((q: Question) => q.id === questionId);
 
   if (!exam || !question) {
     return <QuestionNotFound backTo="/questions" backLabel="← Back to questions" />;

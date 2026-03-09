@@ -1,6 +1,6 @@
-// src/pages/QuestionBankDetail.tsx
+// src/pages/questions/SemesterQuestions.tsx
 import React from "react";
-import { QuestionListPage } from "../components/QuestionListPage";
+import { QuestionListPage } from "../../components/exams/QuestionListPage";
 
 function SemesterQuestions(): React.ReactElement {
   return (

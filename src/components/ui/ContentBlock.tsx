@@ -1,8 +1,8 @@
-// src/components/ContentBlock.tsx
+// src/components/ui/ContentBlock.tsx
 import React from "react";
 import { MathDisplay } from "./MathDisplay";
-import { parsePrompt } from "../utils/parsePrompt";
-import { highlightJava } from "../utils/highlightJava";
+import { parsePrompt } from "../../utils/parsePrompt";
+import { highlightJava } from "../../utils/highlightJava";
 
 interface ContentBlockProps {
   label:       string;
@@ -47,7 +47,7 @@ export function PromptBody({ text }: { text: string }) {
           );
         }
 
-        return seg.content.split("\n").map((line, j) =>
+        return seg.content.split("\n").map((line: string, j: number) =>
           line.trim() === ""
             ? <br key={`${i}-${j}`} />
             : <p key={`${i}-${j}`} className="content-block-body">{line}</p>

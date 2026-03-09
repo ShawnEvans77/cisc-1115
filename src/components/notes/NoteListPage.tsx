@@ -1,8 +1,9 @@
-// src/components/NoteListPage.tsx
+// src/components/notes/NoteListPage.tsx
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { notes } from "../data/notes";
-import { Breadcrumb } from "./Breadcrumb";
+import { notes } from "../../data/notes";
+import type { NoteEntry, NoteSection } from "../../types";
+import { Breadcrumb } from "../ui/Breadcrumb";
 import { NoteCard } from "./NoteCard";
 
 export function NoteListPage() {
@@ -14,10 +15,10 @@ export function NoteListPage() {
     if (!topic) return [];
     const q = query.trim().toLowerCase();
     if (!q) return topic.entries;
-    return topic.entries.filter(entry =>
+    return topic.entries.filter((entry: NoteEntry) =>
       entry.title.toLowerCase().includes(q) ||
-      entry.tags.some(t => t.toLowerCase().includes(q)) ||
-      entry.sections.some(s => s.content.toLowerCase().includes(q))
+      entry.tags.some((t: string) => t.toLowerCase().includes(q)) ||
+      entry.sections.some((s: NoteSection) => s.content.toLowerCase().includes(q))
     );
   }, [query, topic]);
 
@@ -72,7 +73,7 @@ export function NoteListPage() {
             <p className="empty-state-text">nothing found for "{query}"</p>
           </div>
         ) : (
-          filteredEntries.map(entry => (
+          filteredEntries.map((entry: NoteEntry) => (
             <NoteCard
               key={entry.id}
               entry={entry}

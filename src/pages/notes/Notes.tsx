@@ -1,13 +1,13 @@
-// src/pages/Notes.tsx
+// src/pages/notes/Notes.tsx
 import React, { useState } from "react";
-import { notes } from "../data/notes";
-import { useNotesSearch } from "../hooks/UseNotesSearch";
-import { NoteSearchResults } from "../components/NoteSearchResults";
-import { SemesterCard } from "../components/SemesterCard";
+import { notes } from "../../data/notes";
+import { useNotesSearch } from "../../hooks/useNotesSearch";
+import { NoteSearchResults } from "../../components/notes/NoteSearchResults";
+import { SemesterCard } from "../../components/ui/SemesterCard";
 
 function Notes(): React.ReactElement {
   const [query, setQuery] = useState("");
-  const results   = useNotesSearch(query);
+  const results     = useNotesSearch(query);
   const showResults = query.trim().length > 0;
 
   const resultLabel = results.length === 0

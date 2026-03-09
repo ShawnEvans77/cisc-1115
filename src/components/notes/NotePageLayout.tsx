@@ -1,8 +1,8 @@
-// src/components/NotePageLayout.tsx
+// src/components/notes/NotePageLayout.tsx
 import React from "react";
 import { Link } from "react-router-dom";
-import type { NoteTopic, NoteEntry } from "../types";
-import { Breadcrumb } from "./Breadcrumb";
+import type { NoteTopic, NoteEntry } from "../../types";
+import { Breadcrumb } from "../ui/Breadcrumb";
 
 interface NotePageLayoutProps {
   topic:     NoteTopic;
@@ -16,8 +16,8 @@ export function NotePageLayout({ topic, entry, children, bottomNav }: NotePageLa
     <div className="page-root detail-root">
 
       <Breadcrumb wide crumbs={[
-        { label: "notes",       to: "/notes" },
-        { label: topic.label,   to: `/notes/${topic.id}` },
+        { label: "notes",     to: "/notes" },
+        { label: topic.label, to: `/notes/${topic.id}` },
         { label: entry.title },
       ]} />
 

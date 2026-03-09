@@ -1,4 +1,4 @@
-// src/data/notes.ts
+// src/data/notes/index.ts
 // ─────────────────────────────────────────────────────────────────────────────
 // Single source of truth for all notes data.
 // To add a new topic:
@@ -6,10 +6,10 @@
 //   2. Import it here and add it to the array.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { NoteTopic } from "../types";
+import type { NoteTopic } from "../../types";
 
-import { sorting }   from "./notes/sorting";
-import { searching } from "./notes/searching";
+import { sorting }   from "./sorting";
+import { searching } from "./searching";
 
 export const notes: NoteTopic[] = [
     searching,

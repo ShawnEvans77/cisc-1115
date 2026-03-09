@@ -1,7 +1,7 @@
-// src/components/QuestionCard.tsx
+// src/components/exams/QuestionCard.tsx
 import { Link } from "react-router-dom";
-import type { Question } from "../types";
-import { highlight } from "../utils/highlight";
+import type { Question } from "../../types";
+import { highlight } from "../../utils/highlight";
 
 interface QuestionCardProps {
   question: Question;

@@ -1,7 +1,7 @@
-// src/components/NoteSearchResults.tsx
+// src/components/notes/NoteSearchResults.tsx
 import { Link } from "react-router-dom";
-import { highlight } from "../utils/highlight";
-import type { NoteSearchResult } from "../hooks/UseNotesSearch";
+import { highlight } from "../../utils/highlight";
+import type { NoteSearchResult } from "../../hooks/useNotesSearch";
 
 interface NoteSearchResultsProps {
   results: NoteSearchResult[];

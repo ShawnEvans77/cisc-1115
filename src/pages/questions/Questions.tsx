@@ -1,13 +1,13 @@
-// src/pages/Questions.tsx
+// src/pages/questions/Questions.tsx
 import React, { useState } from "react";
-import { exams } from "../data/exams";
-import { useExamSearch } from "../hooks/UseExamSearch";
-import { SearchResults } from "../components/SearchResults";
-import { SemesterCard } from "../components/SemesterCard";
+import { exams } from "../../data/exams";
+import { useExamSearch } from "../../hooks/useExamSearch";
+import { SearchResults } from "../../components/exams/SearchResults";
+import { SemesterCard } from "../../components/ui/SemesterCard";
 
 function Questions(): React.ReactElement {
   const [query, setQuery] = useState("");
-  const results = useExamSearch(query);
+  const results     = useExamSearch(query);
   const showResults = query.trim().length > 0;
 
   const resultLabel = results.length === 0

@@ -1,7 +1,7 @@
-// src/components/NoteCard.tsx
+// src/components/notes/NoteCard.tsx
 import { Link } from "react-router-dom";
-import type { NoteEntry } from "../types";
-import { highlight } from "../utils/highlight";
+import type { NoteEntry } from "../../types";
+import { highlight } from "../../utils/highlight";
 
 interface NoteCardProps {
   entry:   NoteEntry;
@@ -13,7 +13,6 @@ function getContentSnippet(entry: NoteEntry, query: string): string | null {
   const sq = query.trim().toLowerCase();
   if (!sq) return null;
 
-  // Search all text sections for a match
   for (const section of entry.sections) {
     if (section.type !== "text") continue;
     const idx = section.content.toLowerCase().indexOf(sq);

@@ -1,12 +1,13 @@
-// src/components/QuestionListPage.tsx
+// src/components/exams/QuestionListPage.tsx
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { exams } from "../data/exams";
-import { Breadcrumb } from "./Breadcrumb";
+import { exams } from "../../data/exams";
+import type { Question } from "../../types";
+import { Breadcrumb } from "../ui/Breadcrumb";
 import { QuestionCard } from "./QuestionCard";
 
 interface QuestionListPageProps {
-  basePath: string; // "/solutions" | "/questions"
+  basePath: string;
   subtitle: string;
 }
 
@@ -19,14 +20,12 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
     if (!exam) return [];
     const q = query.trim().toLowerCase();
     if (!q) return exam.questions;
-    return exam.questions.filter(question =>
+    return exam.questions.filter((question: Question) =>
       question.title.toLowerCase().includes(q) ||
-      question.topics.some(t => t.toLowerCase().includes(q)) ||
+      question.topics.some((t: string) => t.toLowerCase().includes(q)) ||
       question.prompt.toLowerCase().includes(q)
     );
   }, [query, exam]);
-
-  // ── 404 ──────────────────────────────────────────────────────────────────────
 
   if (!exam) {
     return (
@@ -39,8 +38,6 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
       </div>
     );
   }
-
-  // ── Page ─────────────────────────────────────────────────────────────────────
 
   const parentLabel = basePath.slice(1);
   const showResults = query.trim().length > 0;
@@ -82,7 +79,7 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
             <p className="empty-state-text">nothing found for "{query}"</p>
           </div>
         ) : (
-          filteredQuestions.map(q => (
+          filteredQuestions.map((q: Question) => (
             <QuestionCard
               key={q.id}
               question={q}
