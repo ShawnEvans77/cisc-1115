@@ -46,7 +46,8 @@ export function NoteSearchResults({ results, query }: NoteSearchResultsProps) {
                   {highlight(r.title, query)}
                 </h2>
                 <div className="result-card-tags">
-                  {r.tags.map(t => (
+                  {/* Fixed: Added explicit string type to 't' to satisfy TS7006 */}
+                  {r.tags.map((t: string) => (
                     <span key={t} className="result-tag">{highlight(t, query)}</span>
                   ))}
                 </div>
