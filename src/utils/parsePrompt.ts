@@ -5,14 +5,6 @@ export type PromptSegment =
   | { type: "code";       content: string }
   | { type: "text-block"; content: string };
 
-/**
- * Splits a prompt string into segments.
- *
- * [[code]]...[[/code]]   → Java syntax-highlighted block
- * [[text]]...[[/text]]   → monospace block, no highlighting (tables, traces, etc.)
- *
- * Anything outside delimiters → plain prose lines
- */
 export function parsePrompt(raw: string): PromptSegment[] {
   const segments: PromptSegment[] = [];
   const re = /\[\[code\]\]([\s\S]*?)\[\[\/code\]\]|\[\[text\]\]([\s\S]*?)\[\[\/text\]\]/g;
@@ -39,4 +31,10 @@ export function parsePrompt(raw: string): PromptSegment[] {
   }
 
   return segments.filter(s => s.content !== "");
+}
+
+export function stripPromptDelimiters(raw: string): string {
+  return raw
+    .replace(/\[\[code\]\]|\[\[\/code\]\]/g, "")
+    .replace(/\[\[text\]\]|\[\[\/text\]\]/g, "");
 }

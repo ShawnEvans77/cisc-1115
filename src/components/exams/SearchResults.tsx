@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { highlight } from "../../utils/highlight";
+import { stripPromptDelimiters } from "../../utils/parsePrompt";
 import type { SearchResult } from "../../hooks/useExamSearch";
 
 interface SearchResultsProps {
@@ -11,12 +12,13 @@ interface SearchResultsProps {
 }
 
 function getPromptSnippet(prompt: string, query: string): string | null {
+  const clean = stripPromptDelimiters(prompt);
   const q   = query.trim().toLowerCase();
-  const idx = prompt.toLowerCase().indexOf(q);
+  const idx = clean.toLowerCase().indexOf(q);
   if (idx === -1) return null;
-  const start   = Math.max(0, idx - 40);
-  const end     = Math.min(prompt.length, idx + q.length + 60);
-  return (start > 0 ? "…" : "") + prompt.slice(start, end) + (end < prompt.length ? "…" : "");
+  const start = Math.max(0, idx - 40);
+  const end   = Math.min(clean.length, idx + q.length + 60);
+  return (start > 0 ? "…" : "") + clean.slice(start, end) + (end < clean.length ? "…" : "");
 }
 
 export function SearchResults({ results, query, basePath }: SearchResultsProps): React.ReactElement {

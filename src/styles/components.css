@@ -652,6 +652,16 @@
   .search-input:focus        { border-bottom-color: var(--color-orange); }
 
 
+  /* ── Search Highlight ── */
+
+  .search-highlight {
+    background-color: var(--color-orange-light);
+    color: var(--color-orange);
+    border-radius: 2px;
+    padding: 0 2px;
+  }
+
+
   /* ── Semester Card ── */
 
   .semester-card {
@@ -931,13 +941,11 @@
     flex-shrink: 0;
   }
 
-  /* Grid cell wrapper — never a link itself */
   .contact-row-value {
     min-width: 0;
     word-break: break-all;
   }
 
-  /* Plain copyable text — emails */
   .contact-row-text {
     font-family: var(--font-body);
     font-size: 1rem;
@@ -945,7 +953,6 @@
     user-select: all;
   }
 
-  /* Clickable external links — inline so hit area = text only */
   .contact-row-link {
     font-family: var(--font-body);
     font-size: 1rem;
@@ -1107,7 +1114,6 @@
     white-space: pre;
   }
 
-  /* Inline code block within a prompt — no border chrome, just monospace */
   .prompt-code-segment {
     font-family: var(--font-mono);
     font-size: 1rem;
@@ -1344,6 +1350,11 @@
   [data-theme="dark"] .question-card       { background-color: var(--color-content-deep); border-color: var(--color-border); }
   [data-theme="dark"] .question-card:hover { border-color: var(--color-orange); box-shadow: 0 4px 24px rgba(var(--rgb-orange), 0.08); }
   [data-theme="dark"] .question-card-badge { background-color: rgba(var(--rgb-orange), 0.15); color: var(--color-orange); }
+
+  [data-theme="dark"] .search-highlight {
+    background-color: rgba(var(--rgb-orange), 0.18);
+    color: var(--color-orange);
+  }
 
   [data-theme="dark"] .solution-link       { background-color: transparent; color: var(--color-ink); border: 1px solid var(--color-border-strong); }
   [data-theme="dark"] .solution-link:hover { background-color: rgba(var(--rgb-ink), 0.07); border-color: var(--color-ink); }

@@ -5,6 +5,7 @@ import { exams } from "../../data/exams";
 import type { Question } from "../../types";
 import { Breadcrumb } from "../ui/Breadcrumb";
 import { QuestionCard } from "./QuestionCard";
+import { stripPromptDelimiters } from "../../utils/parsePrompt";
 
 interface QuestionListPageProps {
   basePath: string;
@@ -20,11 +21,14 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
     if (!exam) return [];
     const q = query.trim().toLowerCase();
     if (!q) return exam.questions;
-    return exam.questions.filter((question: Question) =>
-      question.title.toLowerCase().includes(q) ||
-      question.topics.some((t: string) => t.toLowerCase().includes(q)) ||
-      question.prompt.toLowerCase().includes(q)
-    );
+    return exam.questions.filter((question: Question) => {
+      const cleanPrompt = stripPromptDelimiters(question.prompt);
+      return (
+        question.title.toLowerCase().includes(q) ||
+        question.topics.some((t: string) => t.toLowerCase().includes(q)) ||
+        cleanPrompt.toLowerCase().includes(q)
+      );
+    });
   }, [query, exam]);
 
   if (!exam) {

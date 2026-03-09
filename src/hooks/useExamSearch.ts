@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { exams } from "../data/exams";
+import { stripPromptDelimiters } from "../utils/parsePrompt";
 
 type SemesterResult = {
   type: "semester";
@@ -37,10 +38,11 @@ export function useExamSearch(query: string): SearchResult[] {
         continue;
       }
       for (const question of exam.questions) {
+        const cleanPrompt = stripPromptDelimiters(question.prompt);
         if (
           question.title.toLowerCase().includes(q) ||
           question.topics.some(t => t.toLowerCase().includes(q)) ||
-          question.prompt.toLowerCase().includes(q)
+          cleanPrompt.toLowerCase().includes(q)
         ) {
           matches.push({ type: "question", examId: exam.id, examLabel: exam.label, questionId: question.id, title: question.title, topics: question.topics, prompt: question.prompt });
         }
