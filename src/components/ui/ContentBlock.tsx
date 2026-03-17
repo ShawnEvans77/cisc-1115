@@ -8,11 +8,12 @@ interface ContentBlockProps {
   label:       string;
   children:    React.ReactNode;
   headerSlot?: React.ReactNode;
+  id?:         string;
 }
 
-export function ContentBlock({ label, children, headerSlot }: ContentBlockProps) {
+export function ContentBlock({ label, children, headerSlot, id }: ContentBlockProps) {
   return (
-    <div className="content-block">
+    <div id={id} className="content-block">
       <div className="content-block-header">
         <p className="content-block-label">{label}</p>
         {headerSlot}

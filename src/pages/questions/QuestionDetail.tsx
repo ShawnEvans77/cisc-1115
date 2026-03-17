@@ -25,7 +25,11 @@ function QuestionDetail(): React.ReactElement {
           <Link to={`/questions/${exam.id}`} className="back-link">
             ← All {exam.label} questions
           </Link>
-          <Link to={`/solutions/${exam.id}/${question.id}`} className="solution-link">
+          <Link
+            to={`/solutions/${exam.id}/${question.id}`}
+            state={{ scrollToSolution: true }}
+            className="solution-link"
+          >
             View solution →
           </Link>
         </>

@@ -1,6 +1,6 @@
 // src/pages/solutions/SolutionDetail.tsx
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { exams } from "../../data/exams";
 import type { Question } from "../../types";
 import { QuestionPageLayout, QuestionNotFound } from "../../components/exams/QuestionPageLayout";
@@ -9,9 +9,18 @@ import { highlightJava } from "../../utils/highlightJava";
 
 function SolutionDetail(): React.ReactElement {
   const { examId, questionId } = useParams<{ examId: string; questionId: string }>();
+  const location = useLocation();
   const exam     = exams.find(e => e.id === examId);
   const question = exam?.questions.find((q: Question) => q.id === questionId);
   const [copied, setCopied] = useState(false);
+
+  // If navigated from "View solution →", instantly jump to the solution block.
+  useEffect(() => {
+    if ((location.state as { scrollToSolution?: boolean })?.scrollToSolution) {
+      const el = document.getElementById("solution");
+      if (el) el.scrollIntoView({ behavior: "instant" as ScrollBehavior });
+    }
+  }, []);
 
   if (!exam || !question) {
     return <QuestionNotFound backTo="/solutions" backLabel="← Back to solutions" />;
@@ -24,11 +33,20 @@ function SolutionDetail(): React.ReactElement {
     });
   }
 
+  function handleSkip() {
+    document.getElementById("solution")?.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
     <QuestionPageLayout
       exam={exam}
       question={question}
       basePath="/solutions"
+      headerAction={
+        <button className="skip-to-solution-btn" onClick={handleSkip}>
+          Skip to Solution ↓
+        </button>
+      }
       bottomNav={
         <>
           <Link to={`/solutions/${exam.id}`} className="back-link">
@@ -46,6 +64,7 @@ function SolutionDetail(): React.ReactElement {
       </ContentBlock>
 
       <ContentBlock
+        id="solution"
         label="Solution"
         headerSlot={
           <button onClick={handleCopy} className={`copy-btn${copied ? " copied" : ""}`}>

@@ -5,11 +5,12 @@ import type { Exam, Question } from "../../types";
 import { Breadcrumb } from "../ui/Breadcrumb";
 
 interface QuestionPageLayoutProps {
-  exam:       Exam;
-  question:   Question;
-  basePath:   string;
-  children:   React.ReactNode;
-  bottomNav:  React.ReactNode;
+  exam:          Exam;
+  question:      Question;
+  basePath:      string;
+  children:      React.ReactNode;
+  bottomNav:     React.ReactNode;
+  headerAction?: React.ReactNode;
 }
 
 export function QuestionPageLayout({
@@ -18,6 +19,7 @@ export function QuestionPageLayout({
   basePath,
   children,
   bottomNav,
+  headerAction,
 }: QuestionPageLayoutProps) {
   const parentLabel = basePath.slice(1);
 
@@ -33,10 +35,13 @@ export function QuestionPageLayout({
       <div className="detail-header">
         <p className="page-eyebrow">{exam.label} &nbsp;·&nbsp; CISC 1115</p>
         <h1 className="detail-title">{question.title}</h1>
-        <div className="detail-topics">
-          {question.topics.map(topic => (
-            <span key={topic} className="topic-tag">{topic}</span>
-          ))}
+        <div className="detail-topics-row">
+          <div className="detail-topics">
+            {question.topics.map(topic => (
+              <span key={topic} className="topic-tag">{topic}</span>
+            ))}
+          </div>
+          {headerAction}
         </div>
       </div>
 
