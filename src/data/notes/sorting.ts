@@ -35,7 +35,8 @@ export const sorting: NoteTopic = {
           label:   "Overview",
           content: `Bubble sort is an algorithim that sorts an array. It takes elements from the beginning of the array and bubbles them into their proper place. For example,
           
-Given int[] A = {10,9,8,7,6,50}
+Given:
+[[code]]int[] A = {10,9,8,7,6,50}[[/code]]
 
 This array is not sorted. So, Bubble Sort starts with the 10. It does a series of comparison to put 10 into its proper place. 10 is bigger than 9, so we swap 10 and 9.
 

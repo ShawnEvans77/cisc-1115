@@ -51,12 +51,13 @@ export const searching: NoteTopic = {
 To do binary search, jump to the middle of the array. If the middle is too big, ignore the entire right half of the array and focus on the left half. If the middle is too small, ignore the left half of the array and focus on the right half. Repeat this until the number is found. 
 
 Suppose we have:
-
-int[] A = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 30, 36, 40, 45, 47, 49, 100}
+[[code]]int[] A = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 30, 36, 40, 45, 47, 49, 100}[[/code]]
 
 Let's trace the binary search algorithm. We are looking for the number 36.
 
-We create two varables, start and end. On the first iteration of binary search, start = 0 & end = 18, since the last index of this array is 18.
+We create two varables, **start** and **end**. 
+
+On the first iteration of binary search, start = 0 & end = 18, since the last index of this array is 18.
 
 (0 + 18)/2 is 9. We have found the middle index. A[9] is 20 which is smaller than 36. So, we must move right and ignore the left portion of the array.
 
@@ -73,16 +74,15 @@ The new start becomes 12. We are now looking at {30, 36} where start = 12 and en
 Now both start and end are 13. We calculate the mid as (13+13)/2 which is 13. We check A[13] and find it is 36. The target is found at index 13 and the search is complete.
 
 Binary Search questions will typically ask you to create a chart of the values of start & mid & end. In this case, our chart is: 
-
-------------------
-Start | Mid | End
-------------------
-0        |   9   |   18
-10       |  14   |   18
-10       |  11    |  13
-12       |  12    |  13
-13       |  13    |  13
------------------`,
+[[text]]---------------------
+ Start | Mid  |  End
+---------------------
+     0 |    9 |   18
+    10 |   14 |   18
+    10 |   11 |   13
+    12 |   12 |   13
+    13 |   13 |   13
+---------------------[[/text]]`,
         },
       ],
     },

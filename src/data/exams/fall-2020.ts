@@ -229,6 +229,7 @@ List the low, mid and high values at each step until the algorithm stops. Do NOT
 (1+1)/2 is 1. Write in {1, 1, 1}. nums[1] is 77, which is bigger than 18. Due to this, we move left by changing high to mid-1. The new high becomes 0.
   
 Write in {1, -, 0}. The binary search while loop condition, while (low <= high), has been violated. We failed to find 18.`,
+solutionType: 'text',
       solution: `  Low | Mid  | High
  ----------------------
     0 |   5  |   10

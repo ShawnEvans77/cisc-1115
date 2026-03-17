@@ -1096,6 +1096,8 @@
     margin-bottom: 0.5rem;
     white-space: pre-wrap;
   }
+  .content-block-body--indent-1 { padding-left: 1.5rem; }
+  .content-block-body--indent-2 { padding-left: 3rem; }
 
 
   /* ── Code & Math ── */
@@ -1301,8 +1303,8 @@
     color: var(--color-ink);
   }
   [data-theme="dark"] .navbar-link--active {
-    color: var(--color-orange);
-    background-color: var(--color-orange-light);
+    color: var(--color-ink);
+    background-color: rgba(var(--rgb-white), 0.08);
   }
   [data-theme="dark"] .navbar .theme-toggle,
   [data-theme="dark"] .navbar-right .theme-toggle {
