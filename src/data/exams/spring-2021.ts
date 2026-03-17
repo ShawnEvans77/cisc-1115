@@ -1,4 +1,4 @@
-// src/data/semesters/spring-2021.ts
+// src/data/exams/spring-2021.ts
 import type { Exam } from "../../types";
 
 export const spring2021: Exam = {
@@ -10,9 +10,22 @@ export const spring2021: Exam = {
       id: "1",
       title: "question 1",
       topics: ["Loops", "Patterns"],
-      prompt: `Write Java code to repeatedly print each single digit between 1 and 9 the number of times based upon its numeric value.\n\nThus, you would get a triangle of the shape below where 1 prints once, 2 twice … and 9 prints 9 times.\n\n1\n22\n333\n4444\n55555\n666666\n7777777\n88888888\n999999999`,
-      explanation: `Two nested loops are needed to solve this problem. Any problem involving patterns is going to involve nested loops.\n\nThe outer for loop determines what digit is printed. The inner for loop determines how many times that digit is printed. 
-        
+      prompt: `Write Java code to repeatedly print each single digit between 1 and 9 the number of times based upon its numeric value.
+
+Thus, you would get a triangle of the shape below where 1 prints once, 2 twice … and 9 prints 9 times.
+[[text]]1
+22
+333
+4444
+55555
+666666
+7777777
+88888888
+999999999[[/text]]`,
+      explanation: `Two nested loops are needed to solve this problem. Any problem involving patterns is going to involve nested loops.
+
+The outer for loop determines what digit is printed. The inner for loop determines how many times that digit is printed.
+
 When i = 1, that means 1 will be printed. j goes up to i, so 1 is only printed once. When i = 2, that means 2 will be printed. j goes up to 2, so 2 is printed twice. The process continues the same way up to 9.`,
       solution: `public class Spring2021Question1 {
     public static void main(String[] args) {
@@ -36,14 +49,24 @@ When i = 1, that means 1 will be printed. j goes up to i, so 1 is only printed o
       id: "2",
       title: "question 2",
       topics: ["Characters", "Scanner", "Strings"],
-      prompt: `Write Java code to read strings of lower-case letters from the keyboard and count the number of vowels in each word.\n\nVowels are the letters a, e, i, o, and u.\n\nWhen all strings have been read in, print the string that has the largest number of vowels (duplicates included) and how many vowels were in the string. When more than one string has the greatest number of vowels, print the first string found with that number.\n\nFor example, given input: 
+      prompt: `Write Java code to read strings of lower-case letters from the keyboard and count the number of vowels in each word.
 
+Vowels are the letters a, e, i, o, and u.
+
+When all strings have been read in, print the string that has the largest number of vowels (duplicates included) and how many vowels were in the string. When more than one string has the greatest number of vowels, print the first string found with that number.
+
+For example, given input:
 [[code]]she of groceries yourselves here radio[[/code]]
-        
-The output is: 
 
-[[code]]groceries – 4 vowels[[/code]]`,
-      explanation: `The solution, for the most part, is a direct regurgitation of the prompt. Start by creating a Scanner. Create an empty string that will represent the string with the most vowels. Create a tracker that remembers how many vowels were in the string with the most vowels.\n\nCreate a while loop bounded by the scanner hasNext() method, a boolean method telling you if there is anything more to read from the input stream. Read in the current string and create a variable representing how many vowels are inside of it. Next, create a for loop to count how many vowels are in that string.\n\nUse an if statement that checks if this string has more vowels than the tracker for the highest vowel count string. If it does, update the tracker.\n\nAt the program's end, print the highest vowel string and how many vowels it had.`,
+The output is:
+[[text]]groceries – 4 vowels[[/text]]`,
+      explanation: `The solution, for the most part, is a direct regurgitation of the prompt. Start by creating a Scanner. Create an empty string that will represent the string with the most vowels. Create a tracker that remembers how many vowels were in the string with the most vowels.
+
+Create a while loop bounded by the scanner hasNext() method, a boolean method telling you if there is anything more to read from the input stream. Read in the current string and create a variable representing how many vowels are inside of it. Next, create a for loop to count how many vowels are in that string.
+
+Use an if statement that checks if this string has more vowels than the tracker for the highest vowel count string. If it does, update the tracker.
+
+At the program's end, print the highest vowel string and how many vowels it had.`,
       solution: `import java.util.Scanner;
 public class Spring2021Question2 {
     public static void main(String[] args) {
@@ -92,9 +115,9 @@ public class Spring2021Question2 {
       id: "5",
       title: "question 5",
       topics: ["Arrays", "Random Numbers"],
-      prompt: `You are playing a game that has two dice. One die has 6 sides numbered 1 through 6 and the second die has 8 sides numbered 1 through 8. A turn involves rolling both die together.
+      prompt: `You are playing a game that has two dice. One die has 6 sides numbered 1 through 6 and the second die has 8 sides numbered 1 through 8. A turn involves rolling both dice together.
 
-Write Java code to play 1,000 turns and keep track of the sum of the two dice in each roll i.e. Logically, the possible sums you can get range from 2 to 14.
+Write Java code to play 1,000 turns and keep track of the sum of the two dice in each roll. Logically, the possible sums you can get range from 2 to 14.
 
 When all 1,000 turns have been completed, print a formatted table showing the value of the sum of the two dice (2 through 14) and the number of times that value occurred.
 
@@ -115,32 +138,27 @@ Dice Sum    Count
       13       47
       14       21
 [[/text]]`,
-      explanation: `To solve this question, we will use an array as a histogram. A histogram tracks how many times certain rolls happened. We create an array of size 15. An array of size fiften will grant us indices 0 to 15, and from these indices we will only use 2 to 14.
-        
+      explanation: `To solve this question, we will use an array as a histogram. A histogram tracks how many times certain rolls happened. We create an array of size 15. An array of size fifteen will grant us indices 0 to 14, and from these indices we will only use 2 to 14.
+
 Recall the formula for generating a random number:
-[[code]]
-// randInt from [min, max]
+[[code]]// randInt from [min, max]
 int randIntInclusive = (int) (Math.random() * (max - min + 1) + min);
 
 // randInt from [min, max)
-int randIntExclusive = (int) (Math.random() * (max - min) + min);
-[[/code]]
+int randIntExclusive = (int) (Math.random() * (max - min) + min);[[/code]]
 
-In this case, we will be using the inclusive formula. 
+In this case, we will be using the inclusive formula.
 
 We begin by creating a variable representing how many rolls will happen, and a variable representing the highest possible roll. We create a histogram array with a size of max roll plus one, since by doing this we can access index "max roll." For example, since the max roll is 14, we make the array of size 14+1, as that would give us access to an index 14. An array of size 15 has indices 0 to 14.
 
-We create a loop going a thousand times, as we will roll one thousand times. We roll from [1, 6], then [1,8]. We sum these values together.
+We create a loop going a thousand times, as we will roll one thousand times. We roll from [1, 6], then [1, 8]. We sum these values together.
 
-We then mark this summed roll in this histogram using histogram[roll]++. If we rolled a five, then we add one to index five. If we rolled a five again, then index five becomes two. If we roll a ten, then we add one to index 10.
+We then mark this summed roll in the histogram using histogram[roll]++. If we rolled a five, then we add one to index five. If we rolled a five again, then index five becomes two. If we roll a ten, then we add one to index 10.
 
 Meaning, after a few rolls, the histogram array could look like this:
+[[text]]{0, 0, 30, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 100, 0}[[/text]]
 
-{0, 0, 30, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 100, 0}
-
-Index 2 is 30, so we rolled a 2 thirty times.
-Index 7 is 50, so we rolled a 7 fifty times.
-Index 13 is 100, so we rolled a 13 100 times.
+Index 2 is 30, so we rolled a 2 thirty times. Index 7 is 50, so we rolled a 7 fifty times. Index 13 is 100, so we rolled a 13 one hundred times.
 
 We end the program by printing out a given dice sum and how many times it occurred.`,
       solution: `public class Spring2021Question5 {
@@ -148,7 +166,7 @@ We end the program by printing out a given dice sum and how many times it occurr
         // we are rolling a thousand times.
         final int NUM_ROLLS = 1000; 
 
-        // the max roll possible roll is 14.
+        // the max possible roll is 14.
         final int MAX_ROLL = 14;
 
         // an array of size 15, granting us access to index 2 to 14.
@@ -184,7 +202,7 @@ We end the program by printing out a given dice sum and how many times it occurr
       topics: ["Arrays", "Scanner"],
       prompt: `Write Java code to do the following:
 
-Read an arbitary amount of numbers from the keyboard with each number being between 1 and 100.
+Read an arbitrary amount of numbers from the keyboard with each number being between 1 and 100.
 
 If a number entered is not between 1 and 100, print an error message.
 
@@ -198,10 +216,10 @@ Enter some numbers between 1 and 100. Enter -1 to terminate the program:
 The following numbers were not read in: 
 12 13 14 16 17 18 19 21 22 24 25 27 28 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 51 52 53 54 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 100
 [[/text]]`,
-      explanation: `The main notable thing we do here is using a histogram to track which numbers were read in, represented by an array. We create an array of size 101, and we use indices 1 to 100. We use a while loop continuing until a -1 is entered. 
-        
-We print the error message for if the number is not between 1 and 100. Otherwise, when reading a valid number, we update the appropiate index in the histogram. If a 35 was read in, add one to index 35. If a 67 was read in, add one to index 67.
-        
+      explanation: `The main notable thing we do here is using a histogram to track which numbers were read in, represented by an array. We create an array of size 101, and we use indices 1 to 100. We use a while loop continuing until a -1 is entered.
+
+We print the error message for if the number is not between 1 and 100. Otherwise, when reading a valid number, we update the appropriate index in the histogram. If a 35 was read in, add one to index 35. If a 67 was read in, add one to index 67.
+
 We conclude the program by printing which indices still have a value of zero. A value of zero indicates we never read in that number.`,
       solution: `import java.util.Scanner;
 public class Spring2021Question6 {
@@ -246,25 +264,26 @@ public class Spring2021Question6 {
 
 }`,
     },
-{
-  id: "7",
-  title: "question 7",
-  topics: ["Binary Numbers", "Hexadecimal", "Number Systems"],
-  prompt: `Perform the following conversions. You must show how you computed your answer.
-a. 1011111 (base 2) to base 10
-b. 246 (base 10) to base 2
-c. BA (base 16) to base 2`,
+    {
+      id: "7",
+      title: "question 7",
+      topics: ["Binary Numbers", "Hexadecimal", "Number Systems"],
+      prompt: `Perform the following conversions. You must show how you computed your answer.
 
-  explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5×10²) + (1×10¹) + (2×10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreds place, and so on. The same idea applies to other bases.
+a. 1011111 (base 2) to base 10
+
+b. 246 (base 10) to base 2
+
+c. BA (base 16) to base 2`,
+      explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5×10²) + (1×10¹) + (2×10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreds place, and so on. The same idea applies to other bases.
 
 For a, the number has seven digits. Label the rightmost digit 2⁰, the second rightmost digit 2¹, and so on. Since the 2⁶, 2⁴, 2³, 2², 2¹, and 2⁰ places are filled in with ones, sum them together. 1×2⁶ + 0×2⁵ + 1×2⁴ + 1×2³ + 1×2² + 1×2¹ + 1×2⁰ yields the base 10 sum 95, our answer.
 
-For b, simply write out the numbers 128, 64, 32, 16, 8, 4, 2, and 1. From these numbers, we will make 246. (128+64+32+16+4+2) makes 246. Therefore, to express this in binary, we simply write out 11110110. The leftmost 1 represents 128, and each following 1s represents 64, 32, 16, 4, and 2 being added together to make 246. The 0s represent the numbers we do not use.
+For b, simply write out the numbers 128, 64, 32, 16, 8, 4, 2, and 1. From these numbers, we will make 246. (128+64+32+16+4+2) makes 246. Therefore, to express this in binary, we simply write out 11110110. The leftmost 1 represents 128, and each following 1 represents 64, 32, 16, 4, and 2 being added together to make 246. The 0s represent the numbers we do not use.
 
 For c, we know that in hexadecimal, B = 1011 and A = 1010. Concatenating them together yields 10111010, our answer.`,
-solutionType: "text",
-
-  solution: `a. 95
+      solutionType: "text",
+      solution: `a. 95
 
     1011111
     1×2⁶ + 0×2⁵ + 1×2⁴ + 1×2³ + 1×2² + 1×2¹ + 1×2⁰
@@ -297,37 +316,54 @@ c. 10111010
     A = 10 = 1010
 
     Answer: 10111010`,
-},
+    },
     {
       id: "8",
       title: "question 8",
       topics: ["Arrays", "File", "Scanner", "Sorting"],
       prompt: `Write a complete Java program with comments in main and in each method to do the following.
-  
-A city is divided into 100 neighborhoods, each with a unique name. Every three months, each neighborhood reports the prices of four houses sold; not all neighborhoods have sales to report every three months. A file contains the sales data in the format:
 
-neighborhood price price price price
-For example, Midtown 23055 10000 19000 32009 (Note: prices are in whole dollars)
+A city is divided into 100 neighborhoods, each with a unique name. Every three months, each neighborhood reports the prices of four houses sold; not all neighborhoods have sales to report every three months. The file is structured like this:
+[[text]]
+Midtown 23055 10000 19000 32009
+Flatbush 3456683 23435 23456 4000
+Brownsville 345565 234355 32434 53432[[/text]]
 
-Design a Java class with a main method that does the following:
-1. Invokes method readData which reads the data from the input file, stores values into arrays and returns the number of records read in.
-2. Invokes method modifyData, passing an array of double as the parameter. The method modifies the value in the array based on rules specified below.
-3. Invokes method sortArrays to parallel sort the arrays of double and String. The method should be invoked only once.
-4. In main, prints to a file the neighborhood name and average of the three neighborhoods that have the highest average prices, in descending order (highest average price first), and the three neighborhoods that have the lowest average prices in ascending order (lowest average price first). The neighborhood should be left adjusted, the price right adjusted with two decimal places and the header row should be included.
+**Main:**
 
-Method Details:
-I. readData:
-   a. Receives an array of String and array of double
-   b. Reads the neighborhood name as String and the four prices as integer from a file
-   c. Stores the neighborhood name in the array of String and the average of the 4 prices in the array of double
-   d. Returns the number of neighborhood records read in as an integer
-II. modifyData:
-   a. Receives an array of double and an integer representing the number of records read in by readData
-   b. Computes the overall average home price for all homes read in by readData (the average of the averages)
-   c. Increases the average price for each neighborhood by 10% if the average home price for that neighborhood is below the overall average home price homes sold and decreases the average price for each neighborhood by 15% if the average home price for that neighborhood is above the overall average
-III. sortArrays:
-   a. Receives the arrays of double and String and an integer representing the number of records read in by readData as parameters
-   b. Parallel sorts the arrays, only for the number of records read in by readData, with the primary sort on the array of double in descending order`,
+  1. Invoke method **readData** which reads the data from the input file, stores values into arrays and returns the number of records read in.
+  2. Invoke method **modifyData**, passing an array of double as the parameter. The method modifies the value in the array based on rules specified below.
+  3. Invoke method **sortArrays** to parallel sort the arrays of double and String. The method should be invoked only once.
+  4. In main, print to a file the neighborhood name and average of the three neighborhoods that have the highest average prices in descending order (highest average price first), and the three neighborhoods that have the lowest average prices in ascending order (lowest average price first). The neighborhood should be left adjusted, the price right adjusted with two decimal places, and the header row should be included. 
+
+The program's output should look similar to this:
+[[text]]Neighborhood    Avg Price
+Eastside        108162.50
+Greenfields      67576.06
+Southside        60967.78
+
+Neighborhood    Avg Price
+Chelsea          47663.28
+Westside         48830.93
+Uptown           57200.00[[/text]]
+
+
+**Method Details:**
+
+  **I. readData:**
+      a. Receives an array of String and array of double.
+      b. Reads the neighborhood name as String and the four prices as integer from a file.
+      c. Stores the neighborhood name in the array of String and the average of the 4 prices in the array of double.
+      d. Returns the number of neighborhood records read in as an integer.
+
+  **II. modifyData:**
+      a. Receives an array of double and an integer representing the number of records read in by readData.
+      b. Computes the overall average home price for all homes read in by readData (the average of the averages).
+      c. Increases the average price for each neighborhood by 10% if the average home price for that neighborhood is below the overall average, and decreases the average price for each neighborhood by 15% if the average home price for that neighborhood is above the overall average.
+
+  **III. sortArrays:**
+      a. Receives the arrays of double and String and an integer representing the number of records read in by readData as parameters.
+      b. Parallel sorts the arrays, only for the number of records read in by readData, with the primary sort on the array of double in descending order.`,
       explanation: `Explanation goes here.`,
       solution: `import java.util.Scanner;
 import java.io.File;

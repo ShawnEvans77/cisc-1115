@@ -1096,6 +1096,9 @@
     white-space: pre-wrap;
   }
 
+  .content-block-body--indent-1 { padding-left: 1.5rem; }
+  .content-block-body--indent-2 { padding-left: 3rem; }
+
 
   /* ── Code & Math ── */
 

@@ -10,7 +10,19 @@ export const fall2020: Exam = {
       id: "1a",
       title: "question 1a",
       topics: ["Loops", "Tracing"],
-      prompt: `Trace the x and y variables in the following code. Write all of the values x and y take throughout the code snippet's execution.\n[[code]]int x = 5;\nint y = 10;\ndo {\n    x++;\n    y--;\n    while (y > 8) {\n        x = x + 2;\n        y = y - 3;\n    }\n} while (x < 10);[[/code]]`,
+      prompt: `Trace the x and y variables in the following code. Write all of the values x and y take throughout the code snippet's execution.
+      [[code]]int x = 5;
+int y = 10
+      
+do {    
+    x++;
+    y--;    
+        
+    while (y > 8) {        
+      x = x + 2;      
+      y = y - 3;   
+    }  
+} while (x < 10);[[/code]]`,
       explanation: `We want to write all of the different values x and y take throughout the program.
         
 x and y begin at 5 and 10. We write down that x=5 and y=10.
@@ -38,7 +50,12 @@ Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 
       id: "1b",
       title: "question 1b",
       topics: ["Loops", "Tracing"],
-      prompt: `Trace the variables in the following code. Write all of the values i and j take throughout the execution of the code snippet.\n[[code]]\n\nfor (int i = 0; i < 5; i = i + 2) {\n    for (int j = i; j > 0; j--) { }\n}[[/code]]`,
+      prompt: `Trace the variables in the following code. Write all of the values i and j take throughout the execution of the code snippet.
+    [[code]]for (int i = 0; i < 5; i = i + 2) {   
+    for (int j = i; j > 0; j--) { 
+
+    } 
+}[[/code]]`,
       explanation: `We want to write all of the different values i and j take throughout the program.
   
 We start with i being equal to 0. j is equal to 0 since int j = i. However, j=0 is not greater than 0, so the inner loop does not execute. We write i=0 and nothing for j.
@@ -47,8 +64,7 @@ Then, i increments to 2. j is equal to 2 since int j = i. Since this inner for l
 
 Then, i increments to 4. j is equal to 4 since int j = i. Inner for loop condition is valid once more. We have i=4 & j=4. Do you notice the patern? j decrements down to 0 by one each time. We write that i=4 and j=4, i=4 and j=3, i=4 and j=2, and so on.`,
 solutionType: "text",
-      solution: `
-  i  |  j
+      solution: `  i  |  j
  ---------
   0  |  -
   2  |  2
@@ -64,8 +80,20 @@ solutionType: "text",
       id: "2",
       title: "question 2",
       topics: ["Arithmetic", "Modulo"],
-      prompt: `Assume the existence of an int variable called inches. Compute and print how many miles, yards, feet and inches that number represents.\n\nThe rules are: 1 foot equals 12 inches, 36 inches equals 1 yard, and 5280 feet equals 1 mile.\n\nFor example, if int inches = 245897, then the output is:\n\n245897 inches equals 3 miles 1550 yards 1 foot and 5 inches`,
-      explanation: `To solve this problem, you must use the modulo and division operator.\n\nStart by dividing inches by the total number of inches in a mile (5280 x 12), then 'strip off' those miles using the modulo operator. We strip off the miles so that we are left with how many yards were in the original variable. You repeat the process when you divide the remaining yards by 36, the number of inches in a yard. This process continues and you eventually arrive at the solution.\n\nThey can ask different variants of this problem. Sometimes it is coins, sometimes it is hours. Remember to start large then work your way down, stripping off units as necessary.`,
+      prompt: `Assume the existence of an **int** variable called inches. Compute and print how many miles, yards, feet and inches that number represents.
+      
+Rememember that 1 foot equals 12 inches, 36 inches equals 1 yard, and 5280 feet equals 1 mile.
+      
+For example, if inches is:
+[[code]]int inches = 245897[[/code]]
+
+Then the program's output is:
+[[text]]245897 inches equals 3 miles 1550 yards 1 foot and 5 inches[[/text]]`,
+      explanation: `To solve this problem, you must use the modulo and division operator.
+      
+Start by dividing inches by the total number of inches in a mile (5280 x 12), then 'strip off' those miles using the modulo operator. We strip off the miles so that we are left with how many yards were in the original variable. You repeat the process when you divide the remaining yards by 36, the number of inches in a yard. This process continues and you eventually arrive at the solution.
+      
+They can ask different variants of this problem. Sometimes it is coins, sometimes it is hours. Remember to start large then work your way down, stripping off units as necessary.`,
       solution: `public class Fall2020Question2 {
     public static void main(String[] args) {
 
@@ -104,7 +132,13 @@ solutionType: "text",
       id: "3",
       title: "question 3",
       topics: ["Binary Numbers", "Number Systems", "Hexadecimal"],
-      prompt: `Show the work you used to perform the following conversions:\n\na. 1100110 (base 2) to base 10\n\nb. AB (base 16) to base 10\n\nc. 65 (base 10) to base 2`,
+      prompt: `Show the work you used to perform the following conversions:
+      
+a. 1100110 (base 2) to base 10
+      
+b. AB (base 16) to base 10
+      
+c. 65 (base 10) to base 2`,
       explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5x10²) + (1x10¹) + (2x10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreths place, and so on. The same idea applies to other bases.
   
 For a, it has six digits, with 4 of them being filled in with ones. Label the rightmost digit 2⁰, the second rightmost digit 2¹, and so on. Since only the 2⁶, 2⁵, 2², and 2¹ places are filled in with ones, sum them together. 1×2⁶ + 1×2⁵ + 0×2⁴ + 0×2³ + 1×2² + 1×2¹ + 0×2⁰ yields the base 10 sum 102, our answer.
@@ -154,8 +188,16 @@ c. 1000001
       id: "5a",
       title: "question 5a",
       topics: ["Math Methods"],
-      prompt: `Assume the six integers i, j, k, m, n, and l exist and are all initialized.\n\nAssume there exists a method max3(), which accepts 3 integers as input and returns the largest integer.\n\nWrite one Java statement to find the maximum of the six integers using any combination of Math.max() and max3().`,
-      explanation: `Java lacks a max method that accepts an arbitrary number of arguments. The standard Math.max() method only accepts two integers. So, we need to 'cheat' in order to find the maximum of six integers.\n\nIf we use max3 twice, we can find the maximum of (i, j, k) and (m, n, l) separately. After doing this, we send the maximum of those two sets to the two argument accepting Math.max() method. The maximum of those two sets are found and then compared. Logically, the result of a Math.max() call on the maximum of (i,j,k) and (m,n,l) should find the absolute highest number.`,
+      prompt: `Assume the six integers i, j, k, m, n, and l exist and are all initialized.
+      
+Assume there exists a method max3(), which accepts 3 integers as input and returns the largest integer.
+      
+Write one Java statement to find the maximum of the six integers using any combination of Math.max() and max3().`,
+      explanation: `Java lacks a max method that accepts an arbitrary number of arguments. The standard Math.max() method only accepts two integers. So, we need to 'cheat' in order to find the maximum of six integers.
+      
+If we use max3 twice, we can find the maximum of (i, j, k) and (m, n, l) separately. After doing this, we send the maximum of those two sets to the two argument accepting Math.max() method. The maximum of those two sets are found and then compared. 
+
+Logically, the result of a Math.max() call on the maximum of (i,j,k) and (m,n,l) should find the absolute highest number.`,
       solution: `int max = Math.max(max3(i, j, k), max3(m, n, l));`,
     },
     {
@@ -171,7 +213,11 @@ c. 1000001
       id: "5c",
       title: "question 5c",
       topics: ["Arrays", "Binary Search"],
-      prompt: `Perform a binary search on the following array searching for the number 18:\n\nint[] nums = {12, 77, 87, 89, 100, 117, 125, 189, 235, 529, 1000};\n\nList the low, mid and high values at each step until the algorithm stops. Do NOT write any code. Enter into the table below the low, mid and high values as the binary search progresses. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
+      prompt: `Perform a binary search on the following array. You are searching for the number 18.:
+
+      [[code]]int[] nums = {12, 77, 87, 89, 100, 117, 125, 189, 235, 529, 1000};[[/code]]
+      
+List the low, mid and high values at each step until the algorithm stops. Do NOT write any code. Enter into the table below the low, mid and high values as the binary search progresses. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
       explanation: `The array has 11 values, with the minimum index being 0 and the maximum index being 10. Recall that binary search involves jumping to the middle in search of your number. If the middle is too small, move right. If the middle is too big, move left.
 
 (0+10)/2 is 5. Write in {0, 5, 10}. nums[5] is 117, which is bigger than 18. Due to this, we move left by changing high to mid-1. The new high becomes 4.
@@ -195,7 +241,18 @@ Write in {1, -, 0}. The binary search while loop condition, while (low <= high),
       id: "6",
       title: "question 6",
       topics: ["Arrays", "Loops", "Split", "Strings"],
-      prompt: `You are given a string containing a series of 9 digit zip codes with a dash separating the two parts and one space separating each full zip code from the next one. For example,\n[[code]]String str = "11230-1234 11011-3489 07621-8845";[[/code]]\n\nWrite Java code to print the first 5 digits of each zip code followed by the last 4 digits of the zip code as separate values.\n\nSample output using the same str variable from above:\n[[text]]11230 1234\n11011 3489\n07621 8845\n\n[[/text]]\nNOTE: The first part of the full zip code is always 5 digits, the second part is always 4 digits and there's always a dash in between the two parts. Keep in mind that your code must handle a String that has any number of such pairs, not just the three in the example above.`,
+      prompt: `You are given a **String** variable containing a series of nine digit zip codes separated by spaces. Each zip code contains a single dash, separating the first five numbers of the code from the final four. For example,
+      [[code]]String str = "11230-1234 11011-3489 07621-8845";[[/code]]
+      
+Write a program to print every zip code in the **String** on a separate line, with the *first five* and *last four* numbers of each code having a space between them.
+      
+For example, if we use the **String** from the example, your program should output the following:
+      [[text]]11230 1234
+11011 3489
+07621 8845
+[[/text]]
+
+**NOTE**: Keep in mind that your code must handle a String that has an arbitrary number of zip codes, not just the three like the example above.`,
       explanation: `We solve this problem easily by using the split method. Split the input string based on spaces, creating an array of zip codes. For each zip code in the array, split it based on the dash, then print the first five & last four numbers of that zip code.`,
       solution: `public class Fall2020Question6 {
     public static void main(String[] args) {
@@ -222,25 +279,37 @@ Write in {1, -, 0}. The binary search while loop condition, while (low <= high),
       id: "7",
       title: "question 7",
       topics: ["Arrays", "File", "Scanner", "Sorting"],
-      prompt: `Write a complete Java program, including at least one comment in the main program and one in each method, to do the following:
-The program will read in an unknown number of records from a file. Assume you won't have more than 100 records in total, though the actual number of records can be less than 100. Each record contains a sales rep's first name and miles traveled on two trips per year. For example, Pauline 167.8 567.0
-
-Main:
-  • Declare an output file to be used in main and passed to one or more methods from main. All output from main and methods will be printed to this file.
-  • Invoke the first method (below) to read the data from the input file, compute averages and store information in the arrays. The method returns the number of records read in.
-  • Next, invoke the second method (below) which computes the average length of all trips and then prints to the output file how many individual averages are above, equal to and below the overall average.
-  • Finally, invoke the third method (below) to sort the name and individual average trip length arrays in parallel
+      prompt: `Write a complete Java program, including at least one comment in the main program and one in each method, to do the following.
+ 
+The program will read in an unknown number of records from a file. Assume you won't have more than 100 records in total, though the actual number of records can be less than 100. Each record contains a sales rep's first name and miles traveled on two trips per year. For example, the file might look like this:
+[[text]]Pauline 167.8 567.0
+Alexander 451.22 56.11
+Samuel 234.11 581.83[[/text]]
+ 
+**Main:**
+ 
+  • Declare an output file to be used in main and passed to one or more methods from main. __All output from main and methods will be printed to this file.__
+ 
+  • Invoke the **first method** (below) to read the data from the input file, compute averages and store information in the arrays. The method returns the number of records read in.
+ 
+  • Next, invoke the **second method** (below) which computes the average length of all trips and then prints to the output file how many individual averages are above, equal to and below the overall average.
+ 
+  • Finally, invoke the **third method** (below) to sort the name and individual average trip length arrays in parallel.
+ 
   • In main, print to the output file each sales rep name and average trip length. The names and average trip length should print in columns, right adjusted. All trip lengths should be printed with two decimal places.
-
-Methods:
-  1. This method has two parameters: a String array for names and a double array for the average trip length per individual sales rep. It returns an integer
-    a. Declare the input file, read the records in the file and store each first name in an array (assume there are no duplicate names) and the average number of miles travelled for that sales rep in another array. You do not need to store the individual trip length.
-    b. Return the number of sales rep records read in.
-  2. This method has three parameters – the output file, double array of individual average trip length and an integer representing the total number of records read in.
-    a. Compute the overall average trip length across all sales reps.
-    b. Compute and print to the output file how many sales reps individual average trip length were above the overall average trip length, below the overall average trip length and equal to the overall average trip length.
-  3. This method has three parameters – String array of names, double array of individual average trip length and an integer representing the total number of records read in by the first method.
-    a. Sort the sales rep names in descending (reverse) alphabetical order synchronizing the individual sales rep's average trip length in the parallel array.`,
+ 
+**Methods:**
+ 
+  1. This method has **two parameters**: a String array for names and a double array for the average trip length per individual sales rep. It returns an integer.
+      a. Declare the input file, read the records in the file and store each first name in an array (assume there are no duplicate names) and the average number of miles travelled for that sales rep in another array. You do not need to store the individual trip length.
+      b. Return the number of sales rep records read in.
+ 
+  2. This method has **three parameters** – the output file, double array of individual average trip length and an integer representing the total number of records read in.
+      a. Compute the overall average trip length across all sales reps.
+      b. Compute and print to the output file how many sales reps individual average trip length were above the overall average trip length, below the overall average trip length and equal to the overall average trip length.
+ 
+  3. This method has **three parameters** – String array of names, double array of individual average trip length and an integer representing the total number of records read in by the first method.
+      a. Sort the sales rep names in descending (reverse) alphabetical order synchronizing the individual sales rep's average trip length in the parallel array.`,
       explanation: `The readData() method involves using a Scanner to read input from a text stream by using a while loop bounded by the hasNext() method. We use a counter in conjunction with the .next() and .nextDouble() methods to move data from the file into our arrays. Since the file is structured like "Pauline 167.8 567.0", we read in the name using sc.next(), and we calculate the average through (sc.nextDouble()+sc.nextDouble()) / 2.0 as each person has two trip lengths.
         
         computeTripLength() is self explanatory.
