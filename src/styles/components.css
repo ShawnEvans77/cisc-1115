@@ -65,38 +65,39 @@
   [data-theme="dark"] {
     color-scheme: dark;
 
-    --color-orange:       #E8861A;
-    --color-orange-hover: #CF7410;
-    --color-orange-light: rgba(232, 134, 26, 0.10);
+    --color-orange:       #E8901F;
+    --color-orange-hover: #D07C10;
+    --color-orange-light: rgba(232, 144, 31, 0.12);
 
-    --color-syrup:        #CF8040;
-    --color-syrup-hover:  #B36B2A;
-    --color-forest:       #5F8A55;
-    --color-forest-hover: #4A7040;
+    --color-syrup:        #C97B38;
+    --color-syrup-hover:  #B06828;
+    --color-forest:       #5A8450;
+    --color-forest-hover: #477040;
 
-    --color-white:     #0d0b0a;
-    --color-off-white: #000000;
-    --color-surface:   #131109;
-    --color-cream:     #1C1814;
+    /* Rich dark gray surfaces — deeper, more contrast */
+    --color-white:     #22252a;  /* cards, content blocks      */
+    --color-off-white: #161b22;  /* page background            */
+    --color-surface:   #1a1f27;  /* code blocks, inset areas   */
+    --color-cream:     #2d333b;  /* slightly lifted surface    */
 
-    --color-ink:    #EDE5D8;
-    --color-muted:  #A09282;
-    --color-subtle: #6E6358;
+    --color-ink:    #cdd9e5;  /* cool near-white            */
+    --color-muted:  #8b949e;  /* mid gray                   */
+    --color-subtle: #545d68;  /* quiet tertiary             */
 
-    --color-border:        #2C261E;
-    --color-border-strong: #3D3529;
+    --color-border:        #30363d;
+    --color-border-strong: #444c56;
 
     --color-copy-success: #6B9E6B;
 
-    --rgb-orange: 232, 134, 26;
-    --rgb-ink:    237, 229, 216;
+    --rgb-orange: 232, 144, 31;
+    --rgb-ink:    205, 217, 229;
 
-    --color-hero-grid: rgba(200, 175, 130, 0.09);
+    --color-hero-grid: rgba(205, 217, 229, 0.04);
 
     /* Dark-only surfaces */
-    --color-navbar-dark:        #000000;
-    --color-content-deep:       #000000;
-    --color-navbar-mobile-dark: #000000;
+    --color-navbar-dark:        #161b22;
+    --color-content-deep:       #1a1f27;
+    --color-navbar-mobile-dark: #161b22;
   }
 }
 
@@ -1096,9 +1097,6 @@
     white-space: pre-wrap;
   }
 
-  .content-block-body--indent-1 { padding-left: 1.5rem; }
-  .content-block-body--indent-2 { padding-left: 3rem; }
-
 
   /* ── Code & Math ── */
 
@@ -1348,7 +1346,8 @@
 
   [data-theme="dark"] .prompt-code-block   { background-color: rgba(var(--rgb-white), 0.03); border-color: var(--color-border); }
   [data-theme="dark"] .prompt-code-segment { background-color: rgba(var(--rgb-white), 0.03); }
-  [data-theme="dark"] .code-scroll-wrapper { background-color: var(--color-content-deep); border-color: var(--color-border); }
+  [data-theme="dark"] .code-scroll-wrapper { background-color: #0d1117; border-color: var(--color-border); }
+  [data-theme="dark"] .code-scroll-wrapper pre { color: #cdd9e5; }
 
   [data-theme="dark"] .question-card       { background-color: var(--color-content-deep); border-color: var(--color-border); }
   [data-theme="dark"] .question-card:hover { border-color: var(--color-orange); box-shadow: 0 4px 24px rgba(var(--rgb-orange), 0.08); }
