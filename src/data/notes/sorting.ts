@@ -6,7 +6,7 @@ export const sorting: NoteTopic = {
   label: "sorting",
   entries: [
     {
-      id:    "bubble-sort",
+      id:    "bubblesort",
       title: "bubble sort",
       tags:  ["Algorithm", "O(N²)"],
       sections: [
@@ -59,7 +59,7 @@ As you see, 10 is now in its proper place. We repeat this process for all other 
       ],
     },
     {
-      id:    "selection-sort",
+      id:    "selectionsort",
       title: "selection sort",
       tags:  ["Algorithm", "O(N²)"],
       sections: [

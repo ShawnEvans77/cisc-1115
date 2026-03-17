@@ -2,7 +2,7 @@
 import type { Exam } from "../../types";
 
 export const spring2021: Exam = {
-  id: "spring-2021",
+  id: "spring2021",
   label: "spring 2021",
   year: "2021",
   questions: [

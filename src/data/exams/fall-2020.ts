@@ -2,7 +2,7 @@
 import type { Exam } from "../../types";
 
 export const fall2020: Exam = {
-  id: "fall-2020",
+  id: "fall2020",
   label: "fall 2020",
   year: "2020",
   questions: [

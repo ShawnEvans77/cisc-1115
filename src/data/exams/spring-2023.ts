@@ -1,7 +1,7 @@
 import type { Exam } from "../../types";
 
 export const spring2023: Exam = {
-    id: "spring-2023",
+    id: "spring2023",
     label: "spring 2023",
     year: "2023",
     questions: [

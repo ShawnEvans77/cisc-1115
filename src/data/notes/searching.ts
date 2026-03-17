@@ -6,7 +6,7 @@ export const searching: NoteTopic = {
   label: "searching",
   entries: [
     {
-      id:    "binary-search",
+      id:    "binarysearch",
       title: "binary search",
       tags:  ["Algorithm", "O(LOG N)"],
       sections: [
@@ -87,7 +87,7 @@ Binary Search questions will typically ask you to create a chart of the values o
       ],
     },
     {
-      id:    "linear-search",
+      id:    "linearsearch",
       title: "linear search",
       tags:  ["Algorithm", "O(N)"],
       sections: [
