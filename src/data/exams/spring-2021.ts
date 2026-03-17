@@ -115,9 +115,11 @@ public class Spring2021Question2 {
       id: "5",
       title: "question 5",
       topics: ["Arrays", "Random Numbers"],
-      prompt: `You are playing a game that has two dice. One die has 6 sides numbered 1 through 6 and the second die has 8 sides numbered 1 through 8. A turn involves rolling both dice together.
+      prompt: `You are playing a game that has **two dice.**
+      
+One die has **6** sides numbered __1 through 6__ and the second die has **8** sides numbered __1 through 8__. A turn involves rolling both dice together.
 
-Write Java code to play 1,000 turns and keep track of the sum of the two dice in each roll. Logically, the possible sums you can get range from 2 to 14.
+Write Java code to play 1,000 turns and keep track of the sum of the two dice in each roll. Logically, the possible sums you can get range from __2 to 14__.
 
 When all 1,000 turns have been completed, print a formatted table showing the value of the sum of the two dice (2 through 14) and the number of times that value occurred.
 
