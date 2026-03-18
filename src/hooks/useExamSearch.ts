@@ -38,7 +38,10 @@ export function useExamSearch(query: string): SearchResult[] {
         continue;
       }
       for (const question of exam.questions) {
-        const cleanPrompt = stripPromptDelimiters(question.prompt);
+        const cleanPrompt = stripPromptDelimiters(question.prompt)
+          .replace(/\*\*(.*?)\*\*/g, "$1")
+          .replace(/__(.*?)__/g, "$1")
+          .replace(/\*(.*?)\*/g, "$1");
         if (
           question.title.toLowerCase().includes(q) ||
           question.topics.some(t => t.toLowerCase().includes(q)) ||
