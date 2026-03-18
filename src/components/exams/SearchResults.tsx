@@ -12,7 +12,10 @@ interface SearchResultsProps {
 }
 
 function getPromptSnippet(prompt: string, query: string): string | null {
-  const clean = stripPromptDelimiters(prompt);
+  const clean = stripPromptDelimiters(prompt)
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/__(.*?)__/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1");
   const q   = query.trim().toLowerCase();
   const idx = clean.toLowerCase().indexOf(q);
   if (idx === -1) return null;
