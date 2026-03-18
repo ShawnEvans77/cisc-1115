@@ -48,7 +48,7 @@ function Solutions(): React.ReactElement {
               key={exam.id}
               index={String(i + 1).padStart(2, "0")}
               label={exam.label}
-              sublabel={exam.year}
+              sublabel={`${exam.questions.length} solution${exam.questions.length === 1 ? "" : "s"}`}
               to={`/solutions/${exam.id}`}
             />
           ))}
