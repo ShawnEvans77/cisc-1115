@@ -190,9 +190,9 @@ c. 1000001
       topics: ["Math Methods"],
       prompt: `Assume the six integers i, j, k, m, n, and l exist and are all initialized.
       
-Assume there exists a method max3(), which accepts 3 integers as input and returns the largest integer.
+Assume there exists a method **max3()**, which accepts 3 integers as input and returns the largest integer.
       
-Write one Java statement to find the maximum of the six integers using any combination of Math.max() and max3().`,
+Write one Java statement to find the maximum of the six integers using any combination of **Math.max()** and **max3()**.`,
       explanation: `Java lacks a max method that accepts an arbitrary number of arguments. The standard Math.max() method only accepts two integers. So, we need to 'cheat' in order to find the maximum of six integers.
       
 If we use max3 twice, we can find the maximum of (i, j, k) and (m, n, l) separately. After doing this, we send the maximum of those two sets to the two argument accepting Math.max() method. The maximum of those two sets are found and then compared. 
