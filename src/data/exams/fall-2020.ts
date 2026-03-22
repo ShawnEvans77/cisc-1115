@@ -254,7 +254,11 @@ For example, if we use the **String** from the example, your program should outp
 [[/text]]
 
 **NOTE**: Keep in mind that your code must handle a String that has an arbitrary number of zip codes, not just the three like the example above.`,
-      explanation: `We solve this problem easily by using the split method. Split the input string based on spaces, creating an array of zip codes. For each zip code in the array, split it based on the dash, then print the first five & last four numbers of that zip code.`,
+      explanation: `We solve this problem easily by using the **split()** method. 
+      
+Split the input string based on spaces, creating an array of zip codes. 
+
+For each zip code in the array, split it based on the dash, then print the first five & last four numbers of that zip code.`,
       solution: `public class Fall2020Question6 {
     public static void main(String[] args) {
 
