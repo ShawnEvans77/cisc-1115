@@ -311,11 +311,11 @@ Samuel 234.11 581.83[[/text]]
  
   3. This method has **three parameters** – String array of names, double array of individual average trip length and an integer representing the total number of records read in by the first method.
       a. Sort the sales rep names in descending (reverse) alphabetical order synchronizing the individual sales rep's average trip length in the parallel array.`,
-      explanation: `The readData() method involves using a Scanner to read input from a text stream by using a while loop bounded by the hasNext() method. We use a counter in conjunction with the .next() and .nextDouble() methods to move data from the file into our arrays. Since the file is structured like "Pauline 167.8 567.0", we read in the name using sc.next(), and we calculate the average through (sc.nextDouble()+sc.nextDouble()) / 2.0 as each person has two trip lengths.
+      explanation: `The **readData()** method involves using a Scanner to read input from a text stream by using a while loop bounded by the hasNext() method. We use a counter in conjunction with the .next() and .nextDouble() methods to move data from the file into our arrays. Since the file is structured like "Pauline 167.8 567.0", we read in the name using sc.next(), and we calculate the average through (sc.nextDouble()+sc.nextDouble()) / 2.0 as each person has two trip lengths.
         
-        computeTripLength() is self explanatory.
+**computeTripLength()** is self explanatory.
         
-        The sorting involves the compareTo() method, which we use for comparing strings. s1.compareTo(s2) > 0 is equivalent to "s1 > s2." s1.compareTo(s2) < 0 is equivalent to "s1 < s2." This solution uses BubbleSort. SelectionSort and InsertionSort solutions are also valid.`,
+The sorting involves the **compareTo()** method, which we use for comparing strings. s1.compareTo(s2) > 0 is equivalent to "s1 > s2." s1.compareTo(s2) < 0 is equivalent to "s1 < s2." This solution uses BubbleSort. SelectionSort and InsertionSort solutions are also valid.`,
       solution: `import java.util.Scanner;
 import java.io.IOException;
 import java.io.PrintWriter;
