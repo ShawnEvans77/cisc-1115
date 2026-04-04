@@ -293,6 +293,8 @@ For c, we know that in hexadecimal, B = 1011 and A = 1010. Concatenating them to
   = 64  +  0  + 16  +  8  +  4  +  2  +  1
   = 95
 
+  Answer: 95
+
 b. 11110110
 
     246
