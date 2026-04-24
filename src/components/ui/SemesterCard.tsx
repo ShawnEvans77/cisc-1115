@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 interface SemesterCardProps {
@@ -9,7 +8,7 @@ interface SemesterCardProps {
   href?: string; // external link (PDF)
 }
 
-export function SemesterCard({ index, label, sublabel, to, href }: SemesterCardProps): React.ReactElement {
+export function SemesterCard({ index, label, sublabel, to, href }: SemesterCardProps) {
   const inner = (
     <div className="semester-card-grid">
       <span className="semester-card-index">{index}</span>
@@ -29,9 +28,13 @@ export function SemesterCard({ index, label, sublabel, to, href }: SemesterCardP
     );
   }
 
-  return (
-    <Link to={to!} className="semester-card">
-      {inner}
-    </Link>
-  );
+  if (to) {
+    return (
+      <Link to={to} className="semester-card">
+        {inner}
+      </Link>
+    );
+  }
+
+  throw new Error("SemesterCard requires either `to` or `href`.");
 }

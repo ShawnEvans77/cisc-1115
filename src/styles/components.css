@@ -534,7 +534,6 @@
     padding: 5rem 2.5rem 3rem;
   }
   .page-header--detail  { padding-top: 1.75rem; }
-  .page-header--contact { padding-bottom: 1.5rem; }
   .page-header--detail .page-subtitle { margin-bottom: 2rem; }
 
   .page-eyebrow {
@@ -931,7 +930,7 @@
     margin: 0 -2.5rem;
     border-radius: 2px;
   }
-  .contact-row--last { border-bottom: 1px solid var(--color-border); }
+  .contact-row:last-child { border-bottom: 1px solid var(--color-border); }
 
   .contact-row-label {
     font-family: var(--font-mono);
@@ -1131,34 +1130,6 @@
 
 
   /* ── Code & Math ── */
-
-  .prompt-code-block {
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--color-ink);
-    background-color: rgba(var(--rgb-ink), 0.04);
-    border: 1px solid var(--color-border);
-    border-left: 3px solid var(--color-orange);
-    border-radius: 3px;
-    padding: 1rem 1.25rem;
-    margin: 1rem 0;
-    overflow-x: auto;
-    white-space: pre;
-  }
-
-  .prompt-code-segment {
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    line-height: 1.85;
-    color: var(--color-ink);
-    background-color: rgba(var(--rgb-ink), 0.03);
-    border-radius: 3px;
-    padding: 1rem 1.25rem;
-    margin: 0.75rem 0;
-    overflow-x: auto;
-    white-space: pre;
-  }
 
   .math-display {
     display: flex;
@@ -1376,8 +1347,6 @@
   [data-theme="dark"] .content-block       { background-color: var(--color-content-deep); border-color: var(--color-border); }
   [data-theme="dark"] .content-block-label { color: rgba(var(--rgb-ink), 0.35); }
 
-  [data-theme="dark"] .prompt-code-block   { background-color: rgba(var(--rgb-white), 0.03); border-color: var(--color-border); }
-  [data-theme="dark"] .prompt-code-segment { background-color: rgba(var(--rgb-white), 0.03); }
   [data-theme="dark"] .code-scroll-wrapper { background-color: #0d1117; border-color: var(--color-border); }
   [data-theme="dark"] .code-scroll-wrapper pre { color: #cdd9e5; }
 

@@ -1,36 +1,31 @@
 // src/pages/solutions/SolutionDetail.tsx
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { exams } from "../../data/exams";
-import type { Question } from "../../types";
-import { QuestionPageLayout, QuestionNotFound } from "../../components/exams/QuestionPageLayout";
-import { ContentBlock, PromptLines, QuestionMath } from "../../components/ui/ContentBlock";
-import { highlightJava } from "../../utils/highlightJava";
+import { QuestionPageLayout } from "../../components/exams/QuestionPageLayout";
+import { CodeBlock } from "../../components/ui/CodeBlock";
+import { ContentBlock, PromptBody, QuestionMath } from "../../components/ui/ContentBlock";
+import { CopyButton } from "../../components/ui/CopyButton";
+import { NotFoundState } from "../../components/ui/NotFoundState";
 
-function SolutionDetail(): React.ReactElement {
+type SolutionLocationState = {
+  scrollToSolution?: boolean;
+};
+
+function SolutionDetail() {
   const { examId, questionId } = useParams<{ examId: string; questionId: string }>();
   const location = useLocation();
   const exam     = exams.find(e => e.id === examId);
-  const question = exam?.questions.find((q: Question) => q.id === questionId);
-  const [copied, setCopied] = useState(false);
+  const question = exam?.questions.find(q => q.id === questionId);
 
-  // If navigated from "View solution →", instantly jump to the solution block.
   useEffect(() => {
-    if ((location.state as { scrollToSolution?: boolean })?.scrollToSolution) {
-      const el = document.getElementById("solution");
-      if (el) el.scrollIntoView({ behavior: "instant" as ScrollBehavior });
+    if ((location.state as SolutionLocationState | null)?.scrollToSolution) {
+      document.getElementById("solution")?.scrollIntoView({ behavior: "auto" });
     }
-  }, []);
+  }, [location.state]);
 
   if (!exam || !question) {
-    return <QuestionNotFound backTo="/solutions" backLabel="← Back to solutions" />;
-  }
-
-  function handleCopy() {
-    navigator.clipboard.writeText(question!.solution).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    return <NotFoundState title="Question not found" backTo="/solutions" backLabel="← Back to solutions" />;
   }
 
   function handleSkip() {
@@ -59,26 +54,20 @@ function SolutionDetail(): React.ReactElement {
       }
     >
       <ContentBlock label="The Question">
-        <PromptLines text={question.prompt} />
+        <PromptBody text={question.prompt} />
         {question.mathLatex && <QuestionMath latex={question.mathLatex} />}
       </ContentBlock>
 
       <ContentBlock
         id="solution"
         label="Solution"
-        headerSlot={
-          <button onClick={handleCopy} className={`copy-btn${copied ? " copied" : ""}`}>
-            {copied ? "✓ Copied!" : "Copy code"}
-          </button>
-        }
+        headerSlot={<CopyButton content={question.solution} />}
       >
-        <div className="code-scroll-wrapper">
-          <pre>{question.solutionType === "text" ? question.solution : highlightJava(question.solution)}</pre>
-        </div>
+        <CodeBlock code={question.solution} language={question.solutionType ?? "java"} />
       </ContentBlock>
 
       <ContentBlock label="Explanation">
-        <PromptLines text={question.explanation} />
+        <PromptBody text={question.explanation} />
       </ContentBlock>
     </QuestionPageLayout>
   );

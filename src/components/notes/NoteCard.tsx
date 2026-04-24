@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import type { NoteEntry } from "../../types";
 import { highlight } from "../../utils/highlight";
+import { snippetAround } from "../../utils/search";
 
 interface NoteCardProps {
   entry:   NoteEntry;
@@ -10,16 +11,10 @@ interface NoteCardProps {
 }
 
 function getContentSnippet(entry: NoteEntry, query: string): string | null {
-  const sq = query.trim().toLowerCase();
-  if (!sq) return null;
-
   for (const section of entry.sections) {
     if (section.type !== "text") continue;
-    const idx = section.content.toLowerCase().indexOf(sq);
-    if (idx === -1) continue;
-    const start = Math.max(0, idx - 40);
-    const end   = Math.min(section.content.length, idx + sq.length + 60);
-    return (start > 0 ? "…" : "") + section.content.slice(start, end) + (end < section.content.length ? "…" : "");
+    const snippet = snippetAround(section.content, query);
+    if (snippet) return snippet;
   }
 
   return null;

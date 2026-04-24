@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { exams } from "../data/exams";
-import { stripPromptDelimiters } from "../utils/parsePrompt";
+import { normalizeQuery, searchablePrompt } from "../utils/search";
 
 type SemesterResult = {
   type: "semester";
@@ -24,7 +24,7 @@ export type SearchResult = SemesterResult | QuestionResult;
 
 export function useExamSearch(query: string): SearchResult[] {
   return useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = normalizeQuery(query);
     if (!q) return [];
     const matches: SearchResult[] = [];
 
@@ -38,10 +38,7 @@ export function useExamSearch(query: string): SearchResult[] {
         continue;
       }
       for (const question of exam.questions) {
-        const cleanPrompt = stripPromptDelimiters(question.prompt)
-          .replace(/\*\*(.*?)\*\*/g, "$1")
-          .replace(/__(.*?)__/g, "$1")
-          .replace(/\*(.*?)\*/g, "$1");
+        const cleanPrompt = searchablePrompt(question.prompt);
         if (
           question.title.toLowerCase().includes(q) ||
           question.topics.some(t => t.toLowerCase().includes(q)) ||

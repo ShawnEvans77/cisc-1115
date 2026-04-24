@@ -1,13 +1,13 @@
 // src/components/ui/ContentBlock.tsx
-import React from "react";
+import type { ReactElement, ReactNode } from "react";
 import { MathDisplay } from "./MathDisplay";
 import { parsePrompt } from "../../utils/parsePrompt";
-import { highlightJava } from "../../utils/highlightJava";
+import { CodeBlock } from "./CodeBlock";
 
 interface ContentBlockProps {
   label:       string;
-  children:    React.ReactNode;
-  headerSlot?: React.ReactNode;
+  children:    ReactNode;
+  headerSlot?: ReactNode;
   id?:         string;
 }
 
@@ -25,7 +25,7 @@ export function ContentBlock({ label, children, headerSlot, id }: ContentBlockPr
 
 // Renders a single prose line, parsing **bold**, *italic*, __underline__ markers.
 // Leading spaces are converted to BEM indent modifier classes.
-function renderLine(line: string, key: string): React.ReactElement {
+function renderLine(line: string, key: string): ReactElement {
   const leadingSpaces = line.match(/^ */)?.[0].length ?? 0;
   const indentClass = leadingSpaces >= 4 ? " content-block-body--indent-2"
                     : leadingSpaces >= 1 ? " content-block-body--indent-1"
@@ -58,17 +58,13 @@ export function PromptBody({ text }: { text: string }) {
       {segments.map((seg, i) => {
         if (seg.type === "code") {
           return (
-            <div key={i} className="code-scroll-wrapper">
-              <pre>{highlightJava(seg.content.trim())}</pre>
-            </div>
+            <CodeBlock key={i} code={seg.content.trim()} />
           );
         }
 
         if (seg.type === "text-block") {
           return (
-            <div key={i} className="code-scroll-wrapper">
-              <pre>{seg.content.trim()}</pre>
-            </div>
+            <CodeBlock key={i} code={seg.content.trim()} language="text" />
           );
         }
 
@@ -81,9 +77,6 @@ export function PromptBody({ text }: { text: string }) {
     </>
   );
 }
-
-// Backward-compat alias — update call sites to PromptBody when convenient.
-export const PromptLines = PromptBody;
 
 // Renders a LaTeX equation block.
 export function QuestionMath({ latex }: { latex: string }) {

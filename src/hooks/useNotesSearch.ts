@@ -2,6 +2,7 @@
 import { useMemo } from "react";
 import { notes } from "../data/notes";
 import type { NoteSection } from "../types";
+import { defaultPreview, normalizeQuery, snippetAround } from "../utils/search";
 
 type TopicResult = {
   type:       "topic";
@@ -27,21 +28,12 @@ function getPreview(sections: NoteSection[], query: string): string {
   if (!textSection) return "";
 
   const content = textSection.content;
-  const q       = query.trim().toLowerCase();
-  const idx     = content.toLowerCase().indexOf(q);
-
-  if (idx === -1) {
-    return content.slice(0, 100) + (content.length > 100 ? "…" : "");
-  }
-
-  const start = Math.max(0, idx - 40);
-  const end   = Math.min(content.length, idx + q.length + 60);
-  return (start > 0 ? "…" : "") + content.slice(start, end) + (end < content.length ? "…" : "");
+  return snippetAround(content, query) ?? defaultPreview(content);
 }
 
 export function useNotesSearch(query: string): NoteSearchResult[] {
   return useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = normalizeQuery(query);
     if (!q) return [];
 
     const matches: NoteSearchResult[] = [];

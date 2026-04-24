@@ -1,41 +1,27 @@
 // src/pages/notes/Notes.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { notes } from "../../data/notes";
 import { useNotesSearch } from "../../hooks/useNotesSearch";
 import { NoteSearchResults } from "../../components/notes/NoteSearchResults";
+import { PageHeader } from "../../components/ui/PageHeader";
 import { SemesterCard } from "../../components/ui/SemesterCard";
+import { hasQuery, pluralize, resultCountLabel } from "../../utils/search";
 
-function Notes(): React.ReactElement {
+function Notes() {
   const [query, setQuery] = useState("");
   const results     = useNotesSearch(query);
-  const showResults = query.trim().length > 0;
-
-  const resultLabel = results.length === 0
-    ? "no results"
-    : `${results.length} result${results.length === 1 ? "" : "s"}`;
+  const showResults = hasQuery(query);
 
   return (
     <div className="page-root">
-
-      <div className="page-header">
-        <p className="page-eyebrow">Brooklyn College &nbsp;·&nbsp; CISC 1115</p>
-        <h1 className="page-title">notes</h1>
-        <p className="page-subtitle">select a topic to browse its notes</p>
-
-        <input
-          className="search-input"
-          type="text"
-          placeholder="search notes..."
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          autoComplete="off"
-          spellCheck={false}
-        />
-
-        {showResults && (
-          <p className="search-result-count">{resultLabel}</p>
-        )}
-      </div>
+      <PageHeader
+        title="notes"
+        subtitle="select a topic to browse its notes"
+        query={query}
+        placeholder="search notes..."
+        resultLabel={showResults ? resultCountLabel(results.length) : undefined}
+        onQueryChange={setQuery}
+      />
 
       {showResults ? (
         <section className="page-section">
@@ -48,7 +34,7 @@ function Notes(): React.ReactElement {
               key={topic.id}
               index={String(i + 1).padStart(2, "0")}
               label={topic.label}
-              sublabel={`${topic.entries.length} note${topic.entries.length === 1 ? "" : "s"}`}
+              sublabel={pluralize(topic.entries.length, "note")}
               to={`/notes/${topic.id}`}
             />
           ))}

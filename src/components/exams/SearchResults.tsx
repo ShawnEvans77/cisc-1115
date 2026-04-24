@@ -1,30 +1,21 @@
 // src/components/exams/SearchResults.tsx
-import React from "react";
 import { Link } from "react-router-dom";
 import { highlight } from "../../utils/highlight";
-import { stripPromptDelimiters } from "../../utils/parsePrompt";
+import { pluralize, searchablePrompt, snippetAround } from "../../utils/search";
 import type { SearchResult } from "../../hooks/useExamSearch";
 
 interface SearchResultsProps {
   results:  SearchResult[];
   query:    string;
   basePath: "/solutions" | "/questions";
+  itemLabel?: "question" | "solution";
 }
 
 function getPromptSnippet(prompt: string, query: string): string | null {
-  const clean = stripPromptDelimiters(prompt)
-    .replace(/\*\*(.*?)\*\*/g, "$1")
-    .replace(/__(.*?)__/g, "$1")
-    .replace(/\*(.*?)\*/g, "$1");
-  const q   = query.trim().toLowerCase();
-  const idx = clean.toLowerCase().indexOf(q);
-  if (idx === -1) return null;
-  const start = Math.max(0, idx - 40);
-  const end   = Math.min(clean.length, idx + q.length + 60);
-  return (start > 0 ? "…" : "") + clean.slice(start, end) + (end < clean.length ? "…" : "");
+  return snippetAround(searchablePrompt(prompt), query);
 }
 
-export function SearchResults({ results, query, basePath }: SearchResultsProps): React.ReactElement {
+export function SearchResults({ results, query, basePath, itemLabel = "question" }: SearchResultsProps) {
   if (results.length === 0) {
     return (
       <div className="empty-state">
@@ -45,7 +36,7 @@ export function SearchResults({ results, query, basePath }: SearchResultsProps):
                   <h2 className="result-title result-title--semester">
                     {highlight(r.examLabel, query)}
                   </h2>
-                  <p className="result-card-meta">{r.questionCount} questions available</p>
+                  <p className="result-card-meta">{pluralize(r.questionCount, itemLabel)} available</p>
                 </div>
                 <span className="result-arrow">→</span>
               </div>

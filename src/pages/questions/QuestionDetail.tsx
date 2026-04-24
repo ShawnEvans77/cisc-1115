@@ -1,18 +1,17 @@
 // src/pages/questions/QuestionDetail.tsx
-import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { exams } from "../../data/exams";
-import type { Question } from "../../types";
-import { QuestionPageLayout, QuestionNotFound } from "../../components/exams/QuestionPageLayout";
-import { ContentBlock, PromptLines, QuestionMath } from "../../components/ui/ContentBlock";
+import { QuestionPageLayout } from "../../components/exams/QuestionPageLayout";
+import { ContentBlock, PromptBody, QuestionMath } from "../../components/ui/ContentBlock";
+import { NotFoundState } from "../../components/ui/NotFoundState";
 
-function QuestionDetail(): React.ReactElement {
+function QuestionDetail() {
   const { examId, questionId } = useParams<{ examId: string; questionId: string }>();
   const exam     = exams.find(e => e.id === examId);
-  const question = exam?.questions.find((q: Question) => q.id === questionId);
+  const question = exam?.questions.find(q => q.id === questionId);
 
   if (!exam || !question) {
-    return <QuestionNotFound backTo="/questions" backLabel="← Back to questions" />;
+    return <NotFoundState title="Question not found" backTo="/questions" backLabel="← Back to questions" />;
   }
 
   return (
@@ -36,7 +35,7 @@ function QuestionDetail(): React.ReactElement {
       }
     >
       <ContentBlock label="The Question">
-        <PromptLines text={question.prompt} />
+        <PromptBody text={question.prompt} />
         {question.mathLatex && <QuestionMath latex={question.mathLatex} />}
       </ContentBlock>
     </QuestionPageLayout>

@@ -1,8 +1,7 @@
 // src/pages/solutions/SemesterSolutions.tsx
-import React from "react";
 import { QuestionListPage } from "../../components/exams/QuestionListPage";
 
-function SemesterSolutions(): React.ReactElement {
+function SemesterSolutions() {
   return (
     <QuestionListPage
       basePath="/solutions"

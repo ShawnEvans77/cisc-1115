@@ -1,36 +1,19 @@
 // src/pages/notes/NotesDetail.tsx
-import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { notes } from "../../data/notes";
-import type { NoteEntry, NoteSection } from "../../types";
-import { NotePageLayout, NoteNotFound } from "../../components/notes/NotePageLayout";
-import { ContentBlock, PromptLines } from "../../components/ui/ContentBlock";
-import { highlightJava } from "../../utils/highlightJava";
+import { NotePageLayout } from "../../components/notes/NotePageLayout";
+import { CodeBlock } from "../../components/ui/CodeBlock";
+import { ContentBlock, PromptBody } from "../../components/ui/ContentBlock";
+import { CopyButton } from "../../components/ui/CopyButton";
+import { NotFoundState } from "../../components/ui/NotFoundState";
 
-function CopyButton({ content }: { content: string }) {
-  const [copied, setCopied] = useState(false);
-
-  function handleCopy() {
-    navigator.clipboard.writeText(content).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  }
-
-  return (
-    <button onClick={handleCopy} className={`copy-btn${copied ? " copied" : ""}`}>
-      {copied ? "✓ Copied!" : "Copy code"}
-    </button>
-  );
-}
-
-function NotesDetail(): React.ReactElement {
+function NotesDetail() {
   const { topicId, entryId } = useParams<{ topicId: string; entryId: string }>();
   const topic = notes.find(t => t.id === topicId);
-  const entry = topic?.entries.find((e: NoteEntry) => e.id === entryId);
+  const entry = topic?.entries.find(e => e.id === entryId);
 
   if (!topic || !entry) {
-    return <NoteNotFound />;
+    return <NotFoundState title="Note not found" backTo="/notes" backLabel="← Back to notes" />;
   }
 
   return (
@@ -48,10 +31,10 @@ function NotesDetail(): React.ReactElement {
         </>
       }
     >
-      {entry.sections.map((section: NoteSection, i: number) =>
+      {entry.sections.map((section, i) =>
         section.type === "text" ? (
           <ContentBlock key={i} label={section.label}>
-            <PromptLines text={section.content} />
+            <PromptBody text={section.content} />
           </ContentBlock>
         ) : (
           <ContentBlock
@@ -59,9 +42,7 @@ function NotesDetail(): React.ReactElement {
             label={section.label}
             headerSlot={<CopyButton content={section.content} />}
           >
-            <div className="code-scroll-wrapper">
-              <pre>{highlightJava(section.content)}</pre>
-            </div>
+            <CodeBlock code={section.content} />
           </ContentBlock>
         )
       )}

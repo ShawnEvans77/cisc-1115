@@ -1,5 +1,5 @@
 // src/utils/highlightJava.tsx
-import React from "react";
+import type { ReactElement } from "react";
 
 // ── Syntax color tokens ───────────────────────────────────────────────────────
 // These are code-specific colors, separate from the UI design tokens.
@@ -24,9 +24,9 @@ const KEYWORDS = new Set([
 
 const PUNCTUATION = /[{}()[\];,.]/;
 
-export function highlightJava(code: string): React.ReactElement[] {
+export function highlightJava(code: string): ReactElement[] {
   return code.split("\n").map((line, li) => {
-    const tokens: React.ReactElement[] = [];
+    const tokens: ReactElement[] = [];
     let i = 0;
 
     while (i < line.length) {

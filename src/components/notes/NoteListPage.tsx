@@ -2,9 +2,12 @@
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { notes } from "../../data/notes";
-import type { NoteEntry, NoteSection } from "../../types";
 import { Breadcrumb } from "../ui/Breadcrumb";
+import { EmptyState } from "../ui/EmptyState";
+import { NotFoundState } from "../ui/NotFoundState";
+import { PageHeader } from "../ui/PageHeader";
 import { NoteCard } from "./NoteCard";
+import { hasQuery, normalizeQuery, resultCountLabel } from "../../utils/search";
 
 export function NoteListPage() {
   const { topicId } = useParams<{ topicId: string }>();
@@ -13,31 +16,20 @@ export function NoteListPage() {
 
   const filteredEntries = useMemo(() => {
     if (!topic) return [];
-    const q = query.trim().toLowerCase();
+    const q = normalizeQuery(query);
     if (!q) return topic.entries;
-    return topic.entries.filter((entry: NoteEntry) =>
+    return topic.entries.filter(entry =>
       entry.title.toLowerCase().includes(q) ||
-      entry.tags.some((t: string) => t.toLowerCase().includes(q)) ||
-      entry.sections.some((s: NoteSection) => s.content.toLowerCase().includes(q))
+      entry.tags.some(tag => tag.toLowerCase().includes(q)) ||
+      entry.sections.some(section => section.content.toLowerCase().includes(q))
     );
   }, [query, topic]);
 
   if (!topic) {
-    return (
-      <div className="page-root not-found-center">
-        <div className="not-found-content">
-          <p className="page-eyebrow">404</p>
-          <h1 className="not-found-title">Topic not found</h1>
-          <Link to="/notes" className="back-link">← Back to notes</Link>
-        </div>
-      </div>
-    );
+    return <NotFoundState title="Topic not found" backTo="/notes" backLabel="← Back to notes" />;
   }
 
-  const showResults = query.trim().length > 0;
-  const resultLabel = filteredEntries.length === 0
-    ? "no results"
-    : `${filteredEntries.length} of ${topic.entries.length} notes`;
+  const showResults = hasQuery(query);
 
   return (
     <div className="page-root">
@@ -47,33 +39,21 @@ export function NoteListPage() {
         { label: topic.label },
       ]} />
 
-      <div className="page-header page-header--detail">
-        <p className="page-eyebrow">Brooklyn College &nbsp;·&nbsp; CISC 1115</p>
-        <h1 className="page-title">{topic.label}</h1>
-        <p className="page-subtitle">select a note to read it</p>
-
-        <input
-          className="search-input"
-          type="text"
-          placeholder="search notes..."
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          autoComplete="off"
-          spellCheck={false}
-        />
-
-        {showResults && (
-          <p className="search-result-count">{resultLabel}</p>
-        )}
-      </div>
+      <PageHeader
+        detail
+        title={topic.label}
+        subtitle="select a note to read it"
+        query={query}
+        placeholder="search notes..."
+        resultLabel={showResults ? resultCountLabel(filteredEntries.length, topic.entries.length, "note") : undefined}
+        onQueryChange={setQuery}
+      />
 
       <section className="page-section page-section--questions">
         {filteredEntries.length === 0 ? (
-          <div className="empty-state">
-            <p className="empty-state-text">nothing found for "{query}"</p>
-          </div>
+          <EmptyState query={query} />
         ) : (
-          filteredEntries.map((entry: NoteEntry) => (
+          filteredEntries.map(entry => (
             <NoteCard
               key={entry.id}
               entry={entry}

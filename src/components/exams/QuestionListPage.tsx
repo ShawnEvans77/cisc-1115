@@ -2,10 +2,12 @@
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { exams } from "../../data/exams";
-import type { Question } from "../../types";
 import { Breadcrumb } from "../ui/Breadcrumb";
+import { EmptyState } from "../ui/EmptyState";
+import { NotFoundState } from "../ui/NotFoundState";
+import { PageHeader } from "../ui/PageHeader";
 import { QuestionCard } from "./QuestionCard";
-import { stripPromptDelimiters } from "../../utils/parsePrompt";
+import { hasQuery, normalizeQuery, resultCountLabel, searchablePrompt } from "../../utils/search";
 
 interface QuestionListPageProps {
   basePath: string;
@@ -19,35 +21,24 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
 
   const filteredQuestions = useMemo(() => {
     if (!exam) return [];
-    const q = query.trim().toLowerCase();
+    const q = normalizeQuery(query);
     if (!q) return exam.questions;
-    return exam.questions.filter((question: Question) => {
-      const cleanPrompt = stripPromptDelimiters(question.prompt);
+    return exam.questions.filter(question => {
+      const cleanPrompt = searchablePrompt(question.prompt);
       return (
         question.title.toLowerCase().includes(q) ||
-        question.topics.some((t: string) => t.toLowerCase().includes(q)) ||
+        question.topics.some(topic => topic.toLowerCase().includes(q)) ||
         cleanPrompt.toLowerCase().includes(q)
       );
     });
   }, [query, exam]);
 
   if (!exam) {
-    return (
-      <div className="page-root not-found-center">
-        <div className="not-found-content">
-          <p className="page-eyebrow">404</p>
-          <h1 className="not-found-title">Exam not found</h1>
-          <Link to={basePath} className="back-link">← Back to {basePath.slice(1)}</Link>
-        </div>
-      </div>
-    );
+    return <NotFoundState title="Exam not found" backTo={basePath} backLabel={`← Back to ${basePath.slice(1)}`} />;
   }
 
   const parentLabel = basePath.slice(1);
-  const showResults = query.trim().length > 0;
-  const resultLabel = filteredQuestions.length === 0
-    ? "no results"
-    : `${filteredQuestions.length} of ${exam.questions.length} questions`;
+  const showResults = hasQuery(query);
 
   return (
     <div className="page-root">
@@ -57,33 +48,21 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
         { label: exam.label },
       ]} />
 
-      <div className="page-header page-header--detail">
-        <p className="page-eyebrow">Brooklyn College &nbsp;·&nbsp; CISC 1115</p>
-        <h1 className="page-title">{exam.label}</h1>
-        <p className="page-subtitle">{subtitle}</p>
-
-        <input
-          className="search-input"
-          type="text"
-          placeholder="search questions, topics..."
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          autoComplete="off"
-          spellCheck={false}
-        />
-
-        {showResults && (
-          <p className="search-result-count">{resultLabel}</p>
-        )}
-      </div>
+      <PageHeader
+        detail
+        title={exam.label}
+        subtitle={subtitle}
+        query={query}
+        placeholder="search questions, topics..."
+        resultLabel={showResults ? resultCountLabel(filteredQuestions.length, exam.questions.length, "question") : undefined}
+        onQueryChange={setQuery}
+      />
 
       <section className="page-section page-section--questions">
         {filteredQuestions.length === 0 ? (
-          <div className="empty-state">
-            <p className="empty-state-text">nothing found for "{query}"</p>
-          </div>
+          <EmptyState query={query} />
         ) : (
-          filteredQuestions.map((q: Question) => (
+          filteredQuestions.map(q => (
             <QuestionCard
               key={q.id}
               question={q}

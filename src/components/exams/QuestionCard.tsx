@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import type { Question } from "../../types";
 import { highlight } from "../../utils/highlight";
-import { stripPromptDelimiters } from "../../utils/parsePrompt";
+import { searchablePrompt, snippetAround } from "../../utils/search";
 
 interface QuestionCardProps {
   question: Question;
@@ -12,14 +12,7 @@ interface QuestionCardProps {
 }
 
 function getPromptSnippet(prompt: string, query: string): string | null {
-  const clean = stripPromptDelimiters(prompt);
-  const sq = query.trim().toLowerCase();
-  if (!sq) return null;
-  const idx = clean.toLowerCase().indexOf(sq);
-  if (idx === -1) return null;
-  const start = Math.max(0, idx - 40);
-  const end   = Math.min(clean.length, idx + sq.length + 60);
-  return (start > 0 ? "…" : "") + clean.slice(start, end) + (end < clean.length ? "…" : "");
+  return snippetAround(searchablePrompt(prompt), query);
 }
 
 export function QuestionCard({ question: q, examId, query, basePath }: QuestionCardProps) {

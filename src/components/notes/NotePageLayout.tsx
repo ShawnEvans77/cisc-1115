@@ -1,14 +1,13 @@
 // src/components/notes/NotePageLayout.tsx
-import React from "react";
-import { Link } from "react-router-dom";
+import type { ReactNode } from "react";
 import type { NoteTopic, NoteEntry } from "../../types";
 import { Breadcrumb } from "../ui/Breadcrumb";
 
 interface NotePageLayoutProps {
   topic:     NoteTopic;
   entry:     NoteEntry;
-  children:  React.ReactNode;
-  bottomNav: React.ReactNode;
+  children:  ReactNode;
+  bottomNav: ReactNode;
 }
 
 export function NotePageLayout({ topic, entry, children, bottomNav }: NotePageLayoutProps) {
@@ -42,20 +41,6 @@ export function NotePageLayout({ topic, entry, children, bottomNav }: NotePageLa
         </div>
       </section>
 
-    </div>
-  );
-}
-
-// ── 404 state ──────────────────────────────────────────────────────────────────
-
-export function NoteNotFound() {
-  return (
-    <div className="page-root not-found-center">
-      <div className="not-found-content">
-        <p className="page-eyebrow">404</p>
-        <h1 className="not-found-title">Note not found</h1>
-        <Link to="/notes" className="back-link">← Back to notes</Link>
-      </div>
     </div>
   );
 }

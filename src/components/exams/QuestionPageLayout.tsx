@@ -1,16 +1,16 @@
 // src/components/exams/QuestionPageLayout.tsx
-import React from "react";
-import { Link } from "react-router-dom";
+import type { ReactNode } from "react";
 import type { Exam, Question } from "../../types";
 import { Breadcrumb } from "../ui/Breadcrumb";
+import { COURSE_CODE } from "../../utils/search";
 
 interface QuestionPageLayoutProps {
   exam:          Exam;
   question:      Question;
   basePath:      string;
-  children:      React.ReactNode;
-  bottomNav:     React.ReactNode;
-  headerAction?: React.ReactNode;
+  children:      ReactNode;
+  bottomNav:     ReactNode;
+  headerAction?: ReactNode;
 }
 
 export function QuestionPageLayout({
@@ -33,7 +33,7 @@ export function QuestionPageLayout({
       ]} />
 
       <div className="detail-header">
-        <p className="page-eyebrow">{exam.label} &nbsp;·&nbsp; CISC 1115</p>
+        <p className="page-eyebrow">{exam.label} · {COURSE_CODE}</p>
         <h1 className="detail-title">{question.title}</h1>
         <div className="detail-topics-row">
           <div className="detail-topics">
@@ -56,25 +56,6 @@ export function QuestionPageLayout({
         </div>
       </section>
 
-    </div>
-  );
-}
-
-// ── 404 state ─────────────────────────────────────────────────────────────────
-
-interface NotFoundProps {
-  backTo:    string;
-  backLabel: string;
-}
-
-export function QuestionNotFound({ backTo, backLabel }: NotFoundProps) {
-  return (
-    <div className="page-root not-found-center">
-      <div className="not-found-content">
-        <p className="page-eyebrow">404</p>
-        <h1 className="not-found-title">Question not found</h1>
-        <Link to={backTo} className="back-link">{backLabel}</Link>
-      </div>
     </div>
   );
 }

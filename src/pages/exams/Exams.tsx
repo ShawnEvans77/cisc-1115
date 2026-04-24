@@ -1,68 +1,41 @@
 // src/pages/exams/Exams.tsx
-import React, { useState } from "react";
+import { useMemo, useState } from "react";
+import { examPdfs } from "../../data/examPdfs";
 import { SemesterCard } from "../../components/ui/SemesterCard";
+import { EmptyState } from "../../components/ui/EmptyState";
+import { PageHeader } from "../../components/ui/PageHeader";
+import { hasQuery, normalizeQuery, resultCountLabel } from "../../utils/search";
 
-interface Exam {
-  label: string;
-  year:  string;
-  pdf:   string;
-  index: string;
-}
-
-const exams: Exam[] = [
-  { index: "01", label: "fall 2017",   year: "2017", pdf: "/exams/cisc_fall_2017.pdf"   },
-  { index: "02", label: "fall 2018",   year: "2018", pdf: "/exams/cisc_fall_2018.pdf"   },
-  { index: "03", label: "fall 2020",   year: "2020", pdf: "/exams/cisc_fall_2020.pdf"   },
-  { index: "04", label: "spring 2021", year: "2021", pdf: "/exams/cisc_spring_2021.pdf" },
-  { index: "05", label: "spring 2023", year: "2023", pdf: "/exams/cisc_spring_2023.pdf" },
-];
-
-function Exams(): React.ReactElement {
+function Exams() {
   const [query, setQuery] = useState("");
 
-  const q = query.trim().toLowerCase();
-  const filtered = q
-    ? exams.filter(e => e.label.includes(q) || e.year.includes(q))
-    : exams;
+  const filtered = useMemo(() => {
+    const q = normalizeQuery(query);
+    if (!q) return examPdfs;
+    return examPdfs.filter(exam => exam.label.includes(q) || exam.year.includes(q));
+  }, [query]);
 
-  const showResults = query.trim().length > 0;
-  const resultLabel = filtered.length === 0
-    ? "no results"
-    : `${filtered.length} of ${exams.length} exams`;
+  const showResults = hasQuery(query);
 
   return (
     <div className="page-root">
-
-      <div className="page-header">
-        <p className="page-eyebrow">Brooklyn College &nbsp;·&nbsp; CISC 1115</p>
-        <h1 className="page-title">past exams</h1>
-        <p className="page-subtitle">click any exam to open the pdf</p>
-
-        <input
-          className="search-input"
-          type="text"
-          placeholder="search exams..."
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          autoComplete="off"
-          spellCheck={false}
-        />
-
-        {showResults && (
-          <p className="search-result-count">{resultLabel}</p>
-        )}
-      </div>
+      <PageHeader
+        title="past exams"
+        subtitle="click any exam to open the pdf"
+        query={query}
+        placeholder="search exams..."
+        resultLabel={showResults ? resultCountLabel(filtered.length, examPdfs.length, "exam") : undefined}
+        onQueryChange={setQuery}
+      />
 
       <section className="page-section">
         {filtered.length === 0 ? (
-          <div className="empty-state">
-            <p className="empty-state-text">nothing found for "{query}"</p>
-          </div>
+          <EmptyState query={query} />
         ) : (
-          filtered.map(exam => (
+          filtered.map((exam, index) => (
             <SemesterCard
-              key={exam.pdf}
-              index={exam.index}
+              key={exam.id}
+              index={String(index + 1).padStart(2, "0")}
               label={exam.label}
               sublabel="PDF"
               href={exam.pdf}

@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { highlight } from "../../utils/highlight";
 import type { NoteSearchResult } from "../../hooks/useNotesSearch";
+import { pluralize } from "../../utils/search";
 
 interface NoteSearchResultsProps {
   results: NoteSearchResult[];
@@ -29,7 +30,7 @@ export function NoteSearchResults({ results, query }: NoteSearchResultsProps) {
                   <h2 className="result-title result-title--semester">
                     {highlight(r.topicLabel, query)}
                   </h2>
-                  <p className="result-card-meta">{r.entryCount} note{r.entryCount === 1 ? "" : "s"}</p>
+                  <p className="result-card-meta">{pluralize(r.entryCount, "note")}</p>
                 </div>
                 <span className="result-arrow">→</span>
               </div>
@@ -46,8 +47,7 @@ export function NoteSearchResults({ results, query }: NoteSearchResultsProps) {
                   {highlight(r.title, query)}
                 </h2>
                 <div className="result-card-tags">
-                  {/* Fixed: Added explicit string type to 't' to satisfy TS7006 */}
-                  {r.tags.map((t: string) => (
+                  {r.tags.map(t => (
                     <span key={t} className="result-tag">{highlight(t, query)}</span>
                   ))}
                 </div>

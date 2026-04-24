@@ -9,11 +9,27 @@ const THEME_COLORS = {
   dark:  "#000000",  // pitch black
 };
 
-function getInitialTheme(): Theme {
+function getStoredTheme(): Theme | null {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "light" || stored === "dark") return stored;
-  } catch {}
+    return stored === "light" || stored === "dark" ? stored : null;
+  } catch {
+    return null;
+  }
+}
+
+function setStoredTheme(theme: Theme) {
+  try {
+    localStorage.setItem(STORAGE_KEY, theme);
+  } catch {
+    // Storage can be unavailable in strict privacy contexts.
+  }
+}
+
+function getInitialTheme(): Theme {
+  const stored = getStoredTheme();
+  if (stored) return stored;
+
   if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
   return "light";
 }
@@ -58,15 +74,14 @@ export function useTheme() {
 
   useEffect(() => {
     applyTheme(theme);
-    try { localStorage.setItem(STORAGE_KEY, theme); } catch {}
+    setStoredTheme(theme);
   }, [theme]);
 
   // Sync with OS-level changes when no stored preference
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const handler = (e: MediaQueryListEvent) => {
-      try { if (!localStorage.getItem(STORAGE_KEY)) setTheme(e.matches ? "dark" : "light"); }
-      catch { setTheme(e.matches ? "dark" : "light"); }
+      if (!getStoredTheme()) setTheme(e.matches ? "dark" : "light");
     };
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);

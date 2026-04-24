@@ -1,61 +1,15 @@
 // src/pages/questions/Questions.tsx
-import React, { useState } from "react";
-import { exams } from "../../data/exams";
-import { useExamSearch } from "../../hooks/useExamSearch";
-import { SearchResults } from "../../components/exams/SearchResults";
-import { SemesterCard } from "../../components/ui/SemesterCard";
+import { ExamIndexPage } from "../../components/exams/ExamIndexPage";
 
-function Questions(): React.ReactElement {
-  const [query, setQuery] = useState("");
-  const results     = useExamSearch(query);
-  const showResults = query.trim().length > 0;
-
-  const resultLabel = results.length === 0
-    ? "no results"
-    : `${results.length} result${results.length === 1 ? "" : "s"}`;
-
+function Questions() {
   return (
-    <div className="page-root">
-
-      <div className="page-header">
-        <p className="page-eyebrow">Brooklyn College &nbsp;·&nbsp; CISC 1115</p>
-        <h1 className="page-title">questions</h1>
-        <p className="page-subtitle">select a semester to browse its questions</p>
-
-        <input
-          className="search-input"
-          type="text"
-          placeholder="search questions..."
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          autoComplete="off"
-          spellCheck={false}
-        />
-
-        {showResults && (
-          <p className="search-result-count">{resultLabel}</p>
-        )}
-      </div>
-
-      {showResults ? (
-        <section className="page-section">
-          <SearchResults results={results} query={query} basePath="/questions" />
-        </section>
-      ) : (
-        <section className="page-section">
-          {exams.map((exam, i) => (
-            <SemesterCard
-              key={exam.id}
-              index={String(i + 1).padStart(2, "0")}
-              label={exam.label}
-              sublabel={`${exam.questions.length} question${exam.questions.length === 1 ? "" : "s"}`}
-              to={`/questions/${exam.id}`}
-            />
-          ))}
-        </section>
-      )}
-
-    </div>
+    <ExamIndexPage
+      title="questions"
+      subtitle="select a semester to browse its questions"
+      placeholder="search questions..."
+      basePath="/questions"
+      itemLabel="question"
+    />
   );
 }
 
