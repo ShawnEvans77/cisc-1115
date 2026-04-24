@@ -1,0 +1,353 @@
+@layer components {
+
+  /* ── Search Highlight ── */
+
+  .search-highlight {
+    background-color: var(--color-orange-light);
+    color: var(--color-orange);
+    border-radius: 2px;
+    padding: 0 2px;
+  }
+
+
+  /* ── Semester Card ── */
+
+  .semester-card {
+    display: block;
+    border-top: 1.5px solid var(--color-border);
+    padding: 3.5rem 1rem;
+    text-decoration: none;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 4px;
+    transition: background 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .semester-card:last-child { border-bottom: 1.5px solid var(--color-border); }
+  .semester-card:hover { background-color: rgba(var(--rgb-orange), 0.04); }
+  .semester-card:hover .semester-card-label { color: var(--color-orange); }
+  .semester-card:hover .semester-card-arrow { transform: translateX(8px); color: var(--color-orange); }
+
+  .semester-card-grid {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .semester-card-index {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-border-strong);
+  }
+
+  .semester-card-label {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+    font-weight: 400;
+    color: var(--color-ink);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    transition: color 0.2s;
+    margin-bottom: 0.5rem;
+  }
+
+  .semester-card-sublabel {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+  }
+
+  .semester-card-check {
+    display: inline-block;
+    margin-left: 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.55em;
+    line-height: 1;
+    color: var(--color-orange);
+    vertical-align: 0.12em;
+  }
+
+  .semester-card-arrow {
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    color: var(--color-border-strong);
+    flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s;
+  }
+
+
+  /* ── Result Cards ── */
+
+  .result-card {
+    display: block;
+    text-decoration: none;
+    border-top: 1.5px solid var(--color-border);
+    padding: 2rem 0;
+    transition: background 0.18s;
+    border-radius: 2px;
+  }
+  .result-card:last-child { border-bottom: 1.5px solid var(--color-border); }
+  .result-card:hover { background-color: rgba(var(--rgb-orange), 0.03); }
+  .result-card--finished .result-title { color: var(--color-ink); }
+  .result-card:hover .result-title { color: var(--color-orange); }
+  .result-card:hover .result-arrow { transform: translateX(5px); color: var(--color-orange); }
+
+  .result-card-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .result-card-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    margin-bottom: 0.4rem;
+  }
+  .result-card-eyebrow--orange { color: var(--color-orange); }
+
+  .result-title { transition: color 0.18s; }
+
+  .result-title--semester {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .result-title--question {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 700;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .result-card-meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    margin-top: 0.5rem;
+  }
+
+  .result-card-status,
+  .question-card-status {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-orange);
+    margin-top: 0.5rem;
+  }
+
+  .result-card-tags {
+    margin-top: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .result-card-snippet {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--color-subtle);
+    margin-top: 0.6rem;
+    line-height: 1.6;
+  }
+
+  .result-arrow {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    color: var(--color-border-strong);
+    flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.18s;
+  }
+
+  .result-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    border: 1px solid var(--color-border);
+    padding: 0.15rem 0.55rem;
+    border-radius: 2px;
+  }
+
+
+  /* ── Question Card ── */
+
+  .question-card {
+    display: block;
+    text-decoration: none;
+    background-color: var(--color-white);
+    border: 1.5px solid var(--color-border);
+    padding: 2rem 2.5rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .question-card:hover {
+    border-color: var(--color-orange);
+    box-shadow: 0 4px 24px rgba(var(--rgb-orange), 0.08);
+    transform: translateY(-2px);
+  }
+  .question-card:hover .q-title { color: var(--color-orange); }
+  .question-card:hover .q-arrow { transform: translateX(6px); color: var(--color-orange); }
+
+  /* 3-col: badge | content | arrow */
+  .question-card-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  /* 2-col: content | arrow — note cards have no badge */
+  .note-card-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .question-card-badge {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-pure-white);
+    background-color: var(--color-orange);
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+    flex-shrink: 0;
+    align-self: start;
+    margin-top: 0.25rem;
+  }
+
+  .question-title-check {
+    display: inline-block;
+    margin-left: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    line-height: 1;
+    color: var(--color-orange);
+    vertical-align: 0.06em;
+  }
+
+  .question-card-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    color: var(--color-ink);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0;
+    transition: color 0.2s;
+  }
+
+  .question-card-topics { display: flex; flex-wrap: wrap; }
+
+  .question-card-snippet {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--color-subtle);
+    margin-top: 0.6rem;
+    line-height: 1.6;
+  }
+
+  .q-arrow {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    color: var(--color-border-strong);
+    flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s;
+  }
+
+  .topic-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    border: 1px solid var(--color-border);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    margin-right: 0.4rem;
+    margin-top: 0.6rem;
+  }
+
+
+  /* ── Contact ── */
+
+  .contact-rows { display: flex; flex-direction: column; }
+
+  .contact-row {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem 2.5rem;
+    border-top: 1px solid var(--color-border);
+    margin: 0 -2.5rem;
+    border-radius: 2px;
+  }
+  .contact-row:last-child { border-bottom: 1px solid var(--color-border); }
+
+  .contact-row-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    flex-shrink: 0;
+  }
+
+  .contact-row-value {
+    min-width: 0;
+    word-break: break-all;
+  }
+
+  .contact-row-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink);
+    user-select: all;
+  }
+
+  .contact-row-link {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-orange);
+    text-decoration: underline;
+    text-decoration-color: rgba(var(--rgb-orange), 0.4);
+    text-underline-offset: 3px;
+    transition: color 0.18s, text-decoration-color 0.18s, text-underline-offset 0.18s;
+  }
+  .contact-row-link:hover {
+    color: var(--color-orange-hover);
+    text-decoration-color: var(--color-orange-hover);
+    text-underline-offset: 5px;
+  }
+
+  .contribute-action { margin-top: 1.5rem; }
+}

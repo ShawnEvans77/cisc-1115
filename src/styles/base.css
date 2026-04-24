@@ -1,0 +1,19 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+
+@layer base {
+
+  /* Applied briefly during active theme switch only */
+  .theme-switching,
+  .theme-switching *,
+  .theme-switching *::before,
+  .theme-switching *::after {
+    transition:
+      background-color 0.22s ease,
+      border-color     0.22s ease,
+      color            0.22s ease !important;
+  }
+
+  ::-webkit-scrollbar-track { background: var(--color-off-white); }
+  ::-webkit-scrollbar-thumb { background: var(--color-border-strong); }
+}
+

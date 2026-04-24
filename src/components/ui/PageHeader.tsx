@@ -1,4 +1,5 @@
 import type { ChangeEventHandler } from "react";
+import type { ReactNode } from "react";
 import { COURSE_LABEL } from "../../utils/search";
 
 type PageHeaderProps = {
@@ -8,7 +9,9 @@ type PageHeaderProps = {
   placeholder?: string;
   resultLabel?: string;
   detail?: boolean;
+  compact?: boolean;
   compactSubtitle?: boolean;
+  controls?: ReactNode;
   onQueryChange?: (query: string) => void;
 };
 
@@ -19,7 +22,9 @@ export function PageHeader({
   placeholder,
   resultLabel,
   detail = false,
+  compact = false,
   compactSubtitle = false,
+  controls,
   onQueryChange,
 }: PageHeaderProps) {
   const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
@@ -27,7 +32,7 @@ export function PageHeader({
   };
 
   return (
-    <div className={`page-header${detail ? " page-header--detail" : ""}`}>
+    <div className={`page-header${detail ? " page-header--detail" : ""}${compact ? " page-header--compact" : ""}`}>
       <p className="page-eyebrow">{COURSE_LABEL}</p>
       <h1 className="page-title">{title}</h1>
       {subtitle && (
@@ -47,6 +52,8 @@ export function PageHeader({
           spellCheck={false}
         />
       )}
+
+      {controls}
 
       {resultLabel && <p className="search-result-count">{resultLabel}</p>}
     </div>

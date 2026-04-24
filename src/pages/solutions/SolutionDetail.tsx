@@ -6,7 +6,9 @@ import { QuestionPageLayout } from "../../components/exams/QuestionPageLayout";
 import { CodeBlock } from "../../components/ui/CodeBlock";
 import { ContentBlock, PromptBody, QuestionMath } from "../../components/ui/ContentBlock";
 import { CopyButton } from "../../components/ui/CopyButton";
+import { FinishToggle } from "../../components/ui/FinishToggle";
 import { NotFoundState } from "../../components/ui/NotFoundState";
+import { useFinishedQuestions } from "../../hooks/useFinishedQuestions";
 
 type SolutionLocationState = {
   scrollToSolution?: boolean;
@@ -17,6 +19,7 @@ function SolutionDetail() {
   const location = useLocation();
   const exam     = exams.find(e => e.id === examId);
   const question = exam?.questions.find(q => q.id === questionId);
+  const { isFinished, toggleFinished } = useFinishedQuestions();
 
   useEffect(() => {
     if ((location.state as SolutionLocationState | null)?.scrollToSolution) {
@@ -38,9 +41,15 @@ function SolutionDetail() {
       question={question}
       basePath="/solutions"
       headerAction={
-        <button className="skip-to-solution-btn" onClick={handleSkip}>
-          Skip to Solution ↓
-        </button>
+        <div className="detail-actions">
+          <FinishToggle
+            finished={isFinished(exam.id, question.id)}
+            onToggle={() => toggleFinished(exam.id, question.id)}
+          />
+          <button className="skip-to-solution-btn" onClick={handleSkip}>
+            Skip to Solution ↓
+          </button>
+        </div>
       }
       bottomNav={
         <>

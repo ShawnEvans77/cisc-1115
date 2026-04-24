@@ -1,0 +1,187 @@
+@layer components {
+
+  /* ── App shell ── */
+
+  .app-root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    font-family: var(--font-body);
+  }
+
+  .app-main { flex: 1; }
+
+
+  /* ── Page layout ── */
+
+  .page-root {
+    font-family: var(--font-body);
+    background-color: var(--color-off-white);
+    min-height: 100vh;
+  }
+
+  .page-header {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem 3rem;
+  }
+  .page-header--compact { padding-bottom: 1.25rem; }
+  .page-header--detail  { padding-top: 1.75rem; }
+  .page-header--detail .page-subtitle { margin-bottom: 2rem; }
+
+  .page-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-orange);
+    margin-bottom: 1.25rem;
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 700;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-subtitle {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--color-subtle);
+    margin-bottom: 3rem;
+  }
+  .page-subtitle--flush { margin-bottom: 0; }
+
+  .page-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem 8rem;
+  }
+  .page-section--detail    { padding-top: 3rem; }
+  .page-section--questions { padding-top: 0.25rem; }
+  .page-section--results   { padding-top: 0.75rem; }
+  .page-section--contact   { padding-top: 2rem; }
+
+  .search-result-count {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    margin-top: 1rem;
+  }
+
+
+  /* ── Breadcrumb ── */
+
+  .breadcrumb-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem 0;
+  }
+  .breadcrumb-wrap--wide { max-width: 1400px; }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-link {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    text-decoration: none;
+    transition: color 0.18s;
+  }
+  .breadcrumb-link:hover { color: var(--color-orange); }
+
+  .breadcrumb-current {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-orange);
+  }
+
+  .breadcrumb-sep {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-border-strong);
+  }
+
+
+  /* ── Search Input ── */
+
+  .search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid var(--color-border-strong);
+    outline: none;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    font-weight: 400;
+    color: var(--color-ink);
+    padding: 0.75rem 0;
+    letter-spacing: -0.01em;
+    transition: border-color 0.2s;
+    caret-color: var(--color-orange);
+  }
+  .search-input::placeholder { color: var(--color-border-strong); font-style: italic; }
+  .search-input:focus        { border-bottom-color: var(--color-orange); }
+
+
+  /* ── Progress Filter ── */
+
+  .progress-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.2rem;
+    margin-top: 1.05rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+
+  .progress-filter-btn {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: 0.6rem 0 0.45rem;
+    cursor: pointer;
+    transition: border-color 0.18s, color 0.18s;
+  }
+  .progress-filter-btn:hover {
+    color: var(--color-orange);
+  }
+  .progress-filter-btn--active {
+    color: var(--color-orange);
+    border-bottom-color: var(--color-orange);
+  }
+  .progress-filter-btn--active:hover {
+    color: var(--color-orange-hover);
+    border-bottom-color: var(--color-orange-hover);
+  }
+}

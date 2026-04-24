@@ -1,11 +1,14 @@
+import type { ReactNode } from "react";
+
 type EmptyStateProps = {
-  query: string;
+  query?: string;
+  children?: ReactNode;
 };
 
-export function EmptyState({ query }: EmptyStateProps) {
+export function EmptyState({ query, children }: EmptyStateProps) {
   return (
     <div className="empty-state">
-      <p className="empty-state-text">nothing found for "{query}"</p>
+      <p className="empty-state-text">{children ?? `nothing found for "${query ?? ""}"`}</p>
     </div>
   );
 }

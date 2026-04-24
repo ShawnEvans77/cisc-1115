@@ -1,0 +1,102 @@
+/* ── Dark ────────────────────────────────────────────────────────────────── */
+
+@layer dark {
+
+  [data-theme="dark"] .navbar {
+    background-color: var(--color-navbar-dark);
+    border-bottom: 1px solid var(--color-border);
+  }
+  [data-theme="dark"] .navbar-logo   { color: var(--color-ink); }
+  [data-theme="dark"] .navbar-link   { color: rgba(var(--rgb-ink), 0.65); }
+  [data-theme="dark"] .navbar-link:hover {
+    background-color: rgba(var(--rgb-white), 0.05);
+    color: var(--color-ink);
+  }
+  [data-theme="dark"] .navbar-link--active {
+    color: var(--color-ink);
+    background-color: rgba(var(--rgb-white), 0.08);
+  }
+  [data-theme="dark"] .navbar .theme-toggle,
+  [data-theme="dark"] .navbar-right .theme-toggle {
+    color: var(--color-subtle);
+    border-color: var(--color-border-strong);
+  }
+  [data-theme="dark"] .navbar .theme-toggle:hover,
+  [data-theme="dark"] .navbar-right .theme-toggle:hover {
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+  }
+
+  [data-theme="dark"] .navbar-mobile-menu {
+    background-color: var(--color-navbar-mobile-dark);
+    border-bottom: 1px solid var(--color-border);
+  }
+  [data-theme="dark"] .navbar-mobile-link         { color: rgba(var(--rgb-ink), 0.75); }
+  [data-theme="dark"] .navbar-mobile-link--active {
+    color: var(--color-orange);
+    background-color: var(--color-orange-light);
+  }
+
+  [data-theme="dark"] .hero-eyebrow,
+  [data-theme="dark"] .page-eyebrow { color: rgba(var(--rgb-ink), 0.65); }
+
+  [data-theme="dark"] .hero-title-accent { color: var(--color-ink); opacity: 0.88; }
+
+  [data-theme="dark"] .cta-btn {
+    background-color: transparent !important;
+    color: var(--color-ink) !important;
+    border: 1px solid var(--color-border-strong) !important;
+  }
+  [data-theme="dark"] .cta-btn:hover {
+    background-color: rgba(var(--rgb-ink), 0.08) !important;
+    border-color: var(--color-ink) !important;
+    color: var(--color-ink) !important;
+  }
+
+  [data-theme="dark"] .content-block       { background-color: var(--color-content-deep); border-color: var(--color-border); }
+  [data-theme="dark"] .content-block-label { color: rgba(var(--rgb-ink), 0.35); }
+
+  [data-theme="dark"] .code-scroll-wrapper { background-color: #0d1117; border-color: var(--color-border); }
+  [data-theme="dark"] .code-scroll-wrapper pre { color: #cdd9e5; }
+
+  [data-theme="dark"] .question-card       { background-color: var(--color-content-deep); border-color: var(--color-border); }
+  [data-theme="dark"] .question-card:hover { border-color: var(--color-orange); box-shadow: 0 4px 24px rgba(var(--rgb-orange), 0.08); }
+  [data-theme="dark"] .question-card-badge { background-color: rgba(var(--rgb-orange), 0.15); color: var(--color-orange); }
+  [data-theme="dark"] .search-highlight {
+    background-color: rgba(var(--rgb-orange), 0.18);
+    color: var(--color-orange);
+  }
+
+  [data-theme="dark"] .solution-link       { background-color: transparent; color: var(--color-ink); border: 1px solid var(--color-border-strong); }
+  [data-theme="dark"] .solution-link:hover { background-color: rgba(var(--rgb-ink), 0.07); border-color: var(--color-ink); }
+
+  [data-theme="dark"] .skip-to-solution-btn       { background-color: transparent; color: var(--color-orange); border-color: var(--color-orange); }
+  [data-theme="dark"] .skip-to-solution-btn:hover { background-color: rgba(var(--rgb-orange), 0.1); border-color: var(--color-orange-hover); color: var(--color-orange-hover); }
+
+  [data-theme="dark"] .copy-btn        { background-color: transparent; color: var(--color-orange); border: 1px solid var(--color-orange); }
+  [data-theme="dark"] .copy-btn:hover  { background-color: rgba(var(--rgb-orange), 0.1); }
+  [data-theme="dark"] .copy-btn.copied { background-color: transparent; color: var(--color-copy-success); border-color: var(--color-copy-success); }
+  [data-theme="dark"] .finish-toggle--finished {
+    background-color: transparent;
+    color: var(--color-copy-success);
+    border-color: var(--color-copy-success);
+  }
+
+  [data-theme="dark"] .home-card-link:hover,
+  [data-theme="dark"] .semester-card:hover { background-color: rgba(var(--rgb-orange), 0.04) !important; }
+
+  [data-theme="dark"] .footer-logo     { color: var(--color-ink); }
+  [data-theme="dark"] .back-link       { color: var(--color-ink); }
+  [data-theme="dark"] .back-link:hover { opacity: 0.6; }
+
+  [data-theme="dark"] .contact-row-text { color: var(--color-ink); }
+  [data-theme="dark"] .contact-row-link {
+    color: var(--color-orange);
+    text-decoration-color: rgba(var(--rgb-orange), 0.4);
+  }
+  [data-theme="dark"] .contact-row-link:hover {
+    color: var(--color-orange-hover);
+    text-decoration-color: var(--color-orange-hover);
+  }
+
+} /* end @layer dark */

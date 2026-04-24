@@ -1,0 +1,93 @@
+/* ── Mobile — 850px ──────────────────────────────────────────────────────── */
+/* Outside @layer intentionally — avoids specificity surprises in older browsers */
+
+@media (max-width: 850px) {
+
+  .navbar-center { display: none; }
+  .navbar-right  { display: none; }
+
+  .navbar-mobile-btn {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 0 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-pure-white);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    height: 100%;
+  }
+
+  .navbar-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-orange-hover);
+  }
+
+  [data-theme="dark"] .navbar-mobile-menu { background-color: var(--color-navbar-dark); }
+
+  .navbar-mobile-link {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(var(--rgb-white), 0.9);
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(var(--rgb-white), 0.1);
+    transition: background 0.15s;
+  }
+  .navbar-mobile-link:hover   { background-color: rgba(var(--rgb-black), 0.1); }
+  .navbar-mobile-link--active { color: var(--color-pure-white); background-color: rgba(var(--rgb-black), 0.15); }
+
+  .navbar-mobile-theme { display: flex; align-items: center; padding: 0.75rem 1.5rem; }
+  .navbar-mobile-theme .theme-toggle { color: rgba(var(--rgb-white), 0.75); border-color: rgba(var(--rgb-white), 0.35); }
+
+  .page-header         { padding: 3rem 1rem 2rem; }
+  .page-section        { padding: 1.5rem 1rem 6rem; }
+  .breadcrumb-wrap     { padding: 1.5rem 1rem 0; }
+  .home-divider-wrap   { padding: 0 1rem; }
+  .detail-divider-wrap { padding: 0 1rem; }
+
+  .question-card       { padding: 1.25rem 1rem; }
+  .question-card-grid  { gap: 0.75rem; }
+  .question-card-badge { font-size: 0.7rem; padding: 0.25rem 0.55rem; }
+  .question-card-title { font-size: clamp(1rem, 4vw, 1.3rem); }
+  .q-arrow             { font-size: 1.1rem; }
+
+  .semester-card       { padding: 2rem 0.75rem; }
+  .semester-card-grid  { gap: 1rem; }
+  .semester-card-arrow { font-size: 1.5rem; }
+
+  .detail-header  { padding: 1.5rem 1rem 0.5rem; }
+  .detail-content { padding: 0.75rem 1rem 6rem; }
+  .content-block  { padding: 1.25rem 1rem; }
+
+  .code-scroll-wrapper pre { font-size: 0.83rem; line-height: 1.85; padding: 1rem; tab-size: 2; }
+
+  .copy-btn { width: 100%; text-align: center; }
+  .finish-toggle { width: 100%; text-align: center; }
+  .progress-filter {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.35rem;
+  }
+  .progress-filter-btn { flex: 1; text-align: center; }
+  .detail-actions { width: 100%; justify-content: stretch; }
+  .detail-actions > * { flex: 1; }
+
+  .cta-group { flex-direction: column; align-items: stretch; }
+  .cta-btn   { text-align: center; padding: 1rem 1.5rem; }
+
+  .home-card-link  { padding: 2rem 1rem; margin-left: -2.5rem; margin-right: -2.5rem; }
+  .home-card-grid  { grid-template-columns: 2rem 1fr auto; gap: 1rem; }
+  .home-card-arrow { font-size: 1.25rem; }
+
+  .contact-row        { grid-template-columns: 1fr; gap: 0.25rem; margin: 0 -1rem; padding: 1rem; }
+  .contact-row-value  { font-size: 0.88rem; }
+  .contact-row-text   { font-size: 0.88rem; }
+  .contact-row-link   { font-size: 0.88rem; }
+}

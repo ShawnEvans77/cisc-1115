@@ -6,14 +6,18 @@ interface SemesterCardProps {
   sublabel: string;
   to?: string;   // internal nav
   href?: string; // external link (PDF)
+  complete?: boolean;
 }
 
-export function SemesterCard({ index, label, sublabel, to, href }: SemesterCardProps) {
+export function SemesterCard({ index, label, sublabel, to, href, complete = false }: SemesterCardProps) {
   const inner = (
     <div className="semester-card-grid">
       <span className="semester-card-index">{index}</span>
       <div>
-        <h2 className="semester-card-label">{label}</h2>
+        <h2 className="semester-card-label">
+          {label}
+          {complete && <span className="semester-card-check" aria-label="all questions finished">✓</span>}
+        </h2>
         <span className="semester-card-sublabel">{sublabel}</span>
       </div>
       <span className="semester-card-arrow">→</span>

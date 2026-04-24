@@ -9,13 +9,20 @@ interface SearchResultsProps {
   query:    string;
   basePath: "/solutions" | "/questions";
   itemLabel?: "question" | "solution";
+  isFinished?: (examId: string, questionId: string) => boolean;
 }
 
 function getPromptSnippet(prompt: string, query: string): string | null {
   return snippetAround(searchablePrompt(prompt), query);
 }
 
-export function SearchResults({ results, query, basePath, itemLabel = "question" }: SearchResultsProps) {
+export function SearchResults({
+  results,
+  query,
+  basePath,
+  itemLabel = "question",
+  isFinished,
+}: SearchResultsProps) {
   if (results.length === 0) {
     return (
       <div className="empty-state">
@@ -45,14 +52,20 @@ export function SearchResults({ results, query, basePath, itemLabel = "question"
         }
 
         const snippet = getPromptSnippet(r.prompt, query);
+        const finished = isFinished?.(r.examId, r.questionId) ?? false;
 
         return (
-          <Link key={`${r.examId}-${r.questionId}`} to={`${basePath}/${r.examId}/${r.questionId}`} className="result-card">
+          <Link
+            key={`${r.examId}-${r.questionId}`}
+            to={`${basePath}/${r.examId}/${r.questionId}`}
+            className={`result-card${finished ? " result-card--finished" : ""}`}
+          >
             <div className="result-card-grid">
               <div>
                 <p className="result-card-eyebrow result-card-eyebrow--orange">{r.examLabel}</p>
                 <h2 className="result-title result-title--question">
                   {highlight(r.title, query)}
+                  {finished && <span className="question-title-check" aria-label="finished">✓</span>}
                 </h2>
                 <div className="result-card-tags">
                   {r.topics.map(t => (
