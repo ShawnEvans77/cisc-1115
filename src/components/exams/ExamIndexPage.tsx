@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { exams } from "../../data/exams";
-import { useExamSearch, type SearchResult } from "../../hooks/useExamSearch";
+import { useExamSearch } from "../../hooks/useExamSearch";
 import { matchesFinishedFilter, useFinishedQuestions, type FinishedFilter } from "../../hooks/useFinishedQuestions";
 import { hasQuery, pluralize, resultCountLabel } from "../../utils/search";
+import { createAllQuestionSearchResults } from "../../utils/examSearch";
 import { PageHeader } from "../ui/PageHeader";
 import { ProgressFilterControls } from "../ui/ProgressFilterControls";
 import { SemesterCard } from "../ui/SemesterCard";
@@ -12,9 +13,13 @@ type ExamIndexPageProps = {
   title: string;
   subtitle: string;
   placeholder: string;
-  basePath: "/questions" | "/solutions";
+  basePath: `/${ExamIndexSection}`;
   itemLabel: "question" | "solution";
 };
+
+type ExamIndexSection = "questions" | "solutions";
+
+const allQuestionSearchResults = createAllQuestionSearchResults(exams);
 
 export function ExamIndexPage({
   title,
@@ -25,22 +30,11 @@ export function ExamIndexPage({
 }: ExamIndexPageProps) {
   const [query, setQuery] = useState("");
   const [progressFilter, setProgressFilter] = useState<FinishedFilter>("all");
-  const { isFinished } = useFinishedQuestions();
+  const { isFinished, isExamFinished } = useFinishedQuestions();
   const searchResults = useExamSearch(query);
   const searching = hasQuery(query);
   const filteringProgress = progressFilter !== "all";
-  const progressResults: SearchResult[] = exams.flatMap(exam =>
-    exam.questions.map(question => ({
-      type: "question",
-      examId: exam.id,
-      examLabel: exam.label,
-      questionId: question.id,
-      title: question.title,
-      topics: question.topics,
-      prompt: question.prompt,
-    }))
-  );
-  const results = searching ? searchResults : progressResults;
+  const results = searching ? searchResults : allQuestionSearchResults;
   const filteredResults = results.filter(result => (
     result.type === "semester"
       ? progressFilter === "all"
@@ -76,7 +70,7 @@ export function ExamIndexPage({
               index={String(index + 1).padStart(2, "0")}
               label={exam.label}
               sublabel={pluralize(exam.questions.length, itemLabel)}
-              complete={exam.questions.length > 0 && exam.questions.every(question => isFinished(exam.id, question.id))}
+              complete={isExamFinished(exam)}
               to={`${basePath}/${exam.id}`}
             />
           ))

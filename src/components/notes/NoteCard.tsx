@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import type { NoteEntry } from "../../types";
 import { highlight } from "../../utils/highlight";
-import { snippetAround } from "../../utils/search";
+import { getNoteContentSnippet } from "../../utils/noteSearch";
 
 interface NoteCardProps {
   entry:   NoteEntry;
@@ -10,18 +10,8 @@ interface NoteCardProps {
   query:   string;
 }
 
-function getContentSnippet(entry: NoteEntry, query: string): string | null {
-  for (const section of entry.sections) {
-    if (section.type !== "text") continue;
-    const snippet = snippetAround(section.content, query);
-    if (snippet) return snippet;
-  }
-
-  return null;
-}
-
 export function NoteCard({ entry, topicId, query }: NoteCardProps) {
-  const snippet = getContentSnippet(entry, query);
+  const snippet = getNoteContentSnippet(entry, query);
 
   return (
     <Link to={`/notes/${topicId}/${entry.id}`} className="question-card">

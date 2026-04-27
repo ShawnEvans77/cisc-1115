@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { highlight } from "../../utils/highlight";
 import type { NoteSearchResult } from "../../hooks/useNotesSearch";
+import { EmptyState } from "../ui/EmptyState";
 import { pluralize } from "../../utils/search";
 
 interface NoteSearchResultsProps {
@@ -11,11 +12,7 @@ interface NoteSearchResultsProps {
 
 export function NoteSearchResults({ results, query }: NoteSearchResultsProps) {
   if (results.length === 0) {
-    return (
-      <div className="empty-state">
-        <p className="empty-state-text">nothing found for "{query}"</p>
-      </div>
-    );
+    return <EmptyState query={query} />;
   }
 
   return (

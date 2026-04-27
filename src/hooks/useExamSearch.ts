@@ -1,53 +1,35 @@
 import { useMemo } from "react";
 import { exams } from "../data/exams";
-import { normalizeQuery, searchablePrompt } from "../utils/search";
+import {
+  createQuestionSearchResult,
+  createSemesterSearchResult,
+  examMatchesQuery,
+  normalizeSearchQuery,
+  questionMatchesQuery,
+  type ExamSearchResult,
+} from "../utils/examSearch";
 
-type SemesterResult = {
-  type: "semester";
-  examId: string;
-  examLabel: string;
-  year: string;
-  questionCount: number;
-};
-
-type QuestionResult = {
-  type: "question";
-  examId: string;
-  examLabel: string;
-  questionId: string;
-  title: string;
-  topics: string[];
-  prompt: string;
-};
-
-export type SearchResult = SemesterResult | QuestionResult;
+export type SearchResult = ExamSearchResult;
 
 export function useExamSearch(query: string): SearchResult[] {
   return useMemo(() => {
-    const q = normalizeQuery(query);
+    const q = normalizeSearchQuery(query);
     if (!q) return [];
     const matches: SearchResult[] = [];
 
     for (const exam of exams) {
-      if (
-        exam.label.toLowerCase().includes(q) ||
-        exam.year.toLowerCase().includes(q) ||
-        exam.id.toLowerCase().includes(q)
-      ) {
-        matches.push({ type: "semester", examId: exam.id, examLabel: exam.label, year: exam.year, questionCount: exam.questions.length });
+      if (examMatchesQuery(exam, q)) {
+        matches.push(createSemesterSearchResult(exam));
         continue;
       }
+
       for (const question of exam.questions) {
-        const cleanPrompt = searchablePrompt(question.prompt);
-        if (
-          question.title.toLowerCase().includes(q) ||
-          question.topics.some(t => t.toLowerCase().includes(q)) ||
-          cleanPrompt.toLowerCase().includes(q)
-        ) {
-          matches.push({ type: "question", examId: exam.id, examLabel: exam.label, questionId: question.id, title: question.title, topics: question.topics, prompt: question.prompt });
+        if (questionMatchesQuery(question, q)) {
+          matches.push(createQuestionSearchResult(exam, question));
         }
       }
     }
+
     return matches;
   }, [query]);
 }

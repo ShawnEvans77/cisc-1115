@@ -1,3 +1,4 @@
+import type { Exam } from "../types";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export type FinishedFilter = "all" | "unfinished" | "finished";
@@ -74,9 +75,14 @@ export function useFinishedQuestions() {
     return finishedKeys.has(getQuestionProgressKey(examId, questionId));
   }, [finishedKeys]);
 
+  const isExamFinished = useCallback((exam: Exam) => {
+    return exam.questions.length > 0 && exam.questions.every(question => isFinished(exam.id, question.id));
+  }, [isFinished]);
+
   return useMemo(() => ({
     finishedKeys,
     toggleFinished,
     isFinished,
-  }), [finishedKeys, toggleFinished, isFinished]);
+    isExamFinished,
+  }), [finishedKeys, toggleFinished, isFinished, isExamFinished]);
 }

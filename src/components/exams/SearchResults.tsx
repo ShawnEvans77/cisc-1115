@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { highlight } from "../../utils/highlight";
 import { pluralize, searchablePrompt, snippetAround } from "../../utils/search";
 import type { SearchResult } from "../../hooks/useExamSearch";
+import { EmptyState } from "../ui/EmptyState";
 
 interface SearchResultsProps {
   results:  SearchResult[];
@@ -24,11 +25,7 @@ export function SearchResults({
   isFinished,
 }: SearchResultsProps) {
   if (results.length === 0) {
-    return (
-      <div className="empty-state">
-        <p className="empty-state-text">nothing found for "{query}"</p>
-      </div>
-    );
+    return <EmptyState query={query} />;
   }
 
   return (
@@ -58,7 +55,7 @@ export function SearchResults({
           <Link
             key={`${r.examId}-${r.questionId}`}
             to={`${basePath}/${r.examId}/${r.questionId}`}
-            className={`result-card${finished ? " result-card--finished" : ""}`}
+            className="result-card"
           >
             <div className="result-card-grid">
               <div>

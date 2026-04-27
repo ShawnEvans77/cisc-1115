@@ -1,7 +1,7 @@
 // src/components/exams/QuestionListPage.tsx
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { exams } from "../../data/exams";
+import { findExamById } from "../../data/exams";
 import { Breadcrumb } from "../ui/Breadcrumb";
 import { EmptyState } from "../ui/EmptyState";
 import { NotFoundState } from "../ui/NotFoundState";
@@ -9,7 +9,8 @@ import { PageHeader } from "../ui/PageHeader";
 import { ProgressFilterControls } from "../ui/ProgressFilterControls";
 import { QuestionCard } from "./QuestionCard";
 import { matchesFinishedFilter, useFinishedQuestions, type FinishedFilter } from "../../hooks/useFinishedQuestions";
-import { hasQuery, normalizeQuery, resultCountLabel, searchablePrompt } from "../../utils/search";
+import { hasQuery, resultCountLabel } from "../../utils/search";
+import { normalizeSearchQuery, questionMatchesQuery } from "../../utils/examSearch";
 
 interface QuestionListPageProps {
   basePath: string;
@@ -18,23 +19,16 @@ interface QuestionListPageProps {
 
 export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) {
   const { examId } = useParams<{ examId: string }>();
-  const exam = exams.find(e => e.id === examId);
+  const exam = findExamById(examId);
   const [query, setQuery] = useState("");
   const [progressFilter, setProgressFilter] = useState<FinishedFilter>("all");
   const { isFinished } = useFinishedQuestions();
 
   const searchedQuestions = useMemo(() => {
     if (!exam) return [];
-    const q = normalizeQuery(query);
+    const q = normalizeSearchQuery(query);
     if (!q) return exam.questions;
-    return exam.questions.filter(question => {
-      const cleanPrompt = searchablePrompt(question.prompt);
-      return (
-        question.title.toLowerCase().includes(q) ||
-        question.topics.some(topic => topic.toLowerCase().includes(q)) ||
-        cleanPrompt.toLowerCase().includes(q)
-      );
-    });
+    return exam.questions.filter(question => questionMatchesQuery(question, q));
   }, [query, exam]);
 
   const filteredQuestions = useMemo(() => {

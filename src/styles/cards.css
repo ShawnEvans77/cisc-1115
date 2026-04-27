@@ -91,7 +91,6 @@
   }
   .result-card:last-child { border-bottom: 1.5px solid var(--color-border); }
   .result-card:hover { background-color: rgba(var(--rgb-orange), 0.03); }
-  .result-card--finished .result-title { color: var(--color-ink); }
   .result-card:hover .result-title { color: var(--color-orange); }
   .result-card:hover .result-arrow { transform: translateX(5px); color: var(--color-orange); }
 
@@ -141,16 +140,6 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-subtle);
-    margin-top: 0.5rem;
-  }
-
-  .result-card-status,
-  .question-card-status {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-orange);
     margin-top: 0.5rem;
   }
 

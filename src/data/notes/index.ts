@@ -12,6 +12,10 @@ import { sorting }   from "./sorting";
 import { searching } from "./searching";
 
 export const notes: NoteTopic[] = [
-    searching,
-    sorting,
+  searching,
+  sorting,
 ];
+
+export function findTopicById(topicId?: string): NoteTopic | undefined {
+  return notes.find(topic => topic.id === topicId);
+}

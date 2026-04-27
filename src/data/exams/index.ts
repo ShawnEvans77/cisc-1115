@@ -6,7 +6,7 @@
 //   2. Import it here and add it to the array in chronological order.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { Exam } from "../../types";
+import type { Exam, Question } from "../../types";
 
 import { fall2018 }   from "./fall-2018";
 import { fall2020 }   from "./fall-2020";
@@ -19,3 +19,14 @@ export const exams: Exam[] = [
   spring2021,
   spring2023
 ];
+
+export function findExamById(examId?: string): Exam | undefined {
+  return exams.find(exam => exam.id === examId);
+}
+
+export function findExamQuestion(examId?: string, questionId?: string): { exam: Exam; question: Question } | undefined {
+  const exam = findExamById(examId);
+  const question = exam?.questions.find(entry => entry.id === questionId);
+
+  return exam && question ? { exam, question } : undefined;
+}

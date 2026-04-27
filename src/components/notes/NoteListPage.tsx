@@ -1,28 +1,25 @@
 // src/components/notes/NoteListPage.tsx
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { notes } from "../../data/notes";
+import { findTopicById } from "../../data/notes";
 import { Breadcrumb } from "../ui/Breadcrumb";
 import { EmptyState } from "../ui/EmptyState";
 import { NotFoundState } from "../ui/NotFoundState";
 import { PageHeader } from "../ui/PageHeader";
 import { NoteCard } from "./NoteCard";
-import { hasQuery, normalizeQuery, resultCountLabel } from "../../utils/search";
+import { hasQuery, resultCountLabel } from "../../utils/search";
+import { normalizeNoteSearchQuery, noteEntryMatchesQuery } from "../../utils/noteSearch";
 
 export function NoteListPage() {
   const { topicId } = useParams<{ topicId: string }>();
-  const topic = notes.find(t => t.id === topicId);
+  const topic = findTopicById(topicId);
   const [query, setQuery] = useState("");
 
   const filteredEntries = useMemo(() => {
     if (!topic) return [];
-    const q = normalizeQuery(query);
+    const q = normalizeNoteSearchQuery(query);
     if (!q) return topic.entries;
-    return topic.entries.filter(entry =>
-      entry.title.toLowerCase().includes(q) ||
-      entry.tags.some(tag => tag.toLowerCase().includes(q)) ||
-      entry.sections.some(section => section.content.toLowerCase().includes(q))
-    );
+    return topic.entries.filter(entry => noteEntryMatchesQuery(entry, q));
   }, [query, topic]);
 
   if (!topic) {
