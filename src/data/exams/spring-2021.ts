@@ -368,7 +368,15 @@ Uptown           57200.00[[/text]]
   **III. sortArrays:**
       a. Receives the arrays of double and String and an integer representing the number of records read in by readData as parameters.
       b. Parallel sorts the arrays, only for the number of records read in by readData, with the primary sort on the array of double in **descending** order.`,
-      explanation: `Explanation goes here.`,
+      explanation: `This is a long problem, but each method is doing one very specific job. The key is to not let all the details blur together.
+
+**readData** fills two parallel arrays. The String array stores the neighborhood names, and the double array stores the average of the four prices for that neighborhood. Every time we read a full record, we increment the counter. At the end, that counter tells the rest of the program how many real records are in the arrays.
+
+**modifyData** first computes the overall average by summing the neighborhood averages and dividing by the number of records. Then it loops through the average price array again. If a neighborhood's average is below the overall average, multiply it by **1.10** to increase it by 10%. If it is above the overall average, multiply it by **0.85** to decrease it by 15%.
+
+**sortArrays** is a parallel sort. This means whenever two average prices swap places, the matching neighborhood names must swap too. If you only sort the prices array, the names and averages will no longer match.
+
+After sorting in descending order, the highest averages are at the **front** of the arrays and the lowest averages are at the **end**. So main prints the first three records for the highest prices, then prints the last three records in reverse order for the lowest prices.`,
       solution: `import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
@@ -385,13 +393,19 @@ public class Spring2021Question8 {
 
         int numRecords = readData(neighborhoods, averagePrices);
 
-        modifyData(neighborhoods, averagePrices, numRecords);
+        modifyData(averagePrices, numRecords);
         sortArrays(neighborhoods, averagePrices, numRecords);
 
         PrintWriter writer = new PrintWriter("spring_2021_output.txt");
 
         writer.printf("%-15s%s\\n", "Neighborhood", "Avg Price");
         for (int i = 0; i < 3; i++) {
+            writer.printf("%-15s%9.2f\\n", neighborhoods[i], averagePrices[i]);
+        }
+
+        writer.println();
+        writer.printf("%-15s%s\\n", "Neighborhood", "Avg Price");
+        for (int i = numRecords - 1; i >= numRecords - 3; i--) {
             writer.printf("%-15s%9.2f\\n", neighborhoods[i], averagePrices[i]);
         }
 
@@ -412,7 +426,7 @@ public class Spring2021Question8 {
         return numNeighborhoods;
     }
 
-    public static void modifyData(String[] neighborhoods, double[] averagePrices, int numRecords) {
+    public static void modifyData(double[] averagePrices, int numRecords) {
         double sum = 0;
 
         for (int i = 0; i < numRecords; i++) {
@@ -423,17 +437,17 @@ public class Spring2021Question8 {
 
         for (int i = 0; i < numRecords; i++) {
             if (average < averagePrices[i]) {
-                averagePrices[i] -= averagePrices[i] * .15;
+                averagePrices[i] *= .85;
             } else if (average > averagePrices[i]) {
-                averagePrices[i] -= averagePrices[i] * .10;
+                averagePrices[i] *= 1.10;
             }
         }
     }
 
     public static void sortArrays(String[] neighborhoods, double[] averagePrices, int numRecords) {
 
-        for (int i = 0; i < numRecords; i++) {
-            for (int j = 0; j < numRecords; j++) {
+        for (int i = 0; i < numRecords - 1; i++) {
+            for (int j = 0; j < numRecords - 1 - i; j++) {
                 if (averagePrices[j] < averagePrices[j + 1]) {
 
                     String tempString = neighborhoods[j + 1];
