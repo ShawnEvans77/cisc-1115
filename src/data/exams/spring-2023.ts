@@ -1,60 +1,66 @@
 import type { Exam } from "../../types";
 
 export const spring2023: Exam = {
-    id: "spring2023",
-    label: "spring 2023",
-    year: "2023",
-    questions: [
+  id: "spring2023",
+  label: "spring 2023",
+  year: "2023",
+  questions: [
     {
-        id: "1",
-        title: "question 1",
-        topics: ["Arrays", "Characters"],
-        prompt: `Write the Java code for a method named maxChar that receives two equally-sized **char** arrays as arguments. The methods returns a newly created array of type **char**. 
-        
-Each element of the new array that is returned is the larger (based on the ASCII code) of the corresponding elements of the two arrays received. 
-        
-For example if ['x', '3', '?'] and ['7', '4', 'e'] were passed to maxChar, it would return the array: ['x', '4', 'e']. 
-        
+      id: "1",
+      title: "question 1",
+      topics: ["Arrays", "Characters"],
+      prompt: `Write the Java code for a method named maxChar that receives two equally-sized **char** arrays as arguments. The methods returns a newly created array of type **char**.
+
+Each element of the new array that is returned is the larger (based on the ASCII code) of the corresponding elements of the two arrays received.
+
+For example if ['x', '3', '?'] and ['7', '4', 'e'] were passed to maxChar, it would return the array: ['x', '4', 'e'].
+
 Or, if ['6', 'f', 'n'] and ['S', 'u', ','] were passed to maxChar, then ['S', 'u', 'n'] would be returned.`,
-        explanation: `Simply follow the instructions verbatim. Create a new character array, "C", with the exact same size of one of the input arrays. Loop with your boundary being the size of one of the input arrays. If A[i] is bigger than B[i], put it in C. Otherwise, put B[i] in C. Then return C.`,
-        solution: `public static char[] maxChar(char[] A, char[] B) {
-        
+      explanation: `This is mostly a "follow the prompt exactly" problem. We are making a third array that lines up with the two arrays we were given.
+
+Create a new **char[]** with the same length as one of the input arrays. Then loop through every index.
+
+At each index, compare **A[i]** and **B[i]**. If **A[i]** has the larger ASCII value, put **A[i]** in the new array. Otherwise, put **B[i]** there.
+
+At the end, return the new array. The original arrays do not need to be changed.`,
+      solution: `public static char[] maxChar(char[] A, char[] B) {
+
     // storing the size of one of the arrays in a variable
-    int n = A.length; 
+    int n = A.length;
 
     // creating a new array same size as input arrays
-    char[] C = new char[n]; 
+    char[] C = new char[n];
 
     for (int i = 0; i < n; i++) {
-        // if A[i] is bigger put it in, else C[i]
-        C[i] = A[i] > B[i] ? A[i] : B[i]; 
+        // if A[i] is bigger put it in, else B[i]
+        C[i] = A[i] > B[i] ? A[i] : B[i];
     }
 
     // return the new array
-    return C; 
-}`
+    return C;
+}`,
     },
     {
-        id: "3",
-        title: "question 3",
-        topics: ["Arrays", "Binary Search"],
-        prompt: `Given the array of numbers below, show all the steps as you perform a binary search, looking for the key of 11:
+      id: "3",
+      title: "question 3",
+      topics: ["Arrays", "Binary Search"],
+      prompt: `Given the array of numbers below, show all the steps as you perform a binary search, looking for the key of 11:
 [[code]]int[] nums = {9, 15, 23, 67, 78, 85, 111, 117, 135, 225, 829, 1000};[[/code]]
 
 Enter into the table the low, mid and high values as the binary search progresses. DO NOT write any code. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
-solutionType: 'text',
-        explanation: `The array has 12 values, with the minimum index being 0 and the maximum index being 11. Recall that binary search involves jumping to the middle in search of your number. If the middle is too small, move right. If the middle is too big, move left.
+      solutionType: "text",
+      explanation: `The array has 12 values, so the first index is **0** and the last index is **11**. Binary search always checks the middle of the current range.
 
-(0+11)/2 is 5. Write in {0, 5, 11}. nums[5] is 85, which is bigger than 11. Due to this, we move left by changing high to mid-1. The new high becomes 4.
+Start with **low = 0** and **high = 11**. The middle is **(0 + 11) / 2 = 5**. Since **nums[5] = 85**, and 85 is bigger than 11, move left by setting **high = mid - 1**.
 
-(0+4)/2 is 2. Write in {0, 2, 4}. nums[2] is 23, which is bigger than 11. Due to this, we move left by changing high to mid-1. The new high becomes 1.
+Now the range is **0 to 4**. The middle is **2**. Since **nums[2] = 23**, and 23 is still bigger than 11, move left again.
 
-(0+1)/2 is 0, since the decimal is truncated in integer division. Write in {0, 0, 1}. nums[0] is 9, which is smaller than 11. Due to this, we move right by changing low to mid+1. The new low becomes 1.
+Now the range is **0 to 1**. The middle is **0**. Since **nums[0] = 9**, and 9 is smaller than 11, move right by setting **low = mid + 1**.
 
-(1+1)/2 is 1. Write in {1, 1, 1}. nums[1] is 15, which is bigger than 11. Due to this, we move left by changing high to mid-1. The new high becomes 0.
+Now the range is **1 to 1**. The middle is **1**. Since **nums[1] = 15**, and 15 is bigger than 11, move left one more time.
 
-Write in {1, -, 0}. The binary search while loop condition, while (low <= high), has been violated. We failed to find 11.`,
-        solution: `  Low | Mid  | High
+At this point, **low = 1** and **high = 0**. The condition **low <= high** is false, so the search stops. The value 11 is not in the array.`,
+      solution: `  Low | Mid  | High
  ----------------------
     0 |   5  |   11
     0 |   2  |    4
@@ -63,19 +69,23 @@ Write in {1, -, 0}. The binary search while loop condition, while (low <= high),
     1 |   -  |    0`,
     },
     {
-        id: "6",
-        title: "question 6",
-        topics: ["Equations", "Math Methods"],
-        prompt: `Write a Java expression that would compute the following:`,
-        mathLatex: `w = \\sqrt{\\dfrac{\\sqrt{\\dfrac{x+y}{z}} - 1}{(1+x)^2}}`,
-        explanation: `Pretend you're entering this equation into Google to calculate it. It is a simple combination of Math.sqrt(), Math.pow(), and several parentheses.`,
-        solution: `double result = Math.sqrt((Math.sqrt((x + y) / z) - 1) / Math.pow(1 + x, 2));`,
+      id: "6",
+      title: "question 6",
+      topics: ["Equations", "Math Methods"],
+      prompt: `Write a Java expression that would compute the following:`,
+      mathLatex: `w = \\sqrt{\\dfrac{\\sqrt{\\dfrac{x+y}{z}} - 1}{(1+x)^2}}`,
+      explanation: `This is another direct equation translation. Work from the inside out so the parentheses stay under control.
+
+The inner fraction is **(x + y) / z**, and that whole fraction is inside a square root, so it becomes **Math.sqrt((x + y) / z)**.
+
+After that, subtract **1**, divide by **(1 + x)^2**, and take the square root of the entire result. The squared part becomes **Math.pow(1 + x, 2)**.`,
+      solution: `double result = Math.sqrt((Math.sqrt((x + y) / z) - 1) / Math.pow(1 + x, 2));`,
     },
     {
-        id: "8",
-        title: "question 8",
-        topics: ["Arrays", "Files", "Methods", "Sorting", "Averages"],
-        prompt: `Write a complete Java program. You must comment the main program and all methods, explaining what action(s) each performs.
+      id: "8",
+      title: "question 8",
+      topics: ["Arrays", "Files", "Methods", "Sorting", "Averages"],
+      prompt: `Write a complete Java program. You must comment the main program and all methods, explaining what action(s) each performs.
 
 Design a Java class with a main method that reads the number of baskets scored by each player in a basketball game. The number of baskets consists of the number of two-point baskets and three-point baskets each player scored. At most there will be 25 players read in, though there could be less.
 
@@ -103,8 +113,16 @@ main will invoke methods, that you write, to perform the following tasks:
 14
 21
 24[[/text]]`,
-        explanation: `The program separates the problem into the four methods the prompt asks for. readData fills the two basket arrays and returns how many players were read. totalPoints creates a new array where each player's score is calculated with twoPointBaskets[i] * 2 + threePointBaskets[i] * 3. averages prints the average points from two-point baskets, three-point baskets, and total points; notice that the basket counts must be converted into points before printing. Finally, sort puts the total scores in ascending order so the first three values are the three lowest scores.`,
-        solution: `import java.io.File;
+      explanation: `This is a long problem, but the structure is very manageable because the prompt already tells us what methods to write.
+
+**readData** reads pairs of numbers from the input file. The first number goes into the two-point basket array, and the second number goes into the three-point basket array. The method returns the number of players read so the rest of the program knows how much of each array is actually filled.
+
+**totalPoints** creates a new array. Each player's score is computed with **twoPointBaskets[i] * 2 + threePointBaskets[i] * 3**. We return this new array because total points are used again later by the average method and the sort method.
+
+**averages** prints the average points from two-point baskets, three-point baskets, and total points. Be careful here: the two-point and three-point arrays store basket counts, so they must be converted into points before printing the averages.
+
+**sort** puts the total scores in ascending order. Once the array is sorted, the three lowest scores are simply the first three values in the array.`,
+      solution: `import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -206,5 +224,5 @@ public class Spring2023Final {
     }
 }`,
     },
-    ]
+  ],
 };

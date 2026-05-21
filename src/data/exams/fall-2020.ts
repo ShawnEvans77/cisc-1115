@@ -63,7 +63,7 @@ We start with i being equal to 0. j is equal to 0 since int j = i. However, j=0 
 Then, i increments to 2. j is equal to 2 since int j = i. Since this inner for loop condition is now valid, it executes. We have i=2 & j=2, then i=2 & j=1, then j goes down to zero, terminating the loop. We write that i=2 and j=2, then i=2 and j=1, then i=2 and j=0.
 
 Then, i increments to 4. j is equal to 4 since int j = i. Inner for loop condition is valid once more. We have i=4 & j=4. Do you notice the patern? j decrements down to 0 by one each time. We write that i=4 and j=4, i=4 and j=3, i=4 and j=2, and so on.`,
-solutionType: "text",
+      solutionType: "text",
       solution: `  i  |  j
  ---------
   0  |  -
@@ -146,7 +146,7 @@ For a, it has six digits, with 4 of them being filled in with ones. Label the ri
 For b, we know that in hexadecimal, A = 10, and B = 11. Therefore, to yield the answer, we perform 10×16¹ + 11×16⁰ = 171.
   
 For c, simply write out the numbers 64, 32, 16, 8, 4, 2, and 1. From these numbers, we will make 65. (64+1) makes 65. Therefore, to express this in binary, we simply write out 1000001. The leftmost 1 represents 64, the rightmost 1 reprents the 1 added to 64 in order to make 65.`,
-solutionType: "text",
+      solutionType: "text",
       solution: `a. 102
 
     1100110
@@ -193,11 +193,11 @@ c. 1000001
 Assume there exists a method **max3()**, which accepts 3 integers as input and returns the largest integer.
       
 Write one Java statement to find the maximum of the six integers using any combination of **Math.max()** and **max3()**.`,
-      explanation: `Java lacks a max method that accepts an arbitrary number of arguments. The standard Math.max() method only accepts two integers. So, we need to 'cheat' in order to find the maximum of six integers.
+      explanation: `Java does not have a max method that accepts any number of arguments. The standard **Math.max()** method only accepts two integers, so we need to group the values.
       
-If we use max3 twice, we can find the maximum of (i, j, k) and (m, n, l) separately. After doing this, we send the maximum of those two sets to the two argument accepting Math.max() method. The maximum of those two sets are found and then compared. 
+Use **max3()** once on **i, j, k** and once on **m, n, l**. Now we have the maximum from the first group and the maximum from the second group.
 
-Logically, the result of a Math.max() call on the maximum of (i,j,k) and (m,n,l) should find the absolute highest number.`,
+Then send those two results into **Math.max()**. The larger of the two group maximums must be the largest value out of all six integers.`,
       solution: `int max = Math.max(max3(i, j, k), max3(m, n, l));`,
     },
     {
@@ -206,7 +206,11 @@ Logically, the result of a Math.max() call on the maximum of (i,j,k) and (m,n,l)
       topics: ["Equations", "Math Methods"],
       prompt: `Write a Java expression that would compute the following:`,
       mathLatex: `\\frac{x^2 - \\dfrac{1}{(y+3)}}{\\dfrac{1}{z} + \\sqrt{x}}`,
-      explanation: `Pretend you're entering this equation into Google to calculate it. It is a simple combination of Math.sqrt(), Math.pow(), and several parentheses.`,
+      explanation: `This is a direct equation translation. The safest move is to build the expression one piece at a time and use parentheses whenever a fraction has a numerator and denominator.
+
+The **x²** part becomes **Math.pow(x, 2)**. The square root in the denominator becomes **Math.sqrt(x)**.
+
+The numerator is **Math.pow(x, 2) - (1.0 / (y + 3))**. The denominator is **(1.0 / z) + Math.sqrt(x)**. Once those two pieces are built, divide the numerator by the denominator.`,
       solution: `double result = (Math.pow(x, 2) - (1.0 / (y + 3))) / ((1.0 / z) + Math.sqrt(x));`,
     },
     {
@@ -229,7 +233,7 @@ List the low, mid and high values at each step until the algorithm stops. Do NOT
 (1+1)/2 is 1. Write in {1, 1, 1}. nums[1] is 77, which is bigger than 18. Due to this, we move left by changing high to mid-1. The new high becomes 0.
   
 Write in {1, -, 0}. The binary search while loop condition, while (low <= high), has been violated. We failed to find 18.`,
-solutionType: 'text',
+      solutionType: "text",
       solution: `  Low | Mid  | High
  ----------------------
     0 |   5  |   10
@@ -315,11 +319,15 @@ Samuel 234.11 581.83[[/text]]
  
   3. This method has **three parameters** – String array of names, double array of individual average trip length and an integer representing the total number of records read in by the first method.
       a. Sort the sales rep names in descending (reverse) alphabetical order synchronizing the individual sales rep's average trip length in the parallel array.`,
-      explanation: `The **readData()** method involves using a Scanner to read input from a text stream by using a while loop bounded by the hasNext() method. We use a counter in conjunction with the .next() and .nextDouble() methods to move data from the file into our arrays. Since the file is structured like "Pauline 167.8 567.0", we read in the name using sc.next(), and we calculate the average through (sc.nextDouble()+sc.nextDouble()) / 2.0 as each person has two trip lengths.
-        
-**computeTripLength()** is self explanatory.
-        
-The sorting involves the **compareTo()** method, which we use for comparing strings. s1.compareTo(s2) > 0 is equivalent to "s1 > s2." s1.compareTo(s2) < 0 is equivalent to "s1 < s2." This solution uses BubbleSort. SelectionSort and InsertionSort solutions are also valid.`,
+      explanation: `This is another long method problem, so the easiest way to approach it is to let each method own one piece of the prompt.
+
+**readData** reads one sales rep record at a time. Since each record looks like "Pauline 167.8 567.0", we read the name with **sc.next()** and the two trip lengths with **sc.nextDouble()**. The average of the two trips goes into the double array, and the name goes into the String array at the same index.
+
+**computeTripLength** first finds the overall average across all sales reps. Then it loops through the individual averages and counts how many are above, below, or equal to that overall average. Those counts are printed to the output file.
+
+**sortArray** is a parallel sort. The primary sort is based on the names, but the average trip length has to move with the matching name. Whenever two names swap, their averages must swap too.
+
+The string comparison uses **compareTo()**. If **names[j].compareTo(names[j + 1]) < 0**, then the name at index j comes earlier alphabetically, so we swap it to create descending alphabetical order.`,
       solution: `import java.util.Scanner;
 import java.io.IOException;
 import java.io.PrintWriter;
