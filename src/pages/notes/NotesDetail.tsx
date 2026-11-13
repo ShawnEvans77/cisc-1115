@@ -2,10 +2,9 @@ import { Link, useParams } from "react-router-dom";
 import { COURSE_CODE } from "../../constants";
 import { findTopicById } from "../../data/notes";
 import { AlgorithmVisualizer } from "../../components/notes/AlgorithmVisualizer";
-import { CodeBlock } from "../../components/ui/CodeBlock";
 import { ContentBlock } from "../../components/ui/ContentBlock";
-import { CopyButton } from "../../components/ui/CopyButton";
 import { DetailPageLayout } from "../../components/ui/DetailPageLayout";
+import { JavaCodeBlock } from "../../components/ui/JavaCodeBlock";
 import { NotFoundState } from "../../components/ui/NotFoundState";
 import { PromptBody } from "../../components/ui/PromptBody";
 
@@ -49,13 +48,8 @@ function NotesDetail() {
             <PromptBody text={section.content} />
           </ContentBlock>
         ) : (
-          <ContentBlock
-            key={i}
-            label={section.label}
-            headerSlot={<CopyButton content={section.content} />}
-          >
-            <CodeBlock code={section.content} />
-          </ContentBlock>
+          // keyed by note so the comment toggle resets when moving to another note
+          <JavaCodeBlock key={`${entry.id}-${i}`} label={section.label} code={section.content} />
         )
       )}
     </DetailPageLayout>

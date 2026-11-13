@@ -53,6 +53,7 @@ Reach for these before writing new markup:
 | `DetailPageLayout` | Frame for one question, solution, or note: breadcrumb, title, tags, content, bottom nav |
 | `ContentBlock` | Labelled content panel with an optional header action |
 | `PromptBody` | Renders content markup (below) |
+| `JavaCodeBlock` | Labelled Java code with Copy code and a Remove comments toggle; used for Java solutions and note code |
 | `CodeBlock`, `MathDisplay`, `CopyButton` | Java or plain code, KaTeX math, copy to clipboard |
 | `EmptyState`, `NotFoundState` | No results, unknown id |
 
@@ -100,10 +101,10 @@ Low | Mid | High
 
 `Question.solution` depends on `solutionType`:
 
-- `"java"` (the default): shown verbatim as highlighted, copyable code. Use it for programs, methods, statements, and code fixes. When the code has comments, a **Remove comments** toggle hides them (`utils/javaComments.ts`), and Copy code copies whichever version is shown.
+- `"java"` (the default): shown verbatim as highlighted, copyable code. Use it for programs, methods, statements, and code fixes. When the code has comments, a **Remove comments** toggle hides them (`JavaCodeBlock`, `utils/javaComments.ts`), and Copy code copies whichever version is shown.
 - `"text"`: rendered with the markup above. Use it for traces, printed output, conversions, and short answers. It can still contain `[[code]]` blocks.
 
-Note sections with `type: "code"` are shown verbatim as Java. `Question.mathLatex` is rendered as a KaTeX display equation under the prompt; remember to double the backslashes inside template strings.
+Note sections with `type: "code"` are shown verbatim as Java, with the same Remove comments toggle. `Question.mathLatex` is rendered as a KaTeX display equation under the prompt; remember to double the backslashes inside template strings.
 
 `src/data/content.test.ts` enforces the markup: balanced block delimiters, every table row with the same number of cells as its header, and an even number of `*` and `__` on each prose line. An odd count means arithmetic like `a * b` leaked into prose; move it into a `[[code]]` block or write it as `×`.
 

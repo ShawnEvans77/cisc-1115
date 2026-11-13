@@ -1,9 +1,6 @@
-import { useState } from "react";
 import type { Question } from "../../types";
-import { hasJavaComments, stripJavaComments } from "../../utils/javaComments";
-import { CodeBlock } from "../ui/CodeBlock";
 import { ContentBlock } from "../ui/ContentBlock";
-import { CopyButton } from "../ui/CopyButton";
+import { JavaCodeBlock } from "../ui/JavaCodeBlock";
 import { MathDisplay } from "../ui/MathDisplay";
 import { PromptBody } from "../ui/PromptBody";
 
@@ -35,39 +32,7 @@ export function SolutionBlock({ question }: QuestionBlockProps) {
   }
 
   // keyed by the code so the toggle resets when moving to another question
-  return <JavaSolutionBlock key={question.solution} code={question.solution} />;
-}
-
-// "Remove comments" hides every comment in the solution. Copy code copies
-// whatever is currently shown.
-function JavaSolutionBlock({ code }: { code: string }) {
-  const [hideComments, setHideComments] = useState(false);
-  const canStrip = hasJavaComments(code);
-  const shownCode = hideComments ? stripJavaComments(code) : code;
-
-  return (
-    <ContentBlock
-      id={SOLUTION_BLOCK_ID}
-      label="Solution"
-      headerSlot={
-        <div className="code-actions">
-          {canStrip && (
-            <button
-              type="button"
-              className="comment-toggle"
-              aria-pressed={hideComments}
-              onClick={() => setHideComments(hidden => !hidden)}
-            >
-              {hideComments ? "Show comments" : "Remove comments"}
-            </button>
-          )}
-          <CopyButton content={shownCode} />
-        </div>
-      }
-    >
-      <CodeBlock code={shownCode} />
-    </ContentBlock>
-  );
+  return <JavaCodeBlock key={question.solution} id={SOLUTION_BLOCK_ID} label="Solution" code={question.solution} />;
 }
 
 export function ExplanationBlock({ question }: QuestionBlockProps) {
