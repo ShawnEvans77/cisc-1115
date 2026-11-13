@@ -97,15 +97,15 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
     setPlaying(true);
   }
 
-  // Run plays the new input from the start; Random only loads it.
-  function load(values: number[], nextTarget: number, message: string | null, autoplay = false) {
+  // Load and Random put the input in at step 1, paused; Play starts it.
+  function load(values: number[], nextTarget: number, message: string | null) {
     setInput(values);
     setTarget(nextTarget);
     setArrayText(values.join(", "));
     setTargetText(String(nextTarget));
     setNotice(message ? { text: message, error: false } : null);
     setStepIndex(0);
-    setPlaying(autoplay);
+    setPlaying(false);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -129,10 +129,10 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
     if (isBinary) {
       const sorted = [...parsed.values].sort((a, b) => a - b);
       const changed = sorted.some((value, i) => value !== parsed.values[i]);
-      load(sorted, nextTarget, changed ? "Binary search only works on a sorted array, so your numbers were sorted first." : null, true);
+      load(sorted, nextTarget, changed ? "Binary search only works on a sorted array, so your numbers were sorted first." : null);
       return;
     }
-    load(parsed.values, nextTarget, null, true);
+    load(parsed.values, nextTarget, null);
   }
 
   function loadRandom() {
@@ -185,7 +185,7 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
             </label>
           )}
           <div className="viz-input-actions">
-            <button type="submit" className="viz-btn viz-btn--solid">Run</button>
+            <button type="submit" className="viz-btn viz-btn--solid">Load</button>
             <button type="button" className="viz-btn" onClick={loadRandom}>Random</button>
           </div>
         </form>
