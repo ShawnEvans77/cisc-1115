@@ -213,16 +213,16 @@
   .content-table {
     border-collapse: collapse;
     font-family: var(--font-mono);
-    font-size: 1rem;
+    font-size: 1.15rem;
     font-variant-numeric: tabular-nums;
     color: var(--color-ink);
-    min-width: 12rem;
+    min-width: 14rem;
   }
 
   .content-table th,
   .content-table td {
     border: 1.5px solid var(--color-border);
-    padding: 0.55rem 1.1rem;
+    padding: 0.75rem 1.4rem;
     text-align: center;
     white-space: nowrap;
   }
@@ -230,7 +230,7 @@
   .content-table th {
     background-color: var(--color-orange-light);
     color: var(--color-orange);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
