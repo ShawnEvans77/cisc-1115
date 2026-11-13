@@ -5,6 +5,7 @@ import {
   ALGORITHMS,
   findLine,
   formatArray,
+  parseJavaInt,
   parseNumberList,
   recordBinarySearch,
   recordBubbleSort,
@@ -159,11 +160,17 @@ describe("parseNumberList", () => {
     expect(parseNumberList("{5, 3,8  -2}")).toEqual({ values: [5, 3, 8, -2] });
   });
 
+  it("accepts anything a Java int can hold", () => {
+    expect(parseNumberList("-2147483648, 2147483647, -500, 0")).toEqual({ values: [-2147483648, 2147483647, -500, 0] });
+    expect(parseJavaInt(" -0 ")).toEqual({ value: 0 });
+  });
+
   it("rejects anything that is not a short list of whole numbers", () => {
     expect(parseNumberList("4")).toHaveProperty("error");
     expect(parseNumberList("1, 2.5")).toHaveProperty("error");
     expect(parseNumberList("1, x")).toHaveProperty("error");
-    expect(parseNumberList("1, 5000")).toHaveProperty("error");
+    expect(parseNumberList("1, 2147483648")).toHaveProperty("error");
+    expect(parseNumberList("1, -2147483649")).toHaveProperty("error");
     expect(parseNumberList(Array(21).fill("1").join(","))).toHaveProperty("error");
   });
 });

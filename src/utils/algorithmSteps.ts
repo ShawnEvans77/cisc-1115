@@ -378,10 +378,22 @@ export const ALGORITHMS: Record<AlgorithmId, AlgorithmConfig> = {
   },
 };
 
+// More bars than this get too thin on a phone, and a sort takes too long to watch.
 export const MIN_LENGTH = 2;
 export const MAX_LENGTH = 20;
-export const MIN_VALUE = -99;
-export const MAX_VALUE = 999;
+
+// The range of a Java int.
+export const INT_MIN = -2147483648;
+export const INT_MAX = 2147483647;
+
+// Parses one whole number that fits in a Java int, or explains what is wrong.
+export function parseJavaInt(text: string): { value: number } | { error: string } {
+  const trimmed = text.trim();
+  if (!/^-?\d+$/.test(trimmed)) return { error: `"${trimmed}" is not a whole number.` };
+  const value = Number(trimmed);
+  if (value < INT_MIN || value > INT_MAX) return { error: `${trimmed} does not fit in a Java int.` };
+  return { value: value + 0 }; // + 0 turns -0 into 0
+}
 
 // Parses "5, 3, 8" (commas or spaces) into numbers, or explains what is wrong.
 export function parseNumberList(text: string): { values: number[] } | { error: string } {
@@ -392,12 +404,9 @@ export function parseNumberList(text: string): { values: number[] } | { error: s
 
   const values: number[] = [];
   for (const part of parts) {
-    if (!/^-?\d+$/.test(part)) return { error: `"${part}" is not a whole number.` };
-    const value = Number(part);
-    if (value < MIN_VALUE || value > MAX_VALUE) {
-      return { error: `Keep numbers between ${MIN_VALUE} and ${MAX_VALUE}.` };
-    }
-    values.push(value);
+    const parsed = parseJavaInt(part);
+    if ("error" in parsed) return parsed;
+    values.push(parsed.value);
   }
   return { values };
 }

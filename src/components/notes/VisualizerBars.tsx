@@ -19,6 +19,11 @@ const POINTER_TOP = 322;
 const POINTER_STEP = 30;
 // widest a pointer label character gets (phone font size, in viewBox units)
 const LABEL_CHAR_WIDTH = 17;
+// Largest value label font across screen sizes (visualizer.css and mobile.css), in viewBox
+// units. A monospace character is about 0.6 of the font size wide.
+const VALUE_FONT = 22;
+const VALUE_FONT_MANY = 34;
+const MONO_CHAR = 0.6;
 const HEIGHT = POINTER_TOP + POINTER_STEP * 3;
 
 // Bars are drawn in SVG so their geometry can come from the data without inline styles.
@@ -34,6 +39,10 @@ export function VisualizerBars({ step, input }: VisualizerBarsProps) {
   const barHeight = (value: number) =>
     MIN_BAR + (high === low ? MAX_BAR / 2 : ((value - low) / (high - low)) * (MAX_BAR - MIN_BAR));
   const slotX = (position: number) => position * slot;
+
+  // A label too wide for its slot shrinks until it fits; short labels keep their size.
+  const valueFont = n > 10 ? VALUE_FONT_MANY : VALUE_FONT;
+  const valueScale = (value: number) => Math.min(1, (slot - 4) / (String(value).length * MONO_CHAR * valueFont));
 
   // A pointer drops to the next row when its label would touch one already on that row.
   // Only the first pointer at an index draws the caret.
@@ -73,9 +82,9 @@ export function VisualizerBars({ step, input }: VisualizerBarsProps) {
                 height={h}
                 rx={4}
               />
-              <text className={cx("viz-bar-value", state && `viz-bar-value--${state}`)} x={slot / 2} y={BASELINE - h - 10}>
-                {value}
-              </text>
+              <g transform={`translate(${slot / 2} ${BASELINE - h - 10}) scale(${valueScale(value)})`}>
+                <text className={cx("viz-bar-value", state && `viz-bar-value--${state}`)}>{value}</text>
+              </g>
             </g>
           );
         })}

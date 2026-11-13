@@ -3,6 +3,7 @@ import {
   ALGORITHMS,
   findLine,
   formatArray,
+  parseJavaInt,
   parseNumberList,
   type AlgorithmId,
   type BarState,
@@ -92,7 +93,7 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
     setPlaying(true);
   }
 
-  // Run plays the new input from the start; Random and Note example only load it.
+  // Run plays the new input from the start; Random only loads it.
   function load(values: number[], nextTarget: number, message: string | null, autoplay = false) {
     setInput(values);
     setTarget(nextTarget);
@@ -113,11 +114,12 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
 
     let nextTarget = target;
     if (isSearch) {
-      if (!/^-?\d+$/.test(targetText.trim())) {
-        setNotice({ text: "The target has to be a whole number.", error: true });
+      const parsedTarget = parseJavaInt(targetText);
+      if ("error" in parsedTarget) {
+        setNotice({ text: `Target: ${parsedTarget.error}`, error: true });
         return;
       }
-      nextTarget = Number(targetText);
+      nextTarget = parsedTarget.value;
     }
 
     if (isBinary) {
@@ -165,7 +167,6 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
               value={arrayText}
               onChange={event => setArrayText(event.target.value)}
               spellCheck={false}
-              inputMode="numeric"
             />
           </label>
           {isSearch && (
@@ -175,20 +176,13 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
                 className="viz-input"
                 value={targetText}
                 onChange={event => setTargetText(event.target.value)}
-                inputMode="numeric"
+                spellCheck={false}
               />
             </label>
           )}
           <div className="viz-input-actions">
             <button type="submit" className="viz-btn viz-btn--solid">Run</button>
             <button type="button" className="viz-btn" onClick={loadRandom}>Random</button>
-            <button
-              type="button"
-              className="viz-btn"
-              onClick={() => load(config.defaultArray, config.defaultTarget ?? 0, null)}
-            >
-              Note example
-            </button>
           </div>
         </form>
         {notice && <p className={cx("viz-notice", notice.error && "viz-notice--error")}>{notice.text}</p>}

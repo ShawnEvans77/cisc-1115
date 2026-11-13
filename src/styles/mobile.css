@@ -81,6 +81,8 @@
   .viz-transport > *,
   .viz-speed > *       { flex: 1; text-align: center; padding-left: 0.4rem; padding-right: 0.4rem; }
   .viz-btn--play       { min-width: 0; }
+  .viz-transport       { gap: 0.4rem; }
+  .viz-transport .viz-btn { font-size: 0.7rem; letter-spacing: 0.03em; }
   .viz-stage           { padding: 1rem 0.5rem 0.25rem; }
   .viz-svg--many .viz-bar-value     { font-size: 34px; }
   .viz-svg--many .viz-index         { font-size: 26px; }
