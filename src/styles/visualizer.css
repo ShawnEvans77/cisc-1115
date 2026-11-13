@@ -245,6 +245,16 @@
   }
   .viz-panel-label:not(:first-child) { margin-top: 1.5rem; }
 
+  .viz-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .viz-panel-header .viz-panel-label { margin: 0; }
+
   .viz-code {
     font-family: var(--font-mono);
     font-size: 0.9rem;

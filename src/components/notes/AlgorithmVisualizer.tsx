@@ -9,6 +9,7 @@ import {
   type BarState,
 } from "../../utils/algorithmSteps";
 import { highlightJava } from "../../utils/highlightJava";
+import { hasJavaComments, stripJavaComments } from "../../utils/javaComments";
 import { cx } from "../../utils/ui";
 import { ContentBlock } from "../ui/ContentBlock";
 import { VisualizerBars } from "./VisualizerBars";
@@ -58,6 +59,7 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
   const [stepIndex, setStepIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
+  const [hideComments, setHideComments] = useState(false);
 
   const run = useMemo(() => config.record(input, target), [config, input, target]);
   const lastIndex = run.steps.length - 1;
@@ -70,8 +72,10 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
     return () => window.clearTimeout(timer);
   }, [isPlaying, stepIndex, speed]);
 
-  const codeLines = useMemo(() => highlightJava(code), [code]);
-  const activeLines = new Set(step.lines.map(anchor => findLine(code, anchor)));
+  // Anchors are pieces of code, never comments, so they still find their lines with comments hidden.
+  const shownCode = hideComments ? stripJavaComments(code) : code;
+  const codeLines = useMemo(() => highlightJava(shownCode), [shownCode]);
+  const activeLines = new Set(step.lines.map(anchor => findLine(shownCode, anchor)));
 
   function goTo(index: number) {
     setPlaying(false);
@@ -235,7 +239,19 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
 
         <div className="viz-panels">
           <div className="viz-panel">
-            <p className="viz-panel-label">The code, line by line</p>
+            <div className="viz-panel-header">
+              <p className="viz-panel-label">The code, line by line</p>
+              {hasJavaComments(code) && (
+                <button
+                  type="button"
+                  className="comment-toggle"
+                  aria-pressed={hideComments}
+                  onClick={() => setHideComments(hidden => !hidden)}
+                >
+                  {hideComments ? "Show comments" : "Remove comments"}
+                </button>
+              )}
+            </div>
             <pre className="viz-code">
               {codeLines.map((line, i) => (
                 <div key={i} className={cx("viz-code-row", activeLines.has(i) && "viz-code-row--active")}>{line}</div>

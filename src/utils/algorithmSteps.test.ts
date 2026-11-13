@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { notes } from "../data/notes";
+import { stripJavaComments } from "./javaComments";
 import { parsePrompt, parseTable } from "./parsePrompt";
 import {
   ALGORITHMS,
@@ -65,8 +66,12 @@ describe("algorithm steps line up with the note code", () => {
       const lines = code.split("\n");
       const anchors = new Set(runsFor(id).flatMap(run => run.steps.flatMap(step => step.lines)));
 
+      // the code panel can hide comments, so the anchors must work both ways
+      const strippedLines = stripJavaComments(code).split("\n");
+
       for (const anchor of anchors) {
         expect(lines.filter(line => line.includes(anchor)), `anchor "${anchor}"`).toHaveLength(1);
+        expect(strippedLines.filter(line => line.includes(anchor)), `anchor "${anchor}" without comments`).toHaveLength(1);
         expect(findLine(code, anchor)).toBeGreaterThanOrEqual(0);
       }
     });
