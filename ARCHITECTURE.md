@@ -14,7 +14,7 @@ src/
   components/
     ui/                 presentational building blocks, no data imports
     exams/              question and solution screens shared by /questions and /solutions
-    notes/              note search results
+    notes/              note search results, algorithm visualizer
     layout/             Navbar, Footer, ScrollToTop
   hooks/                search hooks, finished-question progress, theme
   utils/                pure functions: search, prompt parsing, highlighting
@@ -70,6 +70,8 @@ Run `npm test` afterwards. `src/data/content.test.ts` checks ids, required field
 
 **Note topic**: create `src/data/notes/<topic>.ts` exporting a `NoteTopic` and add it to the array in `src/data/notes/index.ts`.
 
+**Algorithm visual**: set `visualizer` on a note entry (see below).
+
 Ids appear in URLs and in saved progress, so keep them lowercase letters, digits, and hyphens, unique within their parent, and do not rename them once published. Question ids are the exam's own numbering (`"3"`, `"5a"`).
 
 ### Content markup
@@ -116,6 +118,15 @@ Note sections with `type: "code"` are shown verbatim as Java. `Question.mathLate
 
 The Java highlighter (`utils/highlightJava.tsx`) is a small line tokenizer, not a parser. It does not handle block comments or char literals.
 
+## Algorithm visualizer
+
+A note entry with `visualizer` set (`"binarysearch"`, `"linearsearch"`, `"bubblesort"`, `"selectionsort"`) gets a **Watch it run** block above its sections. `NotesDetail` passes it the entry's code section.
+
+- `utils/algorithmSteps.ts` records a run as a list of steps: the array, a state per bar (comparing, swapped, sorted, and so on), pointers such as `start` and `mid`, variable values, a message, and the rows of the trace chart so far. Each recorder follows the note's Java implementation line for line.
+- Each step names the code lines it is on by a piece of their text, such as `"if (nums[j] > nums[j+1])"`. The visualizer highlights the line that contains it. `algorithmSteps.test.ts` fails if an anchor matches zero lines or more than one, so **editing a visualized implementation means updating its anchors**.
+- The default inputs are the examples traced in each note, and the tests check that the binary search and selection sort charts match the tables in the notes.
+- `components/notes/AlgorithmVisualizer.tsx` holds the controls (custom array and target, Random, Play, Back, Next, speed, scrubber, arrow keys and space). `VisualizerBars.tsx` draws the bars in SVG, so bar sizes come from the data without inline styles. Styles are in `styles/visualizer.css`.
+
 ## Search
 
 Search is synchronous and in-memory. `collectNestedSearchResults` (`utils/search.ts`) walks parents and children: a parent that matches is returned once on its own, otherwise each matching child is returned. `useExamSearch` applies it to semesters and questions, `useNotesSearch` to topics and note entries. The match predicates live in `utils/examSearch.ts` and `utils/noteSearch.ts`.
@@ -141,6 +152,7 @@ All styling is hand-written CSS in `src/styles`, imported through `styles/compon
 | `layout.css` | Page frame, header, breadcrumb, search input, progress filter |
 | `cards.css` | Semester, question, note, result, and contact cards; search highlight |
 | `details.css` | Detail pages, content blocks, code, math, buttons, 404 |
+| `visualizer.css` | Algorithm visualizer on note pages |
 | `dark.css` | Dark mode overrides, scoped by `[data-theme="dark"]` |
 | `mobile.css` | Everything under the single `850px` breakpoint; deliberately outside the layers |
 

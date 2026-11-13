@@ -35,6 +35,7 @@
 
     /* Feedback */
     --color-copy-success: #6B8E6B;
+    --color-error:        #B3261E;
 
     /* Pure white — never inverts. Used for text on solid-color backgrounds. */
     --color-pure-white: #FFFFFF;
@@ -80,6 +81,7 @@
     --color-border-strong: #444c56;
 
     --color-copy-success: #6B9E6B;
+    --color-error:        #F07167;
 
     --rgb-orange: 232, 144, 31;
     --rgb-ink:    205, 217, 229;

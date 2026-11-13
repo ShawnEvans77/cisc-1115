@@ -26,11 +26,15 @@ export type NoteSection = {
   content: string;
 };
 
+// Algorithms that have an interactive visual on their note page.
+export type AlgorithmId = "binarysearch" | "linearsearch" | "bubblesort" | "selectionsort";
+
 export type NoteEntry = {
-  id:       string;
-  title:    string;
-  tags:     string[];
-  sections: NoteSection[];
+  id:          string;
+  title:       string;
+  tags:        string[];
+  sections:    NoteSection[];
+  visualizer?: AlgorithmId;
 };
 
 export type NoteTopic = {

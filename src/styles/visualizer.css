@@ -1,0 +1,317 @@
+@layer components {
+
+  .viz { outline: none; }
+  .viz:focus-visible { outline: 2px solid var(--color-orange); outline-offset: 6px; border-radius: 4px; }
+
+  .viz-counter {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    margin: 0;
+  }
+
+  .viz-inputs {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+
+  .viz-field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .viz-field--array  { flex: 1 1 18rem; }
+  .viz-field--target { flex: 0 0 7rem; }
+
+  .viz-field-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+  }
+
+  .viz-input {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--color-ink);
+    background-color: var(--color-white);
+    border: 1.5px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.6rem 0.85rem;
+    width: 100%;
+    transition: border-color 0.18s;
+  }
+  .viz-input:focus { outline: none; border-color: var(--color-orange); }
+
+  .viz-input-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .viz-notice {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    margin: 0 0 0.75rem;
+  }
+  .viz-notice--error { color: var(--color-error); }
+
+  .viz-btn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-orange);
+    background-color: transparent;
+    border: 1px solid var(--color-orange);
+    border-radius: 3px;
+    padding: 0.65rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.18s, color 0.18s, opacity 0.18s;
+  }
+  .viz-btn:hover:not(:disabled) { background-color: var(--color-orange-light); }
+  .viz-btn:disabled { opacity: 0.35; cursor: default; }
+
+  .viz-btn--solid { color: var(--color-pure-white); background-color: var(--color-orange); }
+  .viz-btn--solid:hover:not(:disabled) { background-color: var(--color-orange-hover); }
+  .viz-btn--play { min-width: 8.5rem; }
+
+
+  /* ── Stage ── */
+
+  .viz-stage {
+    background-color: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: 4px;
+    padding: 1.5rem 1rem 0.25rem;
+    overflow-x: auto;
+  }
+
+  .viz-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 30rem;
+    margin: 0 auto;
+    overflow: visible;
+  }
+
+  .viz-baseline { stroke: var(--color-border-strong); stroke-width: 2; }
+
+  .viz-bar { transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  .viz-bar-rect {
+    fill: var(--color-border-strong);
+    transition: fill 0.25s, opacity 0.35s;
+  }
+  .viz-bar--compare { fill: var(--color-orange); }
+  .viz-bar--swap    { fill: var(--color-ink); }
+  .viz-bar--min     { fill: var(--color-syrup); stroke: var(--color-ink); stroke-width: 2.5; stroke-dasharray: 6 4; }
+  .viz-bar--sorted  { fill: var(--color-forest); }
+  .viz-bar--found   { fill: var(--color-forest); filter: drop-shadow(0 0 10px rgba(74, 103, 65, 0.65)); }
+  .viz-bar--out     { opacity: 0.18; }
+
+  .viz-bar-value {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 500;
+    text-anchor: middle;
+    fill: var(--color-ink);
+    transition: opacity 0.35s, fill 0.25s;
+  }
+  .viz-bar-value--compare { fill: var(--color-orange); font-weight: 700; }
+  .viz-bar-value--found   { fill: var(--color-forest); font-weight: 700; }
+  .viz-bar-value--out     { opacity: 0.3; }
+
+  .viz-index {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    text-anchor: middle;
+    fill: var(--color-subtle);
+  }
+
+  .viz-pointer { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+  .viz-pointer-caret { fill: var(--color-orange); }
+  .viz-pointer-label {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 600;
+    text-anchor: middle;
+    fill: var(--color-orange);
+  }
+
+  .viz-message {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+    line-height: 1.6;
+    color: var(--color-ink);
+    border-left: 3px solid var(--color-orange);
+    padding: 0.25rem 0 0.25rem 1rem;
+    margin: 1.25rem 0;
+    min-height: 3.6em;
+  }
+
+
+  /* ── Controls ── */
+
+  .viz-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .viz-transport { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .viz-speed {
+    display: flex;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .viz-speed-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    background-color: transparent;
+    border: none;
+    padding: 0.6rem 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.18s, color 0.18s;
+  }
+  .viz-speed-btn + .viz-speed-btn { border-left: 1px solid var(--color-border-strong); }
+  .viz-speed-btn:hover        { color: var(--color-orange); }
+  .viz-speed-btn--active      { color: var(--color-orange); background-color: var(--color-orange-light); }
+
+  .viz-scrubber {
+    width: 100%;
+    margin: 1rem 0 0.75rem;
+    accent-color: var(--color-orange);
+    cursor: pointer;
+  }
+
+  .viz-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .viz-legend-item { display: inline-flex; align-items: center; gap: 0.5rem; }
+
+  .viz-swatch {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 2px;
+    background-color: var(--color-border-strong);
+  }
+  .viz-swatch--compare { background-color: var(--color-orange); }
+  .viz-swatch--swap    { background-color: var(--color-ink); }
+  .viz-swatch--min     { background-color: var(--color-syrup); outline: 2px dashed var(--color-ink); outline-offset: -2px; }
+  .viz-swatch--sorted,
+  .viz-swatch--found   { background-color: var(--color-forest); }
+  .viz-swatch--out     { opacity: 0.25; }
+
+
+  /* ── Code, variables, trace ── */
+
+  .viz-panels {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .viz-panel {
+    border: 1.5px solid var(--color-border);
+    border-radius: 4px;
+    padding: 1.25rem;
+    min-width: 0;
+  }
+
+  .viz-panel-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-orange);
+    margin: 0 0 0.75rem;
+  }
+  .viz-panel-label:not(:first-child) { margin-top: 1.5rem; }
+
+  .viz-code {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--color-ink);
+    background-color: var(--color-surface);
+    border-radius: 3px;
+    padding: 0.75rem 0;
+    margin: 0;
+    overflow-x: auto;
+  }
+
+  .viz-code-row {
+    padding: 0 1rem;
+    border-left: 3px solid transparent;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  .viz-code-row--active {
+    background-color: var(--color-orange-light);
+    border-left-color: var(--color-orange);
+  }
+
+  .viz-vars {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  .viz-var {
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--color-surface);
+  }
+  .viz-var dt {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-muted);
+  }
+  .viz-var dd {
+    font-family: var(--font-mono);
+    font-size: 1.35rem;
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  .viz-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    margin-top: 0.85rem;
+  }
+  .viz-stats strong { color: var(--color-ink); font-weight: 500; }
+
+  .viz-table { font-size: 0.95rem; min-width: 0; }
+  .viz-table th,
+  .viz-table td { padding: 0.5rem 0.9rem; }
+  .viz-table tbody tr.viz-row--latest td { background-color: var(--color-orange-light); }
+
+  .viz-empty {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--color-subtle);
+    margin: 0;
+  }
+}

@@ -8,6 +8,7 @@ export const sorting: NoteTopic = {
       id:    "bubblesort",
       title: "bubble sort",
       tags:  ["Algorithm", "O(N²)"],
+      visualizer: "bubblesort",
       sections: [
         {
           type:    "code",
@@ -59,6 +60,7 @@ To sort in **descending** order instead, flip the comparison to **nums[j] < nums
       id:    "selectionsort",
       title: "selection sort",
       tags:  ["Algorithm", "O(N²)"],
+      visualizer: "selectionsort",
       sections: [
         {
           type:    "code",

@@ -8,6 +8,7 @@ export const searching: NoteTopic = {
       id:    "binarysearch",
       title: "binary search",
       tags:  ["Algorithm", "O(LOG N)"],
+      visualizer: "binarysearch",
       sections: [
         {
           type:    "code",
@@ -86,6 +87,7 @@ When the target is *not* in the array, start eventually passes end. Show that la
       id:    "linearsearch",
       title: "linear search",
       tags:  ["Algorithm", "O(N)"],
+      visualizer: "linearsearch",
       sections: [
         {
           type:    "code",

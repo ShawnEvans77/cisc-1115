@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { COURSE_CODE } from "../../constants";
 import { findTopicById } from "../../data/notes";
+import { AlgorithmVisualizer } from "../../components/notes/AlgorithmVisualizer";
 import { CodeBlock } from "../../components/ui/CodeBlock";
 import { ContentBlock } from "../../components/ui/ContentBlock";
 import { CopyButton } from "../../components/ui/CopyButton";
@@ -12,6 +13,7 @@ function NotesDetail() {
   const { topicId, entryId } = useParams<{ topicId: string; entryId: string }>();
   const topic = findTopicById(topicId);
   const entry = topic?.entries.find(e => e.id === entryId);
+  const implementation = entry?.sections.find(section => section.type === "code");
 
   if (!topic || !entry) {
     return <NotFoundState title="Note not found" backTo="/notes" backLabel="← Back to notes" />;
@@ -38,6 +40,9 @@ function NotesDetail() {
         </>
       }
     >
+      {entry.visualizer && implementation && (
+        <AlgorithmVisualizer key={entry.id} algorithm={entry.visualizer} code={implementation.content} />
+      )}
       {entry.sections.map((section, i) =>
         section.type === "text" ? (
           <ContentBlock key={i} label={section.label}>

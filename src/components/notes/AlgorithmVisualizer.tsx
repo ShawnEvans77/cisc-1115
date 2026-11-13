@@ -1,0 +1,292 @@
+import { useEffect, useMemo, useState, type FormEvent, type KeyboardEvent } from "react";
+import {
+  ALGORITHMS,
+  findLine,
+  formatArray,
+  parseNumberList,
+  type AlgorithmId,
+  type BarState,
+} from "../../utils/algorithmSteps";
+import { highlightJava } from "../../utils/highlightJava";
+import { cx } from "../../utils/ui";
+import { ContentBlock } from "../ui/ContentBlock";
+import { VisualizerBars } from "./VisualizerBars";
+
+type AlgorithmVisualizerProps = {
+  algorithm: AlgorithmId;
+  // the note's implementation, shown beside the bars with the current lines lit up
+  code: string;
+};
+
+const SPEEDS = [
+  { label: "Slow", delay: 1500 },
+  { label: "Normal", delay: 850 },
+  { label: "Fast", delay: 350 },
+] as const;
+
+const LEGENDS: Record<AlgorithmId, [BarState, string][]> = {
+  binarysearch: [["compare", "mid"], ["found", "found"], ["out", "ruled out"]],
+  linearsearch: [["compare", "checking"], ["found", "found"], ["out", "already checked"]],
+  bubblesort: [["compare", "comparing"], ["swap", "just swapped"], ["sorted", "locked in"]],
+  selectionsort: [["min", "smallest so far"], ["compare", "checking"], ["swap", "just swapped"], ["sorted", "final position"]],
+};
+
+const IGNORED_KEY_TARGETS = new Set(["INPUT", "SELECT", "TEXTAREA", "BUTTON"]);
+
+function randomInt(min: number, max: number) {
+  return min + Math.floor(Math.random() * (max - min + 1));
+}
+
+function distinctValues(count: number, max: number): number[] {
+  const values = new Set<number>();
+  while (values.size < count) values.add(randomInt(1, max));
+  return [...values];
+}
+
+export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProps) {
+  const config = ALGORITHMS[algorithm];
+  const isSearch = config.kind === "search";
+  const isBinary = algorithm === "binarysearch";
+
+  const [input, setInput] = useState(config.defaultArray);
+  const [target, setTarget] = useState(config.defaultTarget ?? 0);
+  const [arrayText, setArrayText] = useState(config.defaultArray.join(", "));
+  const [targetText, setTargetText] = useState(String(config.defaultTarget ?? ""));
+  const [notice, setNotice] = useState<{ text: string; error: boolean } | null>(null);
+
+  const [stepIndex, setStepIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [speed, setSpeed] = useState(1);
+
+  const run = useMemo(() => config.record(input, target), [config, input, target]);
+  const lastIndex = run.steps.length - 1;
+  const step = run.steps[Math.min(stepIndex, lastIndex)];
+  const isPlaying = playing && stepIndex < lastIndex;
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const timer = window.setTimeout(() => setStepIndex(i => i + 1), SPEEDS[speed].delay);
+    return () => window.clearTimeout(timer);
+  }, [isPlaying, stepIndex, speed]);
+
+  const codeLines = useMemo(() => highlightJava(code), [code]);
+  const activeLines = new Set(step.lines.map(anchor => findLine(code, anchor)));
+
+  function goTo(index: number) {
+    setPlaying(false);
+    setStepIndex(Math.max(0, Math.min(lastIndex, index)));
+  }
+
+  // relative moves read the latest index, so quick repeated clicks are not lost
+  function stepBy(delta: number) {
+    setPlaying(false);
+    setStepIndex(i => Math.max(0, Math.min(lastIndex, i + delta)));
+  }
+
+  function togglePlay() {
+    if (isPlaying) {
+      setPlaying(false);
+      return;
+    }
+    if (stepIndex >= lastIndex) setStepIndex(0);
+    setPlaying(true);
+  }
+
+  function load(values: number[], nextTarget: number, message: string | null) {
+    setInput(values);
+    setTarget(nextTarget);
+    setArrayText(values.join(", "));
+    setTargetText(String(nextTarget));
+    setNotice(message ? { text: message, error: false } : null);
+    setStepIndex(0);
+    setPlaying(false);
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const parsed = parseNumberList(arrayText);
+    if ("error" in parsed) {
+      setNotice({ text: parsed.error, error: true });
+      return;
+    }
+
+    let nextTarget = target;
+    if (isSearch) {
+      if (!/^-?\d+$/.test(targetText.trim())) {
+        setNotice({ text: "The target has to be a whole number.", error: true });
+        return;
+      }
+      nextTarget = Number(targetText);
+    }
+
+    if (isBinary) {
+      const sorted = [...parsed.values].sort((a, b) => a - b);
+      const changed = sorted.some((value, i) => value !== parsed.values[i]);
+      load(sorted, nextTarget, changed ? "Binary search only works on a sorted array, so your numbers were sorted first." : null);
+      return;
+    }
+    load(parsed.values, nextTarget, null);
+  }
+
+  function loadRandom() {
+    if (isBinary) {
+      const values = distinctValues(randomInt(10, 16), 99).sort((a, b) => a - b);
+      const missing = Math.random() < 0.25;
+      load(values, missing ? randomInt(1, 99) : values[randomInt(0, values.length - 1)], null);
+      return;
+    }
+    const values = distinctValues(randomInt(7, 10), 60);
+    load(values, isSearch && Math.random() < 0.25 ? randomInt(61, 99) : values[randomInt(0, values.length - 1)], null);
+  }
+
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (IGNORED_KEY_TARGETS.has((event.target as HTMLElement).tagName)) return;
+    if (event.key === "ArrowRight") stepBy(1);
+    else if (event.key === "ArrowLeft") stepBy(-1);
+    else if (event.key === " ") togglePlay();
+    else return;
+    event.preventDefault();
+  }
+
+  const visibleRows = run.rows.slice(0, step.rowCount);
+
+  return (
+    <ContentBlock
+      label="Watch it run"
+      headerSlot={<p className="viz-counter">Step {Math.min(stepIndex, lastIndex) + 1} / {run.steps.length}</p>}
+    >
+      <div className="viz" tabIndex={0} onKeyDown={handleKeyDown} aria-label="Algorithm visualizer. Use the arrow keys to step and space to play.">
+        <form className="viz-inputs" onSubmit={handleSubmit}>
+          <label className="viz-field viz-field--array">
+            <span className="viz-field-label">int[] nums</span>
+            <input
+              className="viz-input"
+              value={arrayText}
+              onChange={event => setArrayText(event.target.value)}
+              spellCheck={false}
+              inputMode="numeric"
+            />
+          </label>
+          {isSearch && (
+            <label className="viz-field viz-field--target">
+              <span className="viz-field-label">target</span>
+              <input
+                className="viz-input"
+                value={targetText}
+                onChange={event => setTargetText(event.target.value)}
+                inputMode="numeric"
+              />
+            </label>
+          )}
+          <div className="viz-input-actions">
+            <button type="submit" className="viz-btn viz-btn--solid">Run</button>
+            <button type="button" className="viz-btn" onClick={loadRandom}>Random</button>
+            <button
+              type="button"
+              className="viz-btn"
+              onClick={() => load(config.defaultArray, config.defaultTarget ?? 0, null)}
+            >
+              Note example
+            </button>
+          </div>
+        </form>
+        {notice && <p className={cx("viz-notice", notice.error && "viz-notice--error")}>{notice.text}</p>}
+
+        <VisualizerBars step={step} input={input} />
+
+        <p className="viz-message" aria-live="polite">{step.message}</p>
+
+        <div className="viz-controls">
+          <div className="viz-transport">
+            <button type="button" className="viz-btn" onClick={() => goTo(0)} disabled={stepIndex === 0}>⏮ Reset</button>
+            <button type="button" className="viz-btn" onClick={() => stepBy(-1)} disabled={stepIndex === 0}>◀ Back</button>
+            <button type="button" className="viz-btn viz-btn--solid viz-btn--play" onClick={togglePlay}>
+              {isPlaying ? "❚❚ Pause" : stepIndex >= lastIndex ? "↻ Replay" : "▶ Play"}
+            </button>
+            <button type="button" className="viz-btn" onClick={() => stepBy(1)} disabled={stepIndex >= lastIndex}>Next ▶</button>
+          </div>
+          <div className="viz-speed" role="group" aria-label="Playback speed">
+            {SPEEDS.map((option, i) => (
+              <button
+                key={option.label}
+                type="button"
+                className={cx("viz-speed-btn", i === speed && "viz-speed-btn--active")}
+                aria-pressed={i === speed}
+                onClick={() => setSpeed(i)}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <input
+          type="range"
+          className="viz-scrubber"
+          min={0}
+          max={lastIndex}
+          value={Math.min(stepIndex, lastIndex)}
+          onChange={event => goTo(Number(event.target.value))}
+          aria-label="Step"
+        />
+
+        <div className="viz-legend">
+          {LEGENDS[algorithm].map(([state, label]) => (
+            <span key={state} className="viz-legend-item">
+              <span className={cx("viz-swatch", `viz-swatch--${state}`)} />
+              {label}
+            </span>
+          ))}
+        </div>
+
+        <div className="viz-panels">
+          <div className="viz-panel">
+            <p className="viz-panel-label">The code, line by line</p>
+            <pre className="viz-code">
+              {codeLines.map((line, i) => (
+                <div key={i} className={cx("viz-code-row", activeLines.has(i) && "viz-code-row--active")}>{line}</div>
+              ))}
+            </pre>
+          </div>
+
+          <div className="viz-panel">
+            <p className="viz-panel-label">Variables</p>
+            <dl className="viz-vars">
+              {step.vars.map(([name, value]) => (
+                <div key={name} className="viz-var">
+                  <dt>{name}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="viz-stats">
+              <span>Comparisons <strong>{step.comparisons}</strong></span>
+              {!isSearch && <span>Swaps <strong>{step.swaps}</strong></span>}
+              <span>Array <strong>{formatArray(step.values)}</strong></span>
+            </div>
+
+            <p className="viz-panel-label">Trace chart</p>
+            {visibleRows.length > 0 ? (
+              <div className="content-table-wrap">
+                <table className="content-table viz-table">
+                  <thead>
+                    <tr>{run.header.map(cell => <th key={cell}>{cell}</th>)}</tr>
+                  </thead>
+                  <tbody>
+                    {visibleRows.map((row, i) => (
+                      <tr key={i} className={cx(i === visibleRows.length - 1 && "viz-row--latest")}>
+                        {row.map((cell, j) => <td key={j}>{cell}</td>)}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="viz-empty">Rows appear here as the algorithm runs.</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </ContentBlock>
+  );
+}
