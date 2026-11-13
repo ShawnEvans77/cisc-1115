@@ -46,6 +46,14 @@
     --rgb-black:  0, 0, 0;
     --rgb-white:  255, 255, 255;
 
+    /* Java syntax highlighting (utils/highlightJava.tsx) */
+    --syntax-text:        var(--color-ink);
+    --syntax-keyword:     #E07B00;
+    --syntax-comment:     #9E8A80;
+    --syntax-string:      #B07D3A;
+    --syntax-number:      #6B8E6B;
+    --syntax-punctuation: #8A7570;
+
     /* Hero grid — token-swapped in dark mode */
     --color-hero-grid: rgba(92, 61, 46, 0.07);
 
@@ -58,40 +66,50 @@
   [data-theme="dark"] {
     color-scheme: dark;
 
-    --color-orange:       #E8901F;
-    --color-orange-hover: #D07C10;
-    --color-orange-light: rgba(232, 144, 31, 0.12);
+    /* Tokyo Night (Night). The "orange" accent tokens hold Tokyo Night blue here, so
+       every accent rule switches palette without a dark-only override. */
+    --color-orange:       #7AA2F7;  /* blue    */
+    --color-orange-hover: #89B4FF;
+    --color-orange-light: rgba(122, 162, 247, 0.14);
 
-    --color-syrup:        #C97B38;
-    --color-syrup-hover:  #B06828;
-    --color-forest:       #5A8450;
-    --color-forest-hover: #477040;
+    --color-syrup:        #BB9AF7;  /* magenta */
+    --color-syrup-hover:  #C7ABFA;
+    --color-forest:       #9ECE6A;  /* green   */
+    --color-forest-hover: #ADD87E;
+    --color-cyan:         #7DCFFF;
 
-    /* Rich dark gray surfaces — deeper, more contrast */
-    --color-white:     #22252a;  /* cards, content blocks      */
-    --color-off-white: #161b22;  /* page background            */
-    --color-surface:   #1a1f27;  /* code blocks, inset areas   */
-    --color-cream:     #2d333b;  /* slightly lifted surface    */
+    --color-white:     #1F2335;  /* cards, content blocks */
+    --color-off-white: #1A1B26;  /* page background       */
+    --color-surface:   #16161E;  /* code blocks, insets   */
+    --color-cream:     #292E42;  /* lifted surface        */
 
-    --color-ink:    #cdd9e5;  /* cool near-white            */
-    --color-muted:  #8b949e;  /* mid gray                   */
-    --color-subtle: #545d68;  /* quiet tertiary             */
+    --color-ink:          #C0CAF5;
+    --color-muted:        #A9B1D6;
+    --color-subtle:       #737AA2;
+    --color-subtle-hover: #8F96BF;
 
-    --color-border:        #30363d;
-    --color-border-strong: #444c56;
+    --color-border:        #292E42;
+    --color-border-strong: #3B4261;
 
-    --color-copy-success: #6B9E6B;
-    --color-error:        #F07167;
+    --color-copy-success: #9ECE6A;
+    --color-error:        #F7768E;
 
-    --rgb-orange: 232, 144, 31;
-    --rgb-ink:    205, 217, 229;
+    --rgb-orange: 122, 162, 247;
+    --rgb-ink:    192, 202, 245;
 
-    --color-hero-grid: rgba(205, 217, 229, 0.04);
+    --color-hero-grid: rgba(122, 162, 247, 0.06);
+
+    --syntax-text:        #C0CAF5;
+    --syntax-keyword:     #BB9AF7;
+    --syntax-comment:     #636DA6;
+    --syntax-string:      #9ECE6A;
+    --syntax-number:      #FF9E64;
+    --syntax-punctuation: #89DDFF;
 
     /* Dark-only surfaces */
-    --color-navbar-dark:        #161b22;
-    --color-content-deep:       #1a1f27;
-    --color-navbar-mobile-dark: #161b22;
+    --color-navbar-dark:        #16161E;
+    --color-content-deep:       #1F2335;
+    --color-navbar-mobile-dark: #16161E;
   }
 }
 

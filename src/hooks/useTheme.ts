@@ -7,7 +7,7 @@ type Theme = "light" | "dark";
 const STORAGE_KEY = "maple-theme";
 const THEME_COLORS: Record<Theme, string> = {
   light: "#FAFAF8",
-  dark:  "#000000",
+  dark:  "#16161E",
 };
 
 const THEME_TRANSITION_MS = 300;

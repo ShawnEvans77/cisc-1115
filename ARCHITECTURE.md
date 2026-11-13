@@ -117,7 +117,7 @@ Note sections with `type: "code"` are shown verbatim as Java, with the same Remo
 - Every program needs a comment in main and in each method, since the exams require it.
 - Compile and run every Java solution before publishing it, and run every trace through Java rather than tracing by hand.
 
-The Java highlighter (`utils/highlightJava.tsx`) is a small line tokenizer, not a parser. It does not handle block comments or char literals.
+The Java highlighter (`utils/highlightJava.tsx`) is a small line tokenizer, not a parser. It does not handle block comments or char literals. It tags tokens with `tok-*` classes whose colors are the `--syntax-*` variables in `tokens.css`.
 
 ## Algorithm visualizer
 
@@ -146,7 +146,7 @@ All styling is hand-written CSS in `src/styles`, imported through `styles/compon
 
 | File | Contents |
 | --- | --- |
-| `tokens.css` | Colors, fonts, and light and dark variables. Use these instead of literal colors. |
+| `tokens.css` | Colors, fonts, and light and dark variables. Use these instead of literal colors. Dark mode is the Tokyo Night palette: the `--color-orange` accent tokens hold Tokyo Night blue there, `--color-syrup` magenta, `--color-forest` green. |
 | `base.css` | Theme transition, scrollbars |
 | `navigation.css` | Navbar, footer, theme toggle, entry animations |
 | `home.css` | Home page hero and cards |

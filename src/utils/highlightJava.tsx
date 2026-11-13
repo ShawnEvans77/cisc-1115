@@ -1,16 +1,13 @@
 import type { ReactElement } from "react";
 
-// ── Syntax color tokens ───────────────────────────────────────────────────────
-// These are code-specific colors, separate from the UI design tokens.
-// Inline styles are intentional here — each token type gets a unique color
-// and there are too many per-character spans to manage via classnames.
-
-const syntaxColors = {
-  keyword:     { color: "#E07B00", fontWeight: 600 }, // orange — matches site accent
-  comment:     { color: "#9E8A80", fontStyle: "italic" as const },
-  string:      { color: "#B07D3A" },                  // warm amber
-  number:      { color: "#6B8E6B" },                  // muted green
-  punctuation: { color: "#8A7570" },                  // warm grey
+// Each token type gets a class; the colors are --syntax-* variables in tokens.css,
+// so light mode and dark mode (Tokyo Night) each have their own palette.
+const TOKEN_CLASS = {
+  keyword:     "tok-keyword",
+  comment:     "tok-comment",
+  string:      "tok-string",
+  number:      "tok-number",
+  punctuation: "tok-punctuation",
 } as const;
 
 const KEYWORDS = new Set([
@@ -31,7 +28,7 @@ export function highlightJava(code: string): ReactElement[] {
     while (i < line.length) {
       // Line comment
       if (line[i] === "/" && line[i + 1] === "/") {
-        tokens.push(<span key={i} style={syntaxColors.comment}>{line.slice(i)}</span>);
+        tokens.push(<span key={i} className={TOKEN_CLASS.comment}>{line.slice(i)}</span>);
         break;
       }
 
@@ -43,7 +40,7 @@ export function highlightJava(code: string): ReactElement[] {
           j++;
         }
         j++;
-        tokens.push(<span key={i} style={syntaxColors.string}>{line.slice(i, j)}</span>);
+        tokens.push(<span key={i} className={TOKEN_CLASS.string}>{line.slice(i, j)}</span>);
         i = j;
         continue;
       }
@@ -52,7 +49,7 @@ export function highlightJava(code: string): ReactElement[] {
       if (/[0-9]/.test(line[i])) {
         let j = i;
         while (j < line.length && /[0-9.]/.test(line[j])) j++;
-        tokens.push(<span key={i} style={syntaxColors.number}>{line.slice(i, j)}</span>);
+        tokens.push(<span key={i} className={TOKEN_CLASS.number}>{line.slice(i, j)}</span>);
         i = j;
         continue;
       }
@@ -63,7 +60,7 @@ export function highlightJava(code: string): ReactElement[] {
         while (j < line.length && /[a-zA-Z0-9_]/.test(line[j])) j++;
         const word = line.slice(i, j);
         tokens.push(
-          <span key={i} style={KEYWORDS.has(word) ? syntaxColors.keyword : undefined}>
+          <span key={i} className={KEYWORDS.has(word) ? TOKEN_CLASS.keyword : undefined}>
             {word}
           </span>
         );
@@ -73,7 +70,7 @@ export function highlightJava(code: string): ReactElement[] {
 
       // Punctuation
       if (PUNCTUATION.test(line[i])) {
-        tokens.push(<span key={i} style={syntaxColors.punctuation}>{line[i]}</span>);
+        tokens.push(<span key={i} className={TOKEN_CLASS.punctuation}>{line[i]}</span>);
         i++;
         continue;
       }

@@ -190,7 +190,7 @@
     font-family: var(--font-mono);
     font-size: 1.15rem;
     line-height: 2;
-    color: var(--color-ink);
+    color: var(--syntax-text);
     margin: 0;
     padding: 2rem 2.5rem;
     white-space: pre-wrap;
@@ -200,6 +200,12 @@
   }
 
   .code-line { min-height: 1.5em; }
+
+  .tok-keyword     { color: var(--syntax-keyword); font-weight: 600; }
+  .tok-comment     { color: var(--syntax-comment); font-style: italic; }
+  .tok-string      { color: var(--syntax-string); }
+  .tok-number      { color: var(--syntax-number); }
+  .tok-punctuation { color: var(--syntax-punctuation); }
 
 
   /* ── Tables ([[table]] in content) ── */

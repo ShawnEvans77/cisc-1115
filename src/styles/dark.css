@@ -13,8 +13,8 @@
     color: var(--color-ink);
   }
   [data-theme="dark"] .navbar-link--active {
-    color: var(--color-ink);
-    background-color: rgba(var(--rgb-white), 0.08);
+    color: var(--color-orange);
+    background-color: var(--color-orange-light);
   }
   [data-theme="dark"] .navbar .theme-toggle,
   [data-theme="dark"] .navbar-right .theme-toggle {
@@ -38,34 +38,36 @@
   }
 
   [data-theme="dark"] .hero-eyebrow,
-  [data-theme="dark"] .page-eyebrow { color: rgba(var(--rgb-ink), 0.65); }
+  [data-theme="dark"] .page-eyebrow { color: var(--color-cyan); }
 
-  [data-theme="dark"] .hero-title-accent { color: var(--color-ink); opacity: 0.88; }
-
+  /* each home button keeps its own color, as an outline */
+  [data-theme="dark"] .cta-btn                { --cta-color: var(--color-orange); }
+  [data-theme="dark"] .cta-btn--syrup         { --cta-color: var(--color-syrup); }
+  [data-theme="dark"] .cta-btn--green         { --cta-color: var(--color-forest); }
+  [data-theme="dark"] .cta-btn--neutral       { --cta-color: var(--color-cyan); }
   [data-theme="dark"] .cta-btn {
     background-color: transparent !important;
-    color: var(--color-ink) !important;
-    border: 1px solid var(--color-border-strong) !important;
+    color: var(--cta-color) !important;
+    border: 1px solid var(--cta-color) !important;
   }
   [data-theme="dark"] .cta-btn:hover {
-    background-color: rgba(var(--rgb-ink), 0.08) !important;
-    border-color: var(--color-ink) !important;
-    color: var(--color-ink) !important;
+    background-color: color-mix(in srgb, var(--cta-color) 14%, transparent) !important;
+    border-color: var(--cta-color) !important;
+    color: var(--cta-color) !important;
   }
 
   [data-theme="dark"] .content-block       { background-color: var(--color-content-deep); border-color: var(--color-border); }
-  [data-theme="dark"] .content-block-label { color: rgba(var(--rgb-ink), 0.35); }
+  [data-theme="dark"] .content-block-label { color: var(--color-syrup); }
 
-  [data-theme="dark"] .code-scroll-wrapper { background-color: #0d1117; border-color: var(--color-border); }
-  [data-theme="dark"] .code-scroll-wrapper pre { color: #cdd9e5; }
+  [data-theme="dark"] .code-scroll-wrapper { background-color: var(--color-surface); border-color: var(--color-border); }
   [data-theme="dark"] .content-table tbody tr:nth-child(even) td { background-color: rgba(var(--rgb-ink), 0.05); }
 
   [data-theme="dark"] .viz-stage,
   [data-theme="dark"] .viz-code,
-  [data-theme="dark"] .viz-input { background-color: #0d1117; border-color: var(--color-border); }
+  [data-theme="dark"] .viz-input { background-color: var(--color-surface); border-color: var(--color-border); }
   [data-theme="dark"] .viz-bar-rect:not([class*="viz-bar--"]),
   [data-theme="dark"] .viz-swatch:not([class*="viz-swatch--"]) { fill: rgba(var(--rgb-ink), 0.3); background-color: rgba(var(--rgb-ink), 0.3); }
-  [data-theme="dark"] .viz-bar--found { filter: drop-shadow(0 0 10px rgba(90, 132, 80, 0.8)); }
+  [data-theme="dark"] .viz-bar--found { filter: drop-shadow(0 0 10px rgba(158, 206, 106, 0.55)); }
   [data-theme="dark"] .viz-btn--solid       { background-color: transparent; color: var(--color-orange); }
   [data-theme="dark"] .viz-btn--solid:hover:not(:disabled) { background-color: rgba(var(--rgb-orange), 0.1); }
   [data-theme="dark"] .viz-table tbody tr.viz-row--latest td { background-color: var(--color-orange-light); }
@@ -78,8 +80,8 @@
     color: var(--color-orange);
   }
 
-  [data-theme="dark"] .solution-link       { background-color: transparent; color: var(--color-ink); border: 1px solid var(--color-border-strong); }
-  [data-theme="dark"] .solution-link:hover { background-color: rgba(var(--rgb-ink), 0.07); border-color: var(--color-ink); }
+  [data-theme="dark"] .solution-link       { background-color: transparent; color: var(--color-orange); border: 1px solid var(--color-orange); }
+  [data-theme="dark"] .solution-link:hover { background-color: rgba(var(--rgb-orange), 0.1); }
 
   [data-theme="dark"] .skip-to-solution-btn       { background-color: transparent; color: var(--color-orange); border-color: var(--color-orange); }
   [data-theme="dark"] .skip-to-solution-btn:hover { background-color: rgba(var(--rgb-orange), 0.1); border-color: var(--color-orange-hover); color: var(--color-orange-hover); }
@@ -97,8 +99,6 @@
   [data-theme="dark"] .semester-card:hover { background-color: rgba(var(--rgb-orange), 0.04) !important; }
 
   [data-theme="dark"] .footer-logo     { color: var(--color-ink); }
-  [data-theme="dark"] .back-link       { color: var(--color-ink); }
-  [data-theme="dark"] .back-link:hover { opacity: 0.6; }
 
   [data-theme="dark"] .contact-row-text { color: var(--color-ink); }
   [data-theme="dark"] .contact-row-link {

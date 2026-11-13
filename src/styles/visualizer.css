@@ -259,7 +259,7 @@
     font-family: var(--font-mono);
     font-size: 0.9rem;
     line-height: 1.7;
-    color: var(--color-ink);
+    color: var(--syntax-text);
     background-color: var(--color-surface);
     border-radius: 3px;
     padding: 0.75rem 0;
