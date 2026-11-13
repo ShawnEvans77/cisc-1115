@@ -58,6 +58,7 @@
 
   [data-theme="dark"] .code-scroll-wrapper { background-color: #0d1117; border-color: var(--color-border); }
   [data-theme="dark"] .code-scroll-wrapper pre { color: #cdd9e5; }
+  [data-theme="dark"] .content-table tbody tr:nth-child(even) td { background-color: rgba(var(--rgb-ink), 0.05); }
 
   [data-theme="dark"] .question-card       { background-color: var(--color-content-deep); border-color: var(--color-border); }
   [data-theme="dark"] .question-card:hover { border-color: var(--color-orange); box-shadow: 0 4px 24px rgba(var(--rgb-orange), 0.08); }

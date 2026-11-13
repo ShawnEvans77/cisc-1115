@@ -202,6 +202,43 @@
   .code-line { min-height: 1.5em; }
 
 
+  /* ── Tables ([[table]] in content) ── */
+
+  .content-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  .content-table {
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink);
+    min-width: 12rem;
+  }
+
+  .content-table th,
+  .content-table td {
+    border: 1.5px solid var(--color-border);
+    padding: 0.55rem 1.1rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .content-table th {
+    background-color: var(--color-orange-light);
+    color: var(--color-orange);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .content-table tbody tr:nth-child(even) td { background-color: var(--color-surface); }
+
+
   /* ── Buttons ── */
 
   .copy-btn {

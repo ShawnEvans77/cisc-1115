@@ -5,12 +5,14 @@
 
 import type { Exam, Question } from "../../types";
 
+import { fall2017 }   from "./fall-2017";
 import { fall2018 }   from "./fall-2018";
 import { fall2020 }   from "./fall-2020";
 import { spring2021 } from "./spring-2021";
 import { spring2023 } from "./spring-2023";
 
 export const exams: Exam[] = [
+  fall2017,
   fall2018,
   fall2020,
   spring2021,

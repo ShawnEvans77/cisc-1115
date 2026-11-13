@@ -10,194 +10,333 @@ export const fall2020: Exam = {
       title: "question 1a",
       topics: ["Loops", "Tracing"],
       prompt: `Trace the x and y variables in the following code. Write all of the values x and y take throughout the code snippet's execution.
-      [[code]]int x = 5;
-int y = 10
-      
-do {    
+[[code]]int x = 5;
+int y = 10;
+
+do {
     x++;
-    y--;    
-        
-    while (y > 8) {        
-      x = x + 2;      
-      y = y - 3;   
-    }  
+    y--;
+
+    while (y > 8) {
+        x = x + 2;
+        y = y - 3;
+    }
 } while (x < 10);[[/code]]`,
-      explanation: `We want to write all of the different values x and y take throughout the program.
-        
-x and y begin at 5 and 10. We write down that x=5 and y=10.
-        
-We increment x and decrement y. 5+1 = 6, 10-1 = 9. We write that x=6 and x=9.
-        
-y=9 is greater than 8, so the inner while loop executes. We add 2 to x=6, so x becomes 8. Subtract 3 from y, it becomes 6. We write that x=8 and y=6.
-        
-y=6 is not bigger than 8, so the inner while loop terminates. x=8 is lower than 10, so the while loop continues.
-        
-Decrement x and y. We write that x=9 and y=5. 
-        
-y is not greater than 8. x is still less than 10. We continue to the next do while iteration while skipping the inner do while loop.
-        
-Add 1 to x and subtract 1 from y. We get x=10 and y=4. 4 is not greater than 8, 10 is not less than 10, all loops cease and the program concludes. We write that x=10 and y=4.`,
-      solution: `    x |  y
-   --------
-    5 | 10
-    6 |  9
-    8 |  6
-    9 |  5
-   10 |  4`,
+      explanation: `We want to write down every pair of values x and y take, in order.
+
+x and y begin at **5 and 10**. Write that down.
+
+Enter the do while loop. Increment x and decrement y: x = 6, y = 9.
+
+y = 9 is greater than 8, so the inner while loop runs. Add 2 to x and subtract 3 from y: x = 8, y = 6. Now y = 6 is not greater than 8, so the inner loop stops.
+
+Back at the bottom of the do while. x = 8 is less than 10, so go around again.
+
+Increment x and decrement y: x = 9, y = 5. y is not greater than 8, so the inner loop is skipped entirely. x = 9 is still less than 10, so go around again.
+
+Increment x and decrement y: x = 10, y = 4. The inner loop is skipped again. x = 10 is *not* less than 10, so the do while finally ends.`,
+      solutionType: "text",
+      solution: `[[table]]
+x | y
+5 | 10
+6 | 9
+8 | 6
+9 | 5
+10 | 4
+[[/table]]`,
     },
     {
       id: "1b",
       title: "question 1b",
       topics: ["Loops", "Tracing"],
       prompt: `Trace the variables in the following code. Write all of the values i and j take throughout the execution of the code snippet.
-    [[code]]for (int i = 0; i < 5; i = i + 2) {   
-    for (int j = i; j > 0; j--) { 
+[[code]]for (int i = 0; i < 5; i = i + 2) {
+    for (int j = i; j > 0; j--) {
 
-    } 
+    }
 }[[/code]]`,
-      explanation: `We want to write all of the different values i and j take throughout the program.
-  
-We start with i being equal to 0. j is equal to 0 since int j = i. However, j=0 is not greater than 0, so the inner loop does not execute. We write i=0 and nothing for j.
-  
-Then, i increments to 2. j is equal to 2 since int j = i. Since this inner for loop condition is now valid, it executes. We have i=2 & j=2, then i=2 & j=1, then j goes down to zero, terminating the loop. We write that i=2 and j=2, then i=2 and j=1, then i=2 and j=0.
+      explanation: `We want to write down every value i and j take.
 
-Then, i increments to 4. j is equal to 4 since int j = i. Inner for loop condition is valid once more. We have i=4 & j=4. Do you notice the patern? j decrements down to 0 by one each time. We write that i=4 and j=4, i=4 and j=3, i=4 and j=2, and so on.`,
+i starts at **0**. The inner loop sets j = i = 0, but j > 0 is false, so the inner loop never runs. We write i = 0 and nothing for j.
+
+i goes up by 2, to **2**. Now j starts at 2, and the inner loop runs with j = 2, then j = 1. When j drops to 0 the condition fails and the inner loop stops.
+
+i goes up to **4**. j starts at 4 and counts down: 4, 3, 2, 1. Do you notice the pattern? j always starts at i and counts down to 1.
+
+i goes up to 6, which is not less than 5, so everything stops.
+
+Whether you also write down the j = 0 that ends each inner loop depends on your instructor. The table below lists every value j is *assigned*, so it includes those zeros.`,
       solutionType: "text",
-      solution: `  i  |  j
- ---------
-  0  |  -
-  2  |  2
-  2  |  1
-  2  |  0
-  4  |  4
-  4  |  3
-  4  |  2
-  4  |  1
-  4  |  0`,
+      solution: `[[table]]
+i | j
+0 | 0 (inner loop does not run)
+2 | 2
+2 | 1
+2 | 0 (inner loop stops)
+4 | 4
+4 | 3
+4 | 2
+4 | 1
+4 | 0 (inner loop stops)
+6 | (outer loop stops)
+[[/table]]`,
     },
     {
       id: "2",
       title: "question 2",
       topics: ["Arithmetic", "Modulo"],
       prompt: `Assume the existence of an **int** variable called inches. Compute and print how many miles, yards, feet and inches that number represents.
-      
-Rememember that 1 foot equals 12 inches, 36 inches equals 1 yard, and 5280 feet equals 1 mile.
-      
+
+Remember that 1 foot equals 12 inches, 36 inches equals 1 yard, and 5280 feet equals 1 mile.
+
 For example, if inches is:
-[[code]]int inches = 245897[[/code]]
+[[code]]int inches = 245897;[[/code]]
 
 Then the program's output is:
 [[text]]245897 inches equals 3 miles 1550 yards 1 foot and 5 inches[[/text]]`,
-      explanation: `To solve this problem, you must use the modulo and division operator.
-      
-Start by dividing inches by the total number of inches in a mile (5280 x 12), then 'strip off' those miles using the modulo operator. We strip off the miles so that we are left with how many yards were in the original variable. You repeat the process when you divide the remaining yards by 36, the number of inches in a yard. This process continues and you eventually arrive at the solution.
-      
-They can ask different variants of this problem. Sometimes it is coins, sometimes it is hours. Remember to start large then work your way down, stripping off units as necessary.`,
+      explanation: `To solve this problem, you need the division and modulo operators working as a team.
+
+**Division** tells you how many whole units fit. **Modulo** tells you what is left over after you take those units away.
+
+Start with the biggest unit. A mile is 5280 × 12 = 63360 inches. 245897 / 63360 is **3** miles, and 245897 % 63360 leaves 55817 inches.
+
+Repeat with the next unit down, using only the leftover inches. 55817 / 36 is **1550** yards, leaving 55817 % 36 = 17 inches.
+
+Then feet: 17 / 12 is **1** foot, leaving 17 % 12 = **5** inches.
+
+They can ask different variants of this problem. Sometimes it is coins, sometimes it is seconds. The recipe is always the same: start large, divide to get the count, and mod to strip those units off.`,
       solution: `public class Fall2020Question2 {
     public static void main(String[] args) {
 
-        // creating the inches variable
         int inches = 245897;
 
-        // 5280 feet are in one mile. 5280*12 is the number of 
-        // inches in a mile. Divide inches by (5280*12) to see 
-        // how many miles are in it.
-        int miles = inches / (5280 * 12);
+        // 5280 feet in a mile, 12 inches in a foot
+        final int INCHES_PER_MILE = 5280 * 12;
+        final int INCHES_PER_YARD = 36;
+        final int INCHES_PER_FOOT = 12;
 
-        // remove the miles using the modulus operator.
-        int remainingYards = inches % (5280 * 12);
+        // how many whole miles fit, then strip them off with %
+        int miles = inches / INCHES_PER_MILE;
+        int inchesLeft = inches % INCHES_PER_MILE;
 
-        // 36 inches are in one yard.
-        int yards = remainingYards / 36;
+        // same idea with yards, using only what is left over
+        int yards = inchesLeft / INCHES_PER_YARD;
+        inchesLeft = inchesLeft % INCHES_PER_YARD;
 
-        // remove all yards.
-        int remainingFeet = inches % 36;
-
-        // 12 inches in one foot.
-        int feet = remainingFeet / 12;
-
-        // remove the remaining feet.
-        int remainingInches = inches % 12;
+        // and feet
+        int feet = inchesLeft / INCHES_PER_FOOT;
+        inchesLeft = inchesLeft % INCHES_PER_FOOT;
 
         // neatly print out the result using printf
-        System.out.printf(
-            "%d inches equals %d miles %d yards %d foot and %d inches\\n",
-            inches, miles, yards, feet, remainingInches
-        );
+        System.out.printf("%d inches equals %d miles %d yards %d foot and %d inches\\n",
+                inches, miles, yards, feet, inchesLeft);
     }
 }`,
     },
     {
       id: "3",
       title: "question 3",
-      topics: ["Binary Numbers", "Number Systems", "Hexadecimal"],
+      topics: ["Binary Numbers", "Hexadecimal", "Number Systems"],
       prompt: `Show the work you used to perform the following conversions:
-      
+
 a. 1100110 (base 2) to base 10
-      
+
 b. AB (base 16) to base 10
-      
+
 c. 65 (base 10) to base 2`,
-      explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5x10²) + (1x10¹) + (2x10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreths place, and so on. The same idea applies to other bases.
-  
-For a, it has six digits, with 4 of them being filled in with ones. Label the rightmost digit 2⁰, the second rightmost digit 2¹, and so on. Since only the 2⁶, 2⁵, 2², and 2¹ places are filled in with ones, sum them together. 1×2⁶ + 1×2⁵ + 0×2⁴ + 0×2³ + 1×2² + 1×2¹ + 0×2⁰ yields the base 10 sum 102, our answer.
-  
-For b, we know that in hexadecimal, A = 10, and B = 11. Therefore, to yield the answer, we perform 10×16¹ + 11×16⁰ = 171.
-  
-For c, simply write out the numbers 64, 32, 16, 8, 4, 2, and 1. From these numbers, we will make 65. (64+1) makes 65. Therefore, to express this in binary, we simply write out 1000001. The leftmost 1 represents 64, the rightmost 1 reprents the 1 added to 64 in order to make 65.`,
+      explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5×10²) + (1×10¹) + (2×10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreds place, and so on. The same idea applies to other bases.
+
+For **a**, the number has seven digits. Label the rightmost digit 2⁰, the next one 2¹, and so on up to 2⁶. Then add up the places that hold a 1.
+
+For **b**, in hexadecimal A = 10 and B = 11. Multiply each digit by its power of 16.
+
+For **c**, write out the powers of two: 64, 32, 16, 8, 4, 2, 1. Pick the ones that add up to 65. Only 64 + 1 works, so we write a 1 under 64, a 1 under 1, and a 0 everywhere else.`,
       solutionType: "text",
-      solution: `a. 102
+      solution: `**a. 102**
+[[table]]
+Place | 2⁶ | 2⁵ | 2⁴ | 2³ | 2² | 2¹ | 2⁰
+Value | 64 | 32 | 16 | 8 | 4 | 2 | 1
+Digit | 1 | 1 | 0 | 0 | 1 | 1 | 0
+[[/table]]
+64 + 32 + 4 + 2 = **102**
 
-    1100110
-    1×2⁶ + 1×2⁵ + 0×2⁴ + 0×2³ + 1×2² + 1×2¹ + 0×2⁰
+**b. 171**
 
-  = 64  + 32  +  0  +  0  +  4  +  2  +  0
-  = 102
+A×16¹ + B×16⁰ = 10×16 + 11×1 = 160 + 11 = **171**
 
-  Answer: 102
+**c. 1000001**
+[[table]]
+Power of 2 | 64 | 32 | 16 | 8 | 4 | 2 | 1
+Used? | 1 | 0 | 0 | 0 | 0 | 0 | 1
+[[/table]]
+64 + 1 = 65, so the answer is **1000001**.`,
+    },
+    {
+      id: "4a",
+      title: "question 4a",
+      topics: ["Arrays", "Methods", "Pass by Value", "Tracing"],
+      prompt: `Fill in the table to trace the values as they are passed from main and changed in the method.
+[[code]]int[] array = {1,2,3,4,5};
+int x = 12;
+int y = doOne(array, x);
 
-b. 171
+int[] array2 = {1,2,3,4,5};
+int w = doOne(array2, array2[3]);
+} // end of main
 
-    AB
-    A×16¹ + B×16⁰
+public static int doOne(int[] arr, int x) {
+    for (int i = 0; i < arr.length-1; i++)
+        arr[i] = arr[i] * arr[i+1];
+    x = x + 3;
+    return x;
+}[[/code]]
 
-  = 10×16 + 11×1
-  = 160   + 11
-  = 171
+Trace these values for the first call:
+[[table]]
+Variable | Value
+x in main before call to doOne | ?
+array in main before call to doOne | ?
+arr in doOne before loop | ?
+x in doOne before loop | ?
+arr in doOne after loop | ?
+x in doOne after loop | ?
+x in main after call to doOne | ?
+y in main after call to doOne | ?
+array in main after call to doOne | ?
+[[/table]]
 
-  Answer: 171
+And these values for the second call:
+[[table]]
+Variable | Value
+array2 in main before call to doOne | ?
+arr in doOne before loop | ?
+x in doOne before loop | ?
+arr in doOne after loop | ?
+x in doOne after loop | ?
+w in main after call to doOne | ?
+array2 in main after call to doOne | ?
+[[/table]]`,
+      explanation: `Two rules decide everything in this question.
 
-c. 1000001
+**An int parameter is a copy.** The x inside doOne is a brand new variable that starts with the same value. Changing it does nothing to the x in main.
 
-    65
+**An array parameter points at the same array.** arr and array are two names for the same block of memory, so every change doOne makes to arr shows up in main.
 
-    64: 1
-    32: 0
-    16: 0
-    8 : 0
-    4 : 0
-    2 : 0
-    1 : 1
+The loop multiplies each element by the one to its right, stopping one short of the end:
+[[table]]
+i | arr[i] = arr[i] × arr[i+1] | arr afterwards
+0 | 1 × 2 = 2 | {2, 2, 3, 4, 5}
+1 | 2 × 3 = 6 | {2, 6, 3, 4, 5}
+2 | 3 × 4 = 12 | {2, 6, 12, 4, 5}
+3 | 4 × 5 = 20 | {2, 6, 12, 20, 5}
+[[/table]]
+Notice each step uses the *original* value to the right, since that element has not been changed yet.
 
-    64 + 1 = 65
+The loop never touches x. The line **x = x + 3** runs right after the loop, so x leaves doOne as 15. That 15 is returned and stored in y, while the x in main is still 12.
 
-    Answer: 1000001`,
+The second call has one trap: **array2[3]** is evaluated *before* the call, when it is still 4. So the method's x starts at 4 and returns 7, even though arr[3] becomes 20 during the loop.`,
+      solutionType: "text",
+      solution: `**First call:** doOne(array, x)
+[[table]]
+Variable | Value
+x in main before call to doOne | 12
+array in main before call to doOne | {1, 2, 3, 4, 5}
+arr in doOne before loop | {1, 2, 3, 4, 5}
+x in doOne before loop | 12
+arr in doOne after loop | {2, 6, 12, 20, 5}
+x in doOne after loop | 15
+x in main after call to doOne | 12
+y in main after call to doOne | 15
+array in main after call to doOne | {2, 6, 12, 20, 5}
+[[/table]]
+
+**Second call:** doOne(array2, array2[3])
+[[table]]
+Variable | Value
+array2 in main before call to doOne | {1, 2, 3, 4, 5}
+arr in doOne before loop | {1, 2, 3, 4, 5}
+x in doOne before loop | 4
+arr in doOne after loop | {2, 6, 12, 20, 5}
+x in doOne after loop | 7
+w in main after call to doOne | 7
+array2 in main after call to doOne | {2, 6, 12, 20, 5}
+[[/table]]`,
+    },
+    {
+      id: "4b",
+      title: "question 4b",
+      topics: ["Arrays", "Methods", "Pass by Value", "Tracing"],
+      prompt: `Fill in the table to trace the values as they are passed from main and changed in the method.
+[[code]]int[] array3 = {1,2,3,4,5};
+int s = 12;
+int v = 32;
+int[] num = doTwo(array3, v, s);
+} // end of main
+
+public static int[] doTwo(int[] arr, int x, int y) {
+    int[] ret = new int[2];
+    x = arr[2];
+    y = arr[3];
+    ret[0] = x + arr[1];
+    ret[1] = y - arr[0];
+    return ret;
+}[[/code]]
+
+[[table]]
+Variable | Value
+array3 before call to doTwo | ?
+s before call to doTwo | ?
+v before call to doTwo | ?
+arr in doTwo | ?
+x in doTwo | ?
+y in doTwo | ?
+ret in doTwo | ?
+array3 in main after call to doTwo | ?
+num in main after call to doTwo | ?
+s in main after call to doTwo | ?
+v in main after call to doTwo | ?
+[[/table]]`,
+      explanation: `Watch the order of the arguments. The call is **doTwo(array3, v, s)**, so x gets a copy of **v** (32) and y gets a copy of **s** (12). It is easy to mix those up because s is declared first.
+
+Inside the method, x and y are immediately overwritten: x = arr[2] = 3 and y = arr[3] = 4. Since they are copies, s and v in main stay 12 and 32.
+
+Then the method builds a new two-element array:
+
+  • ret[0] = x + arr[1] = 3 + 2 = **5**
+  • ret[1] = y - arr[0] = 4 - 1 = **3**
+
+doTwo only *reads* from arr, so array3 is unchanged. The returned array {5, 3} is stored in num.`,
+      solutionType: "text",
+      solution: `[[table]]
+Variable | Value
+array3 before call to doTwo | {1, 2, 3, 4, 5}
+s before call to doTwo | 12
+v before call to doTwo | 32
+arr in doTwo | {1, 2, 3, 4, 5}
+x in doTwo | 32, then 3
+y in doTwo | 12, then 4
+ret in doTwo | {5, 3}
+array3 in main after call to doTwo | {1, 2, 3, 4, 5}
+num in main after call to doTwo | {5, 3}
+s in main after call to doTwo | 12
+v in main after call to doTwo | 32
+[[/table]]`,
     },
     {
       id: "5a",
       title: "question 5a",
       topics: ["Math Methods"],
-      prompt: `Assume the six integers i, j, k, m, n, and l exist and are all initialized.
-      
+      prompt: `Assume the six integers i, j, k, l, m, and n exist and are all initialized.
+
 Assume there exists a method **max3()**, which accepts 3 integers as input and returns the largest integer.
-      
-Write one Java statement to find the maximum of the six integers using any combination of **Math.max()** and **max3()**.`,
-      explanation: `Java does not have a max method that accepts any number of arguments. The standard **Math.max()** method only accepts two integers, so we need to group the values.
-      
-Use **max3()** once on **i, j, k** and once on **m, n, l**. Now we have the maximum from the first group and the maximum from the second group.
+
+Write **one** Java statement to find the maximum of the six integers using any combination of **Math.max()** and **max3()**.`,
+      explanation: `Java does not have a max method that accepts any number of arguments. The standard **Math.max()** method only accepts two values, so we need to group the integers.
+
+Use **max3()** once on **i, j, k** and once on **l, m, n**. Now we have the maximum from the first group and the maximum from the second group.
 
 Then send those two results into **Math.max()**. The larger of the two group maximums must be the largest value out of all six integers.`,
-      solution: `int max = Math.max(max3(i, j, k), max3(m, n, l));`,
+      solution: `int max = Math.max(max3(i, j, k), max3(l, m, n));`,
     },
     {
       id: "5b",
@@ -209,75 +348,82 @@ Then send those two results into **Math.max()**. The larger of the two group max
 
 The **x²** part becomes **Math.pow(x, 2)**. The square root in the denominator becomes **Math.sqrt(x)**.
 
-The numerator is **Math.pow(x, 2) - (1.0 / (y + 3))**. The denominator is **(1.0 / z) + Math.sqrt(x)**. Once those two pieces are built, divide the numerator by the denominator.`,
+The numerator is **Math.pow(x, 2) - (1.0 / (y + 3))**. The denominator is **(1.0 / z) + Math.sqrt(x)**. Once those two pieces are built, wrap each in its own parentheses and divide.
+
+Use **1.0** instead of **1** in the small fractions. If y and z are ints, **1 / z** would be integer division and come out as 0 for any z bigger than 1.`,
       solution: `double result = (Math.pow(x, 2) - (1.0 / (y + 3))) / ((1.0 / z) + Math.sqrt(x));`,
     },
     {
       id: "5c",
       title: "question 5c",
       topics: ["Arrays", "Binary Search"],
-      prompt: `Perform a binary search on the following array. You are searching for the number 18.:
+      prompt: `Perform a binary search on the following array. You are searching for the number **18**.
+[[code]]int[] nums = {12, 77, 87, 89, 100, 117, 125, 189, 235, 529, 1000};[[/code]]
 
-      [[code]]int[] nums = {12, 77, 87, 89, 100, 117, 125, 189, 235, 529, 1000};[[/code]]
-      
-List the low, mid and high values at each step until the algorithm stops. Do NOT write any code. Enter into the table below the low, mid and high values as the binary search progresses. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
+List the low, mid and high values at each step until the algorithm stops. Do NOT write any code. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
       explanation: `The array has 11 values, with the minimum index being 0 and the maximum index being 10. Recall that binary search involves jumping to the middle in search of your number. If the middle is too small, move right. If the middle is too big, move left.
 
-(0+10)/2 is 5. Write in {0, 5, 10}. nums[5] is 117, which is bigger than 18. Due to this, we move left by changing high to mid-1. The new high becomes 4.
-  
-(0+4)/2 is 2. Write in {0, 2, 4}. nums[2] is 87, which is bigger than 18. Due to this, we move left by changing high to mid-1. The new high becomes 1.
-  
-(0+1)/2 is 0, since the decimal is truncated in integer division. Write in {0, 0, 1}. nums[0] is 12, which is smaller than 18. Due to this, we move right by changing low to mid+1. The new low becomes 1.
-  
-(1+1)/2 is 1. Write in {1, 1, 1}. nums[1] is 77, which is bigger than 18. Due to this, we move left by changing high to mid-1. The new high becomes 0.
-  
-Write in {1, -, 0}. The binary search while loop condition, while (low <= high), has been violated. We failed to find 18.`,
+(0 + 10) / 2 is 5. nums[5] is 117, which is bigger than 18, so we move left by changing high to mid - 1. The new high becomes 4.
+
+(0 + 4) / 2 is 2. nums[2] is 87, which is bigger than 18. The new high becomes 1.
+
+(0 + 1) / 2 is 0, since the decimal is truncated in integer division. nums[0] is 12, which is smaller than 18, so we move right by changing low to mid + 1. The new low becomes 1.
+
+(1 + 1) / 2 is 1. nums[1] is 77, which is bigger than 18. The new high becomes 0.
+
+Now low is 1 and high is 0. The binary search loop condition, **while (low <= high)**, is false. We failed to find 18.`,
       solutionType: "text",
-      solution: `  Low | Mid  | High
- ----------------------
-    0 |   5  |   10
-    0 |   2  |    4
-    0 |   0  |    1
-    1 |   1  |    1
-    1 |   -  |    0`,
+      solution: `[[table]]
+Low | Mid | High
+0 | 5 | 10
+0 | 2 | 4
+0 | 0 | 1
+1 | 1 | 1
+1 | - | 0
+[[/table]]
+
+The search stops because low (1) is greater than high (0). 18 is not in the array.`,
     },
     {
       id: "6",
       title: "question 6",
       topics: ["Arrays", "Loops", "Split", "Strings"],
       prompt: `You are given a **String** variable containing a series of nine digit zip codes separated by spaces. Each zip code contains a single dash, separating the first five numbers of the code from the final four. For example,
-      [[code]]String str = "11230-1234 11011-3489 07621-8845";[[/code]]
-      
+[[code]]String str = "11230-1234 11011-3489 07621-8845";[[/code]]
+
 Write a program to print every zip code in the **String** on a separate line, with the *first five* and *last four* numbers of each code having a space between them.
-      
+
 For example, if we use the **String** from the example, your program should output the following:
-      [[text]]11230 1234
+[[text]]11230 1234
 11011 3489
-07621 8845
-[[/text]]
+07621 8845[[/text]]
 
 **NOTE**: Keep in mind that your code must handle a String that has an arbitrary number of zip codes, not just the three like the example above.`,
-      explanation: `We solve this problem easily by using the **split()** method. 
-      
-Split the input string based on spaces, creating an array of zip codes. 
+      explanation: `We solve this problem easily by using the **split()** method twice.
 
-For each zip code in the array, split it based on the dash, then print the first five & last four numbers of that zip code.`,
+Split the input String on spaces. That gives an array of full zip codes like "11230-1234".
+
+For each zip code in the array, split *it* on the dash. That gives a two-element array: the first five digits at index 0 and the last four at index 1. Print them with a space in between.
+
+Because we loop over **codes.length**, this works no matter how many zip codes are in the String.
+
+Keep the zip codes as Strings. If you turned "07621" into an int, the leading zero would disappear.`,
       solution: `public class Fall2020Question6 {
     public static void main(String[] args) {
 
-        String str = "11230-1234 11011-3489 07261-8845";
+        String str = "11230-1234 11011-3489 07621-8845";
 
         // create an array of zip codes
         String[] codes = str.split(" ");
-        // codes = {"11230-1234", "11011-3489", "07261-8845"}
+        // codes = {"11230-1234", "11011-3489", "07621-8845"}
 
         // for every zip code in the array of zip codes
         for (int i = 0; i < codes.length; i++) {
-            // split the current zip code based on the dashes
+            // split the current zip code on the dash
             String[] parts = codes[i].split("-");
 
-            // print the first five numbers of the zip code, then the last four
-            // separated by space
+            // print the first five numbers of the zip code, then the last four,
+            // separated by a space
             System.out.println(parts[0] + " " + parts[1]);
         }
     }
@@ -288,45 +434,41 @@ For each zip code in the array, split it based on the dash, then print the first
       title: "question 7",
       topics: ["Arrays", "File", "Scanner", "Sorting"],
       prompt: `Write a complete Java program, including at least one comment in the main program and one in each method, to do the following.
- 
+
 The program will read in an unknown number of records from a file. Assume you won't have more than 100 records in total, though the actual number of records can be less than 100. Each record contains a sales rep's first name and miles traveled on two trips per year. For example, the file might look like this:
 [[text]]Pauline 167.8 567.0
 Alexander 451.22 56.11
 Samuel 234.11 581.83[[/text]]
- 
+
 **Main:**
- 
+
   • Declare an output file to be used in main and passed to one or more methods from main. __All output from main and methods will be printed to this file.__
- 
   • Invoke the **first method** (below) to read the data from the input file, compute averages and store information in the arrays. The method returns the number of records read in.
- 
   • Next, invoke the **second method** (below) which computes the average length of all trips and then prints to the output file how many individual averages are above, equal to and below the overall average.
- 
   • Finally, invoke the **third method** (below) to sort the name and individual average trip length arrays in parallel.
- 
   • In main, print to the output file each sales rep name and average trip length. The names and average trip length should print in columns, right adjusted. All trip lengths should be printed with two decimal places.
- 
+
 **Methods:**
- 
+
   1. This method has **two parameters**: a String array for names and a double array for the average trip length per individual sales rep. It returns an integer.
       a. Declare the input file, read the records in the file and store each first name in an array (assume there are no duplicate names) and the average number of miles travelled for that sales rep in another array. You do not need to store the individual trip length.
       b. Return the number of sales rep records read in.
- 
-  2. This method has **three parameters** – the output file, double array of individual average trip length and an integer representing the total number of records read in.
+
+  2. This method has **three parameters**: the output file, a double array of individual average trip length and an integer representing the total number of records read in.
       a. Compute the overall average trip length across all sales reps.
-      b. Compute and print to the output file how many sales reps individual average trip length were above the overall average trip length, below the overall average trip length and equal to the overall average trip length.
- 
-  3. This method has **three parameters** – String array of names, double array of individual average trip length and an integer representing the total number of records read in by the first method.
-      a. Sort the sales rep names in descending (reverse) alphabetical order synchronizing the individual sales rep's average trip length in the parallel array.`,
+      b. Compute and print to the output file how many sales reps' individual average trip length were above the overall average trip length, below the overall average trip length and equal to the overall average trip length.
+
+  3. This method has **three parameters**: a String array of names, a double array of individual average trip length and an integer representing the total number of records read in by the first method.
+      a. Sort the sales rep names in descending (reverse) alphabetical order, synchronizing the individual sales rep's average trip length in the parallel array.`,
       explanation: `This is another long method problem, so the easiest way to approach it is to let each method own one piece of the prompt.
 
 **readData** reads one sales rep record at a time. Since each record looks like "Pauline 167.8 567.0", we read the name with **sc.next()** and the two trip lengths with **sc.nextDouble()**. The average of the two trips goes into the double array, and the name goes into the String array at the same index.
 
-**computeTripLength** first finds the overall average across all sales reps. Then it loops through the individual averages and counts how many are above, below, or equal to that overall average. Those counts are printed to the output file.
+**computeTripLength** first finds the overall average across all sales reps. Then it loops through the individual averages and counts how many are above, below, or equal to that overall average. Those counts are printed to the output file, which is why the PrintWriter is one of its parameters.
 
 **sortArray** is a parallel sort. The primary sort is based on the names, but the average trip length has to move with the matching name. Whenever two names swap, their averages must swap too.
 
-The string comparison uses **compareTo()**. If **names[j].compareTo(names[j + 1]) < 0**, then the name at index j comes earlier alphabetically, so we swap it to create descending alphabetical order.`,
+The String comparison uses **compareTo()**. If **names[j].compareTo(names[j + 1]) < 0**, then the name at index j comes earlier alphabetically, so we swap it toward the end to create descending (Z to A) order.`,
       solution: `import java.util.Scanner;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -336,24 +478,25 @@ public class Fall2020Question7 {
 
     public static void main(String[] args) throws IOException {
 
-        // creating two arrays with no more than 100 records.
+        // creating two arrays with room for 100 records
         String[] names = new String[100];
         double[] averageTripLength = new double[100];
 
-        // readData returns the number of records read in.
-        int numSalesRep = readData(names, averageTripLength);
-
-        // PrintWriter for printing to the output file.
+        // the output file, shared with the methods that print
         PrintWriter writer = new PrintWriter("fall_2020_output.txt");
 
-        // Calculates the average & average differences.
-        computeTripLength(averageTripLength, writer, numSalesRep);
+        // readData returns the number of records read in
+        int numSalesRep = readData(names, averageTripLength);
 
-        // Sorts in parallel.
+        // prints how many averages are above, below, and equal to the overall average
+        computeTripLength(writer, averageTripLength, numSalesRep);
+
+        // sorts both arrays in parallel, names in reverse alphabetical order
         sortArray(names, averageTripLength, numSalesRep);
 
         writer.println();
 
+        // right adjusted columns, two decimal places for the trip lengths
         for (int i = 0; i < numSalesRep; i++) {
             writer.printf("%10s %10.2f\\n", names[i], averageTripLength[i]);
         }
@@ -363,17 +506,16 @@ public class Fall2020Question7 {
 
     public static int readData(String[] names, double[] averageTripLength) throws IOException {
 
-        // reading from the input file.
-        File file = new File("fall_2020_input.txt");
-        Scanner sc = new Scanner(file);
+        // reading from the input file
+        Scanner sc = new Scanner(new File("fall_2020_input.txt"));
 
-        // the number of sales rep in the file.
+        // the number of sales reps read so far
         int numSalesRep = 0;
 
         // while the scanner has more things to read
         while (sc.hasNext()) {
 
-            // read in the sales' rep name & average trip length into the two arrays.
+            // read the name, and store the average of the two trips
             names[numSalesRep] = sc.next();
             averageTripLength[numSalesRep] = (sc.nextDouble() + sc.nextDouble()) / 2.0;
             numSalesRep++;
@@ -383,28 +525,29 @@ public class Fall2020Question7 {
         return numSalesRep;
     }
 
-    public static void computeTripLength(double[] averageTripLength, PrintWriter pw, int numRecords) {
+    public static void computeTripLength(PrintWriter pw, double[] averageTripLength, int numRecords) {
 
-        // method is self explanatory
+        // the overall average is the average of all the individual averages
         double sum = 0;
 
         for (int i = 0; i < numRecords; i++) {
             sum += averageTripLength[i];
         }
 
-        double average = (sum / numRecords);
+        double average = sum / numRecords;
 
+        // count how many individual averages are above, below, and equal to it
         int aboveAverage = 0;
         int belowAverage = 0;
         int equalAverage = 0;
 
         for (int i = 0; i < numRecords; i++) {
-            if (averageTripLength[i] == average)
-                equalAverage++;
-            else if (averageTripLength[i] > average)
+            if (averageTripLength[i] > average)
                 aboveAverage++;
             else if (averageTripLength[i] < average)
                 belowAverage++;
+            else
+                equalAverage++;
         }
 
         pw.println("Above Average: " + aboveAverage);
@@ -414,12 +557,13 @@ public class Fall2020Question7 {
 
     public static void sortArray(String[] names, double[] averageTripLength, int numRecords) {
 
-        // basic bubble sort. compareTo used for string comparison. names[j].compareTo(names[j+1]) < 0
-        // is the same as names[j] < names[j+1]
-        // we swap both the person's name & trip length to make sure everything lines up properly.
-        for (int i = 0; i < numRecords; i++) {
+        // bubble sort on the names, in reverse alphabetical order.
+        // names[j].compareTo(names[j + 1]) < 0 means names[j] comes first alphabetically,
+        // so it gets swapped toward the end.
+        // the trip lengths are swapped too, so each name keeps its own average.
+        for (int i = 0; i < numRecords - 1; i++) {
             for (int j = 0; j < numRecords - i - 1; j++) {
-                if (names[j].compareTo(names[j+1]) < 0) {
+                if (names[j].compareTo(names[j + 1]) < 0) {
                     String temp = names[j + 1];
                     names[j + 1] = names[j];
                     names[j] = temp;

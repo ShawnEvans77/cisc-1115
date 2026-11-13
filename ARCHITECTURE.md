@@ -74,18 +74,45 @@ Ids appear in URLs and in saved progress, so keep them lowercase letters, digits
 
 ### Content markup
 
-`Question.prompt`, `Question.explanation`, and note sections with `type: "text"` are rendered by `PromptBody`:
+`Question.prompt`, `Question.explanation`, text solutions, and note sections with `type: "text"` are rendered by `PromptBody`:
 
 | Markup | Result |
 | --- | --- |
 | `[[code]]…[[/code]]` | Java block with syntax highlighting |
-| `[[text]]…[[/text]]` | Monospace block without highlighting (tables, traces, output) |
-| `**bold**`, `*italic*`, `__underline__` | Inline styles within one line of prose |
+| `[[text]]…[[/text]]` | Monospace block without highlighting: program output, input files, binary addition |
+| `[[table]]…[[/table]]` | Table. One row per line, cells separated by `\|`, first row is the header |
+| `**bold**`, `*italic*`, `__underline__` | Inline styles within one line of prose or one table cell |
 | 1 to 3 leading spaces | Line indented one level |
 | 4 or more leading spaces | Line indented two levels |
 | Blank line | Line break |
 
-`Question.solution` and note sections with `type: "code"` are shown verbatim in a code block. A solution is highlighted as Java unless `solutionType: "text"` is set. `Question.mathLatex` is rendered as a KaTeX display equation under the prompt; remember to double the backslashes inside template strings.
+Use `[[table]]` for every chart: trace tables, binary search low/mid/high steps, conversion work, method tracing tables. Do not hand-align columns in `[[text]]`. Example:
+
+```text
+[[table]]
+Low | Mid | High
+0 | 5 | 10
+1 | - | 0
+[[/table]]
+```
+
+`Question.solution` depends on `solutionType`:
+
+- `"java"` (the default): shown verbatim as highlighted, copyable code. Use it for programs, methods, statements, and code fixes.
+- `"text"`: rendered with the markup above. Use it for traces, printed output, conversions, and short answers. It can still contain `[[code]]` blocks.
+
+Note sections with `type: "code"` are shown verbatim as Java. `Question.mathLatex` is rendered as a KaTeX display equation under the prompt; remember to double the backslashes inside template strings.
+
+`src/data/content.test.ts` enforces the markup: balanced block delimiters, every table row with the same number of cells as its header, and an even number of `*` and `__` on each prose line. An odd count means arithmetic like `a * b` leaked into prose; move it into a `[[code]]` block or write it as `×`.
+
+### Writing questions
+
+- Copy the prompt from the exam PDF faithfully, then format it: code in `[[code]]`, sample input and output in `[[text]]`, charts in `[[table]]`. Leave the answer out of the prompt even when the PDF shows it.
+- Split a multi-part question into separate entries (`5a`, `5b`) when the parts are independent. Keep it as one entry when later parts depend on earlier ones.
+- Explanations talk to the student ("we", "you"), walk through the reasoning in short paragraphs, and point out the trap the question is testing.
+- Stay inside what CISC 1115 covers: Scanner, File and PrintWriter, printf, arrays and parallel arrays, String methods, Math methods, loops, methods, and bubble or selection sort. No ArrayList, Arrays.sort, or other library shortcuts.
+- Every program needs a comment in main and in each method, since the exams require it.
+- Compile and run every Java solution before publishing it, and run every trace through Java rather than tracing by hand.
 
 The Java highlighter (`utils/highlightJava.tsx`) is a small line tokenizer, not a parser. It does not handle block comments or char literals.
 

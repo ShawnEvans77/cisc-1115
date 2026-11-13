@@ -67,6 +67,9 @@
   .content-block  { padding: 1.25rem 1rem; }
 
   .code-scroll-wrapper pre { font-size: 0.83rem; line-height: 1.85; padding: 1rem; tab-size: 2; }
+  .content-table           { font-size: 0.85rem; }
+  .content-table th,
+  .content-table td        { padding: 0.45rem 0.6rem; white-space: normal; }
 
   .copy-btn { width: 100%; text-align: center; }
   .finish-toggle { width: 100%; text-align: center; }

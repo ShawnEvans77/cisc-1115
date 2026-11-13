@@ -30,4 +30,7 @@ Static React 19 + TypeScript + Vite study site. No backend; content is TypeScrip
 - The theme storage key and theme colors are duplicated in `index.html` and `src/hooks/useTheme.ts`. Change both.
 - Content strings are template literals: escape backticks and `${`, and double the backslashes in `mathLatex`.
 - Leading spaces in prompt and explanation lines are meaningful (they indent the line), so do not reformat content strings.
+- Charts go in `[[table]]` blocks, not hand-aligned `[[text]]`. Traces and short answers use `solutionType: "text"`. See "Content markup" and "Writing questions" in ARCHITECTURE.md.
+- A bare `*` in prose starts italics. Keep arithmetic like `a * b` in `[[code]]` blocks or write `×`; the content test fails on unpaired markers.
+- Exam answers must be verified, not hand-traced: compile and run every Java solution, and run trace questions through Java.
 - `cta-btn--<variant>` classes in `home.css` are built dynamically in `Home.tsx`; a search for the full class name finds no usage.

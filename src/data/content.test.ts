@@ -3,6 +3,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { parsePrompt, parseTable } from "../utils/parsePrompt";
 import { examPdfs } from "./examPdfs";
 import { exams } from "./exams";
 import { notes } from "./notes";
@@ -25,8 +26,37 @@ function count(text: string, token: string): number {
 }
 
 function expectBalancedBlocks(text: string, where: string) {
-  for (const block of ["code", "text"]) {
+  for (const block of ["code", "text", "table"]) {
     expect(count(text, `[[${block}]]`), `unbalanced [[${block}]] in ${where}`).toBe(count(text, `[[/${block}]]`));
+  }
+}
+
+// An odd number of "*" or "__" on a prose line leaves a marker unpaired, so part of
+// the line renders in the wrong style. Put arithmetic like a * b in a [[code]] block.
+function expectPairedInlineMarkup(line: string, where: string) {
+  expect(count(line, "**") % 2, `unpaired ** in ${where}: ${line}`).toBe(0);
+  expect(count(line.replaceAll("**", ""), "*") % 2, `unpaired * in ${where}: ${line}`).toBe(0);
+  expect(count(line, "__") % 2, `unpaired __ in ${where}: ${line}`).toBe(0);
+}
+
+// Checks everything PromptBody renders: block delimiters, table shapes, and inline markup.
+function expectValidMarkup(text: string, where: string) {
+  expectBalancedBlocks(text, where);
+
+  for (const segment of parsePrompt(text)) {
+    if (segment.type === "table") {
+      const [header, ...rows] = parseTable(segment.content);
+      expect(rows.length, `table without rows in ${where}`).toBeGreaterThan(0);
+
+      for (const row of rows) {
+        expect(row.length, `table row "${row.join(" | ")}" in ${where} has the wrong number of cells`).toBe(header.length);
+      }
+      for (const cell of [...header, ...rows.flat()]) expectPairedInlineMarkup(cell, where);
+    }
+
+    if (segment.type === "text") {
+      for (const line of segment.content.split("\n")) expectPairedInlineMarkup(line, where);
+    }
   }
 }
 
@@ -42,7 +72,7 @@ describe("exams", () => {
         expectValidIds(exam.questions.map(question => question.id), "question id");
       });
 
-      it("has complete questions with balanced blocks", () => {
+      it("has complete questions with valid markup", () => {
         for (const question of exam.questions) {
           const where = `${exam.id}/${question.id}`;
 
@@ -51,8 +81,14 @@ describe("exams", () => {
           }
           expect(question.topics.length, `${where} has no topics`).toBeGreaterThan(0);
           expectUnique(question.topics, `topic in ${where}`);
-          expectBalancedBlocks(question.prompt, `${where} prompt`);
-          expectBalancedBlocks(question.explanation, `${where} explanation`);
+          expectValidMarkup(question.prompt, `${where} prompt`);
+          expectValidMarkup(question.explanation, `${where} explanation`);
+
+          if (question.solutionType === "text") {
+            expectValidMarkup(question.solution, `${where} solution`);
+          } else {
+            expect(question.solution, `${where} is a Java solution but contains [[ markup`).not.toContain("[[");
+          }
         }
       });
     });
@@ -93,7 +129,7 @@ describe("notes", () => {
 
         for (const section of entry.sections) {
           expect(section.content.trim(), `${where} "${section.label}" is empty`).not.toBe("");
-          if (section.type === "text") expectBalancedBlocks(section.content, `${where} "${section.label}"`);
+          if (section.type === "text") expectValidMarkup(section.content, `${where} "${section.label}"`);
         }
       }
     });

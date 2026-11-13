@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parsePrompt, stripPromptDelimiters } from "./parsePrompt";
+import { parsePrompt, parseTable, stripPromptDelimiters } from "./parsePrompt";
 
 describe("parsePrompt", () => {
   it("returns plain prose as a single text segment", () => {
@@ -25,8 +25,29 @@ describe("parsePrompt", () => {
   });
 });
 
+describe("tables", () => {
+  it("parses [[table]] blocks as their own segment", () => {
+    expect(parsePrompt("see:[[table]]a | b\n1 | 2[[/table]]")).toEqual([
+      { type: "text", content: "see:" },
+      { type: "table", content: "a | b\n1 | 2" },
+    ]);
+  });
+
+  it("splits rows on newlines and cells on pipes, ignoring blank lines", () => {
+    expect(parseTable("\n x | y \n\n 5 | 10\n6|9\n")).toEqual([
+      ["x", "y"],
+      ["5", "10"],
+      ["6", "9"],
+    ]);
+  });
+
+  it("does not pair mismatched delimiters", () => {
+    expect(parsePrompt("[[code]]a[[/text]]")).toEqual([{ type: "text", content: "[[code]]a[[/text]]" }]);
+  });
+});
+
 describe("stripPromptDelimiters", () => {
   it("removes block delimiters and keeps their content", () => {
-    expect(stripPromptDelimiters("a [[code]]b[[/code]] [[text]]c[[/text]]")).toBe("a b c");
+    expect(stripPromptDelimiters("a [[code]]b[[/code]] [[text]]c[[/text]] [[table]]d[[/table]]")).toBe("a b c d");
   });
 });

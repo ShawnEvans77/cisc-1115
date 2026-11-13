@@ -8,7 +8,9 @@ export interface Question {
   mathLatex?:    string;             // LaTeX string, rendered by <MathDisplay>
   explanation:   string;
   solution:      string;
-  solutionType?: "java" | "text";   // defaults to "java" when absent
+  // "java" (default): shown as highlighted, copyable code.
+  // "text": rendered with the same markup as prompts (prose, [[table]], [[code]]).
+  solutionType?: "java" | "text";
 }
 
 export interface Exam {

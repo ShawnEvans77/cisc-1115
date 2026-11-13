@@ -21,14 +21,24 @@ export function QuestionPromptBlock({ question }: QuestionBlockProps) {
 // SolutionDetail scrolls to this block by id.
 export const SOLUTION_BLOCK_ID = "solution";
 
+// Java solutions are shown as copyable code. Text solutions (traces, conversions,
+// short answers) use the same markup as prompts, so they can mix prose, tables, and code.
 export function SolutionBlock({ question }: QuestionBlockProps) {
+  if (question.solutionType === "text") {
+    return (
+      <ContentBlock id={SOLUTION_BLOCK_ID} label="Solution">
+        <PromptBody text={question.solution} />
+      </ContentBlock>
+    );
+  }
+
   return (
     <ContentBlock
       id={SOLUTION_BLOCK_ID}
       label="Solution"
       headerSlot={<CopyButton content={question.solution} />}
     >
-      <CodeBlock code={question.solution} language={question.solutionType ?? "java"} />
+      <CodeBlock code={question.solution} />
     </ContentBlock>
   );
 }
