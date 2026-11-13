@@ -71,12 +71,12 @@ Now both start and end are 13. (13 + 13) / 2 is 13. A[13] is 36. The target is f
 
 Binary search questions will typically ask you to fill in a chart of start, mid, and end at each step. In this case, our chart is:
 [[table]]
-Start | Mid | End | A[mid]
-0 | 9 | 18 | 20
-10 | 14 | 18 | 40
-10 | 11 | 13 | 28
-12 | 12 | 13 | 30
-13 | 13 | 13 | 36 (found)
+Start | Mid | End
+0 | 9 | 18
+10 | 14 | 18
+10 | 11 | 13
+12 | 12 | 13
+13 | 13 | 13
 [[/table]]
 
 When the target is *not* in the array, start eventually passes end. Show that last row with a dash for mid, since the loop stops before computing it.`,

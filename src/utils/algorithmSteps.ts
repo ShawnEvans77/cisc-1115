@@ -86,7 +86,7 @@ function onlyInRange(pointers: Pointer[], length: number): Pointer[] {
 
 // Expects nums to be sorted, like the real method.
 export function recordBinarySearch(nums: number[], target: number): AlgorithmRun {
-  const rec = createRecorder(nums, ["Start", "Mid", "End", "A[mid]"]);
+  const rec = createRecorder(nums, ["Start", "Mid", "End"]);
   const n = nums.length;
   let start = 0;
   let end = n - 1;
@@ -122,7 +122,7 @@ export function recordBinarySearch(nums: number[], target: number): AlgorithmRun
     const midValue = nums[mid];
 
     if (target === midValue) {
-      rec.rows.push([String(start), String(mid), String(end), `${midValue} (found)`]);
+      rec.rows.push([String(start), String(mid), String(end)]);
       rec.step({
         lines: ["if (target == nums[mid])", "return mid;"],
         message: `nums[${mid}] is ${midValue}, which is the target. The method returns ${mid}.`,
@@ -133,7 +133,7 @@ export function recordBinarySearch(nums: number[], target: number): AlgorithmRun
       return rec.finish();
     }
 
-    rec.rows.push([String(start), String(mid), String(end), String(midValue)]);
+    rec.rows.push([String(start), String(mid), String(end)]);
 
     if (target < midValue) {
       end = mid - 1;
@@ -156,7 +156,7 @@ export function recordBinarySearch(nums: number[], target: number): AlgorithmRun
     }
   }
 
-  rec.rows.push([String(start), "-", String(end), "-"]);
+  rec.rows.push([String(start), "-", String(end)]);
   rec.step({
     lines: ["while (start <= end)", "return -1;"],
     message: `start (${start}) is now past end (${end}), so the loop stops. ${target} is not in the array and the method returns -1.`,
