@@ -91,7 +91,7 @@ For index 0, it searches the *whole* array for the smallest value and swaps it i
 
 For example, given {29, 10, 14, 37, 13}:
 [[table]]
-Position | Smallest from here | Array afterwards
+Position | Min | Array afterwards
 0 | 10 | {10, 29, 14, 37, 13}
 1 | 13 | {10, 13, 14, 37, 29}
 2 | 14 | {10, 13, 14, 37, 29}

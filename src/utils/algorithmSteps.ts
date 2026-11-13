@@ -286,7 +286,7 @@ export function recordBubbleSort(nums: number[]): AlgorithmRun {
 }
 
 export function recordSelectionSort(nums: number[]): AlgorithmRun {
-  const rec = createRecorder(nums, ["Position", "Smallest from here", "Array afterwards"]);
+  const rec = createRecorder(nums, ["Position", "Min", "Array afterwards"]);
   const values = rec.values;
   const n = values.length;
 
