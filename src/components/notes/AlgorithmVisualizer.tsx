@@ -92,14 +92,15 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
     setPlaying(true);
   }
 
-  function load(values: number[], nextTarget: number, message: string | null) {
+  // Run plays the new input from the start; Random and Note example only load it.
+  function load(values: number[], nextTarget: number, message: string | null, autoplay = false) {
     setInput(values);
     setTarget(nextTarget);
     setArrayText(values.join(", "));
     setTargetText(String(nextTarget));
     setNotice(message ? { text: message, error: false } : null);
     setStepIndex(0);
-    setPlaying(false);
+    setPlaying(autoplay);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -122,10 +123,10 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
     if (isBinary) {
       const sorted = [...parsed.values].sort((a, b) => a - b);
       const changed = sorted.some((value, i) => value !== parsed.values[i]);
-      load(sorted, nextTarget, changed ? "Binary search only works on a sorted array, so your numbers were sorted first." : null);
+      load(sorted, nextTarget, changed ? "Binary search only works on a sorted array, so your numbers were sorted first." : null, true);
       return;
     }
-    load(parsed.values, nextTarget, null);
+    load(parsed.values, nextTarget, null, true);
   }
 
   function loadRandom() {
