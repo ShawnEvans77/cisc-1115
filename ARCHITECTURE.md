@@ -98,7 +98,7 @@ Low | Mid | High
 
 `Question.solution` depends on `solutionType`:
 
-- `"java"` (the default): shown verbatim as highlighted, copyable code. Use it for programs, methods, statements, and code fixes.
+- `"java"` (the default): shown verbatim as highlighted, copyable code. Use it for programs, methods, statements, and code fixes. When the code has comments, a **Remove comments** toggle hides them (`utils/javaComments.ts`), and Copy code copies whichever version is shown.
 - `"text"`: rendered with the markup above. Use it for traces, printed output, conversions, and short answers. It can still contain `[[code]]` blocks.
 
 Note sections with `type: "code"` are shown verbatim as Java. `Question.mathLatex` is rendered as a KaTeX display equation under the prompt; remember to double the backslashes inside template strings.

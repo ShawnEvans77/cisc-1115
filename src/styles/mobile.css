@@ -73,6 +73,8 @@
   .content-table th        { letter-spacing: 0.02em; }
 
   .copy-btn { width: 100%; text-align: center; }
+  .code-actions { width: 100%; }
+  .code-actions > * { flex: 1; text-align: center; }
   .finish-toggle { width: 100%; text-align: center; }
   .progress-filter {
     width: 100%;

@@ -259,6 +259,30 @@
   .copy-btn:hover  { background-color: var(--color-orange-hover); }
   .copy-btn.copied { background-color: var(--color-copy-success); }
 
+  .code-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .comment-toggle {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-orange);
+    background-color: transparent;
+    border: 1px solid var(--color-orange);
+    border-radius: 3px;
+    padding: 0.65rem 1.25rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.18s;
+  }
+  .comment-toggle:hover { background-color: var(--color-orange-light); }
+  .comment-toggle[aria-pressed="true"] { background-color: var(--color-orange-light); }
+
   .finish-toggle {
     font-family: var(--font-mono);
     font-size: 0.8rem;
