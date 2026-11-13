@@ -18,13 +18,19 @@ small = arr[0];
 for (int j = 0; j < arr.length-1; j++)
     if (small < arr[j])
         arr[j] = small;[[/code]]`,
-      explanation: `Finding the smallest value is a classic pattern: assume the first value is the smallest, then walk through the rest of the array and replace your guess whenever you find something smaller. This code gets three things wrong.
+      explanation: `Finding the smallest value is a classic pattern: *assume* the first value is the smallest, then walk the rest of the array and replace your guess whenever you find something smaller. This code gets **three** things wrong:
+[[table]]
+Problem | Original | Fixed
+Loop stops early | j < arr.length-1 | j < arr.length
+Comparison is backwards | small < arr[j] | arr[j] < small
+Assignment is backwards | arr[j] = small | small = arr[j]
+[[/table]]
 
-**The loop stops early.** **j < arr.length-1** never looks at the last element. If the smallest value is at the very end, it gets missed. The condition should be **j < arr.length**. (Starting at 1 is optional, since arr[0] is already in small.)
+**The loop stops early.** **j < arr.length-1** never looks at the last element, so a minimum at the very end is missed. (Starting at 1 is optional, since arr[0] is already in small.)
 
-**The comparison is backwards.** **small < arr[j]** is true when arr[j] is *bigger*. We want to react when arr[j] is smaller, so it should be **arr[j] < small**.
+**The comparison is backwards.** **small < arr[j]** is true when arr[j] is *bigger*. We want to react when arr[j] is *smaller*.
 
-**The assignment is backwards.** **arr[j] = small** overwrites the array and leaves small alone. We want to update small, so it should be **small = arr[j]**.`,
+**The assignment is backwards.** **arr[j] = small** overwrites the array and leaves small alone. We want to update **small**.`,
       solution: `small = arr[0];
 for (int j = 1; j < arr.length; j++)   // FIX: check every element, including the last
     if (arr[j] < small)                // FIX: react when arr[j] is smaller
@@ -44,15 +50,21 @@ int n = arr.length;
 for (int k = arr.length; k <= 0; k--)
     sum = sum + arr[k];
 double avg = sum / n;[[/code]]`,
-      explanation: `There are three problems here, two in the loop and one in the division.
+      explanation: `There are **three** problems: two in the loop and one in the division.
+[[table]]
+Problem | Original | Fixed
+Loop never runs | k <= 0 | k >= 0
+Starts out of bounds | k = arr.length | k = n - 1
+Integer division | sum / n | (double) sum / n
+[[/table]]
 
-**The loop never runs.** k starts at arr.length, which is positive, so **k <= 0** is false right away. Going backwards, the loop should keep running *while k >= 0*.
+**The loop never runs.** k starts at arr.length, which is positive, so **k <= 0** is false right away. Counting down, the loop should run *while* **k >= 0**.
 
-**The starting index is out of bounds.** Even with the condition fixed, **arr[arr.length]** does not exist. The last valid index is **arr.length - 1**, so that is where k should start.
+**The starting index is out of bounds.** Even with the condition fixed, **arr[arr.length]** does not exist. The last valid index is **arr.length - 1**.
 
-**The division is integer division.** sum and n are both ints, so **sum / n** chops off the decimal *before* the result is stored in avg. An average of 2.5 would come out as 2.0. Cast one side to double first: **(double) sum / n**.
+**The division is integer division.** sum and n are both ints, so **sum / n** chops off the decimal *before* the result reaches avg. An average of 2.5 would come out as 2.0. Cast one side to double first.
 
-Counting backwards is fine, by the way. Addition does not care about order. A forward loop from 0 to n - 1 would also be correct.`,
+Counting backwards is fine, by the way. Addition does not care about order, so a forward loop would also work.`,
       solution: `int sum = 0;
 int n = arr.length;
 for (int k = n - 1; k >= 0; k--)    // FIX: start at the last valid index and loop while k >= 0
@@ -78,9 +90,9 @@ i | b[i-1] | a[a.length-i]
 5 | b[4] | a[0]
 [[/table]]
 
-That is exactly a reversal. The only problem is that the loop starts at **i = 0**, and on that first pass **b[-1]** and **a[5]** are both out of bounds, which crashes the program.
+That is exactly a reversal. The only problem is that the loop starts at **i = 0**, and on that first pass **b[-1]** and **a[5]** are both *out of bounds*, which crashes the program.
 
-Start the loop at 1 and keep **i <= a.length**.`,
+**Start the loop at 1** and keep **i <= a.length**.`,
       solution: `int[] a = {1,2,3,4,5};
 int[] b = new int[5];
 for (int i = 1; i <= a.length; i++)   // FIX: start at 1 so b[i-1] and a[a.length-i] stay in bounds
@@ -97,13 +109,14 @@ do {
     x = x + 3;
 } while (x < 10);
 System.out.println("now " + x);[[/code]]`,
-      explanation: `A **do while** loop always runs its body at least once, and checks the condition at the *bottom*.
+      explanation: `A **do while** loop always runs its body **at least once**, and checks the condition at the *bottom*.
+[[table]]
+Pass | Prints | x after x + 3 | x < 10?
+1 | 5 | 8 | true, go again
+2 | 8 | 11 | false, stop
+[[/table]]
 
-Print 5, then x becomes 8. Is 8 < 10? Yes, so go again.
-
-Print 8, then x becomes 11. Is 11 < 10? No, so the loop ends.
-
-The last line prints "now " followed by the final value of x, which is 11.`,
+The last line prints "now " followed by the final value of x, which is **11**.`,
       solutionType: "text",
       solution: `[[text]]5
 8
@@ -118,9 +131,9 @@ now 11[[/text]]`,
     System.out.println(i + " and " + (i * 10 - 1));
 }
 System.out.println("finished");[[/code]]`,
-      explanation: `The loop counts down from 3 and stops once i is no longer greater than 1, so it only runs for i = 3 and i = 2.
+      explanation: `The loop counts down from 3 and stops once i is no longer greater than 1, so it only runs for **i = 3 and i = 2**.
 
-The parentheses around the math matter. Without them, Java would glue i onto the String first and then try to subtract from a String. With them, the math happens first:
+The parentheses around the math matter. Without them, Java would glue i onto the String first and then try to subtract from a String, which does not compile. With them, the math happens *first*:
 [[table]]
 i | i × 10 − 1 | Printed
 3 | 29 | 3 and 29
@@ -145,11 +158,15 @@ while (j < z) {
     j++;
 }
 System.out.println("it is " + j + " at the end");[[/code]]`,
-      explanation: `Comparing an int to a double is allowed. Java just treats j as a decimal for the comparison.
+      explanation: `Comparing an int to a double is allowed. Java treats j as a decimal for the comparison.
+[[table]]
+j | j < 5.4321? | Prints
+4 | true | 4 is less than 5.4321
+5 | true | 5 is less than 5.4321
+6 | false | (loop ends)
+[[/table]]
 
-4 < 5.4321, so print and j becomes 5. 5 < 5.4321, so print and j becomes 6. 6 < 5.4321 is false, so the loop stops.
-
-Notice that z prints exactly as stored, 5.4321, and that the last line shows j *after* it went one past the limit.`,
+Notice that z prints exactly as stored, **5.4321**, and that the last line shows j *after* it went one past the limit: **6**.`,
       solutionType: "text",
       solution: `[[text]]4 is less than 5.4321
 5 is less than 5.4321
@@ -177,7 +194,7 @@ System.out.println(source.substring(pos3+1, pos2));[[/code]]
 
 c.
 [[code]]System.out.println(str1.compareTo(str2) > 0);[[/code]]`,
-      explanation: `String questions get much easier once you write the indices under the characters.
+      explanation: `String questions get much easier once you **write the indices under the characters**. In the tables below, ␣ marks a space.
 
 For **a**, notice the String ends with a space.
 [[table]]
@@ -329,9 +346,17 @@ Write the code to count how many elements of the array are even and between 30 a
       explanation: `Loop through the array and test each value against **three** conditions at once:
 
   • **numbers[i] % 2 == 0** checks that it is even. An even number has no remainder when divided by 2.
-  • **numbers[i] >= 30** and **numbers[i] <= 40** check the range. Inclusive means 30 and 40 themselves count, so we use >= and <=, not > and <.
+  • **numbers[i] >= 30** and **numbers[i] <= 40** check the range. *Inclusive* means 30 and 40 themselves count, so use >= and <=, not > and <.
 
-All three have to be true, so they are joined with **&&**. Every time a value passes, bump the counter.`,
+All three must be true, so they are joined with **&&**:
+[[table]]
+Value | Even? | 30 to 40? | Counted?
+30 | yes | yes | yes
+31 | no | yes | no
+36 | yes | yes | yes
+40 | yes | yes | yes
+42 | yes | no | no
+[[/table]]`,
       solution: `int count = 0;
 
 for (int i = 0; i < numbers.length; i++) {
@@ -351,13 +376,18 @@ System.out.println(count);`,
 
 Write an expression in Java that will compute one of the values of x based on the formula below:`,
       mathLatex: `x = \\dfrac{-b + \\sqrt{b^2 - 4ac}}{2a}`,
-      explanation: `This is a direct translation problem. The main thing is to keep the same structure as the formula instead of trying to simplify it in your head.
+      explanation: `This is a direct translation problem. Keep the **same structure** as the formula instead of simplifying it in your head.
+[[table]]
+Math | Java
+√(b² − 4ac) | Math.sqrt(…)
+b² | Math.pow(b, 2)
+[[/table]]
 
-The square root part becomes **Math.sqrt(...)**. The b² part becomes **Math.pow(b, 2)**, because Java does not use **^** for exponents.
+Java does not use **^** for exponents, which is why b² becomes **Math.pow(b, 2)**.
 
-The whole top of the fraction goes in one set of parentheses, and the whole bottom goes in another. Without the parentheses around the bottom, Java would divide by 2 and then *multiply* by a.
+The whole top of the fraction goes in one set of parentheses, and the whole bottom goes in another. *Without* the parentheses around the bottom, Java would divide by 2 and then **multiply** by a.
 
-The denominator uses **2.0** instead of **2** so the final division happens as decimal division, not integer division.`,
+The denominator uses **2.0** instead of **2** so the division is decimal division, not integer division.`,
       solution: `double x1 = (-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2.0 * a);`,
     },
     {
@@ -379,11 +409,11 @@ List the low, mid and high values at each step until 1 is not found. Do NOT writ
 Now low is 0 and high is -1. The loop condition **low <= high** is false, so the search stops. 1 is smaller than everything in the array, so high keeps dropping until it falls off the left edge.`,
       solutionType: "text",
       solution: `[[table]]
-Low | Mid | High
-0 | 4 | 9
-0 | 1 | 3
-0 | 0 | 0
-0 | - | -1
+Low | Mid | High | nums[mid]
+0 | 4 | 9 | 100
+0 | 1 | 3 | 77
+0 | 0 | 0 | 5
+0 | - | -1 | -
 [[/table]]
 
 The search stops because low (0) is greater than high (-1). 1 is not in the array.`,
@@ -433,9 +463,15 @@ The method multiplies each element of beta by the corresponding value of alpha a
 
 **readData** opens input.txt with a Scanner and reads two doubles per row with a **while** loop on **hasNextDouble()**. The first goes into arrOne, the second into arrTwo, and a counter tracks how many rows were read. That counter is the return value.
 
-**changeArray** loops through the first k elements and multiplies **beta[i]** by **alpha[i]**, storing the result back into beta. Main passes arr1 as alpha and arr2 as beta, since arr2 is the one that changes. With the sample data, arr2 becomes {164.92, 1409.92, 751.0}.
+**changeArray** loops through the first k elements and multiplies **beta[i]** by **alpha[i]**, storing the result back into beta. Main passes arr1 as alpha and arr2 as beta, since **arr2 is the one that changes**:
+[[table]]
+arr1 (alpha) | arr2 before (beta) | arr2 after
+7 | 23.56 | 164.92
+16 | 88.12 | 1409.92
+10 | 75.1 | 751.00
+[[/table]]
 
-**sortArray** is a plain ascending sort. This solution uses selection sort: find the smallest remaining value and swap it into place. Notice that the two arrays are sorted *separately*, not in parallel. The 1409.92 that started next to 16 ends up next to 16 again only because both happen to be the largest.
+**sortArray** is a plain ascending sort. This solution uses selection sort: find the smallest remaining value and swap it into place. The two arrays are sorted *separately*, **not in parallel**. The 1409.92 that started next to 16 ends up next to 16 again only because both happen to be the largest.
 
 For the output, **printf** handles the right alignment. **%5.2f** prints a decimal with two places, padded to a width of 5. 1409.92 is 7 characters wide, so the second column uses **%7.2f**.`,
       solution: `import java.io.File;

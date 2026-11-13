@@ -16,11 +16,17 @@ Each element of the new array that is returned is the larger (based on the ASCII
 For example, if ['x', '3', '?'] and ['7', '4', 'e'] were passed to maxChar, it would return the array ['x', '4', 'e'].
 
 Or, if ['6', 'f', 'n'] and ['S', 'u', ','] were passed to maxChar, then ['S', 'u', 'n'] would be returned.`,
-      explanation: `This is mostly a "follow the prompt exactly" problem. We are making a third array that lines up with the two arrays we were given.
+      explanation: `This is mostly a "follow the prompt exactly" problem. We build a **third array** that lines up with the two we were given.
 
 Create a new **char[]** with the same length as one of the input arrays. Then loop through every index.
 
-Chars are compared by their ASCII codes, so **>** works on them directly. At each index, compare **A[i]** and **B[i]**. If A[i] has the larger ASCII value, put A[i] in the new array. Otherwise, put B[i] there.
+Chars are compared by their **ASCII codes**, so **>** works on them directly. At each index, keep whichever of **A[i]** and **B[i]** is larger:
+[[table]]
+i | A[i] (ASCII) | B[i] (ASCII) | C[i]
+0 | 'x' (120) | '7' (55) | 'x'
+1 | '3' (51) | '4' (52) | '4'
+2 | '?' (63) | 'e' (101) | 'e'
+[[/table]]
 
 The solution uses the conditional operator, **condition ? valueIfTrue : valueIfFalse**, to do that in one line. An if/else does the same job:
 [[code]]if (A[i] > B[i])
@@ -91,25 +97,25 @@ Java evaluates the + signs from left to right. s is a String, so "ava Progra" + 
 [[code]]int[] nums = {9, 15, 23, 67, 78, 85, 111, 117, 135, 225, 829, 1000};[[/code]]
 
 Enter into the table the low, mid and high values as the binary search progresses. Do NOT write any code. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
-      explanation: `The array has 12 values, so the first index is **0** and the last index is **11**. Binary search always checks the middle of the current range.
+      explanation: `The array has 12 values, so the indices go from **0 to 11**. Binary search always checks the **middle** of the current range.
 
-Start with **low = 0** and **high = 11**. The middle is **(0 + 11) / 2 = 5**. Since **nums[5] = 85**, and 85 is bigger than 11, move left by setting **high = mid - 1**.
+Start with **low = 0** and **high = 11**. (0 + 11) / 2 is 5. nums[5] is 85, bigger than 11, so move left: **high = mid - 1 = 4**.
 
-Now the range is **0 to 4**. The middle is **2**. Since **nums[2] = 23**, and 23 is still bigger than 11, move left again.
+(0 + 4) / 2 is 2. nums[2] is 23, still bigger than 11: **high = 1**.
 
-Now the range is **0 to 1**. The middle is **0**. Since **nums[0] = 9**, and 9 is smaller than 11, move right by setting **low = mid + 1**.
+(0 + 1) / 2 is 0, since integer division drops the decimal. nums[0] is 9, *smaller* than 11, so move right: **low = mid + 1 = 1**.
 
-Now the range is **1 to 1**. The middle is **1**. Since **nums[1] = 15**, and 15 is bigger than 11, move left one more time.
+(1 + 1) / 2 is 1. nums[1] is 15, bigger than 11: **high = 0**.
 
-At this point, **low = 1** and **high = 0**. The condition **low <= high** is false, so the search stops. The value 11 is not in the array.`,
+Now **low = 1** and **high = 0**. The condition **low <= high** is false, so the search stops. 11 is *not* in the array.`,
       solutionType: "text",
       solution: `[[table]]
-Low | Mid | High
-0 | 5 | 11
-0 | 2 | 4
-0 | 0 | 1
-1 | 1 | 1
-1 | - | 0
+Low | Mid | High | nums[mid]
+0 | 5 | 11 | 85
+0 | 2 | 4 | 23
+0 | 0 | 1 | 9
+1 | 1 | 1 | 15
+1 | - | 0 | -
 [[/table]]
 
 The search stops because low (1) is greater than high (0). 11 is not in the array.`,
@@ -134,13 +140,19 @@ Number of credits | Level
 [[/table]]
 
 Write a method **myLevel** in Java that accepts a **double** representing the number of credits and returns a **String** containing the level.`,
-      explanation: `This is an **if / else if** ladder. Each level starts where the last one ends, so we only need to check the *upper* edge of each range, going from lowest to highest.
+      explanation: `This is an **if / else if** ladder. Each level starts where the last one ends, so only check the *upper* edge of each range, going from lowest to highest.
 
-If credits is less than 15, it is Lower Freshman. Otherwise, if it is less than 30, it must be somewhere from 15 up to 30, so it is Upper Freshman. And so on. Once a branch matches, the method returns and the rest are skipped.
+If credits is less than 15, it is Lower Freshman. Otherwise, if it is less than 30, it must be from 15 up to 30, so it is Upper Freshman. And so on. Once a branch matches, the method **returns** and the rest are skipped.
 
-Compare against the start of the *next* level (**< 15**) rather than the end of the current one (**<= 14.9**). Credits are a double, so a value like 14.95 is possible. **<= 14.9** would let it slip through to the wrong level, while **< 15** handles every decimal correctly.
+Compare against the start of the **next** level (**< 15**), not the end of the current one (**<= 14.9**). Credits are a double, so a value like 14.95 is possible:
+[[table]]
+credits | <= 14.9 check | < 15 check | Correct level
+14.9 | Lower Freshman | Lower Freshman | Lower Freshman
+14.95 | Upper Freshman (wrong) | Lower Freshman | Lower Freshman
+15 | Upper Freshman | Upper Freshman | Upper Freshman
+[[/table]]
 
-The last level has no upper limit, so it goes in the final else.`,
+The last level has no upper limit, so it goes in the final **else**.`,
       solution: `public static String myLevel(double credits) {
     // check each range from lowest to highest; the first match wins
     if (credits < 15) {
@@ -189,13 +201,19 @@ Month | Leap year | Maximum number of days
 Write, in Java, a method **numberOfDays** which accepts an integer (month) and a boolean (isLeapYear) and returns an integer representing the maximum number of days in the month.
 
 For example, if 3 and true are passed to numberOfDays, it will return 31. If 3 and false are passed, the method will return 31. If 2 and true are passed, it will return 29. If 2 and false are passed, it will return 28.`,
-      explanation: `Instead of writing twelve branches, look for groups in the table.
+      explanation: `Instead of writing twelve branches, look for **groups** in the table:
+[[table]]
+Months | Days | Condition in the code
+2 (February) | 29 in a leap year, 28 otherwise | month == 2
+4, 6, 9, 11 | 30 | month == 4 or 6 or 9 or 11
+1, 3, 5, 7, 8, 10, 12 | 31 | the final else
+[[/table]]
 
-**February** is the only month where the leap year matters. Return 29 if isLeapYear is true and 28 if it is false.
+**February** is the only month where the leap year matters.
 
-**April, June, September, and November** (months 4, 6, 9, and 11) have 30 days. Check all four in one condition with **||**.
+**April, June, September, and November** are checked all at once, joined with **||**.
 
-**Every other month** has 31 days, so that is the final else.
+**Every other month** has 31 days, so it falls to the final else.
 
 The February line uses the conditional operator. The if/else version works just as well:
 [[code]]if (isLeapYear)
@@ -221,13 +239,20 @@ else
       topics: ["Equations", "Math Methods"],
       prompt: `Convert the following mathematical expression into Java code (not a complete program).`,
       mathLatex: `w = \\sqrt{\\dfrac{\\sqrt{\\dfrac{x+y}{z}} - 1}{(1+x)^2}}`,
-      explanation: `This is another direct equation translation. Work from the inside out so the parentheses stay under control.
+      explanation: `This is another direct equation translation. Work **from the inside out** so the parentheses stay under control.
+[[table]]
+Step | Math | Java
+1 | (x + y) / z | (x + y) / z
+2 | √ of step 1 | Math.sqrt((x + y) / z)
+3 | step 2 minus 1 | (Math.sqrt((x + y) / z) - 1)
+4 | (1 + x)² | Math.pow(1 + x, 2)
+5 | step 3 / step 4 | (…) / Math.pow(1 + x, 2)
+6 | √ of step 5 | Math.sqrt(…)
+[[/table]]
 
-The innermost piece is the fraction **(x + y) / z**. That whole fraction sits under a square root, so it becomes **Math.sqrt((x + y) / z)**.
+Step 3 needs its **own parentheses** before dividing. Otherwise Java would only divide the 1.
 
-Subtract **1** from that to get the top of the big fraction. The bottom is **(1 + x)²**, which becomes **Math.pow(1 + x, 2)**. Put the top in its own parentheses before dividing, otherwise Java would only divide the 1.
-
-Finally, the entire fraction is under the outer square root, so wrap everything in one more **Math.sqrt()**.`,
+The *entire* fraction sits under the outer square root, so everything gets wrapped in one last **Math.sqrt()**.`,
       solution: `double w = Math.sqrt((Math.sqrt((x + y) / z) - 1) / Math.pow(1 + x, 2));`,
     },
     {
@@ -401,9 +426,15 @@ total points | 25 | 27 | 14 | 21 | 24
 
 **totalPoints** creates a new array. Each player's score is two times their two-point baskets plus three times their three-point baskets. We return this new array because the total points are used again later by the averages method and the sort method.
 
-**averages** prints the average points from two-point baskets, three-point baskets, and total points. Be careful here: the two-point and three-point arrays store basket *counts*, so they must be converted into *points* before averaging. With the sample data there are 39 two-point baskets, worth 78 points, and 78 / 5 = 15.60.
+**averages** prints the average points from two-point baskets, three-point baskets, and total points. **Be careful:** the two-point and three-point arrays store basket *counts*, so convert them into *points* before averaging:
+[[table]]
+Column | Baskets | Points | Average over 5 players
+avg2pt | 8 + 6 + 4 + 9 + 12 = 39 | 39 × 2 = 78 | 15.60
+avg3pt | 3 + 5 + 2 + 1 + 0 = 11 | 11 × 3 = 33 | 6.60
+avgpts | - | 25 + 27 + 14 + 21 + 24 = 111 | 22.20
+[[/table]]
 
-**sort** puts the total scores in ascending order. Once the array is sorted, the three lowest scores are simply the first three values. The prompt says sort is passed the array of total points, so it uses the length of that array, which totalPoints made exactly as long as the number of players.`,
+**sort** puts the total scores in ascending order: {25, 27, 14, 21, 24} becomes {14, 21, 24, 25, 27}. The three lowest scores are simply the **first three** values. The prompt says sort is passed the array of total points, so it uses the length of that array, which totalPoints made exactly as long as the number of players.`,
       solution: `import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

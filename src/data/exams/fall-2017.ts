@@ -17,11 +17,18 @@ There is **one** error in the code. Show how to fix it so that it works properly
     sum = sum + i;
 }
 System.out.println("sum = " + sum);[[/code]]`,
-      explanation: `The bug is where **sum = 0** lives. It is *inside* the loop, so sum gets wiped back to zero on every single iteration.
+      explanation: `The bug is where **sum = 0** lives. It is *inside* the loop, so sum is wiped back to zero on **every** iteration.
 
-Trace it with n = 3. On the first pass sum becomes 0, then 1. On the second pass sum becomes 0, then 2. On the third pass sum becomes 0, then 3. The program prints 3 instead of 6.
+Trace it with n = 3:
+[[table]]
+i | after sum = 0 | after sum = sum + i
+1 | 0 | 1
+2 | 0 | 2
+3 | 0 | 3
+[[/table]]
+The program prints **3** instead of **6**. Only the last number survives.
 
-An accumulator has to be set up **once**, before the loop starts. Move the reset above the loop and everything else can stay the same.`,
+An accumulator is set up **once**, *before* the loop. Move the reset above the loop and nothing else needs to change.`,
       solution: `// FIX: reset sum once, before the loop, not on every iteration
 sum = 0;
 
@@ -41,7 +48,7 @@ There is **one** error in the code. Show how to fix it so that it works properly
     System.out.println(n);[[/code]]`,
       explanation: `The loop itself is fine. It runs with i = 1, 2, 3, all the way up to n.
 
-The problem is *what* gets printed. **n** never changes, so if n is 4 this prints 4 four times. The value that changes on each iteration is the loop variable **i**, so that is what we print.`,
+The problem is *what* gets printed. **n** never changes, so if n is 4 this prints 4 four times. The value that changes each time is the loop variable **i**, so print that.`,
       solution: `for (int i = 1; i <= n; i++)
     System.out.println(i); // FIX: print i, not n`,
     },
@@ -61,9 +68,9 @@ do {
 } while (answer == 'y' && answer == 'Y');[[/code]]`,
       explanation: `Look closely at the loop condition. It asks whether **answer** is lowercase y *and* uppercase Y at the same time.
 
-A single char can only hold one value, so that condition is always false. The loop runs doIt() once and then quits, no matter what the user types.
+A char holds one value, so that condition is **always false**. The loop runs doIt() once and quits, no matter what the user types.
 
-We want to keep going if the user typed **either** one, so the **&&** becomes **||**.`,
+We want to keep going if the user typed **either** one, so **&&** becomes **||**.`,
       solution: `char answer;
 Scanner kybd = new Scanner(System.in);
 do {
@@ -87,11 +94,11 @@ There is **one** error in the code. Show how to fix it so that it works properly
         else
             return false;
 }[[/code]]`,
-      explanation: `The **else** belongs to the if, and both branches return. That means the method never gets past index 0.
+      explanation: `The **else** belongs to the if, and both branches return. So the method **never gets past index 0**.
 
-If **a[0]** is negative it returns true, which is right. But if **a[0]** is not negative it immediately returns false, without ever looking at a[1], a[2], and so on. An array like {4, -2, 7} would wrongly report that it has no negatives.
+If **a[0]** is negative it returns true, which is right. But if a[0] is *not* negative it immediately returns false, without looking at a[1], a[2], and so on. An array like {4, -2, 7} would wrongly report no negatives.
 
-We can only say "no negatives" after we have checked *every* value. So delete the else and return false after the loop ends.`,
+We can only say "no negatives" after checking *every* value. Delete the else and **return false after the loop**.`,
       solution: `public static boolean hasNegValue(int[] a, int n)
 {
     for (int i = 0; i < n; i++)
@@ -124,19 +131,19 @@ What would be returned for the following calls?
   iv. In general, what does the method return?
   v. Are there any other cases to take into consideration that are not covered by the above three calls? Answer either "No", or provide such a case.
   vi. Rewrite the method eliminating the if statements; instead use conditional operators only.`,
-      explanation: `Plug each call into the method and see which branch it lands in.
+      explanation: `Plug each call into the method and see which branch it lands in:
+[[table]]
+Call | x < y? | x == y? | Branch | Returns
+methodA(3, 3) | false | true | else if | 0
+methodA(5, 4) | false | false | else | 1
+methodA(20, 30) | true | (not checked) | if | -1
+[[/table]]
 
-**methodA(3, 3)**: 3 is not less than 3, but 3 equals 3, so it returns **0**.
+In general, the method **compares x to y**: -1 if x is smaller, 0 if they match, 1 if x is bigger. It is the same idea as **compareTo()** for Strings.
 
-**methodA(5, 4)**: 5 is not less than 4 and not equal to 4, so it falls to the else and returns **1**.
+For v, the answer is **no**. Any two ints are either less than, equal to, or greater than each other, and the three calls already hit all three branches.
 
-**methodA(20, 30)**: 20 is less than 30, so it returns **-1**.
-
-For the general case, the method compares x to y: negative one if x is smaller, zero if they match, one if x is bigger. This is the same idea as **compareTo()** for Strings.
-
-For v, the answer is no. Any two ints are either less than, equal to, or greater than each other, and the three calls already hit all three branches.
-
-For vi, the conditional operator **condition ? valueIfTrue : valueIfFalse** works like a tiny if/else that produces a value. We need two of them: the first handles x < y, and the second, nested inside the false side, handles equal versus greater.`,
+For vi, the conditional operator **condition ? valueIfTrue : valueIfFalse** is a tiny if/else that produces a value. We need two of them: the first handles x < y, and the second, *nested* on the false side, handles equal versus greater.`,
       solutionType: "text",
       solution: `[[table]]
 Call | Returns
@@ -192,11 +199,21 @@ restOf("wboy") | "boy"
 Write the Java code needed to print the number of words that start with an upper case letter.
 
 So for "The deed is done", your code would print **1**, but for "The name is Bond, JAMES Bond", your code would print **4**.`,
-      explanation: `Since the words are separated by single spaces, **split(" ")** hands us an array of words.
+      explanation: `The words are separated by single spaces, so **split(" ")** hands us an array of words.
 
-For each word, grab its first character with **charAt(0)**. A char is really a number (its ASCII code), and the capital letters 'A' through 'Z' sit right next to each other. So a char is uppercase exactly when it is between 'A' and 'Z'.
+For each word, grab its first character with **charAt(0)**. A char is really a number (its ASCII code), and 'A' through 'Z' sit right next to each other. So a char is uppercase exactly when it is **between 'A' and 'Z'**.
 
-Count the words that pass that check and print the count. In "The name is Bond, JAMES Bond", the words The, Bond, JAMES, and Bond all pass, giving 4. The comma stuck to "Bond," does not matter since we only look at the first character.`,
+Here is the check for "The name is Bond, JAMES Bond":
+[[table]]
+Word | First char | Uppercase?
+The | T | yes
+name | n | no
+is | i | no
+Bond, | B | yes
+JAMES | J | yes
+Bond | B | yes
+[[/table]]
+Four words pass, so it prints **4**. The comma stuck to "Bond," does not matter, since we only look at the *first* character.`,
       solution: `// split the sentence into an array of words
 String[] words = sentence.split(" ");
 int count = 0;
@@ -220,15 +237,19 @@ System.out.println(count);`,
       prompt: `An **int** variable n contains a positive integer and a **String** variable s contains a String.
 
 Write the Java code needed to print "YES" if the first n characters of s appear more than once in s, and print "NO" otherwise.`,
-      explanation: `First, pull out the first n characters with **s.substring(0, n)**. Call that the prefix.
+      explanation: `First, pull out the first n characters with **s.substring(0, n)**. Call that the *prefix*.
 
-We already know the prefix shows up once, at index 0. The question is whether it shows up *again*.
+The prefix always shows up once, at index 0. The question is whether it shows up **again**.
 
-**indexOf()** has a version that takes a starting position: **s.indexOf(prefix, 1)** starts searching at index 1, which skips the copy we already know about. If it finds another copy it returns that index. If not, it returns **-1**.
+**indexOf()** has a version that takes a starting position. **s.indexOf(prefix, 1)** starts searching at index 1, which skips the copy we already know about. It returns the index of another copy, or **-1** if there is none.
+[[table]]
+s | n | prefix | s.indexOf(prefix, 1) | Prints
+"abcab" | 2 | "ab" | 3 | YES
+"abcab" | 3 | "abc" | -1 | NO
+"aaa" | 2 | "aa" | 1 | YES
+[[/table]]
 
-For example, if s is "abcab" and n is 2, the prefix is "ab". Searching from index 1 finds "ab" again at index 3, so we print YES.
-
-This assumes n is no bigger than the length of s, otherwise substring would crash.`,
+The last row shows that overlapping copies count too. This assumes n is no bigger than the length of s, otherwise substring would crash.`,
       solution: `// the first n characters of s
 String prefix = s.substring(0, n);
 
@@ -253,11 +274,11 @@ if (s.indexOf(prefix, 1) != -1) {
         return s1.substring(0, 1) + s2.substring(0, 1) +
                                     s1.substring(0, 1);
 }[[/code]]`,
-      explanation: `Work backwards from the return statements.
+      explanation: `Work **backwards** from the return statements.
 
-The else branch returns exactly **3** characters (one letter from s1, one from s2, then the same letter from s1 again). "HOPE" has 4 letters, so the else branch can never produce it. We need the if branch.
+The else branch returns exactly **3** characters: one letter from s1, one from s2, then the same letter from s1 again. "HOPE" has 4 letters, so the else branch can never produce it. We need the **if** branch.
 
-The if branch returns the first letter of s1 followed by everything in s2 after its first letter. So s1 must start with **H**, and s2 must be any letter followed by **OPE**. Let's pick **s2 = "ROPE"**.
+The if branch returns the first letter of s1, then everything in s2 after its first letter. So s1 must start with **H**, and s2 must be any letter followed by **OPE**. Let's pick **s2 = "ROPE"**.
 
 Now satisfy the three conditions, one at a time:
 
@@ -289,8 +310,15 @@ Many other answers work, as long as they pass all three checks.`,
 
 Write code in Java that will set the variable **invalid** to true if the value of **grade** is invalid and false otherwise.`,
       explanation: `A grade is invalid if it is below 0 **or** above 100. Either one is enough, so we use **||**.
+[[table]]
+grade | grade < 0 | grade > 100 | invalid
+-1 | true | false | true
+0 | false | false | false
+100 | false | false | false
+101 | false | true | true
+[[/table]]
 
-A comparison already produces a true or false value, so we can store it straight into the boolean. There is no need for an if statement. The longer version below does the same thing and is also correct.
+A comparison already *is* a true or false value, so we can store it straight into the boolean. No if statement needed. The longer version below does the same thing and is also correct.
 [[code]]if (grade < 0 || grade > 100)
     invalid = true;
 else
@@ -307,7 +335,7 @@ Generate **10** random numbers (integers) each between **1 and 10**. Print the n
       explanation: `Recall the formula for a random integer from min to max, inclusive:
 [[code]]int randInt = (int) (Math.random() * (max - min + 1) + min);[[/code]]
 
-Here min is 1 and max is 10. Loop 10 times, generate a number each time, and bump a counter whenever the number is bigger than 5. Print the counter after the loop.`,
+Here **min is 1** and **max is 10**. Loop 10 times, generate a number each time, and bump a counter whenever the number is **bigger than 5**. Print the counter *after* the loop.`,
       solution: `int count = 0;
 
 for (int i = 0; i < 10; i++) {
@@ -332,15 +360,15 @@ Assume you wish to find the location of the element with value **43**.
 
   i. Show the sequence of numbers that you would encounter in this search if you used a **sequential** search.
   ii. Show the sequence of numbers that you would encounter in this search if you used a **binary** search.`,
-      explanation: `A sequential (linear) search starts at index 0 and checks every value in order until it finds the target. 43 is at index 3, so we see 3, 15, 25, and then 43.
+      explanation: `A **sequential** (linear) search starts at index 0 and checks every value in order. 43 is at index 3, so we see 3, 15, 25, and then 43.
 
-A binary search jumps to the middle instead. The array has 10 values, so the indices go from **0 to 9**.
+A **binary** search jumps to the middle instead. The array has 10 values, so the indices go from **0 to 9**.
 
-(0 + 9) / 2 is 4, since integer division drops the decimal. nums[4] is **50**, which is too big, so we move left by setting high to mid - 1. High becomes 3.
+(0 + 9) / 2 is 4, since integer division drops the decimal. nums[4] is **50**, too big, so move left: high = mid - 1 = 3.
 
-(0 + 3) / 2 is 1. nums[1] is **15**, which is too small, so we move right by setting low to mid + 1. Low becomes 2.
+(0 + 3) / 2 is 1. nums[1] is **15**, too small, so move right: low = mid + 1 = 2.
 
-(2 + 3) / 2 is 2. nums[2] is **25**, still too small. Low becomes 3.
+(2 + 3) / 2 is 2. nums[2] is **25**, still too small: low = 3.
 
 (3 + 3) / 2 is 3. nums[3] is **43**. Found it.`,
       solutionType: "text",
@@ -384,11 +412,20 @@ Since the powers are small, plain multiplication also works and needs no cast:
   c. At the end, print 2 things with an appropriate message: the number of pairs processed, and the value of the quotient closest to zero. Remember that the quotient may be positive or negative.`,
       explanation: `Read two ints at a time with a **while** loop that keeps going as long as **hasNextInt()** is true.
 
-Both numbers are ints, so dividing them directly would be integer division and chop off the decimal. Cast one of them to **double** first, for example **(double) first / second**.
+Both numbers are ints, so dividing them directly would be **integer division** and chop off the decimal. Cast one to **double** first: **(double) first / second**.
 
-The prompt never says what to do when the sum is exactly zero (for example 4 and -4). This solution sends that case to the else branch along with the negative sums.
+Here is how a few pairs play out:
+[[table]]
+first | second | Sum | Quotient
+3 | 4 | 7 (positive) | 3 / 4 = 0.75
+-6 | 2 | -4 (negative) | 2 / -6 = -0.33
+5 | -10 | -5 (negative) | -10 / 5 = -2.00
+[[/table]]
+Of these, **-0.33** is closest to zero.
 
-"Closest to zero" means the smallest **absolute value**, since -0.25 is closer to zero than 0.5. **Math.abs()** strips the sign. Compare absolute values, but remember the real quotient so the sign is printed correctly. The very first quotient becomes the starting "closest" value, so the comparison only kicks in from the second pair on.`,
+The prompt never says what to do when the sum is *exactly* zero (for example 4 and -4). This solution sends that case to the else branch with the negative sums.
+
+"Closest to zero" means the smallest **absolute value**: -0.33 is closer to zero than 0.75. **Math.abs()** strips the sign. Compare absolute values, but store the *real* quotient so the sign prints correctly. The first quotient is the starting "closest" value, so the comparison kicks in from the second pair on.`,
       solution: `import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -535,13 +572,18 @@ Write a complete Java program, __including at least one comment in the main prog
       For example, if the method starts with 5 66 -4 5 1 -3 in the w array, with n = 6, the array will hold 66 5 5 1 -3 -4 afterwards.`,
       explanation: `Each method does one job, so tackle them one at a time.
 
-Both main and **readdata()** need to read from the keyboard. Making two separate Scanners on System.in can cause input to go missing, so this solution makes one Scanner as a **static** variable at the top of the class. Every method in the class can use it.
+Both main and **readdata()** read from the keyboard. Two separate Scanners on System.in can lose input, so this solution makes **one Scanner** as a **static** variable at the top of the class. Every method in the class can use it.
 
 **readdata()** loops n times. Each time it reads an int, stores it in the array, and prints it right away.
 
-**count5s()** keeps three counters. Every value is either greater than, less than, or equal to 5, so an if / else if / else chain bumps exactly one counter per value.
+**count5s()** keeps three counters. Every value is greater than, less than, or equal to 5, so an if / else if / else chain bumps exactly one counter per value. With the sample values:
+[[table]]
+Value | 5 | 66 | -4 | 5 | 1 | -3
+Compared to 5 | equal | greater | less | equal | less | less
+[[/table]]
+That is **1 greater, 3 less, and 2 equal**.
 
-**sortarray()** is a bubble sort. For descending order, we swap whenever the left value is *smaller* than the right value. That pushes the small values toward the end. Notice the method only sorts the first n elements, not all 100 slots.
+**sortarray()** is a bubble sort. For *descending* order, swap whenever the left value is **smaller** than the right one, which pushes small values toward the end. It only sorts the first n elements, not all 100 slots.
 
 Back in main, print the first k elements of x after the sort.`,
       solution: `import java.util.Scanner;

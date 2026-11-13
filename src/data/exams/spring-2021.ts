@@ -21,11 +21,17 @@ Thus, you would get a triangle of the shape below where **1** prints once, **2**
 7777777
 88888888
 999999999[[/text]]`,
-      explanation: `Two nested loops are needed to solve this problem. Almost any problem involving patterns is going to involve nested loops.
+      explanation: `This needs two **nested loops**. Almost any pattern problem does.
 
-The **outer** for loop decides *which* digit is printed. The **inner** for loop decides *how many times* that digit is printed.
-
-When **i = 1**, the inner loop runs once, so 1 prints once. When **i = 2**, the inner loop runs twice, so 2 prints twice. The process continues the same way up to **9**.
+The **outer** loop decides *which* digit is printed. The **inner** loop decides *how many times* that digit is printed.
+[[table]]
+i (outer) | Inner loop runs | Line printed
+1 | 1 time | 1
+2 | 2 times | 22
+3 | 3 times | 333
+… | … | …
+9 | 9 times | 999999999
+[[/table]]
 
 After the inner loop finishes, an empty **println()** moves to the next line. Without it, every digit would end up on one long line.`,
       solution: `public class Spring2021Question1 {
@@ -60,13 +66,23 @@ For example, given the input:
 
 The output is:
 [[text]]groceries - 4 vowels[[/text]]`,
-      explanation: `The solution, for the most part, is a direct translation of the prompt.
+      explanation: `The solution is mostly a direct translation of the prompt.
 
-Start by creating a Scanner. Create an empty String that will hold the word with the most vowels so far, and an int that remembers how many vowels that word had.
+Create a Scanner, an empty String to hold the **best word so far**, and an int for **its vowel count**.
 
-Create a **while** loop bounded by the Scanner **hasNext()** method, a boolean method telling you if there is anything more to read. Read in the current word, then use a **for** loop with **charAt()** to count how many of its letters are vowels.
+Use a **while** loop on **hasNext()**, which is true as long as there is more to read. Read the current word, then use a **for** loop with **charAt()** to count its vowels.
 
-If this word has *more* vowels than the best so far, it becomes the new best. Use **>** and not **>=** here. In the example, "groceries" and "yourselves" both have 4 vowels. With **>**, the later word does not replace the earlier one, so we keep the first, just like the prompt asks.
+If this word has *more* vowels than the best so far, it becomes the new best:
+[[table]]
+Word | Vowels | Best so far
+she | 1 | she (1)
+groceries | 4 | groceries (4)
+yourselves | 4 | groceries (4), a tie keeps the first
+here | 2 | groceries (4)
+radio | 3 | groceries (4)
+[[/table]]
+
+Use **>** and *not* **>=** here. "groceries" and "yourselves" both have 4 vowels, and with **>** the later word does not replace the earlier one, just like the prompt asks.
 
 At the end, print the winning word and its vowel count.
 
@@ -130,7 +146,7 @@ while (x+y < 13) {
         //print x and y values at this point
     } while (x>10);
 }[[/code]]`,
-      explanation: `There are three print points. Write down x and y every time execution passes one of them.
+      explanation: `There are **three print points**. Write down x and y every time execution passes one of them.
 
 Start: **x = 7, y = 3**.
 
@@ -142,17 +158,17 @@ Start: **x = 7, y = 3**.
 
 **10 + 3 = 13** is not less than 13, so the while loop ends.
 
-Notice that x + y goes up by exactly 1 per trip around the while loop: the first two lines change the sum by +2 - 1, and the do while changes it by -1 + 1. That is a quick way to double check the trace.`,
+**Quick double check:** x + y goes up by exactly 1 per trip around the while loop. The first two lines change the sum by +2 - 1, and the do while changes it by -1 + 1. So the sum goes 10, 11, 12, 13, and the loop stops at 13.`,
       solutionType: "text",
       solution: `[[table]]
-x | y
-7 | 3
-9 | 2
-8 | 3
-10 | 2
-9 | 3
-11 | 2
-10 | 3
+x | y | Print point
+7 | 3 | before the while
+9 | 2 | while: x + 2, y - 1
+8 | 3 | do while: x--, y++
+10 | 2 | while: x + 2, y - 1
+9 | 3 | do while: x--, y++
+11 | 2 | while: x + 2, y - 1
+10 | 3 | do while: x--, y++ (both loops end)
 [[/table]]`,
     },
     {
@@ -164,15 +180,15 @@ x | y
     for (int j=i-2; j<15; j=j+2)
         //print i and j values at this point
 }[[/code]]`,
-      explanation: `The outer loop runs for i = 12, 11, and 10. It stops once i reaches 9.
+      explanation: `The outer loop runs for **i = 12, 11, and 10**. It stops once i reaches 9.
 
-For each i, the inner loop starts j at **i - 2** and counts up by 2 while j is less than 15.
-
-When **i = 12**, j starts at 10: 10, 12, 14. The next value, 16, fails the check.
-
-When **i = 11**, j starts at 9: 9, 11, 13. The next value, 15, fails because 15 is not *less than* 15.
-
-When **i = 10**, j starts at 8: 8, 10, 12, 14.`,
+For each i, the inner loop starts j at **i - 2** and counts up **by 2** while j is less than 15.
+[[table]]
+i | j starts at | j values | First value that fails
+12 | 10 | 10, 12, 14 | 16
+11 | 9 | 9, 11, 13 | 15 (not *less than* 15)
+10 | 8 | 8, 10, 12, 14 | 16
+[[/table]]`,
       solutionType: "text",
       solution: `[[table]]
 i | j
@@ -366,11 +382,18 @@ The following numbers were not read in:
 12 13 14 16 17 18 19 21 22 24 25 27 28 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 51 52 53 54 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 100[[/text]]
 
 On the exam, you could answer either this question or question 5.`,
-      explanation: `The main trick is using a **histogram** to remember which numbers were read in. We create an array of size **101** so that indices **1 to 100** exist, one slot per possible number.
+      explanation: `The trick is a **histogram** that remembers which numbers were read in. Make an array of size **101** so indices **1 to 100** exist, one slot per possible number.
 
-Print the instructions first, *then* read the first number. Reading before printing would leave the user staring at a blank screen.
+Print the instructions *first*, then read the first number. Reading before printing leaves the user staring at a blank screen.
 
-Use a **while** loop that continues until a **-1** is entered. Inside the loop, if the number is *not* between 1 and 100, print an error. Otherwise, add one to that number's slot in the histogram: a 35 adds one to index 35, a 67 adds one to index 67. Read the next number at the bottom of the loop.
+Use a **while** loop that continues until a **-1** is entered. Read the next number at the *bottom* of the loop.
+[[table]]
+Number read | What happens
+35 | histogram[35]++
+150 | error message, not between 1 and 100
+0 | error message, not between 1 and 100
+-1 | loop ends
+[[/table]]
 
 Once the loop ends, go through indices 1 to 100 and print every index that is still **zero**. A zero means we __never__ read in that number.`,
       solution: `import java.util.Scanner;
@@ -425,7 +448,7 @@ a. 1011111 (base 2) to base 10
 b. 246 (base 10) to base 2
 
 c. BA (base 16) to base 2`,
-      explanation: `Recall how we humans use numbers. In **base 10**, say we have the number **512**. 512 = (5×10²) + (1×10¹) + (2×10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreds place, and so on. The same idea applies to other bases.
+      explanation: `**Every place in a number is worth a power of its base.** In base 10, 512 is 5×10² + 1×10¹ + 2×10⁰: a ones place, a tens place, a hundreds place. Base 2 and base 16 work the same way, with powers of 2 and 16.
 
 For **a**, the number has seven digits. Label the rightmost digit 2⁰, the next 2¹, and so on up to 2⁶. Then add up every place that holds a 1.
 
@@ -505,11 +528,17 @@ Uptown          57200.00[[/text]]
 
 **readData** fills two parallel arrays. The String array stores the neighborhood names, and the double array stores the average of the four prices for that neighborhood. The prices are whole dollars, so read them with **nextInt()**, add them up, and divide by **4.0** so the average keeps its decimal. Every time we read a full record, we increment the counter. At the end, that counter tells the rest of the program how many real records are in the arrays.
 
-**modifyData** first computes the overall average by summing the neighborhood averages and dividing by the number of records. Then it loops through the average price array again. If a neighborhood's average is below the overall average, multiply it by **1.10** to increase it by 10%. If it is above, multiply it by **0.85** to decrease it by 15%. A neighborhood exactly at the average is left alone.
+**modifyData** first computes the overall average by summing the neighborhood averages and dividing by the number of records. Then it loops through the averages again and applies the rule:
+[[table]]
+Neighborhood average is | Change | Multiply by
+below the overall average | up 10% | 1.10
+above the overall average | down 15% | 0.85
+equal to the overall average | none | (left alone)
+[[/table]]
 
 **sortArrays** is a parallel sort. This means whenever two average prices swap places, the matching neighborhood names must swap too. If you only sort the prices array, the names and averages will no longer match.
 
-After sorting in descending order, the highest averages are at the **front** of the arrays and the lowest averages are at the **end**. So main prints the first three records for the highest prices, then prints the last three records *backwards*, starting from the very last one, for the lowest prices.
+After sorting in descending order, the highest averages are at the **front** and the lowest are at the **end**. So main prints the first three records for the highest prices, then the last three *backwards*, starting from the very last one, for the lowest.
 
 For the columns, **%-15s** left adjusts the name in a field 15 characters wide, and **%9.2f** right adjusts the price with two decimal places.`,
       solution: `import java.util.Scanner;

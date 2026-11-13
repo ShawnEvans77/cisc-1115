@@ -22,27 +22,27 @@ do {
         y = y - 3;
     }
 } while (x < 10);[[/code]]`,
-      explanation: `We want to write down every pair of values x and y take, in order.
+      explanation: `Write down every pair of values x and y take, **in order**.
 
-x and y begin at **5 and 10**. Write that down.
+x and y begin at **5 and 10**.
 
-Enter the do while loop. Increment x and decrement y: x = 6, y = 9.
+Enter the do while. Increment x and decrement y: **x = 6, y = 9**.
 
-y = 9 is greater than 8, so the inner while loop runs. Add 2 to x and subtract 3 from y: x = 8, y = 6. Now y = 6 is not greater than 8, so the inner loop stops.
+y = 9 is greater than 8, so the *inner* while runs. Add 2 to x and subtract 3 from y: **x = 8, y = 6**. Now y = 6 is not greater than 8, so the inner loop stops.
 
-Back at the bottom of the do while. x = 8 is less than 10, so go around again.
+At the bottom of the do while, x = 8 is less than 10, so go around again.
 
-Increment x and decrement y: x = 9, y = 5. y is not greater than 8, so the inner loop is skipped entirely. x = 9 is still less than 10, so go around again.
+Increment and decrement: **x = 9, y = 5**. y is not greater than 8, so the inner loop is **skipped entirely**. x = 9 is still less than 10, so go around again.
 
-Increment x and decrement y: x = 10, y = 4. The inner loop is skipped again. x = 10 is *not* less than 10, so the do while finally ends.`,
+Increment and decrement: **x = 10, y = 4**. The inner loop is skipped again. x = 10 is *not* less than 10, so the do while finally ends.`,
       solutionType: "text",
       solution: `[[table]]
-x | y
-5 | 10
-6 | 9
-8 | 6
-9 | 5
-10 | 4
+x | y | What happened
+5 | 10 | starting values
+6 | 9 | do while: x++, y--
+8 | 6 | inner while: x + 2, y - 3
+9 | 5 | do while: x++, y-- (inner while skipped)
+10 | 4 | do while: x++, y-- (both loops end)
 [[/table]]`,
     },
     {
@@ -55,13 +55,13 @@ x | y
 
     }
 }[[/code]]`,
-      explanation: `We want to write down every value i and j take.
+      explanation: `Write down every value i and j take.
 
-i starts at **0**. The inner loop sets j = i = 0, but j > 0 is false, so the inner loop never runs. We write i = 0 and nothing for j.
+i starts at **0**. The inner loop sets j = i = 0, but j > 0 is false, so the inner loop **never runs**.
 
-i goes up by 2, to **2**. Now j starts at 2, and the inner loop runs with j = 2, then j = 1. When j drops to 0 the condition fails and the inner loop stops.
+i goes up by 2, to **2**. j starts at 2, and the inner loop runs with j = 2, then j = 1. When j drops to 0 the condition fails and the inner loop stops.
 
-i goes up to **4**. j starts at 4 and counts down: 4, 3, 2, 1. Do you notice the pattern? j always starts at i and counts down to 1.
+i goes up to **4**. j starts at 4 and counts down: 4, 3, 2, 1. See the pattern? **j always starts at i and counts down to 1.**
 
 i goes up to 6, which is not less than 5, so everything stops.
 
@@ -94,17 +94,21 @@ For example, if inches is:
 
 Then the program's output is:
 [[text]]245897 inches equals 3 miles 1550 yards 1 foot and 5 inches[[/text]]`,
-      explanation: `To solve this problem, you need the division and modulo operators working as a team.
+      explanation: `This problem needs the division and modulo operators working as a team.
 
-**Division** tells you how many whole units fit. **Modulo** tells you what is left over after you take those units away.
+**Division** tells you how many whole units fit. **Modulo** tells you what is *left over* after you take those units away.
 
-Start with the biggest unit. A mile is 5280 × 12 = 63360 inches. 245897 / 63360 is **3** miles, and 245897 % 63360 leaves 55817 inches.
+Start with the **biggest** unit. A mile is 5280 × 12 = 63360 inches. Then repeat with the next unit down, using only the leftover inches:
+[[table]]
+Unit | Inches per unit | Count (division) | Left over (modulo)
+miles | 63360 | 245897 / 63360 = 3 | 245897 % 63360 = 55817
+yards | 36 | 55817 / 36 = 1550 | 55817 % 36 = 17
+feet | 12 | 17 / 12 = 1 | 17 % 12 = 5
+[[/table]]
 
-Repeat with the next unit down, using only the leftover inches. 55817 / 36 is **1550** yards, leaving 55817 % 36 = 17 inches.
+The last leftover, **5**, is the inches.
 
-Then feet: 17 / 12 is **1** foot, leaving 17 % 12 = **5** inches.
-
-They can ask different variants of this problem. Sometimes it is coins, sometimes it is seconds. The recipe is always the same: start large, divide to get the count, and mod to strip those units off.`,
+They can ask different variants of this problem: coins, seconds, and so on. The recipe never changes: **start large, divide to get the count, and mod to strip those units off.**`,
       solution: `public class Fall2020Question2 {
     public static void main(String[] args) {
 
@@ -144,13 +148,13 @@ a. 1100110 (base 2) to base 10
 b. AB (base 16) to base 10
 
 c. 65 (base 10) to base 2`,
-      explanation: `Recall how we humans use numbers. In base 10, say we have the number 512. 512 = (5×10²) + (1×10¹) + (2×10⁰). 500 plus 10 plus 2 makes 512. We have a ones place, tens place, hundreds place, and so on. The same idea applies to other bases.
+      explanation: `**Every place in a number is worth a power of its base.** In base 10, 512 is 5×10² + 1×10¹ + 2×10⁰: a ones place, a tens place, a hundreds place. Base 2 and base 16 work the same way, with powers of 2 and 16.
 
-For **a**, the number has seven digits. Label the rightmost digit 2⁰, the next one 2¹, and so on up to 2⁶. Then add up the places that hold a 1.
+For **a**, the number has seven digits. Label the rightmost digit 2⁰, the next 2¹, and so on up to 2⁶. Then add up the places that hold a 1.
 
-For **b**, in hexadecimal A = 10 and B = 11. Multiply each digit by its power of 16.
+For **b**, in hexadecimal **A = 10** and **B = 11**. Multiply each digit by its power of 16.
 
-For **c**, write out the powers of two: 64, 32, 16, 8, 4, 2, 1. Pick the ones that add up to 65. Only 64 + 1 works, so we write a 1 under 64, a 1 under 1, and a 0 everywhere else.`,
+For **c**, write out the powers of two: 64, 32, 16, 8, 4, 2, 1. Pick the ones that add up to 65. Only **64 + 1** works, so write a 1 under 64, a 1 under 1, and a 0 everywhere else.`,
       solutionType: "text",
       solution: `**a. 102**
 [[table]]
@@ -331,11 +335,17 @@ v in main after call to doTwo | 32
 Assume there exists a method **max3()**, which accepts 3 integers as input and returns the largest integer.
 
 Write **one** Java statement to find the maximum of the six integers using any combination of **Math.max()** and **max3()**.`,
-      explanation: `Java does not have a max method that accepts any number of arguments. The standard **Math.max()** method only accepts two values, so we need to group the integers.
+      explanation: `**Math.max()** only accepts **two** values, so we need to group the integers.
 
-Use **max3()** once on **i, j, k** and once on **l, m, n**. Now we have the maximum from the first group and the maximum from the second group.
+Use **max3()** once on **i, j, k** and once on **l, m, n**. That gives the biggest value in each group.
 
-Then send those two results into **Math.max()**. The larger of the two group maximums must be the largest value out of all six integers.`,
+Then send those two results into **Math.max()**. The larger of the two group winners is the largest of all six.
+[[table]]
+Step | Call | Example with 3, 9, 2, 7, 11, 4
+Group 1 | max3(i, j, k) | 9
+Group 2 | max3(l, m, n) | 11
+Winner | Math.max(9, 11) | 11
+[[/table]]`,
       solution: `int max = Math.max(max3(i, j, k), max3(l, m, n));`,
     },
     {
@@ -344,13 +354,18 @@ Then send those two results into **Math.max()**. The larger of the two group max
       topics: ["Equations", "Math Methods"],
       prompt: `Write a Java expression that would compute the following:`,
       mathLatex: `\\frac{x^2 - \\dfrac{1}{(y+3)}}{\\dfrac{1}{z} + \\sqrt{x}}`,
-      explanation: `This is a direct equation translation. The safest move is to build the expression one piece at a time and use parentheses whenever a fraction has a numerator and denominator.
+      explanation: `This is a direct equation translation. Build the expression **one piece at a time**, and use parentheses whenever a fraction has a top and a bottom.
+[[table]]
+Piece | Java
+x² | Math.pow(x, 2)
+√x | Math.sqrt(x)
+Top of the big fraction | Math.pow(x, 2) - (1.0 / (y + 3))
+Bottom of the big fraction | (1.0 / z) + Math.sqrt(x)
+[[/table]]
 
-The **x²** part becomes **Math.pow(x, 2)**. The square root in the denominator becomes **Math.sqrt(x)**.
+Once the top and bottom are built, wrap **each** in its own parentheses and divide.
 
-The numerator is **Math.pow(x, 2) - (1.0 / (y + 3))**. The denominator is **(1.0 / z) + Math.sqrt(x)**. Once those two pieces are built, wrap each in its own parentheses and divide.
-
-Use **1.0** instead of **1** in the small fractions. If y and z are ints, **1 / z** would be integer division and come out as 0 for any z bigger than 1.`,
+Use **1.0** instead of **1** in the small fractions. If y and z are ints, **1 / z** would be *integer division* and come out as 0 for any z bigger than 1.`,
       solution: `double result = (Math.pow(x, 2) - (1.0 / (y + 3))) / ((1.0 / z) + Math.sqrt(x));`,
     },
     {
@@ -361,25 +376,25 @@ Use **1.0** instead of **1** in the small fractions. If y and z are ints, **1 / 
 [[code]]int[] nums = {12, 77, 87, 89, 100, 117, 125, 189, 235, 529, 1000};[[/code]]
 
 List the low, mid and high values at each step until the algorithm stops. Do NOT write any code. You may use either the subscript (index) values or the actual number stored at the subscript. Not all rows of the table may be needed.`,
-      explanation: `The array has 11 values, with the minimum index being 0 and the maximum index being 10. Recall that binary search involves jumping to the middle in search of your number. If the middle is too small, move right. If the middle is too big, move left.
+      explanation: `The array has 11 values, so the indices go from **0 to 10**. Binary search jumps to the middle. If the middle is **too small, move right**. If the middle is **too big, move left**.
 
-(0 + 10) / 2 is 5. nums[5] is 117, which is bigger than 18, so we move left by changing high to mid - 1. The new high becomes 4.
+(0 + 10) / 2 is 5. nums[5] is 117, bigger than 18, so move left: high = mid - 1 = 4.
 
-(0 + 4) / 2 is 2. nums[2] is 87, which is bigger than 18. The new high becomes 1.
+(0 + 4) / 2 is 2. nums[2] is 87, still bigger: high = 1.
 
-(0 + 1) / 2 is 0, since the decimal is truncated in integer division. nums[0] is 12, which is smaller than 18, so we move right by changing low to mid + 1. The new low becomes 1.
+(0 + 1) / 2 is 0, since integer division truncates the decimal. nums[0] is 12, smaller than 18, so move right: low = mid + 1 = 1.
 
-(1 + 1) / 2 is 1. nums[1] is 77, which is bigger than 18. The new high becomes 0.
+(1 + 1) / 2 is 1. nums[1] is 77, bigger than 18: high = 0.
 
-Now low is 1 and high is 0. The binary search loop condition, **while (low <= high)**, is false. We failed to find 18.`,
+Now low is 1 and high is 0. The loop condition, **while (low <= high)**, is false. 18 is *not* in the array.`,
       solutionType: "text",
       solution: `[[table]]
-Low | Mid | High
-0 | 5 | 10
-0 | 2 | 4
-0 | 0 | 1
-1 | 1 | 1
-1 | - | 0
+Low | Mid | High | nums[mid]
+0 | 5 | 10 | 117
+0 | 2 | 4 | 87
+0 | 0 | 1 | 12
+1 | 1 | 1 | 77
+1 | - | 0 | -
 [[/table]]
 
 The search stops because low (1) is greater than high (0). 18 is not in the array.`,
@@ -399,15 +414,21 @@ For example, if we use the **String** from the example, your program should outp
 07621 8845[[/text]]
 
 **NOTE**: Keep in mind that your code must handle a String that has an arbitrary number of zip codes, not just the three like the example above.`,
-      explanation: `We solve this problem easily by using the **split()** method twice.
+      explanation: `Use **split()** twice.
 
-Split the input String on spaces. That gives an array of full zip codes like "11230-1234".
+Split the input String **on spaces**. That gives an array of full zip codes like "11230-1234".
 
-For each zip code in the array, split *it* on the dash. That gives a two-element array: the first five digits at index 0 and the last four at index 1. Print them with a space in between.
+For each zip code, split *it* **on the dash**. That gives a two-element array: the first five digits at index 0 and the last four at index 1.
+[[table]]
+codes[i] | parts[0] | parts[1] | Printed
+"11230-1234" | "11230" | "1234" | 11230 1234
+"11011-3489" | "11011" | "3489" | 11011 3489
+"07621-8845" | "07621" | "8845" | 07621 8845
+[[/table]]
 
 Because we loop over **codes.length**, this works no matter how many zip codes are in the String.
 
-Keep the zip codes as Strings. If you turned "07621" into an int, the leading zero would disappear.`,
+Keep the zip codes as **Strings**. If you turned "07621" into an int, the leading zero would disappear.`,
       solution: `public class Fall2020Question6 {
     public static void main(String[] args) {
 
@@ -462,13 +483,22 @@ Samuel 234.11 581.83[[/text]]
       a. Sort the sales rep names in descending (reverse) alphabetical order, synchronizing the individual sales rep's average trip length in the parallel array.`,
       explanation: `This is another long method problem, so the easiest way to approach it is to let each method own one piece of the prompt.
 
-**readData** reads one sales rep record at a time. Since each record looks like "Pauline 167.8 567.0", we read the name with **sc.next()** and the two trip lengths with **sc.nextDouble()**. The average of the two trips goes into the double array, and the name goes into the String array at the same index.
+**readData** reads one sales rep record at a time. Each record looks like "Pauline 167.8 567.0", so read the name with **sc.next()** and the two trip lengths with **sc.nextDouble()**. The average of the two trips goes into the double array, and the name goes into the String array **at the same index**.
 
-**computeTripLength** first finds the overall average across all sales reps. Then it loops through the individual averages and counts how many are above, below, or equal to that overall average. Those counts are printed to the output file, which is why the PrintWriter is one of its parameters.
+**computeTripLength** first finds the overall average across all sales reps. Then it counts how many individual averages are above, below, or equal to it, and prints those counts to the output file. That is why the PrintWriter is one of its parameters.
+
+With the sample file:
+[[table]]
+Name | Trip 1 | Trip 2 | Average | Compared to 343.01
+Pauline | 167.8 | 567.0 | 367.40 | above
+Alexander | 451.22 | 56.11 | 253.67 | below
+Samuel | 234.11 | 581.83 | 407.97 | above
+[[/table]]
+The overall average is 343.01, so the file gets **2 above, 1 below, 0 equal**.
 
 **sortArray** is a parallel sort. The primary sort is based on the names, but the average trip length has to move with the matching name. Whenever two names swap, their averages must swap too.
 
-The String comparison uses **compareTo()**. If **names[j].compareTo(names[j + 1]) < 0**, then the name at index j comes earlier alphabetically, so we swap it toward the end to create descending (Z to A) order.`,
+The String comparison uses **compareTo()**. If **names[j].compareTo(names[j + 1]) < 0**, the name at index j comes *earlier* alphabetically, so swap it toward the end. That creates descending (**Z to A**) order: Samuel, Pauline, Alexander.`,
       solution: `import java.util.Scanner;
 import java.io.IOException;
 import java.io.PrintWriter;
