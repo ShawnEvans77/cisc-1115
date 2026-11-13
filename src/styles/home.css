@@ -134,14 +134,6 @@
     background-color: var(--color-subtle-hover);
     border-color:     var(--color-subtle-hover);
   }
-  .cta-btn--blue {
-    background-color: var(--color-blue);
-    border-color:     var(--color-blue);
-  }
-  .cta-btn--blue:hover {
-    background-color: var(--color-blue-hover);
-    border-color:     var(--color-blue-hover);
-  }
 
   .home-divider-wrap {
     max-width: 1100px;

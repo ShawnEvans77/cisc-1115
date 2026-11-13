@@ -1,4 +1,3 @@
-// src/pages/PageNotFound.tsx
 import { Link, useLocation } from "react-router-dom";
 
 function PageNotFound() {

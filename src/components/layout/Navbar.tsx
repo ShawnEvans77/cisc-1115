@@ -1,7 +1,7 @@
-// src/components/layout/Navbar.tsx
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ThemeToggle } from "../ui/ThemeToggle";
+import { cx } from "../../utils/ui";
 
 const centerLinks = [
   { label: "exams",     path: "/exams" },
@@ -31,7 +31,7 @@ function Navbar() {
             <Link
               key={link.path}
               to={link.path}
-              className={`navbar-link ${isActive(link.path) ? "navbar-link--active" : ""}`}
+              className={cx("navbar-link", isActive(link.path) && "navbar-link--active")}
             >
               {link.label}
             </Link>
@@ -42,7 +42,7 @@ function Navbar() {
           <ThemeToggle />
           <Link
             to="/contact"
-            className={`navbar-link ${isActive("/contact") ? "navbar-link--active" : ""}`}
+            className={cx("navbar-link", isActive("/contact") && "navbar-link--active")}
           >
             contact
           </Link>
@@ -64,7 +64,7 @@ function Navbar() {
             <Link
               key={link.path}
               to={link.path}
-              className={`navbar-mobile-link ${isActive(link.path) ? "navbar-mobile-link--active" : ""}`}
+              className={cx("navbar-mobile-link", isActive(link.path) && "navbar-mobile-link--active")}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}

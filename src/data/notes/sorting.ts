@@ -1,4 +1,3 @@
-// src/data/notes/sorting.ts
 import type { NoteTopic } from "../../types";
 
 export const sorting: NoteTopic = {

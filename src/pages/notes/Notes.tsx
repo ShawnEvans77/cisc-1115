@@ -1,15 +1,14 @@
-// src/pages/notes/Notes.tsx
 import { useState } from "react";
 import { notes } from "../../data/notes";
 import { useNotesSearch } from "../../hooks/useNotesSearch";
 import { NoteSearchResults } from "../../components/notes/NoteSearchResults";
+import { IndexedCardList } from "../../components/ui/IndexedCardList";
 import { PageHeader } from "../../components/ui/PageHeader";
-import { SemesterCard } from "../../components/ui/SemesterCard";
 import { hasQuery, pluralize, resultCountLabel } from "../../utils/search";
 
 function Notes() {
   const [query, setQuery] = useState("");
-  const results     = useNotesSearch(query);
+  const results = useNotesSearch(query);
   const showResults = hasQuery(query);
 
   return (
@@ -23,24 +22,18 @@ function Notes() {
         onQueryChange={setQuery}
       />
 
-      {showResults ? (
-        <section className="page-section">
+      <section className="page-section">
+        {showResults ? (
           <NoteSearchResults results={results} query={query} />
-        </section>
-      ) : (
-        <section className="page-section">
-          {notes.map((topic, i) => (
-            <SemesterCard
-              key={topic.id}
-              index={String(i + 1).padStart(2, "0")}
-              label={topic.label}
-              sublabel={pluralize(topic.entries.length, "note")}
-              to={`/notes/${topic.id}`}
-            />
-          ))}
-        </section>
-      )}
-
+        ) : (
+          <IndexedCardList items={notes.map(topic => ({
+            id: topic.id,
+            label: topic.label,
+            sublabel: pluralize(topic.entries.length, "note"),
+            to: `/notes/${topic.id}`,
+          }))} />
+        )}
+      </section>
     </div>
   );
 }

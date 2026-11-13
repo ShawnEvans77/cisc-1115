@@ -1,8 +1,6 @@
-// src/pages/Home.tsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-// ── Data ──────────────────────────────────────────────────────────────────────
+import { cx } from "../utils/ui";
 
 const sections = [
   { index: "01", label: "exams",     path: "/exams",     description: "raw exams from previous semesters" },
@@ -19,8 +17,6 @@ const ctaButtons = [
   { label: "notes",     path: "/notes",     variant: "neutral" },
 ];
 
-// ── Sub-components ────────────────────────────────────────────────────────────
-
 function HeroLine({ position }: { position: "top" | "bottom" }) {
   const [loaded, setLoaded] = useState(false);
 
@@ -31,7 +27,7 @@ function HeroLine({ position }: { position: "top" | "bottom" }) {
 
   return (
     <div
-      className={`hero-line${loaded ? " hero-line--loaded" : ""}`}
+      className={cx("hero-line", loaded && "hero-line--loaded")}
       data-position={position}
     />
   );
@@ -59,8 +55,6 @@ function SectionRow({ index, label, description, path }: typeof sections[0]) {
     </Link>
   );
 }
-
-// ── Page ──────────────────────────────────────────────────────────────────────
 
 function Home() {
   return (

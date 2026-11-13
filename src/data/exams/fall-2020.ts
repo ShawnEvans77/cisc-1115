@@ -1,4 +1,3 @@
-// src/data/semesters/fall-2020.ts
 import type { Exam } from "../../types";
 
 export const fall2020: Exam = {

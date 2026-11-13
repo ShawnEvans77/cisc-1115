@@ -1,5 +1,3 @@
-// src/pages/Contact.tsx
-
 import { ContentBlock } from "../components/ui/ContentBlock";
 import { PageHeader } from "../components/ui/PageHeader";
 

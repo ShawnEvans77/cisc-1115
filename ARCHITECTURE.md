@@ -1,900 +1,126 @@
-# CISC 1115 Learning Platform Architecture
+# Architecture
 
-## Purpose
+A static, frontend-only React app. Content is bundled at build time from typed TypeScript modules; nothing is fetched at runtime. The only persisted state is in `localStorage`.
 
-This project is a static learning platform for Brooklyn College CISC 1115 students. It collects prior exams, extracted exam questions, worked solutions, and topic notes into a navigable study resource.
-
-The app is intentionally frontend-first. There is no server, database, user account system, or API layer. Most content lives as typed TypeScript data, and user-specific progress is stored in the browser with `localStorage`.
-
-The production site is intended for static hosting on Vercel.
-
-## Product Surface
-
-The app supports six main user workflows:
-
-1. Open original exam PDFs.
-2. Browse questions by semester.
-3. Browse solutions by semester.
-4. Search across semesters/questions/topics.
-5. Read notes by topic.
-6. Mark questions as finished locally in the browser.
-
-The primary audience is students reviewing CISC 1115 material. The UI favors simple navigation, searchable content, readable code/math rendering, and a lightweight finished/unfinished progress model.
-
-## Technology Stack
-
-- **React 19** for UI components.
-- **React Router 7** for client-side routing.
-- **TypeScript** for typed content and app logic.
-- **Vite** for local dev and production builds.
-- **KaTeX** for LaTeX math rendering.
-- **Tailwind CSS 4** is imported, but most UI styling is currently custom CSS.
-- **Vercel** for static deployment.
-
-Important package scripts:
-
-```bash
-npm run dev      # start Vite dev server
-npm run build    # TypeScript build + Vite production build
-npm run lint     # ESLint
-npm run preview  # preview production build
-```
-
-## High-Level Architecture
-
-The app is organized around a few clear layers:
+## Layout
 
 ```text
-Browser
-  |
-  v
-React Router
-  |
-  v
-Page components
-  |
-  +-- Shared layout components
-  +-- Exam/question components
-  +-- Notes components
-  +-- UI primitives
-  |
-  v
-Typed local data modules
-  |
-  +-- Exam question data
-  +-- Notes data
-  +-- Exam PDF metadata
+src/
+  main.tsx, app/        entry point, app shell (App.tsx), route table (router.tsx)
+  constants.ts          course name strings
+  types/index.ts        Exam, Question, NoteTopic, NoteEntry, NoteSection, ExamSection
+  data/                 all site content (see "Adding content")
+  pages/                one default-exported component per route
+  components/
+    ui/                 presentational building blocks, no data imports
+    exams/              question and solution screens shared by /questions and /solutions
+    notes/              note search results
+    layout/             Navbar, Footer, ScrollToTop
+  hooks/                search hooks, finished-question progress, theme
+  utils/                pure functions: search, prompt parsing, highlighting
+  styles/               plain CSS, split by area
+public/exams/           original exam PDFs
 ```
 
-There is no network data fetching. The app bundles its content at build time.
+## Routes
 
-User progress is the only persisted user state:
-
-```text
-Question finished toggle
-  |
-  v
-useFinishedQuestions()
-  |
-  v
-localStorage["cisc-1115-finished-questions"]
-```
-
-## Runtime Entry Points
-
-### `index.html`
-
-The Vite HTML entry point. It provides the root DOM element and includes site metadata.
-
-### `src/main.tsx`
-
-Mounts the React app:
-
-- imports global CSS
-- imports KaTeX CSS
-- creates the React root
-- renders the `RouterProvider`
-
-### `src/app/App.tsx`
-
-Defines the persistent app shell:
-
-- `ScrollToTop`
-- `Navbar`
-- routed page content through `<Outlet />`
-- `Footer`
-
-### `src/app/router.tsx`
-
-Defines all client-side routes.
-
-Current route map:
-
-| Route | Page | Purpose |
+| Route | Page | Built from |
 | --- | --- | --- |
-| `/` | `Home` | Landing/navigation hub |
-| `/exams` | `Exams` | Original PDF exam list |
-| `/questions` | `Questions` | Semester index for question browsing |
-| `/questions/:examId` | `SemesterQuestions` | Question list for one semester |
-| `/questions/:examId/:questionId` | `QuestionDetail` | Individual prompt page |
-| `/solutions` | `Solutions` | Semester index for solution browsing |
-| `/solutions/:examId` | `SemesterSolutions` | Solution list for one semester |
-| `/solutions/:examId/:questionId` | `SolutionDetail` | Prompt + solution + explanation |
-| `/notes` | `Notes` | Topic index for notes |
-| `/notes/:topicId` | `NotesTopic` | Note list for one topic |
-| `/notes/:topicId/:entryId` | `NotesDetail` | Individual note page |
-| `/contact` | `Contact` | Contact/contribution info |
-| `*` | `PageNotFound` | 404 fallback |
+| `/` | `Home` | |
+| `/exams` | `Exams` | `IndexedCardList` of PDFs |
+| `/questions`, `/solutions` | `Questions`, `Solutions` | `ExamIndexPage` |
+| `/questions/:examId`, `/solutions/:examId` | `SemesterQuestions`, `SemesterSolutions` | `QuestionListPage` |
+| `/questions/:examId/:questionId` | `QuestionDetail` | `QuestionPageLayout` |
+| `/solutions/:examId/:questionId` | `SolutionDetail` | `QuestionPageLayout` |
+| `/notes` | `Notes` | |
+| `/notes/:topicId` | `NotesTopic` | |
+| `/notes/:topicId/:entryId` | `NotesDetail` | `DetailPageLayout` |
+| `/contact` | `Contact` | |
+| `*` | `PageNotFound` | |
 
-## Data Model
+`/questions` and `/solutions` are the same screens over the same data. The shared components take a `section` prop (`"questions"` or `"solutions"`) and build every link from it. `vercel.json` rewrites all paths to `index.html` so deep links work.
 
-Shared types live in `src/types/index.ts`.
+## Shared building blocks
 
-### Exams
+Reach for these before writing new markup:
 
-```ts
-export interface Question {
-  id: string;
-  title: string;
-  topics: string[];
-  prompt: string;
-  mathLatex?: string;
-  explanation: string;
-  solution: string;
-  solutionType?: "java" | "text";
-}
+| Component | Use |
+| --- | --- |
+| `PageHeader` | Title, subtitle, optional search box, filter controls, and result count |
+| `IndexedCardList` | Numbered list of cards (semesters, topics, PDFs) |
+| `EntryCard` | One row in a question list or note list |
+| `SearchResultList` | Cross-section search results; `ExamSearchResults` and `NoteSearchResults` adapt their data to it |
+| `DetailPageLayout` | Frame for one question, solution, or note: breadcrumb, title, tags, content, bottom nav |
+| `ContentBlock` | Labelled content panel with an optional header action |
+| `PromptBody` | Renders content markup (below) |
+| `CodeBlock`, `MathDisplay`, `CopyButton` | Java or plain code, KaTeX math, copy to clipboard |
+| `EmptyState`, `NotFoundState` | No results, unknown id |
 
-export interface Exam {
-  id: string;
-  label: string;
-  year: string;
-  questions: Question[];
-}
-```
+Helpers: `cx()` joins conditional class names (`utils/ui.ts`), `highlight()` marks the search match in a string (`utils/highlight.tsx`), and `utils/search.ts` holds query normalization, snippets, and count labels.
 
-Exam data is content-as-code. Each semester has a module in:
+## Adding content
 
-```text
-src/data/exams/
-```
+Run `npm test` afterwards. `src/data/content.test.ts` checks ids, required fields, block delimiters, and PDF paths.
 
-The aggregate exam list is exported from:
+**Exam PDF**: put the file in `public/exams/` and add an entry to `src/data/examPdfs.ts`.
 
-```text
-src/data/exams/index.ts
-```
+**Semester**: create `src/data/exams/<term>-<year>.ts` exporting an `Exam`, then add it to the `exams` array in `src/data/exams/index.ts` in chronological order. Use the same `id` as the PDF entry (for example `spring2023`).
 
-To add a new exam semester:
+**Question**: add a `Question` to the semester's `questions` array.
 
-1. Create `src/data/exams/<term-year>.ts`.
-2. Export an `Exam`.
-3. Import it in `src/data/exams/index.ts`.
-4. Add it to the `exams` array in chronological/display order.
+**Note topic**: create `src/data/notes/<topic>.ts` exporting a `NoteTopic` and add it to the array in `src/data/notes/index.ts`.
 
-### Exam PDFs
+Ids appear in URLs and in saved progress, so keep them lowercase letters, digits, and hyphens, unique within their parent, and do not rename them once published. Question ids are the exam's own numbering (`"3"`, `"5a"`).
 
-Original PDFs are static assets in:
+### Content markup
 
-```text
-public/exams/
-```
+`Question.prompt`, `Question.explanation`, and note sections with `type: "text"` are rendered by `PromptBody`:
 
-The PDF list used by `/exams` lives in:
+| Markup | Result |
+| --- | --- |
+| `[[code]]…[[/code]]` | Java block with syntax highlighting |
+| `[[text]]…[[/text]]` | Monospace block without highlighting (tables, traces, output) |
+| `**bold**`, `*italic*`, `__underline__` | Inline styles within one line of prose |
+| 1 to 3 leading spaces | Line indented one level |
+| 4 or more leading spaces | Line indented two levels |
+| Blank line | Line break |
 
-```text
-src/data/examPdfs.ts
-```
+`Question.solution` and note sections with `type: "code"` are shown verbatim in a code block. A solution is highlighted as Java unless `solutionType: "text"` is set. `Question.mathLatex` is rendered as a KaTeX display equation under the prompt; remember to double the backslashes inside template strings.
 
-This is separate from the extracted question data because some PDFs may exist even if extracted questions have not yet been added.
+The Java highlighter (`utils/highlightJava.tsx`) is a small line tokenizer, not a parser. It does not handle block comments or char literals.
 
-### Notes
+## Search
 
-```ts
-export type NoteSection = {
-  type: "text" | "code";
-  label: string;
-  content: string;
-};
+Search is synchronous and in-memory. `collectNestedSearchResults` (`utils/search.ts`) walks parents and children: a parent that matches is returned once on its own, otherwise each matching child is returned. `useExamSearch` applies it to semesters and questions, `useNotesSearch` to topics and note entries. The match predicates live in `utils/examSearch.ts` and `utils/noteSearch.ts`.
 
-export type NoteEntry = {
-  id: string;
-  title: string;
-  tags: string[];
-  sections: NoteSection[];
-};
+## Finished-question progress
 
-export type NoteTopic = {
-  id: string;
-  label: string;
-  entries: NoteEntry[];
-};
-```
+`useFinishedQuestions` stores a list of `"<examId>:<questionId>"` keys under `localStorage["cisc-1115-finished-questions"]` and listens for `storage` events so other tabs stay in sync. It also reads the old key `cisc-1115-visited-questions` when the current one is empty. Questions are only marked finished by the explicit toggle, and a semester shows a checkmark once all of its questions are finished.
 
-Note topic modules live in:
+## Theme
 
-```text
-src/data/notes/
-```
+`useTheme` reads `localStorage["maple-theme"]`, falls back to the OS preference, and sets `data-theme` on `<html>`. An inline script in `index.html` does the same before React mounts to avoid a flash of the wrong theme, so the storage key and the two theme colors exist in both places and must be changed together.
 
-The aggregate notes list is exported from:
+## Styling
 
-```text
-src/data/notes/index.ts
-```
+All styling is hand-written CSS in `src/styles`, imported through `styles/components.css`, which declares the layer order `tokens, base, components, dark`.
 
-## Search Architecture
+| File | Contents |
+| --- | --- |
+| `tokens.css` | Colors, fonts, and light and dark variables. Use these instead of literal colors. |
+| `base.css` | Theme transition, scrollbars |
+| `navigation.css` | Navbar, footer, theme toggle, entry animations |
+| `home.css` | Home page hero and cards |
+| `layout.css` | Page frame, header, breadcrumb, search input, progress filter |
+| `cards.css` | Semester, question, note, result, and contact cards; search highlight |
+| `details.css` | Detail pages, content blocks, code, math, buttons, 404 |
+| `dark.css` | Dark mode overrides, scoped by `[data-theme="dark"]` |
+| `mobile.css` | Everything under the single `850px` breakpoint; deliberately outside the layers |
 
-Search is entirely client-side and synchronous.
+Tailwind is imported in `src/index.css` only for its base reset. Components use the named classes above, not utility classes. Several class names are historical: `semester-card-*` styles every `IndexedCardList`, and `question-card-*` styles every `EntryCard`.
 
-### Exam Search
+## Known tradeoffs
 
-`src/hooks/useExamSearch.ts` searches:
-
-- semester label
-- semester year
-- semester id
-- question title
-- question topics
-- prompt text
-
-It returns discriminated results:
-
-- `semester`
-- `question`
-
-Question prompt text is normalized using helpers from `src/utils/search.ts`.
-
-### Notes Search
-
-`src/hooks/useNotesSearch.ts` searches:
-
-- topic label
-- topic id
-- note title
-- note tags
-- note section content
-
-It returns:
-
-- `topic`
-- `entry`
-
-### Search Utilities
-
-`src/utils/search.ts` contains reusable search helpers:
-
-- `normalizeQuery`
-- `hasQuery`
-- `pluralize`
-- `resultCountLabel`
-- `stripInlineMarkup`
-- `searchablePrompt`
-- `snippetAround`
-- `defaultPreview`
-
-This file is the shared place for text normalization and snippet behavior.
-
-## Finished Question Progress
-
-Question completion is local browser state. It is not synced across users/devices.
-
-Core file:
-
-```text
-src/hooks/useFinishedQuestions.ts
-```
-
-Storage key:
-
-```text
-cisc-1115-finished-questions
-```
-
-The hook exposes:
-
-- `finishedKeys`
-- `toggleFinished(examId, questionId)`
-- `isFinished(examId, questionId)`
-
-It also reads the legacy key:
-
-```text
-cisc-1115-visited-questions
-```
-
-This preserves marks created while the feature was still called “visited.”
-
-Important behavior:
-
-- Opening a question does **not** mark it finished.
-- The user must explicitly press `Mark as finished`.
-- A finished question shows a checkmark next to the question title.
-- A semester shows a checkmark only when every question in that semester is finished.
-- `All / Unfinished / Finished` filters work with or without a search term.
-
-The progress feature is safe for Vercel because it is browser-only.
-
-Limitations:
-
-- Progress is per browser profile.
-- Progress does not sync across devices.
-- Progress can be cleared by browser site-data cleanup.
-- Private/incognito mode may not persist it.
-
-## Prompt and Content Rendering
-
-Exam prompts and note sections can contain simple embedded block delimiters.
-
-Parser:
-
-```text
-src/utils/parsePrompt.ts
-```
-
-Supported prompt blocks:
-
-```text
-[[code]]
-...
-[[/code]]
-```
-
-```text
-[[text]]
-...
-[[/text]]
-```
-
-Rendering component:
-
-```text
-src/components/ui/ContentBlock.tsx
-```
-
-`PromptBody` parses prompt text into:
-
-- prose
-- highlighted Java blocks
-- plain text blocks
-
-Inline prose markers supported:
-
-- `**bold**`
-- `*italic*`
-- `__underline__`
-
-## Code Highlighting
-
-Java highlighting is local and lightweight.
-
-File:
-
-```text
-src/utils/highlightJava.tsx
-```
-
-It tokenizes lines and wraps:
-
-- keywords
-- comments
-- strings
-- numbers
-- punctuation
-
-This is intentionally simple. It is not a full parser.
-
-## Math Rendering
-
-Math is rendered through KaTeX.
-
-File:
-
-```text
-src/components/ui/MathDisplay.tsx
-```
-
-`Question.mathLatex` is rendered through:
-
-```tsx
-<QuestionMath latex={question.mathLatex} />
-```
-
-KaTeX CSS is imported once in:
-
-```text
-src/main.tsx
-```
-
-## Component Architecture
-
-### Layout Components
-
-```text
-src/components/layout/
-```
-
-- `Navbar.tsx`
-- `Footer.tsx`
-- `ScrollToTop.tsx`
-
-These define the persistent app frame and navigation behavior.
-
-### Exam/Question Components
-
-```text
-src/components/exams/
-```
-
-- `ExamIndexPage.tsx`
-- `QuestionListPage.tsx`
-- `QuestionPageLayout.tsx`
-- `QuestionCard.tsx`
-- `SearchResults.tsx`
-
-Responsibilities:
-
-- render semester index pages for questions/solutions
-- render semester-specific question lists
-- render question detail layout
-- render search/progress result rows
-- apply finished progress state to question and semester UI
-
-### Notes Components
-
-```text
-src/components/notes/
-```
-
-- `NoteListPage.tsx`
-- `NotePageLayout.tsx`
-- `NoteCard.tsx`
-- `NoteSearchResults.tsx`
-
-Responsibilities:
-
-- render topic pages
-- render note detail pages
-- render note search results
-
-### UI Components
-
-```text
-src/components/ui/
-```
-
-Reusable primitives:
-
-- `Breadcrumb`
-- `CodeBlock`
-- `ContentBlock`
-- `CopyButton`
-- `EmptyState`
-- `FinishToggle`
-- `MathDisplay`
-- `NotFoundState`
-- `PageHeader`
-- `ProgressFilterControls`
-- `SemesterCard`
-- `ThemeToggle`
-
-These components are intentionally small. They are shared across pages and should remain presentation-focused.
-
-## Styling Architecture
-
-The original monolithic `components.css` has been split into partials.
-
-Import hub:
-
-```text
-src/styles/components.css
-```
-
-It declares layer order and imports the partials:
-
-```css
-@layer tokens, base, components, dark;
-
-@import "./tokens.css";
-@import "./base.css";
-@import "./navigation.css";
-@import "./home.css";
-@import "./layout.css";
-@import "./cards.css";
-@import "./details.css";
-@import "./dark.css";
-@import "./mobile.css";
-```
-
-### Style Partials
-
-```text
-src/styles/tokens.css
-```
-
-Design tokens:
-
-- colors
-- surfaces
-- text colors
-- borders
-- RGB helper triples
-- font families
-- light/dark theme variables
-
-```text
-src/styles/base.css
-```
-
-Global base behavior:
-
-- theme transition helper
-- scrollbar colors
-
-```text
-src/styles/navigation.css
-```
-
-Navigation and shell pieces:
-
-- animations
-- navbar
-- footer
-- theme toggle
-
-```text
-src/styles/home.css
-```
-
-Home page:
-
-- hero
-- CTA buttons
-- home section rows
-- home divider
-
-```text
-src/styles/layout.css
-```
-
-General page structure:
-
-- app shell
-- page root/header/section
-- breadcrumbs
-- search input
-- progress filters
-
-```text
-src/styles/cards.css
-```
-
-Card/list/result styling:
-
-- search highlight
-- semester cards
-- result cards
-- question cards
-- note cards
-- contact rows
-
-```text
-src/styles/details.css
-```
-
-Detail/content surfaces:
-
-- empty states
-- detail page layout
-- content blocks
-- code/math
-- buttons
-- 404
-
-```text
-src/styles/dark.css
-```
-
-Dark mode overrides.
-
-```text
-src/styles/mobile.css
-```
-
-Responsive styles for `max-width: 850px`.
-
-Mobile is intentionally outside CSS layers to avoid specificity surprises.
-
-## Theme System
-
-Theme state is handled by:
-
-```text
-src/hooks/useTheme.ts
-```
-
-Theme behavior:
-
-- reads from `localStorage`
-- falls back to `prefers-color-scheme`
-- writes `data-theme` on `document.documentElement`
-- updates browser `theme-color`
-- listens for OS theme changes if no explicit preference is stored
-
-Theme toggle:
-
-```text
-src/components/ui/ThemeToggle.tsx
-```
-
-Theme storage key:
-
-```text
-maple-theme
-```
-
-## Page Responsibilities
-
-### `Home`
-
-Visual entry point for the platform.
-
-Links to:
-
-- exams
-- questions
-- solutions
-- notes
-- contact
-
-### `Exams`
-
-Displays original exam PDFs from `src/data/examPdfs.ts`.
-
-Search filters by:
-
-- label
-- year
-
-### `Questions`
-
-Uses `ExamIndexPage` configured for question browsing.
-
-Supports:
-
-- semester list
-- question search
-- all/unfinished/finished filtering
-- semester completion checkmarks
-
-### `SemesterQuestions`
-
-Thin wrapper over `QuestionListPage`.
-
-Configured for:
-
-```text
-/questions
-```
-
-### `QuestionDetail`
-
-Shows one question prompt.
-
-Includes:
-
-- breadcrumb
-- topics
-- `Mark as finished` toggle
-- link to corresponding solution
-
-### `Solutions`
-
-Uses `ExamIndexPage` configured for solution browsing.
-
-Supports the same search/progress logic as `Questions`.
-
-### `SemesterSolutions`
-
-Thin wrapper over `QuestionListPage`.
-
-Configured for:
-
-```text
-/solutions
-```
-
-### `SolutionDetail`
-
-Shows:
-
-- question prompt
-- solution code/text
-- explanation
-
-Includes:
-
-- `Mark as finished` toggle
-- skip-to-solution button
-- copy code button
-
-### `Notes`
-
-Shows topic list and note search.
-
-### `NotesTopic`
-
-Shows entries for one note topic.
-
-### `NotesDetail`
-
-Renders note sections as text or code.
-
-### `Contact`
-
-Data-driven contact/contribution page.
-
-## Project Tree
-
-```text
-my-app/
-├── ARCHITECTURE.md
-├── README.md
-├── eslint.config.js
-├── index.html
-├── package-lock.json
-├── package.json
-├── tsconfig.app.json
-├── tsconfig.json
-├── tsconfig.node.json
-├── vercel.json
-├── vite.config.ts
-├── public/
-│   ├── favicon.png
-│   ├── exams/
-│   │   ├── cisc_fall_2017.pdf
-│   │   ├── cisc_fall_2018.pdf
-│   │   ├── cisc_fall_2020.pdf
-│   │   ├── cisc_spring_2021.pdf
-│   │   └── cisc_spring_2023.pdf
-│   └── thumbnail/
-│       └── thumbnail.png
-└── src/
-    ├── app/
-    │   ├── App.tsx
-    │   └── router.tsx
-    ├── components/
-    │   ├── exams/
-    │   │   ├── ExamIndexPage.tsx
-    │   │   ├── QuestionCard.tsx
-    │   │   ├── QuestionListPage.tsx
-    │   │   ├── QuestionPageLayout.tsx
-    │   │   └── SearchResults.tsx
-    │   ├── layout/
-    │   │   ├── Footer.tsx
-    │   │   ├── Navbar.tsx
-    │   │   └── ScrollToTop.tsx
-    │   ├── notes/
-    │   │   ├── NoteCard.tsx
-    │   │   ├── NoteListPage.tsx
-    │   │   ├── NotePageLayout.tsx
-    │   │   └── NoteSearchResults.tsx
-    │   └── ui/
-    │       ├── Breadcrumb.tsx
-    │       ├── CodeBlock.tsx
-    │       ├── ContentBlock.tsx
-    │       ├── CopyButton.tsx
-    │       ├── EmptyState.tsx
-    │       ├── FinishToggle.tsx
-    │       ├── MathDisplay.tsx
-    │       ├── NotFoundState.tsx
-    │       ├── PageHeader.tsx
-    │       ├── ProgressFilterControls.tsx
-    │       ├── SemesterCard.tsx
-    │       └── ThemeToggle.tsx
-    ├── data/
-    │   ├── examPdfs.ts
-    │   ├── exams/
-    │   │   ├── fall-2018.ts
-    │   │   ├── fall-2020.ts
-    │   │   ├── index.ts
-    │   │   ├── spring-2021.ts
-    │   │   └── spring-2023.ts
-    │   └── notes/
-    │       ├── index.ts
-    │       ├── searching.ts
-    │       └── sorting.ts
-    ├── hooks/
-    │   ├── useExamSearch.ts
-    │   ├── useFinishedQuestions.ts
-    │   ├── useNotesSearch.ts
-    │   └── useTheme.ts
-    ├── pages/
-    │   ├── Contact.tsx
-    │   ├── Home.tsx
-    │   ├── PageNotFound.tsx
-    │   ├── exams/
-    │   │   └── Exams.tsx
-    │   ├── notes/
-    │   │   ├── Notes.tsx
-    │   │   ├── NotesDetail.tsx
-    │   │   └── NotesTopic.tsx
-    │   ├── questions/
-    │   │   ├── QuestionDetail.tsx
-    │   │   ├── Questions.tsx
-    │   │   └── SemesterQuestions.tsx
-    │   └── solutions/
-    │       ├── SemesterSolutions.tsx
-    │       ├── SolutionDetail.tsx
-    │       └── Solutions.tsx
-    ├── styles/
-    │   ├── base.css
-    │   ├── cards.css
-    │   ├── components.css
-    │   ├── dark.css
-    │   ├── details.css
-    │   ├── home.css
-    │   ├── layout.css
-    │   ├── mobile.css
-    │   ├── navigation.css
-    │   └── tokens.css
-    ├── types/
-    │   └── index.ts
-    ├── utils/
-    │   ├── highlight.tsx
-    │   ├── highlightJava.tsx
-    │   ├── parsePrompt.ts
-    │   └── search.ts
-    ├── index.css
-    └── main.tsx
-```
-
-## Adding New Content
-
-### Add a New Exam PDF
-
-1. Place the PDF in `public/exams/`.
-2. Add metadata to `src/data/examPdfs.ts`.
-
-### Add Extracted Questions for a Semester
-
-1. Create a new file in `src/data/exams/`.
-2. Export an `Exam`.
-3. Add the semester to `src/data/exams/index.ts`.
-
-### Add a New Note Topic
-
-1. Create a new file in `src/data/notes/`.
-2. Export a `NoteTopic`.
-3. Add the topic to `src/data/notes/index.ts`.
-
-## Deployment Model
-
-The app is static and Vercel-friendly.
-
-Vercel serves:
-
-- the built React app
-- bundled static assets
-- files in `public/`
-
-No serverless function is required.
-
-Client progress works after deployment because it uses `localStorage` in the user’s browser.
-
-## Known Tradeoffs
-
-### No Backend
-
-This keeps hosting simple, but user progress cannot sync across devices.
-
-### Content-as-Code
-
-Questions and notes are easy to type-check and ship, but adding content requires code changes.
-
-### Simple Java Highlighter
-
-The custom Java highlighter is lightweight and controllable, but it is not a complete syntax parser.
-
-### Large Route Bundle
-
-The build may warn that the main JS chunk is over 500 KB. This is not currently fatal. If needed, route-level lazy loading can split the bundle later.
+- No backend, so progress does not sync between devices or browsers.
+- Content changes require a code change and a deploy.
+- The app ships as one JavaScript chunk of about 630 kB, which triggers Vite's size warning. Route-level lazy loading would split it.

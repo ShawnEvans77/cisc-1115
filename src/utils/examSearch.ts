@@ -1,5 +1,5 @@
 import type { Exam, Question } from "../types";
-import { normalizeQuery, searchablePrompt } from "./search";
+import { searchablePrompt } from "./search";
 
 export type ExamSemesterSearchResult = {
   type: "semester";
@@ -61,8 +61,4 @@ export function questionMatchesQuery(question: Question, query: string): boolean
     question.topics.some(topic => topic.toLowerCase().includes(query)) ||
     searchablePrompt(question.prompt).toLowerCase().includes(query)
   );
-}
-
-export function normalizeSearchQuery(query: string): string {
-  return normalizeQuery(query);
 }

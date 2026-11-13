@@ -1,29 +1,18 @@
-// src/components/MathDisplay.tsx
-// ─────────────────────────────────────────────────────────────────────────────
-// Renders a LaTeX string using KaTeX.
-//
-// Setup (one-time):
-//   npm install katex
-//   npm install --save-dev @types/katex
-//
-// Import the KaTeX stylesheet once in main.tsx:
-//   import "katex/dist/katex.min.css";
-// ─────────────────────────────────────────────────────────────────────────────
-
 import { useMemo } from "react";
 import katex from "katex";
 
-interface MathDisplayProps {
+type MathDisplayProps = {
   latex: string;
   block?: boolean; // true = display (centered), false = inline
-}
+};
 
+// Renders a LaTeX string with KaTeX. The KaTeX stylesheet is imported once in main.tsx.
 export function MathDisplay({ latex, block = true }: MathDisplayProps) {
   const html = useMemo(() => {
     try {
       return katex.renderToString(latex, {
         displayMode:  block,
-        throwOnError: false,  // renders error in red rather than crashing
+        throwOnError: false, // renders the error in red rather than crashing
         trust:        false,
       });
     } catch {

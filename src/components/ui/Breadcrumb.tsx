@@ -1,19 +1,19 @@
-// src/components/Breadcrumb.tsx
 import { Link } from "react-router-dom";
+import { cx } from "../../utils/ui";
 
-export interface Crumb {
+export type Crumb = {
   label: string;
   to?: string;
-}
+};
 
-interface BreadcrumbProps {
+type BreadcrumbProps = {
   crumbs: Crumb[];
-  wide?:  boolean; // true on 1400px detail pages
-}
+  wide?: boolean; // true on 1400px detail pages
+};
 
 export function Breadcrumb({ crumbs, wide }: BreadcrumbProps) {
   return (
-    <div className={`breadcrumb-wrap${wide ? " breadcrumb-wrap--wide" : ""}`}>
+    <div className={cx("breadcrumb-wrap", wide && "breadcrumb-wrap--wide")}>
       <nav className="breadcrumb">
         {crumbs.map((crumb, i) => {
           const isLast = i === crumbs.length - 1;

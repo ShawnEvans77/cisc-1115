@@ -1,4 +1,3 @@
-// src/components/ui/ThemeToggle.tsx
 import { useTheme } from "../../hooks/useTheme";
 
 export function ThemeToggle() {

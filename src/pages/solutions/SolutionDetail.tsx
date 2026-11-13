@@ -1,18 +1,25 @@
-// src/pages/solutions/SolutionDetail.tsx
 import { useEffect } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { findExamQuestion } from "../../data/exams";
+import {
+  ExplanationBlock,
+  QuestionPromptBlock,
+  SOLUTION_BLOCK_ID,
+  SolutionBlock,
+} from "../../components/exams/QuestionBlocks";
 import { QuestionPageLayout } from "../../components/exams/QuestionPageLayout";
-import { CodeBlock } from "../../components/ui/CodeBlock";
-import { ContentBlock, PromptBody, QuestionMath } from "../../components/ui/ContentBlock";
-import { CopyButton } from "../../components/ui/CopyButton";
 import { FinishToggle } from "../../components/ui/FinishToggle";
 import { NotFoundState } from "../../components/ui/NotFoundState";
 import { useFinishedQuestions } from "../../hooks/useFinishedQuestions";
 
+// Set by the "View solution" link on QuestionDetail.
 type SolutionLocationState = {
   scrollToSolution?: boolean;
 };
+
+function scrollToSolution(behavior: ScrollBehavior) {
+  document.getElementById(SOLUTION_BLOCK_ID)?.scrollIntoView({ behavior });
+}
 
 function SolutionDetail() {
   const { examId, questionId } = useParams<{ examId: string; questionId: string }>();
@@ -22,7 +29,7 @@ function SolutionDetail() {
 
   useEffect(() => {
     if ((location.state as SolutionLocationState | null)?.scrollToSolution) {
-      document.getElementById("solution")?.scrollIntoView({ behavior: "auto" });
+      scrollToSolution("auto");
     }
   }, [location.state]);
 
@@ -32,22 +39,18 @@ function SolutionDetail() {
 
   const { exam, question } = match;
 
-  function handleSkip() {
-    document.getElementById("solution")?.scrollIntoView({ behavior: "smooth" });
-  }
-
   return (
     <QuestionPageLayout
       exam={exam}
       question={question}
-      basePath="/solutions"
+      section="solutions"
       headerAction={
         <div className="detail-actions">
           <FinishToggle
             finished={isFinished(exam.id, question.id)}
             onToggle={() => toggleFinished(exam.id, question.id)}
           />
-          <button className="skip-to-solution-btn" onClick={handleSkip}>
+          <button className="skip-to-solution-btn" onClick={() => scrollToSolution("smooth")}>
             Skip to Solution ↓
           </button>
         </div>
@@ -63,22 +66,9 @@ function SolutionDetail() {
         </>
       }
     >
-      <ContentBlock label="The Question">
-        <PromptBody text={question.prompt} />
-        {question.mathLatex && <QuestionMath latex={question.mathLatex} />}
-      </ContentBlock>
-
-      <ContentBlock
-        id="solution"
-        label="Solution"
-        headerSlot={<CopyButton content={question.solution} />}
-      >
-        <CodeBlock code={question.solution} language={question.solutionType ?? "java"} />
-      </ContentBlock>
-
-      <ContentBlock label="Explanation">
-        <PromptBody text={question.explanation} />
-      </ContentBlock>
+      <QuestionPromptBlock question={question} />
+      <SolutionBlock question={question} />
+      <ExplanationBlock question={question} />
     </QuestionPageLayout>
   );
 }

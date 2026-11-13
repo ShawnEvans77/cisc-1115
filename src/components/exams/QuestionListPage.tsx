@@ -1,60 +1,58 @@
-// src/components/exams/QuestionListPage.tsx
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { findExamById } from "../../data/exams";
+import { matchesFinishedFilter, useFinishedQuestions, type FinishedFilter } from "../../hooks/useFinishedQuestions";
+import type { ExamSection } from "../../types";
+import { questionMatchesQuery } from "../../utils/examSearch";
+import { hasQuery, normalizeQuery, promptSnippet, resultCountLabel } from "../../utils/search";
 import { Breadcrumb } from "../ui/Breadcrumb";
 import { EmptyState } from "../ui/EmptyState";
+import { EntryCard } from "../ui/EntryCard";
 import { NotFoundState } from "../ui/NotFoundState";
 import { PageHeader } from "../ui/PageHeader";
 import { ProgressFilterControls } from "../ui/ProgressFilterControls";
-import { QuestionCard } from "./QuestionCard";
-import { matchesFinishedFilter, useFinishedQuestions, type FinishedFilter } from "../../hooks/useFinishedQuestions";
-import { hasQuery, resultCountLabel } from "../../utils/search";
-import { normalizeSearchQuery, questionMatchesQuery } from "../../utils/examSearch";
 
-interface QuestionListPageProps {
-  basePath: string;
+type QuestionListPageProps = {
+  section: ExamSection;
   subtitle: string;
+};
+
+function emptyMessage(filter: FinishedFilter, query: string): string {
+  if (filter === "finished") return "no finished questions yet";
+  if (filter === "unfinished") return "no unfinished questions left";
+  return `nothing found for "${query}"`;
 }
 
-export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) {
+// Question list for one semester, shared by /questions/:examId and /solutions/:examId.
+export function QuestionListPage({ section, subtitle }: QuestionListPageProps) {
   const { examId } = useParams<{ examId: string }>();
   const exam = findExamById(examId);
   const [query, setQuery] = useState("");
   const [progressFilter, setProgressFilter] = useState<FinishedFilter>("all");
   const { isFinished } = useFinishedQuestions();
 
-  const searchedQuestions = useMemo(() => {
-    if (!exam) return [];
-    const q = normalizeSearchQuery(query);
-    if (!q) return exam.questions;
-    return exam.questions.filter(question => questionMatchesQuery(question, q));
-  }, [query, exam]);
-
   const filteredQuestions = useMemo(() => {
     if (!exam) return [];
-    return searchedQuestions.filter(question =>
+    const q = normalizeQuery(query);
+
+    return exam.questions.filter(question =>
+      (!q || questionMatchesQuery(question, q)) &&
       matchesFinishedFilter(isFinished(exam.id, question.id), progressFilter)
     );
-  }, [exam, searchedQuestions, progressFilter, isFinished]);
+  }, [exam, query, progressFilter, isFinished]);
+
+  const basePath = `/${section}`;
 
   if (!exam) {
-    return <NotFoundState title="Exam not found" backTo={basePath} backLabel={`← Back to ${basePath.slice(1)}`} />;
+    return <NotFoundState title="Exam not found" backTo={basePath} backLabel={`← Back to ${section}`} />;
   }
 
-  const parentLabel = basePath.slice(1);
   const showResults = hasQuery(query) || progressFilter !== "all";
-  const emptyMessage = progressFilter === "finished"
-    ? "no finished questions yet"
-    : progressFilter === "unfinished"
-    ? "no unfinished questions left"
-    : `nothing found for "${query}"`;
 
   return (
     <div className="page-root">
-
       <Breadcrumb crumbs={[
-        { label: parentLabel, to: basePath },
+        { label: section, to: basePath },
         { label: exam.label },
       ]} />
 
@@ -71,16 +69,18 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
 
       <section className="page-section page-section--questions">
         {filteredQuestions.length === 0 ? (
-          <EmptyState>{emptyMessage}</EmptyState>
+          <EmptyState>{emptyMessage(progressFilter, query)}</EmptyState>
         ) : (
-          filteredQuestions.map(q => (
-            <QuestionCard
-              key={q.id}
-              question={q}
-              examId={exam.id}
+          filteredQuestions.map(question => (
+            <EntryCard
+              key={question.id}
+              to={`${basePath}/${exam.id}/${question.id}`}
+              badge={question.id.toUpperCase()}
+              title={question.title}
+              tags={question.topics}
+              snippet={promptSnippet(question.prompt, query)}
               query={query}
-              basePath={basePath}
-              finished={isFinished(exam.id, q.id)}
+              finished={isFinished(exam.id, question.id)}
             />
           ))
         )}
@@ -89,7 +89,6 @@ export function QuestionListPage({ basePath, subtitle }: QuestionListPageProps) 
           <Link to={basePath} className="back-link">← All semesters</Link>
         </div>
       </section>
-
     </div>
   );
 }

@@ -6,7 +6,7 @@ export type FinishedFilter = "all" | "unfinished" | "finished";
 const STORAGE_KEY = "cisc-1115-finished-questions";
 const LEGACY_STORAGE_KEY = "cisc-1115-visited-questions";
 
-export function getQuestionProgressKey(examId: string, questionId: string): string {
+function getQuestionProgressKey(examId: string, questionId: string): string {
   return `${examId}:${questionId}`;
 }
 
@@ -80,9 +80,8 @@ export function useFinishedQuestions() {
   }, [isFinished]);
 
   return useMemo(() => ({
-    finishedKeys,
     toggleFinished,
     isFinished,
     isExamFinished,
-  }), [finishedKeys, toggleFinished, isFinished, isExamFinished]);
+  }), [toggleFinished, isFinished, isExamFinished]);
 }

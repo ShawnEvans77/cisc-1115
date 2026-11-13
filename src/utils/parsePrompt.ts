@@ -1,5 +1,3 @@
-// src/utils/parsePrompt.ts
-
 export type PromptSegment =
   | { type: "text";       content: string }
   | { type: "code";       content: string }

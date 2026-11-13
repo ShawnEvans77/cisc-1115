@@ -1,8 +1,7 @@
-// src/pages/questions/QuestionDetail.tsx
 import { Link, useParams } from "react-router-dom";
 import { findExamQuestion } from "../../data/exams";
+import { QuestionPromptBlock } from "../../components/exams/QuestionBlocks";
 import { QuestionPageLayout } from "../../components/exams/QuestionPageLayout";
-import { ContentBlock, PromptBody, QuestionMath } from "../../components/ui/ContentBlock";
 import { FinishToggle } from "../../components/ui/FinishToggle";
 import { NotFoundState } from "../../components/ui/NotFoundState";
 import { useFinishedQuestions } from "../../hooks/useFinishedQuestions";
@@ -22,7 +21,7 @@ function QuestionDetail() {
     <QuestionPageLayout
       exam={exam}
       question={question}
-      basePath="/questions"
+      section="questions"
       headerAction={
         <FinishToggle
           finished={isFinished(exam.id, question.id)}
@@ -44,10 +43,7 @@ function QuestionDetail() {
         </>
       }
     >
-      <ContentBlock label="The Question">
-        <PromptBody text={question.prompt} />
-        {question.mathLatex && <QuestionMath latex={question.mathLatex} />}
-      </ContentBlock>
+      <QuestionPromptBlock question={question} />
     </QuestionPageLayout>
   );
 }

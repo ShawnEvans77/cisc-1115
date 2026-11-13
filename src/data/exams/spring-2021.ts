@@ -1,4 +1,3 @@
-// src/data/exams/spring-2021.ts
 import type { Exam } from "../../types";
 
 export const spring2021: Exam = {

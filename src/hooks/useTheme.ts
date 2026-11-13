@@ -1,13 +1,16 @@
-// src/hooks/useTheme.ts
 import { useState, useEffect } from "react";
 
 type Theme = "light" | "dark";
 
+// Both values are duplicated in the inline script in index.html, which sets the
+// theme before React mounts. Keep the two in sync.
 const STORAGE_KEY = "maple-theme";
-const THEME_COLORS = {
-  light: "#FAFAF8",  // site off-white background
-  dark:  "#000000",  // pitch black
+const THEME_COLORS: Record<Theme, string> = {
+  light: "#FAFAF8",
+  dark:  "#000000",
 };
+
+const THEME_TRANSITION_MS = 300;
 
 function getStoredTheme(): Theme | null {
   try {
@@ -30,27 +33,15 @@ function getInitialTheme(): Theme {
   const stored = getStoredTheme();
   if (stored) return stored;
 
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
-  return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-function applyThemeInstant(theme: Theme) {
-  // Used on initial load — no animation
-  document.documentElement.setAttribute("data-theme", theme);
-  document.documentElement.style.colorScheme = theme;
-  let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
-  if (!meta) {
-    meta = document.createElement("meta");
-    meta.name = "theme-color";
-    document.head.appendChild(meta);
+function applyTheme(theme: Theme, { animate }: { animate: boolean }) {
+  if (animate) {
+    // base.css only transitions colors while this class is present.
+    document.body.classList.add("theme-switching");
+    setTimeout(() => document.body.classList.remove("theme-switching"), THEME_TRANSITION_MS);
   }
-  meta.content = THEME_COLORS[theme];
-}
-
-function applyTheme(theme: Theme) {
-  // Add class so transition CSS fires — remove it after transition completes
-  document.body.classList.add("theme-switching");
-  setTimeout(() => document.body.classList.remove("theme-switching"), 300);
 
   document.documentElement.setAttribute("data-theme", theme);
   document.documentElement.style.colorScheme = theme;
@@ -68,12 +59,12 @@ function applyTheme(theme: Theme) {
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
     const initial = getInitialTheme();
-    applyThemeInstant(initial);
+    applyTheme(initial, { animate: false });
     return initial;
   });
 
   useEffect(() => {
-    applyTheme(theme);
+    applyTheme(theme, { animate: true });
     setStoredTheme(theme);
   }, [theme]);
 

@@ -1,14 +1,12 @@
-// src/pages/questions/Questions.tsx
 import { ExamIndexPage } from "../../components/exams/ExamIndexPage";
 
 function Questions() {
   return (
     <ExamIndexPage
-      title="questions"
+      section="questions"
+      itemLabel="question"
       subtitle="select a semester to browse its questions"
       placeholder="search questions..."
-      basePath="/questions"
-      itemLabel="question"
     />
   );
 }

@@ -1,4 +1,3 @@
-// src/data/notes/searching.ts
 import type { NoteTopic } from "../../types";
 
 export const searching: NoteTopic = {

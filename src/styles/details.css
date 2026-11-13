@@ -326,12 +326,6 @@
     margin-bottom: 2rem;
   }
 
-  .not-found-heading-italic {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--color-orange);
-  }
-
   .not-found-path {
     font-family: var(--font-mono);
     font-size: 0.82rem;

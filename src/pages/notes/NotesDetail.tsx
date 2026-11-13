@@ -1,15 +1,16 @@
-// src/pages/notes/NotesDetail.tsx
 import { Link, useParams } from "react-router-dom";
-import { notes } from "../../data/notes";
-import { NotePageLayout } from "../../components/notes/NotePageLayout";
+import { COURSE_CODE } from "../../constants";
+import { findTopicById } from "../../data/notes";
 import { CodeBlock } from "../../components/ui/CodeBlock";
-import { ContentBlock, PromptBody } from "../../components/ui/ContentBlock";
+import { ContentBlock } from "../../components/ui/ContentBlock";
 import { CopyButton } from "../../components/ui/CopyButton";
+import { DetailPageLayout } from "../../components/ui/DetailPageLayout";
 import { NotFoundState } from "../../components/ui/NotFoundState";
+import { PromptBody } from "../../components/ui/PromptBody";
 
 function NotesDetail() {
   const { topicId, entryId } = useParams<{ topicId: string; entryId: string }>();
-  const topic = notes.find(t => t.id === topicId);
+  const topic = findTopicById(topicId);
   const entry = topic?.entries.find(e => e.id === entryId);
 
   if (!topic || !entry) {
@@ -17,9 +18,15 @@ function NotesDetail() {
   }
 
   return (
-    <NotePageLayout
-      topic={topic}
-      entry={entry}
+    <DetailPageLayout
+      crumbs={[
+        { label: "notes", to: "/notes" },
+        { label: topic.label, to: `/notes/${topic.id}` },
+        { label: entry.title },
+      ]}
+      eyebrow={`${COURSE_CODE} \u00A0·\u00A0 ${topic.label}`}
+      title={entry.title}
+      tags={entry.tags}
       bottomNav={
         <>
           <Link to={`/notes/${topic.id}`} className="back-link">
@@ -46,7 +53,7 @@ function NotesDetail() {
           </ContentBlock>
         )
       )}
-    </NotePageLayout>
+    </DetailPageLayout>
   );
 }
 

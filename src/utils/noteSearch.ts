@@ -1,5 +1,5 @@
 import type { NoteEntry, NoteSection, NoteTopic } from "../types";
-import { defaultPreview, normalizeQuery, snippetAround } from "./search";
+import { defaultPreview, snippetAround } from "./search";
 
 export type NoteTopicSearchResult = {
   type: "topic";
@@ -56,7 +56,7 @@ export function noteEntryMatchesQuery(entry: NoteEntry, query: string): boolean 
   );
 }
 
-export function getNotePreview(sections: NoteSection[], query: string): string {
+function getNotePreview(sections: NoteSection[], query: string): string {
   const textSection = sections.find(section => section.type === "text");
   if (!textSection) return "";
 
@@ -72,8 +72,4 @@ export function getNoteContentSnippet(entry: NoteEntry, query: string): string |
   }
 
   return null;
-}
-
-export function normalizeNoteSearchQuery(query: string): string {
-  return normalizeQuery(query);
 }

@@ -1,4 +1,5 @@
 import type { FinishedFilter } from "../../hooks/useFinishedQuestions";
+import { cx } from "../../utils/ui";
 
 type ProgressFilterControlsProps = {
   value: FinishedFilter;
@@ -18,7 +19,7 @@ export function ProgressFilterControls({ value, onChange }: ProgressFilterContro
         <button
           key={filter.value}
           type="button"
-          className={`progress-filter-btn${value === filter.value ? " progress-filter-btn--active" : ""}`}
+          className={cx("progress-filter-btn", value === filter.value && "progress-filter-btn--active")}
           onClick={() => onChange(filter.value)}
         >
           {filter.label}

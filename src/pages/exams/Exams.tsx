@@ -1,8 +1,7 @@
-// src/pages/exams/Exams.tsx
 import { useMemo, useState } from "react";
 import { examPdfs } from "../../data/examPdfs";
-import { SemesterCard } from "../../components/ui/SemesterCard";
 import { EmptyState } from "../../components/ui/EmptyState";
+import { IndexedCardList } from "../../components/ui/IndexedCardList";
 import { PageHeader } from "../../components/ui/PageHeader";
 import { hasQuery, normalizeQuery, resultCountLabel } from "../../utils/search";
 
@@ -32,15 +31,12 @@ function Exams() {
         {filtered.length === 0 ? (
           <EmptyState query={query} />
         ) : (
-          filtered.map((exam, index) => (
-            <SemesterCard
-              key={exam.id}
-              index={String(index + 1).padStart(2, "0")}
-              label={exam.label}
-              sublabel="PDF"
-              href={exam.pdf}
-            />
-          ))
+          <IndexedCardList items={filtered.map(exam => ({
+            id: exam.id,
+            label: exam.label,
+            sublabel: "PDF",
+            href: exam.pdf,
+          }))} />
         )}
       </section>
 

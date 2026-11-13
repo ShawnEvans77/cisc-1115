@@ -1,4 +1,3 @@
-// src/utils/highlightJava.tsx
 import type { ReactElement } from "react";
 
 // ── Syntax color tokens ───────────────────────────────────────────────────────

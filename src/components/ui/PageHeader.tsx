@@ -1,6 +1,6 @@
-import type { ChangeEventHandler } from "react";
 import type { ReactNode } from "react";
-import { COURSE_LABEL } from "../../utils/search";
+import { COURSE_LABEL } from "../../constants";
+import { cx } from "../../utils/ui";
 
 type PageHeaderProps = {
   title: string;
@@ -27,16 +27,12 @@ export function PageHeader({
   controls,
   onQueryChange,
 }: PageHeaderProps) {
-  const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
-    onQueryChange?.(event.target.value);
-  };
-
   return (
-    <div className={`page-header${detail ? " page-header--detail" : ""}${compact ? " page-header--compact" : ""}`}>
+    <div className={cx("page-header", detail && "page-header--detail", compact && "page-header--compact")}>
       <p className="page-eyebrow">{COURSE_LABEL}</p>
       <h1 className="page-title">{title}</h1>
       {subtitle && (
-        <p className={`page-subtitle${compactSubtitle ? " page-subtitle--flush" : ""}`}>
+        <p className={cx("page-subtitle", compactSubtitle && "page-subtitle--flush")}>
           {subtitle}
         </p>
       )}
@@ -47,7 +43,7 @@ export function PageHeader({
           type="text"
           placeholder={placeholder}
           value={query}
-          onChange={handleChange}
+          onChange={event => onQueryChange(event.target.value)}
           autoComplete="off"
           spellCheck={false}
         />

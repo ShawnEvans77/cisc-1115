@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { cx } from "../../utils/ui";
 
 type CopyButtonProps = {
   content: string;
@@ -20,7 +21,7 @@ export function CopyButton({
   }
 
   return (
-    <button onClick={handleCopy} className={`copy-btn${copied ? " copied" : ""}`}>
+    <button onClick={handleCopy} className={cx("copy-btn", copied && "copied")}>
       {copied ? copiedLabel : idleLabel}
     </button>
   );

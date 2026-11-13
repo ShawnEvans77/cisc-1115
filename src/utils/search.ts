@@ -1,8 +1,5 @@
 import { stripPromptDelimiters } from "./parsePrompt";
 
-export const COURSE_LABEL = "Brooklyn College · CISC 1115";
-export const COURSE_CODE = "CISC 1115";
-
 export function normalizeQuery(query: string): string {
   return query.trim().toLowerCase();
 }
@@ -21,7 +18,7 @@ export function resultCountLabel(count: number, total?: number, noun = "result")
   return pluralize(count, noun);
 }
 
-export function stripInlineMarkup(text: string): string {
+function stripInlineMarkup(text: string): string {
   return text
     .replace(/\*\*(.*?)\*\*/g, "$1")
     .replace(/__(.*?)__/g, "$1")
@@ -30,6 +27,10 @@ export function stripInlineMarkup(text: string): string {
 
 export function searchablePrompt(prompt: string): string {
   return stripInlineMarkup(stripPromptDelimiters(prompt));
+}
+
+export function promptSnippet(prompt: string, query: string): string | null {
+  return snippetAround(searchablePrompt(prompt), query);
 }
 
 export function snippetAround(text: string, query: string, before = 40, after = 60): string | null {
@@ -47,4 +48,30 @@ export function snippetAround(text: string, query: string, before = 40, after = 
 
 export function defaultPreview(text: string, length = 100): string {
   return text.length > length ? `${text.slice(0, length)}…` : text;
+}
+
+export function collectNestedSearchResults<TParent, TChild, TParentResult, TChildResult>(
+  parents: TParent[],
+  childrenOf: (parent: TParent) => TChild[],
+  parentMatches: (parent: TParent) => boolean,
+  childMatches: (child: TChild, parent: TParent) => boolean,
+  parentResult: (parent: TParent) => TParentResult,
+  childResult: (parent: TParent, child: TChild) => TChildResult,
+): Array<TParentResult | TChildResult> {
+  const matches: Array<TParentResult | TChildResult> = [];
+
+  for (const parent of parents) {
+    if (parentMatches(parent)) {
+      matches.push(parentResult(parent));
+      continue;
+    }
+
+    for (const child of childrenOf(parent)) {
+      if (childMatches(child, parent)) {
+        matches.push(childResult(parent, child));
+      }
+    }
+  }
+
+  return matches;
 }

@@ -2,38 +2,34 @@ import { useState } from "react";
 import { exams } from "../../data/exams";
 import { useExamSearch } from "../../hooks/useExamSearch";
 import { matchesFinishedFilter, useFinishedQuestions, type FinishedFilter } from "../../hooks/useFinishedQuestions";
-import { hasQuery, pluralize, resultCountLabel } from "../../utils/search";
+import type { ExamSection } from "../../types";
 import { createAllQuestionSearchResults } from "../../utils/examSearch";
+import { hasQuery, pluralize, resultCountLabel } from "../../utils/search";
+import { cx } from "../../utils/ui";
+import { IndexedCardList } from "../ui/IndexedCardList";
 import { PageHeader } from "../ui/PageHeader";
 import { ProgressFilterControls } from "../ui/ProgressFilterControls";
-import { SemesterCard } from "../ui/SemesterCard";
-import { SearchResults } from "./SearchResults";
+import { ExamSearchResults } from "./ExamSearchResults";
 
 type ExamIndexPageProps = {
-  title: string;
+  section: ExamSection;
+  itemLabel: string; // singular noun for one entry, e.g. "question"
   subtitle: string;
   placeholder: string;
-  basePath: `/${ExamIndexSection}`;
-  itemLabel: "question" | "solution";
 };
-
-type ExamIndexSection = "questions" | "solutions";
 
 const allQuestionSearchResults = createAllQuestionSearchResults(exams);
 
-export function ExamIndexPage({
-  title,
-  subtitle,
-  placeholder,
-  basePath,
-  itemLabel,
-}: ExamIndexPageProps) {
+// Semester index for /questions and /solutions. Shows the semester list until the
+// user searches or picks a progress filter, then shows matching questions instead.
+export function ExamIndexPage({ section, itemLabel, subtitle, placeholder }: ExamIndexPageProps) {
   const [query, setQuery] = useState("");
   const [progressFilter, setProgressFilter] = useState<FinishedFilter>("all");
   const { isFinished, isExamFinished } = useFinishedQuestions();
   const searchResults = useExamSearch(query);
+
   const searching = hasQuery(query);
-  const filteringProgress = progressFilter !== "all";
+  const showingResults = searching || progressFilter !== "all";
   const results = searching ? searchResults : allQuestionSearchResults;
   const filteredResults = results.filter(result => (
     result.type === "semester"
@@ -44,36 +40,33 @@ export function ExamIndexPage({
   return (
     <div className="page-root">
       <PageHeader
-        title={title}
+        title={section}
         subtitle={subtitle}
         query={query}
         placeholder={placeholder}
-        compact={searching || filteringProgress}
+        compact={showingResults}
         controls={<ProgressFilterControls value={progressFilter} onChange={setProgressFilter} />}
-        resultLabel={searching || filteringProgress ? resultCountLabel(filteredResults.length) : undefined}
+        resultLabel={showingResults ? resultCountLabel(filteredResults.length) : undefined}
         onQueryChange={setQuery}
       />
 
-      <section className={`page-section${searching || filteringProgress ? " page-section--results" : ""}`}>
-        {searching || filteringProgress ? (
-          <SearchResults
+      <section className={cx("page-section", showingResults && "page-section--results")}>
+        {showingResults ? (
+          <ExamSearchResults
             results={filteredResults}
             query={query}
-            basePath={basePath}
+            section={section}
             itemLabel={itemLabel}
             isFinished={isFinished}
           />
         ) : (
-          exams.map((exam, index) => (
-            <SemesterCard
-              key={exam.id}
-              index={String(index + 1).padStart(2, "0")}
-              label={exam.label}
-              sublabel={pluralize(exam.questions.length, itemLabel)}
-              complete={isExamFinished(exam)}
-              to={`${basePath}/${exam.id}`}
-            />
-          ))
+          <IndexedCardList items={exams.map(exam => ({
+            id: exam.id,
+            label: exam.label,
+            sublabel: pluralize(exam.questions.length, itemLabel),
+            complete: isExamFinished(exam),
+            to: `/${section}/${exam.id}`,
+          }))} />
         )}
       </section>
     </div>

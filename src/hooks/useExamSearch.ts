@@ -1,35 +1,26 @@
 import { useMemo } from "react";
 import { exams } from "../data/exams";
+import { collectNestedSearchResults, normalizeQuery } from "../utils/search";
 import {
   createQuestionSearchResult,
   createSemesterSearchResult,
   examMatchesQuery,
-  normalizeSearchQuery,
   questionMatchesQuery,
   type ExamSearchResult,
 } from "../utils/examSearch";
 
-export type SearchResult = ExamSearchResult;
-
-export function useExamSearch(query: string): SearchResult[] {
+export function useExamSearch(query: string): ExamSearchResult[] {
   return useMemo(() => {
-    const q = normalizeSearchQuery(query);
+    const q = normalizeQuery(query);
     if (!q) return [];
-    const matches: SearchResult[] = [];
 
-    for (const exam of exams) {
-      if (examMatchesQuery(exam, q)) {
-        matches.push(createSemesterSearchResult(exam));
-        continue;
-      }
-
-      for (const question of exam.questions) {
-        if (questionMatchesQuery(question, q)) {
-          matches.push(createQuestionSearchResult(exam, question));
-        }
-      }
-    }
-
-    return matches;
+    return collectNestedSearchResults(
+      exams,
+      exam => exam.questions,
+      exam => examMatchesQuery(exam, q),
+      question => questionMatchesQuery(question, q),
+      createSemesterSearchResult,
+      createQuestionSearchResult,
+    );
   }, [query]);
 }
