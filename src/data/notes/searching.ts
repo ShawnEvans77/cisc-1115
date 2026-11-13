@@ -17,8 +17,8 @@ export const searching: NoteTopic = {
     int start = 0;
     int end = nums.length - 1;
 
-    // keep going while there is still something left to search
-    while (start <= end) {
+    // while start pointer is less than the end pointer.
+    while (start <= end) { 
         // calculate the middle index
         int mid = (start + end) / 2;
 
@@ -29,16 +29,16 @@ export const searching: NoteTopic = {
 
         // if the middle is too big
         else if (target < nums[mid])
-            // move left, ignore the entire right half of the array
+            // move left, ignore entire right half of the array
             end = mid - 1;
-
+          
         // if the middle is too small
-        else
-            // move right, ignore the entire left half of the array
+        else if (target > nums[mid])
+            // move right, ignore entire left half of the array
             start = mid + 1;
     }
 
-    // return -1 if the target cannot be found
+    // return -1 if the target cannot be found.
     return -1;
 }`,
         },
@@ -98,12 +98,11 @@ When the target is *not* in the array, start eventually passes end. Show that la
         // if the current number is the same as the target
         if (nums[i] == target) {
             // return the index of the target
-            return i;
+            return i; 
         }
     }
-
-    // return -1 if the target cannot be found
-    return -1;
+    // return -1 if the target cannot be found.
+    return -1; 
 }`,
         },
         {

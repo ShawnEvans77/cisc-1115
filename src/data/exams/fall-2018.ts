@@ -388,7 +388,7 @@ Java does not use **^** for exponents, which is why b² becomes **Math.pow(b, 2)
 The whole top of the fraction goes in one set of parentheses, and the whole bottom goes in another. *Without* the parentheses around the bottom, Java would divide by 2 and then **multiply** by a.
 
 The denominator uses **2.0** instead of **2** so the division is decimal division, not integer division.`,
-      solution: `double x1 = (-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2.0 * a);`,
+      solution: `double x1 = ( -b + Math.sqrt( Math.pow(b , 2) - 4 * a * c) ) / (2.0 * a);`,
     },
     {
       id: "6c",

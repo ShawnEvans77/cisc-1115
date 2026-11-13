@@ -65,20 +65,19 @@ i goes up to **4**. j starts at 4 and counts down: 4, 3, 2, 1. See the pattern? 
 
 i goes up to 6, which is not less than 5, so everything stops.
 
-Whether you also write down the j = 0 that ends each inner loop depends on your instructor. The table below lists every value j is *assigned*, so it includes those zeros.`,
+In the table, the **dash** for i = 0 means the inner loop never ran. The **j = 0** rows are the value that ends each inner loop.`,
       solutionType: "text",
       solution: `[[table]]
 i | j
-0 | 0 (inner loop does not run)
+0 | -
 2 | 2
 2 | 1
-2 | 0 (inner loop stops)
+2 | 0
 4 | 4
 4 | 3
 4 | 2
 4 | 1
-4 | 0 (inner loop stops)
-6 | (outer loop stops)
+4 | 0
 [[/table]]`,
     },
     {
@@ -98,42 +97,51 @@ Then the program's output is:
 
 **Division** tells you how many whole units fit. **Modulo** tells you what is *left over* after you take those units away.
 
-Start with the **biggest** unit. A mile is 5280 × 12 = 63360 inches. Then repeat with the next unit down, using only the leftover inches:
+Start with the **biggest** unit. A mile is 5280 × 12 = 63360 inches. Here is every variable in the solution:
 [[table]]
-Unit | Inches per unit | Count (division) | Left over (modulo)
-miles | 63360 | 245897 / 63360 = 3 | 245897 % 63360 = 55817
-yards | 36 | 55817 / 36 = 1550 | 55817 % 36 = 17
-feet | 12 | 17 / 12 = 1 | 17 % 12 = 5
+Variable | Computed as | Value
+miles | inches / (5280 × 12) | 3
+remainingYards | inches % (5280 × 12) | 55817
+yards | remainingYards / 36 | 1550
+remainingFeet | inches % 36 | 17
+feet | remainingFeet / 12 | 1
+remainingInches | inches % 12 | 5
 [[/table]]
 
-The last leftover, **5**, is the inches.
+Notice that **remainingFeet** and **remainingInches** take the modulo of the *original* inches, not the leftover. That works because the units **nest evenly**: a mile is exactly 1760 yards, and a yard is exactly 3 feet. Stripping off whole miles never changes the remainder when you divide by 36 or by 12.
 
 They can ask different variants of this problem: coins, seconds, and so on. The recipe never changes: **start large, divide to get the count, and mod to strip those units off.**`,
       solution: `public class Fall2020Question2 {
     public static void main(String[] args) {
 
+        // creating the inches variable
         int inches = 245897;
 
-        // 5280 feet in a mile, 12 inches in a foot
-        final int INCHES_PER_MILE = 5280 * 12;
-        final int INCHES_PER_YARD = 36;
-        final int INCHES_PER_FOOT = 12;
+        // 5280 feet are in one mile. 5280*12 is the number of 
+        // inches in a mile. Divide inches by (5280*12) to see 
+        // how many miles are in it.
+        int miles = inches / (5280 * 12);
 
-        // how many whole miles fit, then strip them off with %
-        int miles = inches / INCHES_PER_MILE;
-        int inchesLeft = inches % INCHES_PER_MILE;
+        // remove the miles using the modulus operator.
+        int remainingYards = inches % (5280 * 12);
 
-        // same idea with yards, using only what is left over
-        int yards = inchesLeft / INCHES_PER_YARD;
-        inchesLeft = inchesLeft % INCHES_PER_YARD;
+        // 36 inches are in one yard.
+        int yards = remainingYards / 36;
 
-        // and feet
-        int feet = inchesLeft / INCHES_PER_FOOT;
-        inchesLeft = inchesLeft % INCHES_PER_FOOT;
+        // remove all yards.
+        int remainingFeet = inches % 36;
+
+        // 12 inches in one foot.
+        int feet = remainingFeet / 12;
+
+        // remove the remaining feet.
+        int remainingInches = inches % 12;
 
         // neatly print out the result using printf
-        System.out.printf("%d inches equals %d miles %d yards %d foot and %d inches\\n",
-                inches, miles, yards, feet, inchesLeft);
+        System.out.printf(
+            "%d inches equals %d miles %d yards %d foot and %d inches\\n",
+            inches, miles, yards, feet, remainingInches
+        );
     }
 }`,
     },
@@ -337,16 +345,16 @@ Assume there exists a method **max3()**, which accepts 3 integers as input and r
 Write **one** Java statement to find the maximum of the six integers using any combination of **Math.max()** and **max3()**.`,
       explanation: `**Math.max()** only accepts **two** values, so we need to group the integers.
 
-Use **max3()** once on **i, j, k** and once on **l, m, n**. That gives the biggest value in each group.
+Use **max3()** once on **i, j, k** and once on **m, n, l**. That gives the biggest value in each group. The order inside each group does not matter.
 
 Then send those two results into **Math.max()**. The larger of the two group winners is the largest of all six.
 [[table]]
 Step | Call | Example with 3, 9, 2, 7, 11, 4
 Group 1 | max3(i, j, k) | 9
-Group 2 | max3(l, m, n) | 11
+Group 2 | max3(m, n, l) | 11
 Winner | Math.max(9, 11) | 11
 [[/table]]`,
-      solution: `int max = Math.max(max3(i, j, k), max3(l, m, n));`,
+      solution: `int max = Math.max(max3(i, j, k), max3(m, n, l));`,
     },
     {
       id: "5b",
@@ -428,7 +436,7 @@ codes[i] | parts[0] | parts[1] | Printed
 
 Because we loop over **codes.length**, this works no matter how many zip codes are in the String.
 
-Keep the zip codes as **Strings**. If you turned "07621" into an int, the leading zero would disappear.`,
+Keep the zip codes as **Strings**. If you turned a zip code starting with 0 into an int, the leading zero would disappear.`,
       solution: `public class Fall2020Question6 {
     public static void main(String[] args) {
 
@@ -440,11 +448,11 @@ Keep the zip codes as **Strings**. If you turned "07621" into an int, the leadin
 
         // for every zip code in the array of zip codes
         for (int i = 0; i < codes.length; i++) {
-            // split the current zip code on the dash
+            // split the current zip code based on the dashes
             String[] parts = codes[i].split("-");
 
-            // print the first five numbers of the zip code, then the last four,
-            // separated by a space
+            // print the first five numbers of the zip code, then the last four
+            // separated by space
             System.out.println(parts[0] + " " + parts[1]);
         }
     }
@@ -508,25 +516,24 @@ public class Fall2020Question7 {
 
     public static void main(String[] args) throws IOException {
 
-        // creating two arrays with room for 100 records
+        // creating two arrays with no more than 100 records.
         String[] names = new String[100];
         double[] averageTripLength = new double[100];
 
-        // the output file, shared with the methods that print
-        PrintWriter writer = new PrintWriter("fall_2020_output.txt");
-
-        // readData returns the number of records read in
+        // readData returns the number of records read in.
         int numSalesRep = readData(names, averageTripLength);
 
-        // prints how many averages are above, below, and equal to the overall average
-        computeTripLength(writer, averageTripLength, numSalesRep);
+        // PrintWriter for printing to the output file.
+        PrintWriter writer = new PrintWriter("fall_2020_output.txt");
 
-        // sorts both arrays in parallel, names in reverse alphabetical order
+        // Calculates the average & average differences.
+        computeTripLength(averageTripLength, writer, numSalesRep);
+
+        // Sorts in parallel.
         sortArray(names, averageTripLength, numSalesRep);
 
         writer.println();
 
-        // right adjusted columns, two decimal places for the trip lengths
         for (int i = 0; i < numSalesRep; i++) {
             writer.printf("%10s %10.2f\\n", names[i], averageTripLength[i]);
         }
@@ -536,16 +543,17 @@ public class Fall2020Question7 {
 
     public static int readData(String[] names, double[] averageTripLength) throws IOException {
 
-        // reading from the input file
-        Scanner sc = new Scanner(new File("fall_2020_input.txt"));
+        // reading from the input file.
+        File file = new File("fall_2020_input.txt");
+        Scanner sc = new Scanner(file);
 
-        // the number of sales reps read so far
+        // the number of sales rep in the file.
         int numSalesRep = 0;
 
         // while the scanner has more things to read
         while (sc.hasNext()) {
 
-            // read the name, and store the average of the two trips
+            // read in the sales' rep name & average trip length into the two arrays.
             names[numSalesRep] = sc.next();
             averageTripLength[numSalesRep] = (sc.nextDouble() + sc.nextDouble()) / 2.0;
             numSalesRep++;
@@ -555,29 +563,28 @@ public class Fall2020Question7 {
         return numSalesRep;
     }
 
-    public static void computeTripLength(PrintWriter pw, double[] averageTripLength, int numRecords) {
+    public static void computeTripLength(double[] averageTripLength, PrintWriter pw, int numRecords) {
 
-        // the overall average is the average of all the individual averages
+        // method is self explanatory
         double sum = 0;
 
         for (int i = 0; i < numRecords; i++) {
             sum += averageTripLength[i];
         }
 
-        double average = sum / numRecords;
+        double average = (sum / numRecords);
 
-        // count how many individual averages are above, below, and equal to it
         int aboveAverage = 0;
         int belowAverage = 0;
         int equalAverage = 0;
 
         for (int i = 0; i < numRecords; i++) {
-            if (averageTripLength[i] > average)
+            if (averageTripLength[i] == average)
+                equalAverage++;
+            else if (averageTripLength[i] > average)
                 aboveAverage++;
             else if (averageTripLength[i] < average)
                 belowAverage++;
-            else
-                equalAverage++;
         }
 
         pw.println("Above Average: " + aboveAverage);
@@ -587,13 +594,12 @@ public class Fall2020Question7 {
 
     public static void sortArray(String[] names, double[] averageTripLength, int numRecords) {
 
-        // bubble sort on the names, in reverse alphabetical order.
-        // names[j].compareTo(names[j + 1]) < 0 means names[j] comes first alphabetically,
-        // so it gets swapped toward the end.
-        // the trip lengths are swapped too, so each name keeps its own average.
-        for (int i = 0; i < numRecords - 1; i++) {
+        // basic bubble sort. compareTo used for string comparison. names[j].compareTo(names[j+1]) < 0
+        // is the same as names[j] < names[j+1]
+        // we swap both the person's name & trip length to make sure everything lines up properly.
+        for (int i = 0; i < numRecords; i++) {
             for (int j = 0; j < numRecords - i - 1; j++) {
-                if (names[j].compareTo(names[j + 1]) < 0) {
+                if (names[j].compareTo(names[j+1]) < 0) {
                     String temp = names[j + 1];
                     names[j + 1] = names[j];
                     names[j] = temp;

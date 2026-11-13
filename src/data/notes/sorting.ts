@@ -14,24 +14,20 @@ export const sorting: NoteTopic = {
           label:   "Implementation",
           content: `public static void bubbleSort(int[] nums) {
 
-    for (int i = 0; i < nums.length; i++) {
-        boolean swapped = false;
-
-        // compare each pair of neighbors, skipping the end that is already sorted
-        for (int j = 0; j < nums.length - i - 1; j++) {
-            if (nums[j] > nums[j + 1]) {
-                int temp = nums[j + 1];
-                nums[j + 1] = nums[j];
-                nums[j] = temp;
-                swapped = true;
+        for (int i = 0; i < nums.length; i++) {
+            boolean swapped = false;
+            for (int j = 0; j < nums.length - i - 1; j++) {
+                if (nums[j] > nums[j+1]) {
+                    int temp = nums[j+1];
+                    nums[j+1] = nums[j];
+                    nums[j] = temp;
+                    swapped = true;
+                }
             }
+            if (swapped == false)
+                break;
         }
-
-        // no swaps in a whole pass means the array is already sorted
-        if (swapped == false)
-            break;
-    }
-}`,
+    }`,
         },
         {
           type:    "text",
@@ -68,23 +64,21 @@ To sort in **descending** order instead, flip the comparison to **nums[j] < nums
           type:    "code",
           label:   "Implementation",
           content: `public static void selectionSort(int[] nums) {
-    for (int i = 0; i < nums.length; i++) {
-        int min = nums[i];
-        int minIndex = i;
+        for (int i = 0; i < nums.length; i++) {
+            int min = nums[i];
+            int minIndex = i;
 
-        // find the smallest value in the rest of the array
-        for (int j = i + 1; j < nums.length; j++) {
-            if (nums[j] < min) {
-                min = nums[j];
-                minIndex = j;
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] < min) {
+                    min = nums[j];
+                    minIndex = j;
+                }
             }
-        }
 
-        // swap it into position i
-        nums[minIndex] = nums[i];
-        nums[i] = min;
-    }
-}`,
+            nums[minIndex] = nums[i];
+            nums[i] = min;
+        }
+    }`,
         },
         {
           type:    "text",

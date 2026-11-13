@@ -45,9 +45,10 @@ After the inner loop finishes, an empty **println()** moves to the next line. Wi
                 System.out.print(i);
             }
 
-            // move to the next line before the next digit
+            // blank print statement so that separate digits are printed on different lines.
             System.out.println();
         }
+
     }
 }`,
     },
@@ -82,30 +83,30 @@ here | 2 | groceries (4)
 radio | 3 | groceries (4)
 [[/table]]
 
-Use **>** and *not* **>=** here. "groceries" and "yourselves" both have 4 vowels, and with **>** the later word does not replace the earlier one, just like the prompt asks.
+The check is **highestVowelCount < numVowels**, a *strict* less-than. "groceries" and "yourselves" both have 4 vowels, and 4 < 4 is false, so the later word does **not** replace the earlier one, just like the prompt asks. With <= instead, "yourselves" would win the tie.
 
 At the end, print the winning word and its vowel count.
 
 When typing input at the keyboard, **hasNext()** keeps waiting for more. Signal the end of input with Ctrl+D (Mac/Linux) or Ctrl+Z then Enter (Windows).`,
       solution: `import java.util.Scanner;
-
 public class Spring2021Question2 {
     public static void main(String[] args) {
 
-        // create the scanner, the best word so far, and its vowel count
+        // create the scanner, most vowel string, and vowel count tracker
         Scanner sc = new Scanner(System.in);
         String mostVowelsString = "";
         int highestVowelCount = 0;
 
         System.out.println("Enter some words: ");
 
-        // while there are still words to read
+        // while there are still tokens in the input stream
         while (sc.hasNext()) {
 
+            // read from the input stream
             String word = sc.next();
             int numVowels = 0;
 
-            // count how many vowels are in this word
+            // count how many vowels are in this string
             for (int i = 0; i < word.length(); i++) {
                 char letter = word.charAt(i);
 
@@ -114,18 +115,21 @@ public class Spring2021Question2 {
                 }
             }
 
-            // strictly more vowels: on a tie, the first word found stays
-            if (numVowels > highestVowelCount) {
+            // if this string has more vowels than the tracker, update it
+            if (highestVowelCount < numVowels) {
                 highestVowelCount = numVowels;
                 mostVowelsString = word;
             }
+
         }
 
-        // print the word with the most vowels and how many it had
-        System.out.printf("%s - %d vowels\\n", mostVowelsString, highestVowelCount);
+        // print the highest vowel string and how many vowels it had
+        System.out.println();
+        System.out.printf("%s - %d vowels", mostVowelsString, highestVowelCount);
 
         sc.close();
     }
+
 }`,
     },
     {
@@ -331,23 +335,22 @@ Index **2** is 30, so we rolled a 2 thirty times. Index **7** is 50, so we rolle
 We end the program by printing each dice sum from 2 to 14 and how many times it occurred.`,
       solution: `public class Spring2021Question5 {
     public static void main(String[] args) {
+        // we are rolling a thousand times.
+        final int NUM_ROLLS = 1000; 
 
-        // we are rolling a thousand times
-        final int NUM_ROLLS = 1000;
-
-        // the max possible roll is 14
+        // the max possible roll is 14.
         final int MAX_ROLL = 14;
 
-        // an array of size 15, granting us access to indices 2 to 14
+        // an array of size 15, granting us access to index 2 to 14.
         int[] histogram = new int[MAX_ROLL + 1];
 
         for (int i = 0; i < NUM_ROLLS; i++) {
 
-            // rolling 1 to 6 and 1 to 8
+            // rolling 1 to 6 and 1 to 8.
             int dieOneRoll = (int) (Math.random() * (6 - 1 + 1) + 1);
             int dieTwoRoll = (int) (Math.random() * (8 - 1 + 1) + 1);
 
-            // summing the rolls
+            // summing the rolls.
             int roll = dieOneRoll + dieTwoRoll;
 
             // updating this roll in the histogram
@@ -356,8 +359,10 @@ We end the program by printing each dice sum from 2 to 14 and how many times it 
 
         System.out.printf("%8s%8s\\n", "Dice Sum", "Count");
 
-        // print each possible roll and how many times it happened
+        // print the possible roll and how many times it happened.
         for (int i = 2; i < histogram.length; i++) {
+
+            // printf for printing pretty
             System.out.printf("%8d%8d\\n", i, histogram[i]);
         }
     }
@@ -376,7 +381,7 @@ If a number entered is *not* between **1 and 100** (except for **-1**, which end
 When a **-1** is read in, stop the loop and print which of the numbers between 1 and 100 were *not* read in.
 
 Sample run:
-[[text]]Enter some numbers between 1 and 100. Enter -1 to stop:
+[[text]]Enter some numbers between 1 and 100. Enter -1 to terminate the program:
 1 2 3 4 5 6 7 8 9 10 11 15 20 50 55 75 99 98 97 96 23 26 29 -1
 The following numbers were not read in:
 12 13 14 16 17 18 19 21 22 24 25 27 28 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 51 52 53 54 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 100[[/text]]
@@ -384,9 +389,7 @@ The following numbers were not read in:
 On the exam, you could answer either this question or question 5.`,
       explanation: `The trick is a **histogram** that remembers which numbers were read in. Make an array of size **101** so indices **1 to 100** exist, one slot per possible number.
 
-Print the instructions *first*, then read the first number. Reading before printing leaves the user staring at a blank screen.
-
-Use a **while** loop that continues until a **-1** is entered. Read the next number at the *bottom* of the loop.
+Read the first number *before* the loop, then use a **while** loop that continues until a **-1** is entered. Read the next number at the *bottom* of the loop, so the condition always checks the newest number.
 [[table]]
 Number read | What happens
 35 | histogram[35]++
@@ -397,44 +400,46 @@ Number read | What happens
 
 Once the loop ends, go through indices 1 to 100 and print every index that is still **zero**. A zero means we __never__ read in that number.`,
       solution: `import java.util.Scanner;
-
 public class Spring2021Question6 {
     public static void main(String[] args) {
 
-        // one slot for each number from 1 to 100 (index 0 is unused)
+        // creating the histogram.
         int[] histogram = new int[101];
 
+        // creating the scanner.
         Scanner sc = new Scanner(System.in);
 
-        // tell the user what to do before waiting for input
-        System.out.println("Enter some numbers between 1 and 100. Enter -1 to stop:");
+        // read in a number.
         int number = sc.nextInt();
 
-        // continue until we read a -1
+        System.out.println("Enter some numbers between 1 and 100. Enter -1 to terminate the program: ");
+
+        // continue until we arrive to a -1
         while (number != -1) {
 
+            // error condition
             if (number < 1 || number > 100) {
-                System.out.println("ERROR: " + number + " is not between 1 and 100.");
+                System.out.println("ERROR: Number must be between 1 and 100.");
             } else {
-                // mark this number as read
+                // adding one to the number in the histogram
                 histogram[number]++;
             }
 
             number = sc.nextInt();
         }
 
-        System.out.println("The following numbers were not read in:");
+        System.out.println("The following numbers were not read in: ");
 
         for (int i = 1; i < histogram.length; i++) {
-            // a value of zero means this number was never read in
+            // a value of zero means this number was not read in.
             if (histogram[i] == 0) {
                 System.out.print(i + " ");
             }
         }
-        System.out.println();
 
         sc.close();
     }
+
 }`,
     },
     {
@@ -526,7 +531,7 @@ Uptown          57200.00[[/text]]
       b. Parallel sorts the arrays, only for the number of records read in by readData, with the primary sort on the array of double in **descending** order.`,
       explanation: `This is a long problem, but each method is doing one very specific job. The key is to not let all the details blur together.
 
-**readData** fills two parallel arrays. The String array stores the neighborhood names, and the double array stores the average of the four prices for that neighborhood. The prices are whole dollars, so read them with **nextInt()**, add them up, and divide by **4.0** so the average keeps its decimal. Every time we read a full record, we increment the counter. At the end, that counter tells the rest of the program how many real records are in the arrays.
+**readData** fills two parallel arrays. The String array stores the neighborhood names, and the double array stores the average of the four prices for that neighborhood. The four prices are read with **nextDouble()**, added together, and divided by **4.0** so the average keeps its decimal. (nextDouble() happily reads whole-dollar prices like 23055.) Every time we read a full record, we increment the counter. At the end, that counter tells the rest of the program how many real records are in the arrays.
 
 **modifyData** first computes the overall average by summing the neighborhood averages and dividing by the number of records. Then it loops through the averages again and applies the rule:
 [[table]]
@@ -550,28 +555,25 @@ public class Spring2021Question8 {
 
     public static void main(String[] args) throws IOException {
 
-        // room for all 100 neighborhoods
         final int MAX_NEIGHBORHOODS = 100;
 
         String[] neighborhoods = new String[MAX_NEIGHBORHOODS];
         double[] averagePrices = new double[MAX_NEIGHBORHOODS];
 
-        // read the file, adjust the averages, then sort highest to lowest
         int numRecords = readData(neighborhoods, averagePrices);
+
         modifyData(averagePrices, numRecords);
-        sortArrays(averagePrices, neighborhoods, numRecords);
+        sortArrays(neighborhoods, averagePrices, numRecords);
 
         PrintWriter writer = new PrintWriter("spring_2021_output.txt");
 
-        // the three highest averages are at the front of the sorted arrays
-        writer.printf("%-15s%9s\\n", "Neighborhood", "Avg Price");
+        writer.printf("%-15s%s\\n", "Neighborhood", "Avg Price");
         for (int i = 0; i < 3; i++) {
             writer.printf("%-15s%9.2f\\n", neighborhoods[i], averagePrices[i]);
         }
 
-        // the three lowest are at the end, so walk backwards to print lowest first
         writer.println();
-        writer.printf("%-15s%9s\\n", "Neighborhood", "Avg Price");
+        writer.printf("%-15s%s\\n", "Neighborhood", "Avg Price");
         for (int i = numRecords - 1; i >= numRecords - 3; i--) {
             writer.printf("%-15s%9.2f\\n", neighborhoods[i], averagePrices[i]);
         }
@@ -580,19 +582,12 @@ public class Spring2021Question8 {
     }
 
     public static int readData(String[] neighborhoods, double[] averagePrices) throws IOException {
-        // read each name and its four prices, and store the name and average price
         Scanner sc = new Scanner(new File("spring_2021_input.txt"));
         int numNeighborhoods = 0;
 
         while (sc.hasNext()) {
             neighborhoods[numNeighborhoods] = sc.next();
-
-            int sum = 0;
-            for (int i = 0; i < 4; i++) {
-                sum += sc.nextInt();
-            }
-            averagePrices[numNeighborhoods] = sum / 4.0;
-
+            averagePrices[numNeighborhoods] = (sc.nextDouble() + sc.nextDouble() + sc.nextDouble() + sc.nextDouble()) / 4.0;
             numNeighborhoods++;
         }
 
@@ -601,7 +596,6 @@ public class Spring2021Question8 {
     }
 
     public static void modifyData(double[] averagePrices, int numRecords) {
-        // find the overall average (the average of the averages)
         double sum = 0;
 
         for (int i = 0; i < numRecords; i++) {
@@ -610,29 +604,28 @@ public class Spring2021Question8 {
 
         double average = sum / numRecords;
 
-        // raise below-average neighborhoods by 10%, lower above-average ones by 15%
         for (int i = 0; i < numRecords; i++) {
-            if (averagePrices[i] < average) {
+            if (average < averagePrices[i]) {
+                averagePrices[i] *= .85;
+            } else if (average > averagePrices[i]) {
                 averagePrices[i] *= 1.10;
-            } else if (averagePrices[i] > average) {
-                averagePrices[i] *= 0.85;
             }
         }
     }
 
-    public static void sortArrays(double[] averagePrices, String[] neighborhoods, int numRecords) {
-        // bubble sort by price, highest first, swapping the names right along with the prices
+    public static void sortArrays(String[] neighborhoods, double[] averagePrices, int numRecords) {
+
         for (int i = 0; i < numRecords - 1; i++) {
             for (int j = 0; j < numRecords - 1 - i; j++) {
                 if (averagePrices[j] < averagePrices[j + 1]) {
 
-                    double tempDouble = averagePrices[j + 1];
-                    averagePrices[j + 1] = averagePrices[j];
-                    averagePrices[j] = tempDouble;
-
                     String tempString = neighborhoods[j + 1];
                     neighborhoods[j + 1] = neighborhoods[j];
                     neighborhoods[j] = tempString;
+
+                    double tempDouble = averagePrices[j + 1];
+                    averagePrices[j + 1] = averagePrices[j];
+                    averagePrices[j] = tempDouble;
                 }
             }
         }

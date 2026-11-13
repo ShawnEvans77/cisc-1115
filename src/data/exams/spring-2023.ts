@@ -40,7 +40,7 @@ At the end, return the new array. The original arrays do not need to be changed.
     // storing the size of one of the arrays in a variable
     int n = A.length;
 
-    // creating a new array the same size as the input arrays
+    // creating a new array same size as input arrays
     char[] C = new char[n];
 
     for (int i = 0; i < n; i++) {
@@ -253,7 +253,7 @@ Step | Math | Java
 Step 3 needs its **own parentheses** before dividing. Otherwise Java would only divide the 1.
 
 The *entire* fraction sits under the outer square root, so everything gets wrapped in one last **Math.sqrt()**.`,
-      solution: `double w = Math.sqrt((Math.sqrt((x + y) / z) - 1) / Math.pow(1 + x, 2));`,
+      solution: `double result = Math.sqrt((Math.sqrt((x + y) / z) - 1) / Math.pow(1 + x, 2));`,
     },
     {
       id: "6",
@@ -434,17 +434,16 @@ avg3pt | 3 + 5 + 2 + 1 + 0 = 11 | 11 × 3 = 33 | 6.60
 avgpts | - | 25 + 27 + 14 + 21 + 24 = 111 | 22.20
 [[/table]]
 
-**sort** puts the total scores in ascending order: {25, 27, 14, 21, 24} becomes {14, 21, 24, 25, 27}. The three lowest scores are simply the **first three** values. The prompt says sort is passed the array of total points, so it uses the length of that array, which totalPoints made exactly as long as the number of players.`,
+**sort** puts the total scores in ascending order: {25, 27, 14, 21, 24} becomes {14, 21, 24, 25, 27}. The three lowest scores are simply the **first three** values. sort also receives **count**, so it only sorts the players that were actually read in.`,
       solution: `import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class Spring2023Question8 {
-
+public class Spring2023Final {
     public static void main(String[] args) throws FileNotFoundException {
         // Create the arrays, read the input file, compute totals, print averages,
-        // then sort the total scores and print the three lowest.
+        // sort the total scores, and then print the three lowest scores.
         final int MAX_PLAYERS = 25;
         String fileName = "input.txt";
         PrintWriter output = new PrintWriter("output.txt");
@@ -456,7 +455,7 @@ public class Spring2023Question8 {
         int[] totalScores = totalPoints(output, twoPointBaskets, threePointBaskets, count);
 
         averages(output, twoPointBaskets, threePointBaskets, totalScores, count);
-        sort(totalScores);
+        sort(totalScores, count);
 
         output.println();
         output.println("3 lowest scorers");
@@ -500,7 +499,7 @@ public class Spring2023Question8 {
     public static void averages(PrintWriter output, int[] twoPointBaskets,
             int[] threePointBaskets, int[] totalScores, int count) {
         // Compute the average points from two-point baskets, three-point baskets,
-        // and total scores, then print them right adjusted under a header.
+        // and total scores, then print the values right adjusted.
         int sumTwoPointBaskets = 0;
         int sumThreePointBaskets = 0;
         int sumTotalScores = 0;
@@ -511,22 +510,21 @@ public class Spring2023Question8 {
             sumTotalScores += totalScores[i];
         }
 
-        // basket counts become points by multiplying by 2 or 3
         double averageTwoPointPoints = sumTwoPointBaskets * 2.0 / count;
         double averageThreePointPoints = sumThreePointBaskets * 3.0 / count;
         double averageTotalPoints = (double) sumTotalScores / count;
 
-        output.printf("%7s %6s %6s\\n", "avg2pt", "avg3pt", "avgpts");
-        output.printf("%7.2f %6.2f %6.2f\\n",
+        output.printf("%7s %6s %6s%n", "avg2pt", "avg3pt", "avgpts");
+        output.printf("%7.2f %6.2f %6.2f%n",
                 averageTwoPointPoints, averageThreePointPoints, averageTotalPoints);
     }
 
-    public static void sort(int[] totalScores) {
+    public static void sort(int[] totalScores, int count) {
         // Sort the total scores in ascending order using selection sort.
-        for (int i = 0; i < totalScores.length - 1; i++) {
+        for (int i = 0; i < count - 1; i++) {
             int minIndex = i;
 
-            for (int j = i + 1; j < totalScores.length; j++) {
+            for (int j = i + 1; j < count; j++) {
                 if (totalScores[j] < totalScores[minIndex]) {
                     minIndex = j;
                 }
