@@ -21,30 +21,39 @@
   }
 
   .viz-field { display: flex; flex-direction: column; gap: 0.35rem; }
-  .viz-field--array  { flex: 1 1 18rem; }
-  .viz-field--target { flex: 0 0 7rem; }
+  .viz-field--array  { flex: 1 1 20rem; }
+  .viz-field--target { flex: 0 0 9.5rem; }
 
   .viz-field-label {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     color: var(--color-muted);
   }
 
   .viz-input {
     font-family: var(--font-mono);
-    font-size: 1rem;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
     color: var(--color-ink);
     background-color: var(--color-white);
     border: 1.5px solid var(--color-border);
-    border-radius: 3px;
-    padding: 0.6rem 0.85rem;
+    border-radius: 6px;
+    padding: 0 1.1rem;
+    height: 3.4rem;
     width: 100%;
-    transition: border-color 0.18s;
+    transition: border-color 0.18s, box-shadow 0.18s;
   }
-  .viz-input:focus { outline: none; border-color: var(--color-orange); }
+  .viz-input:hover { border-color: rgba(var(--rgb-orange), 0.5); }
+  .viz-input:focus {
+    outline: none;
+    border-color: var(--color-orange);
+    box-shadow: 0 0 0 3px rgba(var(--rgb-orange), 0.18);
+  }
 
   .viz-input-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .viz-input-actions .viz-btn { height: 3.4rem; padding: 0 1.4rem; border-radius: 6px; }
 
   .viz-notice {
     font-family: var(--font-mono);
