@@ -72,6 +72,25 @@ A quick way to remember the letters: A is 10, and each letter after it is one mo
       ],
     },
     {
+      id:    "converter",
+      title: "number converter",
+      tags:  ["Binary", "Decimal", "Hexadecimal", "Practice"],
+      converter: { from: 10, to: 2, value: "246" },
+      sections: [
+        {
+          type:    "text",
+          label:   "How to use it",
+          content: `Type a number, pick the base it is in and the base to convert it to, and the converter works it out step by step, the same way an exam solution would show it.
+
+Press **Next step** to see one step at a time, or **Show all** to see the full answer at once. Try each step yourself before you reveal it.
+
+**⇄** swaps the two bases and carries the answer over, so you can convert it straight back as a check. **Random** picks a number in the range the exams use.
+
+The converter accepts whole numbers from 0 to 65535. Spaces are ignored, so you can type binary in groups like 1010 1011. If you type a digit that does not belong to the base, such as a 2 in binary, it tells you the number is invalid, just like an exam answer should.`,
+        },
+      ],
+    },
+    {
       id:    "binarytodecimal",
       title: "binary to decimal",
       tags:  ["Binary", "Decimal"],
@@ -263,25 +282,6 @@ Binary group | 0011 | 1011
 Side by side, the groups read 0011 1011. Dropping the leading zeros gives **111011**.
 
 Every group must have four digits. If you write 3 as 11 instead of 0011, the bits after it move into the wrong places.`,
-        },
-      ],
-    },
-    {
-      id:    "converter",
-      title: "number converter",
-      tags:  ["Binary", "Decimal", "Hexadecimal", "Practice"],
-      converter: { from: 10, to: 2, value: "246" },
-      sections: [
-        {
-          type:    "text",
-          label:   "How to use it",
-          content: `Type a number, pick the base it is in and the base to convert it to, and the converter works it out step by step, the same way an exam solution would show it.
-
-Press **Next step** to see one step at a time, or **Show all** to see the full answer at once. Try each step yourself before you reveal it.
-
-**⇄** swaps the two bases and carries the answer over, so you can convert it straight back as a check. **Random** picks a number in the range the exams use.
-
-The converter accepts whole numbers from 0 to 65535. Spaces are ignored, so you can type binary in groups like 1010 1011. If you type a digit that does not belong to the base, such as a 2 in binary, it tells you the number is invalid, just like an exam answer should.`,
         },
       ],
     },
