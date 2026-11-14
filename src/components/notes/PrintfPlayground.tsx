@@ -43,12 +43,9 @@ function toLines(segments: PrintfSegment[]): OutputCell[][] {
 
 function OutputLines({ segments }: OutputLinesProps) {
   const lines = toLines(segments);
-  const widest = Math.max(1, ...lines.map(line => line.length));
-  const ruler = Array.from({ length: widest }, (_, i) => String((i + 1) % 10)).join("");
 
   return (
     <div className="printf-output">
-      <div className="printf-line printf-line--ruler" aria-hidden="true">{ruler}</div>
       {lines.map((line, i) => (
         <div key={i} className="printf-line">
           {line.length === 0 ? <span className="printf-empty">(empty line)</span> : line.map((cell, k) => (
@@ -150,7 +147,11 @@ export function PrintfPlayground({ format: initialFormat, args: initialArgs }: P
           </div>
         )}
 
-        {result.kind === "output" && (
+        {result.kind === "output" && format === "" && args.trim() === "" && (
+          <p className="viz-notice">Type a format string and its arguments, or pick an example above.</p>
+        )}
+
+        {result.kind === "output" && (format !== "" || args.trim() !== "") && (
           <>
             <p className="viz-field-label printf-label">output, with each space drawn as ·</p>
             <OutputLines segments={result.segments} />

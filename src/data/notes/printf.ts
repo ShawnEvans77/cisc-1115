@@ -118,7 +118,7 @@ To print 7 with %f, write 7.0, or cast it with (double) 7.
       id:    "printfplayground",
       title: "printf playground",
       tags:  ["printf", "Practice"],
-      printf: { format: "%-10s%8.2f%n", args: "\"Coffee\", 3.5" },
+      printf: { format: "", args: "" },
       sections: [
         {
           type:    "text",
@@ -127,7 +127,7 @@ To print 7 with %f, write 7.0, or cast it with (double) 7.
 
 Write each argument the way you would in Java: whole numbers such as 42 are ints, numbers with a decimal point such as 3.5 are doubles, text goes in double quotes, a single character goes in single quotes, and true and false are booleans. The type matters, because %d and %f each accept only one type.
 
-In the output, every space is drawn as a dot, and the ruler above it counts the columns, so you can check a width by counting. Each specifier's part of the output has its own color, matching its row in the table underneath, which explains where every character came from.
+In the output, every space is drawn as a dot, so you can count the padding a width adds. Each specifier's part of the output has its own color, matching its row in the table underneath, which explains where every character came from.
 
 If Java would throw an exception, the playground names it, explains why, and shows anything printed before the crash. Every result matches what Java does.
 
