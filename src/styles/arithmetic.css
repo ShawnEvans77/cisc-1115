@@ -13,11 +13,11 @@
 
   .arith-field { flex: 1 1 11rem; }
 
-  .arith-ops { height: 3.4rem; }
+  .arith-ops { height: 4rem; }
   .arith-ops .viz-speed-btn { padding: 0 1.1rem; }
 
   .arith-input-actions { display: flex; gap: 0.5rem; }
-  .arith-action { height: 3.4rem; border-radius: 6px; padding: 0 1.2rem; }
+  .arith-action { height: 4rem; border-radius: 6px; padding: 0 1.2rem; }
 
   .arith-stage {
     display: flex;

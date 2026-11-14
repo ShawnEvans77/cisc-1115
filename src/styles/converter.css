@@ -10,11 +10,11 @@
 
   .conv-field--number { flex: 1 1 14rem; }
 
-  .conv-bases { height: 3.4rem; }
+  .conv-bases { height: 4rem; }
   .conv-bases .viz-speed-btn { padding: 0 1rem; }
 
   .conv-swap,
-  .conv-random { height: 3.4rem; border-radius: 6px; }
+  .conv-random { height: 4rem; border-radius: 6px; }
   .conv-swap   { font-size: 1.2rem; letter-spacing: 0; padding: 0 1rem; }
   .conv-random { padding: 0 1.4rem; }
 

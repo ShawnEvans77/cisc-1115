@@ -153,7 +153,7 @@ export function PrintfPlayground({ format: initialFormat, args: initialArgs }: P
 
         {result.kind === "output" && (format !== "" || args.trim() !== "") && (
           <>
-            <p className="viz-field-label printf-label">output, with each space drawn as ·</p>
+            <p className="viz-field-label printf-label">output, spaces drawn as ·</p>
             <OutputLines segments={result.segments} />
 
             {specs.length > 0 && (
