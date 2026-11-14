@@ -134,10 +134,10 @@ A note entry with `visualizer` set (`"binarysearch"`, `"linearsearch"`, `"bubble
 
 ## Number converter
 
-A note entry with `converter` set gets a **Number converter** block below its sections, or above them with `above: true`. It converts whole numbers from 0 to 65535 between binary, decimal, and hexadecimal and explains the work one step at a time. The number systems notes use it on every entry.
+A note entry with `converter` set gets a **Number converter** block below its sections, or above them with `above: true`. It converts whole numbers from 0 to 65535 between binary, decimal, and hexadecimal and explains the work one step at a time. Only the number converter note uses it.
 
 - `utils/baseConversion.ts` validates the input and records the steps. Each step body is content markup, rendered by `PromptBody`. The steps use a place value table for binary or hex to decimal, subtracting powers of 2 for decimal to binary, filling in the hex places (how many 256s, 16s, and 1s fit) for decimal to hex, and four-bit groups between binary and hex.
-- A conversion note's `converter` opens on the note's own worked example. `baseConversion.test.ts` fails if a table the converter draws does not appear in the note, so **editing a worked example means updating its `converter` value, and changing a step's table means updating the notes**. The same test checks the converter against every published exam answer.
+- Each conversion guide works one example by hand, and `baseConversion.test.ts` lists those examples. The test fails if a table the converter draws for an example does not appear in its guide, so **editing a worked example means updating its entry in the test, and changing a step's table means updating the guides**. The same test checks the converter against every published exam answer.
 - `components/notes/BaseConverter.tsx` holds the controls. It reuses the visualizer's input and button classes; its own styles are in `styles/converter.css`.
 
 ## Search

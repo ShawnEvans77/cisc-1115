@@ -207,33 +207,38 @@ describe("helpers", () => {
 });
 
 describe("number systems notes", () => {
-  const withConverter = numberSystems.entries.filter(entry => entry.converter);
-
-  it("gives every note but the overview a converter that loads without an error", () => {
-    expect(numberSystems.entries.filter(entry => !entry.converter).map(entry => entry.id)).toEqual(["bases"]);
-    for (const entry of withConverter) {
-      const { from, to, value } = entry.converter!;
-      expect(from, `${entry.id} converts to its own base`).not.toBe(to);
-      converted(value, from, to);
-    }
+  it("shows the converter only on the number converter note, where it loads without an error", () => {
+    const withConverter = numberSystems.entries.filter(entry => entry.converter);
+    expect(withConverter.map(entry => entry.id)).toEqual(["converter"]);
+    const { from, to, value } = withConverter[0].converter!;
+    expect(from).not.toBe(to);
+    converted(value, from, to);
   });
 
-  // A conversion note opens its converter on the note's own example, so every
-  // table the converter draws must match the worked example in the note.
-  it("matches the worked example in each conversion note", () => {
-    const examples = withConverter.filter(entry => entry.id !== "bases" && entry.id !== "converter");
-    expect(examples.map(entry => entry.id)).toEqual(["binarytodecimal", "hextodecimal", "decimaltobinary", "decimaltohex", "binaryhex"]);
+  // Each guide works one example by hand. Its tables must match what the converter
+  // draws for the same number, so the guides and the converter teach one method.
+  const workedExamples: [string, string, NumberBase, NumberBase][] = [
+    ["binarytodecimal", "101101", 2, 10],
+    ["hextodecimal", "2F", 16, 10],
+    ["decimaltobinary", "75", 10, 2],
+    ["decimaltohex", "300", 10, 16],
+    ["binaryhex", "1011110", 2, 16],
+  ];
 
-    for (const entry of examples) {
-      const { from, to, value } = entry.converter!;
+  it("matches the worked example in each conversion guide", () => {
+    const guides = numberSystems.entries.filter(entry => entry.group === "conversions").map(entry => entry.id);
+    expect(guides).toEqual(workedExamples.map(([id]) => id));
+
+    for (const [id, value, from, to] of workedExamples) {
+      const entry = numberSystems.entries.find(e => e.id === id)!;
       const noteText = entry.sections.map(section => section.content).join("\n");
       const noteTables = parsePrompt(noteText).filter(s => s.type === "table").map(s => s.content.trim());
       const conversion = converted(value, from, to);
 
-      expect(noteText, `${entry.id} answer`).toContain(`**${conversion.result}**`);
+      expect(noteText, `${id} answer`).toContain(`**${conversion.result}**`);
       for (const step of conversion.steps) {
         for (const segment of parsePrompt(step.body)) {
-          if (segment.type === "table") expect(noteTables, `${entry.id}: "${step.title}"`).toContain(segment.content.trim());
+          if (segment.type === "table") expect(noteTables, `${id}: "${step.title}"`).toContain(segment.content.trim());
         }
       }
     }

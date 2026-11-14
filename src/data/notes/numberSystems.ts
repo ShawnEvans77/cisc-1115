@@ -97,7 +97,6 @@ The converter accepts whole numbers from 0 to 65535. Spaces are ignored, so you 
       title: "binary to decimal",
       tags:  ["Binary", "Decimal"],
       group: "conversions",
-      converter: { from: 2, to: 10, value: "101101" },
       sections: [
         {
           type:    "text",
@@ -127,7 +126,6 @@ The quickest way to set up the table is to start at the *right* with 1 and doubl
       title: "hexadecimal to decimal",
       tags:  ["Hexadecimal", "Decimal"],
       group: "conversions",
-      converter: { from: 16, to: 10, value: "2F" },
       sections: [
         {
           type:    "text",
@@ -158,7 +156,6 @@ Write the letters as their values *before* you multiply. Writing A×16 as 1×16 
       title: "decimal to binary",
       tags:  ["Decimal", "Binary"],
       group: "conversions",
-      converter: { from: 10, to: 2, value: "75" },
       sections: [
         {
           type:    "text",
@@ -208,7 +205,7 @@ n | n / 2 | n % 2
 [[/table]]
 The first remainder is the *rightmost* bit, so read the n % 2 column from the bottom up: **1001011**, the same answer.
 
-Both methods are fine. Subtracting powers of 2 is usually faster for the small numbers on exams, and it is the one the converter below shows.`,
+Both methods are fine. Subtracting powers of 2 is usually faster for the small numbers on exams, and it is the one the number converter shows.`,
         },
       ],
     },
@@ -217,7 +214,6 @@ Both methods are fine. Subtracting powers of 2 is usually faster for the small n
       title: "decimal to hexadecimal",
       tags:  ["Decimal", "Hexadecimal"],
       group: "conversions",
-      converter: { from: 10, to: 16, value: "300" },
       sections: [
         {
           type:    "text",
@@ -256,7 +252,6 @@ To find how many times 16 fits, count up by 16s: 16, 32, 48, 64, 80, 96, 112, 12
       title: "binary and hexadecimal",
       tags:  ["Binary", "Hexadecimal"],
       group: "conversions",
-      converter: { from: 2, to: 16, value: "1011110" },
       sections: [
         {
           type:    "text",
