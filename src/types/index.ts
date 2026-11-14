@@ -47,10 +47,20 @@ export type NoteEntry = {
   sections:    NoteSection[];
   visualizer?: AlgorithmId;
   converter?:  ConverterPreset;
+  // id of a NoteGroup in the same topic; the entry is listed behind that group's card
+  group?:      string;
+};
+
+// Several entries shown as one card on the topic page. The card opens
+// /notes/<topic>/<group id>, which lists the group's entries.
+export type NoteGroup = {
+  id:    string;
+  title: string;
 };
 
 export type NoteTopic = {
   id:      string;
   label:   string;
+  groups?: NoteGroup[];
   entries: NoteEntry[];
 };

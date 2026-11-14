@@ -209,8 +209,8 @@ describe("helpers", () => {
 describe("number systems notes", () => {
   const withConverter = numberSystems.entries.filter(entry => entry.converter);
 
-  it("gives every note a converter that loads without an error", () => {
-    expect(withConverter.length).toBe(numberSystems.entries.length);
+  it("gives every note but the overview a converter that loads without an error", () => {
+    expect(numberSystems.entries.filter(entry => !entry.converter).map(entry => entry.id)).toEqual(["bases"]);
     for (const entry of withConverter) {
       const { from, to, value } = entry.converter!;
       expect(from, `${entry.id} converts to its own base`).not.toBe(to);

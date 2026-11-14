@@ -3,12 +3,14 @@ import type { NoteTopic } from "../../types";
 export const numberSystems: NoteTopic = {
   id:    "numbersystems",
   label: "number systems",
+  groups: [
+    { id: "conversions", title: "conversion guides" },
+  ],
   entries: [
     {
       id:    "bases",
       title: "how number bases work",
       tags:  ["Binary", "Decimal", "Hexadecimal"],
-      converter: { from: 10, to: 2, value: "45" },
       sections: [
         {
           type:    "text",
@@ -94,6 +96,7 @@ The converter accepts whole numbers from 0 to 65535. Spaces are ignored, so you 
       id:    "binarytodecimal",
       title: "binary to decimal",
       tags:  ["Binary", "Decimal"],
+      group: "conversions",
       converter: { from: 2, to: 10, value: "101101" },
       sections: [
         {
@@ -123,6 +126,7 @@ The quickest way to set up the table is to start at the *right* with 1 and doubl
       id:    "hextodecimal",
       title: "hexadecimal to decimal",
       tags:  ["Hexadecimal", "Decimal"],
+      group: "conversions",
       converter: { from: 16, to: 10, value: "2F" },
       sections: [
         {
@@ -153,6 +157,7 @@ Write the letters as their values *before* you multiply. Writing A×16 as 1×16 
       id:    "decimaltobinary",
       title: "decimal to binary",
       tags:  ["Decimal", "Binary"],
+      group: "conversions",
       converter: { from: 10, to: 2, value: "75" },
       sections: [
         {
@@ -211,6 +216,7 @@ Both methods are fine. Subtracting powers of 2 is usually faster for the small n
       id:    "decimaltohex",
       title: "decimal to hexadecimal",
       tags:  ["Decimal", "Hexadecimal"],
+      group: "conversions",
       converter: { from: 10, to: 16, value: "300" },
       sections: [
         {
@@ -249,6 +255,7 @@ To find how many times 16 fits, count up by 16s: 16, 32, 48, 64, 80, 96, 112, 12
       id:    "binaryhex",
       title: "binary and hexadecimal",
       tags:  ["Binary", "Hexadecimal"],
+      group: "conversions",
       converter: { from: 2, to: 16, value: "1011110" },
       sections: [
         {

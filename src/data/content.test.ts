@@ -133,5 +133,19 @@ describe("notes", () => {
         }
       }
     });
+
+    // A group's id shares the URL slot with note ids: /notes/<topic>/<id>.
+    it(`${topic.id} has valid note groups`, () => {
+      const groupIds = (topic.groups ?? []).map(group => group.id);
+      expectValidIds([...topic.entries.map(entry => entry.id), ...groupIds], "note or group id");
+
+      for (const group of topic.groups ?? []) {
+        expect(group.title.trim(), `${topic.id}/${group.id} title is empty`).not.toBe("");
+        expect(topic.entries.some(entry => entry.group === group.id), `${topic.id}/${group.id} has no notes`).toBe(true);
+      }
+      for (const entry of topic.entries) {
+        if (entry.group) expect(groupIds, `${topic.id}/${entry.id} names an unknown group`).toContain(entry.group);
+      }
+    });
   }
 });

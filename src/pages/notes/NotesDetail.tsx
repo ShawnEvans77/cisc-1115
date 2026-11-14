@@ -3,6 +3,7 @@ import { COURSE_CODE } from "../../constants";
 import { findTopicById } from "../../data/notes";
 import { AlgorithmVisualizer } from "../../components/notes/AlgorithmVisualizer";
 import { BaseConverter } from "../../components/notes/BaseConverter";
+import { NoteEntryList } from "../../components/notes/NoteEntryList";
 import { ContentBlock } from "../../components/ui/ContentBlock";
 import { DetailPageLayout } from "../../components/ui/DetailPageLayout";
 import { JavaCodeBlock } from "../../components/ui/JavaCodeBlock";
@@ -15,9 +16,15 @@ function NotesDetail() {
   const entry = topic?.entries.find(e => e.id === entryId);
   const implementation = entry?.sections.find(section => section.type === "code");
 
+  // a group's id sits in the same URL slot as a note's id; group ids never match note ids
+  const group = topic?.groups?.find(g => g.id === entryId);
+  if (topic && group) return <NoteEntryList key={`${topic.id}/${group.id}`} topic={topic} group={group} />;
+
   if (!topic || !entry) {
     return <NotFoundState title="Note not found" backTo="/notes" backLabel="← Back to notes" />;
   }
+
+  const entryGroup = topic.groups?.find(g => g.id === entry.group);
 
   const converter = entry.converter && (
     <BaseConverter key={entry.id} from={entry.converter.from} to={entry.converter.to} value={entry.converter.value} />
@@ -28,6 +35,7 @@ function NotesDetail() {
       crumbs={[
         { label: "notes", to: "/notes" },
         { label: topic.label, to: `/notes/${topic.id}` },
+        ...(entryGroup ? [{ label: entryGroup.title, to: `/notes/${topic.id}/${entryGroup.id}` }] : []),
         { label: entry.title },
       ]}
       eyebrow={`${COURSE_CODE} \u00A0·\u00A0 ${topic.label}`}
@@ -35,9 +43,15 @@ function NotesDetail() {
       tags={entry.tags}
       bottomNav={
         <>
-          <Link to={`/notes/${topic.id}`} className="back-link">
-            ← All {topic.label} notes
-          </Link>
+          {entryGroup ? (
+            <Link to={`/notes/${topic.id}/${entryGroup.id}`} className="back-link">
+              ← All {entryGroup.title}
+            </Link>
+          ) : (
+            <Link to={`/notes/${topic.id}`} className="back-link">
+              ← All {topic.label} notes
+            </Link>
+          )}
           <Link to="/notes" className="muted-link">
             All topics →
           </Link>

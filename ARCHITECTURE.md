@@ -34,7 +34,7 @@ public/exams/           original exam PDFs
 | `/solutions/:examId/:questionId` | `SolutionDetail` | `QuestionPageLayout` |
 | `/notes` | `Notes` | |
 | `/notes/:topicId` | `NotesTopic` | |
-| `/notes/:topicId/:entryId` | `NotesDetail` | `DetailPageLayout` |
+| `/notes/:topicId/:entryId` | `NotesDetail` | `DetailPageLayout`, or `NoteEntryList` when the id is a note group |
 | `/contact` | `Contact` | |
 | `*` | `PageNotFound` | |
 
@@ -74,6 +74,8 @@ Run `npm test` afterwards. `src/data/content.test.ts` checks ids, required field
 **Algorithm visual**: set `visualizer` on a note entry (see below).
 
 **Number converter**: set `converter: { from, to, value }` on a note entry (see below).
+
+**Note group**: to show several notes as one card on the topic page, add `{ id, title }` to the topic's `groups` and set `group: "<id>"` on each note. The card opens `/notes/<topic>/<group id>`, which lists those notes, and a grouped note's breadcrumb and back link go to the group. Group ids share the URL slot with note ids, so they must not match any note id in the topic; `content.test.ts` checks this. The number systems conversion guides are a group.
 
 Ids appear in URLs and in saved progress, so keep them lowercase letters, digits, and hyphens, unique within their parent, and do not rename them once published. Question ids are the exam's own numbering (`"3"`, `"5a"`).
 
