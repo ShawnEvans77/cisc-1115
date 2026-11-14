@@ -293,5 +293,81 @@ Every group must have four digits. If you write 3 as 11 instead of 0011, the bit
         },
       ],
     },
+    {
+      id:    "binaryarithmetic",
+      title: "binary arithmetic",
+      tags:  ["Binary", "Addition", "Subtraction"],
+      arithmetic: { op: "add", top: "1011", bottom: "110" },
+      sections: [
+        {
+          type:    "text",
+          label:   "Adding in binary",
+          content: `Binary addition works just like the addition you already know. Line the numbers up on the right, add one column at a time starting from the right, and carry when a column gets too big. The only difference is that a binary column is full at 2 instead of 10.
+
+There are only four things a column can add up to:
+[[table]]
+Column | Sum | Write | Carry
+0 + 0 | 0 | 0 | 0
+0 + 1 | 1 | 1 | 0
+1 + 1 | 10 | 0 | 1
+1 + 1 + 1 | 11 | 1 | 1
+[[/table]]
+The last row happens when both digits are 1 and a 1 was also carried in.
+
+Let's add **1011 + 110**. Each column is a place value, and the carries go on top:
+[[table]]
+Place | 16 | 8 | 4 | 2 | 1
+Carry | 1 | 1 | 1 |  | 
+Top |  | 1 | 0 | 1 | 1
+Bottom |  |  | 1 | 1 | 0
+Sum | 1 | 0 | 0 | 0 | 1
+[[/table]]
+In the 1s column, 1 + 0 = 1. Write 1.
+
+In the 2s column, 1 + 1 = 10. Write 0 and carry the 1.
+
+In the 4s column, 0 + 1 plus the carried 1 = 10. Write 0 and carry the 1.
+
+In the 8s column, the bottom number has no digit, so it counts as 0. 1 + 0 plus the carried 1 = 10. Write 0 and carry the 1.
+
+In the 16s column, only the carried 1 is left. Write it down.
+
+The answer is **10001**. Check in base 10: 11 + 6 = 17, and 10001 is 16 + 1 = 17.`,
+        },
+        {
+          type:    "text",
+          label:   "Subtracting in binary",
+          content: `Binary subtraction also works one column at a time from the right. Three of the four cases are easy:
+[[table]]
+Column | Answer
+0 - 0 | 0
+1 - 0 | 1
+1 - 1 | 0
+0 - 1 | borrow first, then 10 - 1 = 1
+[[/table]]
+When the top digit is 0 and the bottom digit is 1, borrow from the left. The nearest 1 to the left becomes 0, any 0s in between become 1, and the column you are working on becomes 10, which is 2. Then 10 - 1 = 1.
+
+Let's subtract **1100 - 101**. The row on top shows each top digit after the borrowing:
+[[table]]
+Place | 8 | 4 | 2 | 1
+After borrowing | 0 | 10 | 1 | 10
+Top | 1 | 1 | 0 | 0
+Bottom |  | 1 | 0 | 1
+Difference | 0 | 1 | 1 | 1
+[[/table]]
+In the 1s column, 0 - 1 cannot be done, so borrow. The 2s column is 0, so the nearest 1 is in the 4s column. It becomes 0. The 4 it lends is split up: the 2s column becomes 1, and the 1s column becomes 10. Now 10 - 1 = 1.
+
+In the 2s column, the top digit is now 1. 1 - 0 = 1.
+
+In the 4s column, the top digit is now 0, and 0 - 1 cannot be done. Borrow from the 8s column, which becomes 0, and the 4s column becomes 10. Now 10 - 1 = 1.
+
+In the 8s column, the top digit is now 0, and the bottom number has no digit. 0 - 0 = 0.
+
+That gives 0111. Zeros at the front do not change the value, so the answer is **111**. Check in base 10: 12 - 5 = 7, and 111 is 4 + 2 + 1 = 7.
+
+Always put the bigger number on top. Subtracting a bigger number from a smaller one gives a negative answer, which takes a different system to write in binary.`,
+        },
+      ],
+    },
   ],
 };

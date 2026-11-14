@@ -14,7 +14,7 @@ src/
   components/
     ui/                 presentational building blocks, no data imports
     exams/              question and solution screens shared by /questions and /solutions
-    notes/              note search results, algorithm visualizer, number converter
+    notes/              note search results, algorithm visualizer, number converter, binary calculator
     layout/             Navbar, Footer, ScrollToTop
   hooks/                search hooks, finished-question progress, theme
   utils/                pure functions: search, prompt parsing, highlighting
@@ -74,6 +74,8 @@ Run `npm test` afterwards. `src/data/content.test.ts` checks ids, required field
 **Algorithm visual**: set `visualizer` on a note entry (see below).
 
 **Number converter**: set `converter: { from, to, value }` on a note entry (see below).
+
+**Binary calculator**: set `arithmetic: { op, top, bottom }` on a note entry (see below).
 
 **Note group**: to show several notes as one card on the topic page, add `{ id, title }` to the topic's `groups` and set `group: "<id>"` on each note. The card opens `/notes/<topic>/<group id>`, which lists those notes, and a grouped note's breadcrumb and back link go to the group. Group ids share the URL slot with note ids, so they must not match any note id in the topic; `content.test.ts` checks this. The number systems conversion guides are a group.
 
@@ -140,6 +142,14 @@ A note entry with `converter` set gets a **Number converter** block below its se
 - Each conversion guide works one example by hand, and `baseConversion.test.ts` lists those examples. The test fails if a table the converter draws for an example does not appear in its guide, so **editing a worked example means updating its entry in the test, and changing a step's table means updating the guides**. The same test checks the converter against every published exam answer.
 - `components/notes/BaseConverter.tsx` holds the controls. It reuses the visualizer's input and button classes; its own styles are in `styles/converter.css`.
 
+## Binary calculator
+
+A note entry with `arithmetic` set gets a **Binary calculator** block above its sections. It adds or subtracts two binary numbers of up to 16 digits the way it is done on paper, one column at a time from the right, with the carries or borrows written above. The binary arithmetic note uses it.
+
+- `utils/binaryArithmetic.ts` records the steps. Each step holds the four rows of the problem (carries or borrows, top, bottom, answer), the column being worked on, the column math, and a message. Addition carries; subtraction borrows from the nearest 1 to the left, turning the 0s in between into 1s. Subtraction refuses a bottom number bigger than the top one.
+- `binaryArithmetic.test.ts` checks every pair of 8-bit numbers against real addition and subtraction, checks the exam answers, and fails if the charts in the binary arithmetic note stop matching what the calculator writes for the same problems.
+- `components/notes/BinaryArithmetic.tsx` holds the controls and draws the problem as a table, one column per binary place. Its styles are in `styles/arithmetic.css`.
+
 ## Search
 
 Search is synchronous and in-memory. `collectNestedSearchResults` (`utils/search.ts`) walks parents and children: a parent that matches is returned once on its own, otherwise each matching child is returned. `useExamSearch` applies it to semesters and questions, `useNotesSearch` to topics and note entries. The match predicates live in `utils/examSearch.ts` and `utils/noteSearch.ts`.
@@ -167,6 +177,7 @@ All styling is hand-written CSS in `src/styles`, imported through `styles/compon
 | `details.css` | Detail pages, content blocks, code, math, buttons, 404 |
 | `visualizer.css` | Algorithm visualizer on note pages |
 | `converter.css` | Number converter on note pages |
+| `arithmetic.css` | Binary calculator on note pages |
 | `dark.css` | Dark mode overrides, scoped by `[data-theme="dark"]` |
 | `mobile.css` | Everything under the single `850px` breakpoint; deliberately outside the layers |
 

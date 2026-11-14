@@ -40,6 +40,13 @@ export type ConverterPreset = {
   above?: boolean;
 };
 
+// Starting state of the step-by-step binary calculator on a note page.
+export type ArithmeticPreset = {
+  op:     "add" | "subtract";
+  top:    string;
+  bottom: string;
+};
+
 export type NoteEntry = {
   id:          string;
   title:       string;
@@ -47,6 +54,8 @@ export type NoteEntry = {
   sections:    NoteSection[];
   visualizer?: AlgorithmId;
   converter?:  ConverterPreset;
+  // shown above the note's sections
+  arithmetic?: ArithmeticPreset;
   // id of a NoteGroup in the same topic; the entry is listed behind that group's card
   group?:      string;
 };

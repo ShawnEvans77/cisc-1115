@@ -105,6 +105,14 @@
   .conv-step-body .content-table th,
   .conv-step-body .content-table td { padding: 0.55rem 0.6rem; white-space: nowrap; }
 
+  .arith-inputs > .viz-field,
+  .arith-input-actions { flex: 1 1 100%; }
+  .arith-ops > *,
+  .arith-input-actions > * { flex: 1; text-align: center; }
+  .arith-stage         { padding: 1.25rem 0.5rem; justify-content: flex-start; }
+  .arith-sheet         { font-size: 1.9rem; }
+  .arith-explain       { min-height: 9rem; padding-left: 0.85rem; }
+
   .copy-btn { width: 100%; text-align: center; }
   .code-actions { width: 100%; }
   .code-actions > * { flex: 1; text-align: center; }

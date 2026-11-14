@@ -3,6 +3,7 @@ import { COURSE_CODE } from "../../constants";
 import { findTopicById } from "../../data/notes";
 import { AlgorithmVisualizer } from "../../components/notes/AlgorithmVisualizer";
 import { BaseConverter } from "../../components/notes/BaseConverter";
+import { BinaryArithmetic } from "../../components/notes/BinaryArithmetic";
 import { NoteEntryList } from "../../components/notes/NoteEntryList";
 import { ContentBlock } from "../../components/ui/ContentBlock";
 import { DetailPageLayout } from "../../components/ui/DetailPageLayout";
@@ -62,6 +63,14 @@ function NotesDetail() {
         <AlgorithmVisualizer key={entry.id} algorithm={entry.visualizer} code={implementation.content} />
       )}
       {entry.converter?.above && converter}
+      {entry.arithmetic && (
+        <BinaryArithmetic
+          key={entry.id}
+          op={entry.arithmetic.op}
+          top={entry.arithmetic.top}
+          bottom={entry.arithmetic.bottom}
+        />
+      )}
       {entry.sections.map((section, i) =>
         section.type === "text" ? (
           <ContentBlock key={i} label={section.label}>

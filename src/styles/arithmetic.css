@@ -1,0 +1,143 @@
+@layer components {
+
+  .arith { outline: none; }
+  .arith:focus-visible { outline: 2px solid var(--color-orange); outline-offset: 6px; border-radius: 4px; }
+
+  .arith-inputs {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .arith-field { flex: 1 1 11rem; }
+
+  .arith-ops { height: 3.4rem; }
+  .arith-ops .viz-speed-btn { padding: 0 1.1rem; }
+
+  .arith-input-actions { display: flex; gap: 0.5rem; }
+  .arith-action { height: 3.4rem; border-radius: 6px; padding: 0 1.2rem; }
+
+  .arith-stage {
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: 4px;
+    padding: 2rem 1.5rem;
+    overflow-x: auto;
+  }
+
+  .arith-sheet {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: var(--font-mono);
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    color: var(--color-ink);
+    margin: 0 auto;
+  }
+
+  .arith-sheet th {
+    font-weight: 500;
+    text-align: right;
+    padding: 0 0.35em 0 0;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .arith-cell {
+    min-width: 1.15em;
+    height: 1.35em;
+    padding: 0 0.12em;
+    text-align: center;
+    vertical-align: middle;
+    transition: background-color 0.25s;
+  }
+
+  .arith-cell--active { background-color: var(--color-orange-light); }
+  .arith-row--marks .arith-cell--active  { border-radius: 0.2em 0.2em 0 0; }
+  .arith-row--result .arith-cell--active { border-radius: 0 0 0.2em 0.2em; }
+
+  .arith-row--marks th,
+  .arith-row--marks .arith-cell {
+    font-size: 0.42em;
+    height: 2.4em;
+    vertical-align: bottom;
+    padding-bottom: 0.35em;
+  }
+  .arith-row--marks th {
+    font-size: 0.24em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 1.05em;
+  }
+  .arith-row--marks .arith-cell { color: var(--color-orange); font-weight: 700; }
+
+  .arith-cell--struck {
+    color: var(--color-subtle);
+    text-decoration: line-through;
+    text-decoration-color: var(--color-orange);
+    text-decoration-thickness: 0.07em;
+  }
+
+  .arith-row--result .arith-cell,
+  .arith-row--result th { border-top: 0.06em solid var(--color-ink); }
+  .arith-row--result .arith-cell { font-weight: 600; height: 1.5em; }
+
+  .arith-sheet--done .arith-row--result .arith-cell { color: var(--color-forest); }
+  .arith-sheet--done .arith-row--result .arith-cell--dim { color: var(--color-subtle); font-weight: 400; }
+
+  .arith-cell--new { animation: arith-pop 0.35s ease-out; }
+
+  @keyframes arith-pop {
+    from { opacity: 0; transform: translateY(-0.25em) scale(0.7); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .arith-cell--new { animation: none; }
+  }
+
+  .arith-explain {
+    border-left: 3px solid var(--color-orange);
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    min-height: 7.5rem;
+  }
+
+  .arith-step-title {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-orange);
+    margin: 0 0 0.5rem;
+  }
+
+  .arith-math {
+    font-family: var(--font-mono);
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: 0 0 0.5rem;
+    overflow-wrap: anywhere;
+  }
+
+  .arith-message {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    line-height: 1.7;
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  .arith-answer-decimal {
+    font-size: 0.6em;
+    color: var(--color-muted);
+  }
+
+  .arith-transport { margin-top: 0.25rem; }
+}

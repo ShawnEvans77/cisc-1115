@@ -38,6 +38,8 @@ The number systems notes include a number converter. It converts between binary,
 
 ![Number converter](docs/screenshots/converter.png)
 
+The binary arithmetic note has a calculator that adds and subtracts binary numbers one column at a time, showing every carry and borrow.
+
 The exam, question, solution, and note lists can all be searched, and the whole site has a dark mode.
 
 ## Develop
