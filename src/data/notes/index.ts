@@ -7,10 +7,12 @@ import type { NoteTopic } from "../../types";
 
 import { sorting }   from "./sorting";
 import { searching } from "./searching";
+import { numberSystems } from "./numberSystems";
 
 export const notes: NoteTopic[] = [
   searching,
   sorting,
+  numberSystems,
 ];
 
 export function findTopicById(topicId?: string): NoteTopic | undefined {

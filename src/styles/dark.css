@@ -71,6 +71,7 @@
   [data-theme="dark"] .viz-btn--solid       { background-color: transparent; color: var(--color-orange); }
   [data-theme="dark"] .viz-btn--solid:hover:not(:disabled) { background-color: rgba(var(--rgb-orange), 0.1); }
   [data-theme="dark"] .viz-table tbody tr.viz-row--latest td { background-color: var(--color-orange-light); }
+  [data-theme="dark"] .conv-step--latest .conv-step-number { background-color: rgba(var(--rgb-orange), 0.15); color: var(--color-orange); }
 
   [data-theme="dark"] .question-card       { background-color: var(--color-content-deep); border-color: var(--color-border); }
   [data-theme="dark"] .question-card:hover { border-color: var(--color-orange); box-shadow: 0 4px 24px rgba(var(--rgb-orange), 0.08); }

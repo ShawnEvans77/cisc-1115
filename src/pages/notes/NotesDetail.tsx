@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { COURSE_CODE } from "../../constants";
 import { findTopicById } from "../../data/notes";
 import { AlgorithmVisualizer } from "../../components/notes/AlgorithmVisualizer";
+import { BaseConverter } from "../../components/notes/BaseConverter";
 import { ContentBlock } from "../../components/ui/ContentBlock";
 import { DetailPageLayout } from "../../components/ui/DetailPageLayout";
 import { JavaCodeBlock } from "../../components/ui/JavaCodeBlock";
@@ -52,6 +53,7 @@ function NotesDetail() {
           <JavaCodeBlock key={`${entry.id}-${i}`} label={section.label} code={section.content} />
         )
       )}
+      {entry.converter && <BaseConverter key={entry.id} {...entry.converter} />}
     </DetailPageLayout>
   );
 }

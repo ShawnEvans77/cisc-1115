@@ -14,7 +14,7 @@ src/
   components/
     ui/                 presentational building blocks, no data imports
     exams/              question and solution screens shared by /questions and /solutions
-    notes/              note search results, algorithm visualizer
+    notes/              note search results, algorithm visualizer, number converter
     layout/             Navbar, Footer, ScrollToTop
   hooks/                search hooks, finished-question progress, theme
   utils/                pure functions: search, prompt parsing, highlighting
@@ -73,6 +73,8 @@ Run `npm test` afterwards. `src/data/content.test.ts` checks ids, required field
 
 **Algorithm visual**: set `visualizer` on a note entry (see below).
 
+**Number converter**: set `converter: { from, to, value }` on a note entry (see below).
+
 Ids appear in URLs and in saved progress, so keep them lowercase letters, digits, and hyphens, unique within their parent, and do not rename them once published. Question ids are the exam's own numbering (`"3"`, `"5a"`).
 
 ### Content markup
@@ -128,6 +130,14 @@ A note entry with `visualizer` set (`"binarysearch"`, `"linearsearch"`, `"bubble
 - The default inputs are the examples traced in each note, and the tests check that the binary search and selection sort charts match the tables in the notes.
 - `components/notes/AlgorithmVisualizer.tsx` holds the controls (custom array and target, Random, Play, Back, Next, speed, scrubber, arrow keys and space). `VisualizerBars.tsx` draws the bars in SVG, so bar sizes come from the data without inline styles. Styles are in `styles/visualizer.css`.
 
+## Number converter
+
+A note entry with `converter` set gets a **Number converter** block below its sections. It converts whole numbers from 0 to 65535 between binary, decimal, and hexadecimal and explains the work one step at a time. The number systems notes use it on every entry.
+
+- `utils/baseConversion.ts` validates the input and records the steps. Each step body is content markup, rendered by `PromptBody`, written the way the exam solutions show the work: a place value table for binary or hex to decimal, subtracting powers of 2 for decimal to binary, dividing by 16 for decimal to hex, and four-bit groups between binary and hex.
+- A conversion note's `converter` opens on the note's own worked example. `baseConversion.test.ts` fails if a table the converter draws does not appear in the note, so **editing a worked example means updating its `converter` value, and changing a step's table means updating the notes**. The same test checks the converter against every published exam answer.
+- `components/notes/BaseConverter.tsx` holds the controls. It reuses the visualizer's input and button classes; its own styles are in `styles/converter.css`.
+
 ## Search
 
 Search is synchronous and in-memory. `collectNestedSearchResults` (`utils/search.ts`) walks parents and children: a parent that matches is returned once on its own, otherwise each matching child is returned. `useExamSearch` applies it to semesters and questions, `useNotesSearch` to topics and note entries. The match predicates live in `utils/examSearch.ts` and `utils/noteSearch.ts`.
@@ -154,6 +164,7 @@ All styling is hand-written CSS in `src/styles`, imported through `styles/compon
 | `cards.css` | Semester, question, note, result, and contact cards; search highlight |
 | `details.css` | Detail pages, content blocks, code, math, buttons, 404 |
 | `visualizer.css` | Algorithm visualizer on note pages |
+| `converter.css` | Number converter on note pages |
 | `dark.css` | Dark mode overrides, scoped by `[data-theme="dark"]` |
 | `mobile.css` | Everything under the single `850px` breakpoint; deliberately outside the layers |
 

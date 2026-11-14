@@ -29,12 +29,22 @@ export type NoteSection = {
 // Algorithms that have an interactive visual on their note page.
 export type AlgorithmId = "binarysearch" | "linearsearch" | "bubblesort" | "selectionsort";
 
+export type NumberBase = 2 | 10 | 16;
+
+// Starting state of the step-by-step number converter on a note page.
+export type ConverterPreset = {
+  from:  NumberBase;
+  to:    NumberBase;
+  value: string;
+};
+
 export type NoteEntry = {
   id:          string;
   title:       string;
   tags:        string[];
   sections:    NoteSection[];
   visualizer?: AlgorithmId;
+  converter?:  ConverterPreset;
 };
 
 export type NoteTopic = {
