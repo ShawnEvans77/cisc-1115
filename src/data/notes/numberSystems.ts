@@ -5,6 +5,7 @@ export const numberSystems: NoteTopic = {
   label: "number systems",
   groups: [
     { id: "conversions", title: "conversion guides" },
+    { id: "arithmetic", title: "binary arithmetic" },
   ],
   entries: [
     {
@@ -295,9 +296,9 @@ Every group must have four digits. If you write 3 as 11 instead of 0011, the bit
     },
     {
       id:    "binaryarithmetic",
-      title: "binary arithmetic",
+      title: "binary arithmetic guide",
       tags:  ["Binary", "Addition", "Subtraction"],
-      arithmetic: { op: "add", top: "1011", bottom: "110" },
+      group: "arithmetic",
       sections: [
         {
           type:    "text",
@@ -366,6 +367,28 @@ In the 8s column, the top digit is now 0, and the bottom number has no digit. 0 
 That gives 0111. Zeros at the front do not change the value, so the answer is **111**. Check in base 10: 12 - 5 = 7, and 111 is 4 + 2 + 1 = 7.
 
 Always put the bigger number on top. Subtracting a bigger number from a smaller one gives a negative answer, which takes a different system to write in binary.`,
+        },
+      ],
+    },
+    {
+      id:    "binarycalculator",
+      title: "binary calculator",
+      tags:  ["Binary", "Addition", "Subtraction", "Practice"],
+      group: "arithmetic",
+      arithmetic: { op: "add", top: "1011", bottom: "110" },
+      sections: [
+        {
+          type:    "text",
+          label:   "How to use it",
+          content: `Type two binary numbers, pick **Add** or **Subtract**, and the calculator works the problem one column at a time, starting from the right, the same way you would on paper.
+
+Press **Next** to move one column at a time, **Play** to watch it run, or **Show answer** to jump to the end. Try each column yourself before you reveal it.
+
+The column being worked on is highlighted. Carries are written above the top number. When subtracting, a digit that is borrowed from is crossed out, and its new value is written above it.
+
+**Swap** switches the top and bottom numbers. **Random** picks two new numbers.
+
+The calculator accepts binary numbers up to 16 digits long, and spaces are ignored. To subtract, put the bigger number on top, since a negative answer takes a different system to write in binary.`,
         },
       ],
     },

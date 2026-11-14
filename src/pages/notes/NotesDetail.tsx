@@ -46,7 +46,7 @@ function NotesDetail() {
         <>
           {entryGroup ? (
             <Link to={`/notes/${topic.id}/${entryGroup.id}`} className="back-link">
-              ← All {entryGroup.title}
+              ← Back to {entryGroup.title}
             </Link>
           ) : (
             <Link to={`/notes/${topic.id}`} className="back-link">

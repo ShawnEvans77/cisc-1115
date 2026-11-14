@@ -130,9 +130,9 @@ describe("parseBinaryInput", () => {
   });
 });
 
-// The note works one addition and one subtraction by hand. Its charts must show
+// The guide works one addition and one subtraction by hand. Its charts must show
 // exactly what the calculator writes for the same problems.
-describe("binary arithmetic note", () => {
+describe("binary arithmetic notes", () => {
   const entry = numberSystems.entries.find(e => e.id === "binaryarithmetic")!;
   const tables = parsePrompt(entry.sections.map(section => section.content).join("\n"))
     .filter(segment => segment.type === "table")
@@ -150,8 +150,14 @@ describe("binary arithmetic note", () => {
     return found.slice(1);
   }
 
-  it("opens the calculator on the note's addition example", () => {
-    expect(entry.arithmetic).toEqual({ op: "add", top: "1011", bottom: "110" });
+  it("shows the calculator only on the binary calculator note, opened on the guide's addition example", () => {
+    const withCalculator = numberSystems.entries.filter(e => e.arithmetic);
+    expect(withCalculator.map(e => e.id)).toEqual(["binarycalculator"]);
+    expect(withCalculator[0].arithmetic).toEqual({ op: "add", top: "1011", bottom: "110" });
+  });
+
+  it("lists the guide first and the calculator last in the binary arithmetic group", () => {
+    expect(numberSystems.entries.filter(e => e.group === "arithmetic").map(e => e.id)).toEqual(["binaryarithmetic", "binarycalculator"]);
   });
 
   it("matches the addition chart", () => {

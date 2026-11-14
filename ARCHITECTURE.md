@@ -77,7 +77,7 @@ Run `npm test` afterwards. `src/data/content.test.ts` checks ids, required field
 
 **Binary calculator**: set `arithmetic: { op, top, bottom }` on a note entry (see below).
 
-**Note group**: to show several notes as one card on the topic page, add `{ id, title }` to the topic's `groups` and set `group: "<id>"` on each note. The card opens `/notes/<topic>/<group id>`, which lists those notes, and a grouped note's breadcrumb and back link go to the group. Group ids share the URL slot with note ids, so they must not match any note id in the topic; `content.test.ts` checks this. The number systems conversion guides are a group.
+**Note group**: to show several notes as one card on the topic page, add `{ id, title }` to the topic's `groups` and set `group: "<id>"` on each note. The card opens `/notes/<topic>/<group id>`, which lists those notes, and a grouped note's breadcrumb and back link go to the group. Group ids share the URL slot with note ids, so they must not match any note id in the topic; `content.test.ts` checks this. The number systems conversion guides and binary arithmetic notes are groups.
 
 Ids appear in URLs and in saved progress, so keep them lowercase letters, digits, and hyphens, unique within their parent, and do not rename them once published. Question ids are the exam's own numbering (`"3"`, `"5a"`).
 
@@ -144,10 +144,10 @@ A note entry with `converter` set gets a **Number converter** block below its se
 
 ## Binary calculator
 
-A note entry with `arithmetic` set gets a **Binary calculator** block above its sections. It adds or subtracts two binary numbers of up to 16 digits the way it is done on paper, one column at a time from the right, with the carries or borrows written above. The binary arithmetic note uses it.
+A note entry with `arithmetic` set gets a **Binary calculator** block above its sections. It adds or subtracts two binary numbers of up to 16 digits the way it is done on paper, one column at a time from the right, with the carries or borrows written above. The binary calculator note uses it.
 
 - `utils/binaryArithmetic.ts` records the steps. Each step holds the four rows of the problem (carries or borrows, top, bottom, answer), the column being worked on, the column math, and a message. Addition carries; subtraction borrows from the nearest 1 to the left, turning the 0s in between into 1s. Subtraction refuses a bottom number bigger than the top one.
-- `binaryArithmetic.test.ts` checks every pair of 8-bit numbers against real addition and subtraction, checks the exam answers, and fails if the charts in the binary arithmetic note stop matching what the calculator writes for the same problems.
+- `binaryArithmetic.test.ts` checks every pair of 8-bit numbers against real addition and subtraction, checks the exam answers, and fails if the charts in the binary arithmetic guide stop matching what the calculator writes for the same problems.
 - `components/notes/BinaryArithmetic.tsx` holds the controls and draws the problem as a table, one column per binary place. Its styles are in `styles/arithmetic.css`.
 
 ## Search
