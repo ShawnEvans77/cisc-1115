@@ -5,7 +5,7 @@ import { cx } from "../../utils/ui";
 import { ContentBlock } from "../ui/ContentBlock";
 import { PromptBody } from "../ui/PromptBody";
 
-type BaseConverterProps = ConverterPreset;
+type BaseConverterProps = Omit<ConverterPreset, "above">;
 
 type BasePickerProps = {
   label: string;

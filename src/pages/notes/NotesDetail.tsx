@@ -19,6 +19,10 @@ function NotesDetail() {
     return <NotFoundState title="Note not found" backTo="/notes" backLabel="← Back to notes" />;
   }
 
+  const converter = entry.converter && (
+    <BaseConverter key={entry.id} from={entry.converter.from} to={entry.converter.to} value={entry.converter.value} />
+  );
+
   return (
     <DetailPageLayout
       crumbs={[
@@ -43,6 +47,7 @@ function NotesDetail() {
       {entry.visualizer && implementation && (
         <AlgorithmVisualizer key={entry.id} algorithm={entry.visualizer} code={implementation.content} />
       )}
+      {entry.converter?.above && converter}
       {entry.sections.map((section, i) =>
         section.type === "text" ? (
           <ContentBlock key={i} label={section.label}>
@@ -53,7 +58,7 @@ function NotesDetail() {
           <JavaCodeBlock key={`${entry.id}-${i}`} label={section.label} code={section.content} />
         )
       )}
-      {entry.converter && <BaseConverter key={entry.id} {...entry.converter} />}
+      {entry.converter && !entry.converter.above && converter}
     </DetailPageLayout>
   );
 }

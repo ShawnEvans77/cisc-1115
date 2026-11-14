@@ -75,7 +75,7 @@ A quick way to remember the letters: A is 10, and each letter after it is one mo
       id:    "converter",
       title: "number converter",
       tags:  ["Binary", "Decimal", "Hexadecimal", "Practice"],
-      converter: { from: 10, to: 2, value: "246" },
+      converter: { from: 10, to: 2, value: "246", above: true },
       sections: [
         {
           type:    "text",

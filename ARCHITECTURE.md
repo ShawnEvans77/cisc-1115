@@ -132,7 +132,7 @@ A note entry with `visualizer` set (`"binarysearch"`, `"linearsearch"`, `"bubble
 
 ## Number converter
 
-A note entry with `converter` set gets a **Number converter** block below its sections. It converts whole numbers from 0 to 65535 between binary, decimal, and hexadecimal and explains the work one step at a time. The number systems notes use it on every entry.
+A note entry with `converter` set gets a **Number converter** block below its sections, or above them with `above: true`. It converts whole numbers from 0 to 65535 between binary, decimal, and hexadecimal and explains the work one step at a time. The number systems notes use it on every entry.
 
 - `utils/baseConversion.ts` validates the input and records the steps. Each step body is content markup, rendered by `PromptBody`, written the way the exam solutions show the work: a place value table for binary or hex to decimal, subtracting powers of 2 for decimal to binary, dividing by 16 for decimal to hex, and four-bit groups between binary and hex.
 - A conversion note's `converter` opens on the note's own worked example. `baseConversion.test.ts` fails if a table the converter draws does not appear in the note, so **editing a worked example means updating its `converter` value, and changing a step's table means updating the notes**. The same test checks the converter against every published exam answer.

@@ -36,6 +36,8 @@ export type ConverterPreset = {
   from:  NumberBase;
   to:    NumberBase;
   value: string;
+  // shown above the note's sections instead of below them
+  above?: boolean;
 };
 
 export type NoteEntry = {
