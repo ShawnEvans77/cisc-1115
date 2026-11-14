@@ -28,7 +28,7 @@ You can mark a question as finished. Progress is saved in your browser, and a se
 
 ### Notes
 
-Notes cover searching, sorting, and number systems.
+Notes cover searching, sorting, number systems, strings, and printf.
 
 The searching and sorting notes have an algorithm visualizer. It runs binary search, linear search, bubble sort, or selection sort one step at a time on any array you type in. It highlights the line of Java being run, shows the variables, and builds the trace chart as it goes.
 
@@ -39,6 +39,8 @@ The number systems notes include a number converter. It converts between binary,
 ![Number converter](docs/screenshots/converter.png)
 
 The binary arithmetic notes include a guide to adding and subtracting in binary, and a calculator that works a problem one column at a time, showing every carry and borrow.
+
+The strings notes include a string explorer: type a string, pick a method such as substring, indexOf, compareTo, or split, and it shows the result and highlights the characters the method used. The printf notes include a playground that shows exactly what a printf call prints, with every space made visible, and names the exception when Java would throw one. Both match Java's behavior, which the tests check against answers taken from Java itself.
 
 The exam, question, solution, and note lists can all be searched, and the whole site has a dark mode.
 

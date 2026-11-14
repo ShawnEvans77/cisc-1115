@@ -5,6 +5,8 @@ import { AlgorithmVisualizer } from "../../components/notes/AlgorithmVisualizer"
 import { BaseConverter } from "../../components/notes/BaseConverter";
 import { BinaryArithmetic } from "../../components/notes/BinaryArithmetic";
 import { NoteEntryList } from "../../components/notes/NoteEntryList";
+import { PrintfPlayground } from "../../components/notes/PrintfPlayground";
+import { StringExplorer } from "../../components/notes/StringExplorer";
 import { ContentBlock } from "../../components/ui/ContentBlock";
 import { DetailPageLayout } from "../../components/ui/DetailPageLayout";
 import { JavaCodeBlock } from "../../components/ui/JavaCodeBlock";
@@ -71,6 +73,15 @@ function NotesDetail() {
           bottom={entry.arithmetic.bottom}
         />
       )}
+      {entry.stringExplorer && (
+        <StringExplorer
+          key={entry.id}
+          text={entry.stringExplorer.text}
+          method={entry.stringExplorer.method}
+          args={entry.stringExplorer.args}
+        />
+      )}
+      {entry.printf && <PrintfPlayground key={entry.id} format={entry.printf.format} args={entry.printf.args} />}
       {entry.sections.map((section, i) =>
         section.type === "text" ? (
           <ContentBlock key={i} label={section.label}>

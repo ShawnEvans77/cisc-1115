@@ -1,0 +1,193 @@
+@layer components {
+
+  .str-field--text { margin-bottom: 1.25rem; }
+
+  .str-quoted {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .str-quote {
+    font-family: var(--font-mono);
+    font-size: 1.6rem;
+    color: var(--color-subtle);
+  }
+
+  .str-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .str-method-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .str-method-buttons { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .str-method {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    background-color: transparent;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 3px;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .str-method:hover { color: var(--color-orange); border-color: var(--color-orange); }
+  .str-method--active {
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+    background-color: var(--color-orange-light);
+  }
+
+  .str-args {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .str-field--int    { flex: 0 0 9rem; }
+  .str-field--string { flex: 1 1 14rem; }
+
+  .str-call {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.9rem;
+    font-family: var(--font-mono);
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: var(--color-ink);
+    border-left: 3px solid var(--color-orange);
+    padding: 0.35rem 0 0.35rem 1.1rem;
+    margin: 0 0 1.25rem;
+  }
+  .str-call-code   { overflow-wrap: anywhere; }
+  .str-call-arrow  { color: var(--color-subtle); }
+  .str-call-result { font-weight: 600; color: var(--color-forest); overflow-wrap: anywhere; }
+  .str-call-result--exception { color: var(--color-error); font-size: 0.8em; }
+
+  .str-type {
+    font-size: 0.45em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 3px;
+    padding: 0.2em 0.5em;
+    align-self: center;
+  }
+
+  .str-stage {
+    background-color: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: 4px;
+    padding: 1.5rem 1.25rem;
+    overflow-x: auto;
+  }
+
+  .str-sheet {
+    border-collapse: separate;
+    border-spacing: 0.3rem 0;
+    font-family: var(--font-mono);
+  }
+
+  .str-sheet th {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    text-align: right;
+    padding-right: 0.6rem;
+    white-space: nowrap;
+  }
+
+  .str-cell {
+    min-width: 2.4rem;
+    height: 2.8rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.5rem;
+    color: var(--color-ink);
+    background-color: var(--color-white);
+    border: 1.5px solid var(--color-border-strong);
+    border-radius: 4px;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .str-row--chars + .str-row--indexes td,
+  .str-row--chars + .str-row--chars td { padding-top: 0.3rem; }
+  .str-row--indexes + .str-row--chars td,
+  .str-row--pointers + .str-row--chars td { padding-top: 1rem; }
+
+  .str-cell--end {
+    background-color: transparent;
+    border-style: dashed;
+    border-color: var(--color-border);
+  }
+
+  .str-cell--pick   { background-color: var(--color-orange-light); border-color: var(--color-orange); color: var(--color-orange); font-weight: 600; }
+  .str-cell--differ { background-color: color-mix(in srgb, var(--color-error) 12%, transparent); border-color: var(--color-error); color: var(--color-error); font-weight: 600; }
+  .str-cell--delim  { color: var(--color-subtle); border-style: dashed; text-decoration: line-through; text-decoration-color: var(--color-subtle); }
+  .str-cell--piece-a { background-color: color-mix(in srgb, var(--color-forest) 14%, transparent); border-color: var(--color-forest); }
+  .str-cell--piece-b { background-color: color-mix(in srgb, var(--color-syrup) 16%, transparent); border-color: var(--color-syrup); }
+
+  .str-space { color: var(--color-subtle); font-size: 0.8em; }
+
+  .str-row--indexes td {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--color-subtle);
+    padding-top: 0.3rem;
+  }
+
+  .str-row--pointers td { text-align: center; vertical-align: top; padding-top: 0.2rem; }
+  .str-pointer {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--color-orange);
+    white-space: nowrap;
+  }
+
+  .str-empty {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--color-muted);
+    margin: 0.5rem 0 0;
+  }
+
+  .str-pieces { margin-top: 1.25rem; }
+  .str-piece-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+  .str-piece {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    color: var(--color-ink);
+    border: 1.5px solid var(--color-border-strong);
+    border-radius: 4px;
+    padding: 0.45rem 0.8rem;
+  }
+  .str-piece--a { border-color: var(--color-forest); background-color: color-mix(in srgb, var(--color-forest) 10%, transparent); }
+  .str-piece--b { border-color: var(--color-syrup); background-color: color-mix(in srgb, var(--color-syrup) 12%, transparent); }
+  .str-piece-index { font-size: 0.75em; color: var(--color-muted); }
+
+  .str-explanation {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    line-height: 1.7;
+    color: var(--color-ink);
+    margin: 1.25rem 0 0;
+  }
+}

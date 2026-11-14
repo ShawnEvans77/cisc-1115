@@ -47,6 +47,35 @@ export type ArithmeticPreset = {
   bottom: string;
 };
 
+// A Java String method the string explorer can run.
+export type StringMethodId =
+  | "length"
+  | "charAt"
+  | "substring1"
+  | "substring2"
+  | "indexOf"
+  | "indexOfFrom"
+  | "lastIndexOf"
+  | "equals"
+  | "compareTo"
+  | "toUpperCase"
+  | "toLowerCase"
+  | "split";
+
+// Starting state of the string explorer on a note page.
+export type StringExplorerPreset = {
+  text:   string;
+  method: StringMethodId;
+  args:   string[];
+};
+
+// Starting state of the printf playground on a note page: the format string as
+// written between the quotes, and the arguments after it.
+export type PrintfPreset = {
+  format: string;
+  args:   string;
+};
+
 export type NoteEntry = {
   id:          string;
   title:       string;
@@ -56,6 +85,10 @@ export type NoteEntry = {
   converter?:  ConverterPreset;
   // shown above the note's sections
   arithmetic?: ArithmeticPreset;
+  // shown above the note's sections
+  stringExplorer?: StringExplorerPreset;
+  // shown above the note's sections
+  printf?:     PrintfPreset;
   // id of a NoteGroup in the same topic; the entry is listed behind that group's card
   group?:      string;
 };

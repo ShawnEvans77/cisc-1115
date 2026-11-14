@@ -8,11 +8,15 @@ import type { NoteTopic } from "../../types";
 import { sorting }   from "./sorting";
 import { searching } from "./searching";
 import { numberSystems } from "./numberSystems";
+import { strings } from "./strings";
+import { printf } from "./printf";
 
 export const notes: NoteTopic[] = [
   searching,
   sorting,
   numberSystems,
+  strings,
+  printf,
 ];
 
 export function findTopicById(topicId?: string): NoteTopic | undefined {

@@ -14,5 +14,7 @@
 @import "./visualizer.css";
 @import "./converter.css";
 @import "./arithmetic.css";
+@import "./strings.css";
+@import "./printf.css";
 @import "./dark.css";
 @import "./mobile.css";

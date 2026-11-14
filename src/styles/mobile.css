@@ -113,6 +113,24 @@
   .arith-sheet         { font-size: 1.9rem; }
   .arith-explain       { min-height: 9rem; padding-left: 0.85rem; }
 
+  .str-methods         { gap: 0.85rem; }
+  .str-field--int,
+  .str-field--string,
+  .printf-field--format,
+  .printf-field--args  { flex: 1 1 100%; }
+  .str-stage           { padding: 1rem 0.5rem; }
+  .str-cell            { min-width: 1.9rem; height: 2.3rem; font-size: 1.2rem; }
+  .str-sheet           { border-spacing: 0.2rem 0; }
+  .printf-output       { padding: 0.75rem; }
+  .printf-table thead  { display: none; }
+  .printf-table,
+  .printf-table tbody,
+  .printf-table tr     { display: block; }
+  .printf-table tr     { border: 1.5px solid var(--color-border); border-radius: 4px; padding: 0.6rem 0.75rem; margin-bottom: 0.6rem; }
+  .printf-table td     { display: inline-block; border: none; padding: 0.15rem 0.9rem 0.15rem 0; text-align: left; white-space: nowrap; }
+  .printf-table td.printf-why { display: block; min-width: 0; padding: 0.4rem 0 0; font-size: 0.95rem; white-space: normal; }
+  .printf-table tbody tr:nth-child(even) td { background-color: transparent; }
+
   .copy-btn { width: 100%; text-align: center; }
   .code-actions { width: 100%; }
   .code-actions > * { flex: 1; text-align: center; }

@@ -1,0 +1,129 @@
+@layer components {
+
+  .printf-examples {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .printf-examples .viz-field-label { margin-right: 0.35rem; }
+
+  .printf-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .printf-field--format { flex: 1 1 18rem; }
+  .printf-field--args   { flex: 1 1 16rem; }
+
+  .printf-code {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--syntax-text);
+    background-color: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 1.25rem;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .printf-label { margin: 0 0 0.5rem; }
+
+  .printf-output {
+    font-family: var(--font-mono);
+    font-size: clamp(1.25rem, 3.2vw, 1.9rem);
+    line-height: 1.55;
+    color: var(--color-ink);
+    background-color: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: 4px;
+    padding: 1rem 1.25rem 1.25rem;
+    overflow-x: auto;
+    margin-bottom: 1.25rem;
+  }
+
+  .printf-line { white-space: pre; }
+  .printf-line--ruler {
+    font-size: 0.55em;
+    letter-spacing: 0;
+    color: var(--color-subtle);
+    border-bottom: 1px dashed var(--color-border-strong);
+    margin-bottom: 0.35rem;
+    line-height: 1.8;
+  }
+  .printf-line--ruler,
+  .printf-line { min-width: max-content; }
+
+  .printf-char--space { color: var(--color-subtle); }
+
+  .printf-seg { border-bottom: 3px solid currentColor; }
+  .printf-seg--0 { background-color: color-mix(in srgb, var(--color-orange) 16%, transparent); border-bottom-color: var(--color-orange); }
+  .printf-seg--1 { background-color: color-mix(in srgb, var(--color-forest) 16%, transparent); border-bottom-color: var(--color-forest); }
+  .printf-seg--2 { background-color: color-mix(in srgb, var(--color-syrup) 18%, transparent); border-bottom-color: var(--color-syrup); }
+  .printf-seg--3 { background-color: color-mix(in srgb, var(--color-ink) 10%, transparent); border-bottom-color: var(--color-muted); }
+
+  .printf-empty { font-family: var(--font-body); font-size: 0.6em; font-style: italic; color: var(--color-subtle); }
+
+  .printf-table { font-size: 1rem; }
+  .printf-table td { white-space: nowrap; }
+  .printf-table td.printf-why {
+    white-space: normal;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    min-width: 16rem;
+  }
+
+  /* a solid block in the specifier's color: the border fills the whole swatch */
+  .printf-swatch {
+    display: inline-block;
+    width: 0.85rem;
+    height: 0;
+    border-bottom: 0.85rem solid;
+    border-radius: 2px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+  .printf-swatch.printf-seg--0 { background-color: transparent; border-bottom-color: var(--color-orange); }
+  .printf-swatch.printf-seg--1 { background-color: transparent; border-bottom-color: var(--color-forest); }
+  .printf-swatch.printf-seg--2 { background-color: transparent; border-bottom-color: var(--color-syrup); }
+  .printf-swatch.printf-seg--3 { background-color: transparent; border-bottom-color: var(--color-muted); }
+
+  .printf-exception {
+    border: 1.5px solid var(--color-error);
+    border-left-width: 4px;
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .printf-exception-name {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-error);
+    margin: 0 0 0.5rem;
+  }
+  .printf-exception-message {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    margin-bottom: 0.75rem;
+    overflow-wrap: anywhere;
+  }
+  .printf-explanation {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+    line-height: 1.7;
+    color: var(--color-ink);
+    margin: 0;
+  }
+  .printf-before { color: var(--color-muted); margin: 0.75rem 0; }
+  .printf-exception .printf-output { margin-bottom: 0; }
+}

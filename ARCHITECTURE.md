@@ -14,7 +14,7 @@ src/
   components/
     ui/                 presentational building blocks, no data imports
     exams/              question and solution screens shared by /questions and /solutions
-    notes/              note search results, algorithm visualizer, number converter, binary calculator
+    notes/              note search results and the interactive note tools
     layout/             Navbar, Footer, ScrollToTop
   hooks/                search hooks, finished-question progress, theme
   utils/                pure functions: search, prompt parsing, highlighting
@@ -76,6 +76,10 @@ Run `npm test` afterwards. `src/data/content.test.ts` checks ids, required field
 **Number converter**: set `converter: { from, to, value }` on a note entry (see below).
 
 **Binary calculator**: set `arithmetic: { op, top, bottom }` on a note entry (see below).
+
+**String explorer**: set `stringExplorer: { text, method, args }` on a note entry (see below).
+
+**printf playground**: set `printf: { format, args }` on a note entry (see below).
 
 **Note group**: to show several notes as one card on the topic page, add `{ id, title }` to the topic's `groups` and set `group: "<id>"` on each note. The card opens `/notes/<topic>/<group id>`, which lists those notes, and a grouped note's breadcrumb and back link go to the group. Group ids share the URL slot with note ids, so they must not match any note id in the topic; `content.test.ts` checks this. The number systems conversion guides and binary arithmetic notes are groups.
 
@@ -150,6 +154,15 @@ A note entry with `arithmetic` set gets a **Binary calculator** block above its 
 - `binaryArithmetic.test.ts` checks every pair of 8-bit numbers against real addition and subtraction, checks the exam answers, and fails if the charts in the binary arithmetic guide stop matching what the calculator writes for the same problems.
 - `components/notes/BinaryArithmetic.tsx` holds the controls and draws the problem as a table, one column per binary place. Its styles are in `styles/arithmetic.css`.
 
+## String explorer and printf playground
+
+These two tools re-create Java behavior in TypeScript, so they have to match Java exactly. Each one is limited to the part of Java the course uses, and says so instead of guessing when asked for anything else.
+
+- `utils/stringMethods.ts` runs `length`, `charAt`, `substring`, `indexOf`, `lastIndexOf`, `equals`, `compareTo`, `toUpperCase`, `toLowerCase`, and `split`, including the `StringIndexOutOfBoundsException` cases. Strings are limited to printable ASCII, where Java and JavaScript agree on every character, and `split` only takes delimiters without regex characters.
+- `utils/javaPrintf.ts` formats `%d`, `%f`, `%s`, `%c`, `%n`, and `%%` with a width, a precision, and the `-`, `0`, and `,` flags, and reports the exception Java would throw, with Java's message. Doubles are kept to 15 significant digits, so each one is exactly the decimal that was typed, and `%f` rounds those digits half up the way Java does (`%.2f` of 1.005 is 1.01).
+- The expected answers in `stringMethods.test.ts` and `javaPrintf.test.ts` were produced by running the same calls in Java 25. When changing either tool, run the new cases through Java and add Java's answers to the tests; do not work them out by hand. `javaPrintf.test.ts` also checks every row of the printf guide's format tables against the playground.
+- `components/notes/StringExplorer.tsx` and `PrintfPlayground.tsx` hold the controls. Their styles are in `styles/strings.css` and `styles/printf.css`.
+
 ## Search
 
 Search is synchronous and in-memory. `collectNestedSearchResults` (`utils/search.ts`) walks parents and children: a parent that matches is returned once on its own, otherwise each matching child is returned. `useExamSearch` applies it to semesters and questions, `useNotesSearch` to topics and note entries. The match predicates live in `utils/examSearch.ts` and `utils/noteSearch.ts`.
@@ -178,6 +191,8 @@ All styling is hand-written CSS in `src/styles`, imported through `styles/compon
 | `visualizer.css` | Algorithm visualizer on note pages |
 | `converter.css` | Number converter on note pages |
 | `arithmetic.css` | Binary calculator on note pages |
+| `strings.css` | String explorer on note pages |
+| `printf.css` | printf playground on note pages |
 | `dark.css` | Dark mode overrides, scoped by `[data-theme="dark"]` |
 | `mobile.css` | Everything under the single `850px` breakpoint; deliberately outside the layers |
 
