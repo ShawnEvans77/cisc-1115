@@ -216,26 +216,32 @@ Both methods are fine. Subtracting powers of 2 is usually faster for the small n
         {
           type:    "text",
           label:   "Overview",
-          content: `To turn a decimal number into hex, divide by 16 and keep the remainder. The remainder is a hex digit, and a remainder from 10 to 15 becomes a letter.
+          content: `To turn a decimal number into hex, write out the hex places, then fill each place with a digit. It works just like decimal to binary, except a place can hold any digit from 0 to 15 instead of only 0 or 1.
 
-For a number under 256, the answer has at most two digits, and one division is enough. Let's convert **200**:
+Let's convert **300**.
 
-200 / 16 = 12, with 200 % 16 = 8 left over. 12 is C, so the answer is **C8**.
-
-Check: 12×16 + 8 = 192 + 8 = 200.
-
-For bigger numbers, keep dividing the quotient by 16 until it reaches 0. Let's convert **300**:
+First, write out the hex places. Each place is worth 16 times the one to its right: 1, 16, 256, 4096. The next one, 4096, is bigger than 300, so the biggest place we need is 256:
 [[table]]
-n | n / 16 | n % 16 | Hex digit
-300 | 18 | 12 | C
-18 | 1 | 2 | 2
-1 | 0 | 1 | 1
+Place | 16² | 16¹ | 16⁰
+Value | 256 | 16 | 1
 [[/table]]
-The first remainder is the *rightmost* digit, so read the Hex digit column from the bottom up: **12C**.
+Now fill the places from biggest to smallest. For each place, ask how many times it fits into what is left. That count is the digit. Take that much away and move to the next place:
+[[table]]
+Place | Left | How many fit? | Take away | Digit
+256 | 300 | 1 | 300 - 1×256 = 44 | 1
+16 | 44 | 2 | 44 - 2×16 = 12 | 2
+1 | 12 | 12 | 12 - 12×1 = 0 | C
+[[/table]]
+The ones place holds 12, and 12 is the hex digit C. Reading the digits from the biggest place down:
+[[table]]
+Place | 256 | 16 | 1
+Digit | 1 | 2 | C
+[[/table]]
+1×16² + 2×16¹ + C×16⁰ = 1×256 + 2×16 + 12×1 = 256 + 32 + 12 = 300, so the answer is **12C**.
 
-Check: 1×16² + 2×16¹ + C×16⁰ = 1×256 + 2×16 + 12×1 = 256 + 32 + 12 = 300.
+Most exam numbers are under 256, so they only need the 16s place and the ones place. For **200**: 16 fits into 200 twelve times, since 12×16 = 192 and 13×16 = 208 is too big. That leaves 200 - 192 = 8 for the ones place. 12 is C, so the answer is **C8**.
 
-The / and % here are Java's integer division and remainder, so you can check each row the same way Java would compute it.`,
+To find how many times 16 fits, count up by 16s: 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240. Stop at the last one that is not bigger than your number. Its place in the list is the count: 192 is the 12th, so 16 fits into 200 twelve times.`,
         },
       ],
     },

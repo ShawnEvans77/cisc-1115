@@ -34,7 +34,7 @@ The searching and sorting notes have an algorithm visualizer. It runs binary sea
 
 ![Bubble sort visualizer](docs/screenshots/visualizer.png)
 
-The number systems notes have a number converter. It converts between binary, decimal, and hexadecimal and shows the work step by step, using the same tables as the exam solutions.
+The number systems notes have a number converter. It converts between binary, decimal, and hexadecimal and shows the work step by step, with a chart for each step.
 
 ![Number converter](docs/screenshots/converter.png)
 

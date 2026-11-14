@@ -128,11 +128,20 @@ describe("convertNumber", () => {
     expect(converted("64", 10, 2).steps[2].body).toContain("64 is itself a power of 2");
   });
 
-  it("divides by 16 for decimal to hex and checks the answer", () => {
-    const [divide, read] = converted("77", 10, 16).steps;
-    expect(divide.body).toContain("77 | 4 | 13 | D\n4 | 0 | 4 | 4");
-    expect(read.body).toContain("gives **4D**");
-    expect(read.body).toContain("Check: 4×16¹ + D×16⁰ = 4×16 + 13×1 = 64 + 13 = 77.");
+  it("fills in the hex places for decimal to hex", () => {
+    const [places, fill, digits] = converted("300", 10, 16).steps;
+    expect(places.body).toContain("Place | 16² | 16¹ | 16⁰\nValue | 256 | 16 | 1");
+    expect(places.body).toContain("the next place, 4096, is too big");
+    expect(fill.body).toContain("256 | 300 | 1 | 300 - 1×256 = 44 | 1\n16 | 44 | 2 | 44 - 2×16 = 12 | 2\n1 | 12 | 12 | 12 - 12×1 = 0 | C");
+    expect(fill.body).toContain("Here C = 12.");
+    expect(digits.body).toContain("Place | 256 | 16 | 1\nDigit | 1 | 2 | C");
+    expect(digits.body).toContain("1×16² + 2×16¹ + C×16⁰ = 1×256 + 2×16 + 12×1 = 256 + 32 + 12 = 300, so the answer is **12C**.");
+
+    const zeros = converted("4100", 10, 16).steps[1].body;
+    expect(zeros).toContain("256 | 4 | 0 | 4 - 0×256 = 4 | 0");
+    for (const step of converted("77", 10, 16).steps) {
+      expect(step.body, "no division or remainder in hex steps").not.toMatch(/%|\/ 16/);
+    }
   });
 
   it("pads binary into groups of four from the right", () => {

@@ -1,9 +1,8 @@
 import type { NumberBase } from "../types";
 
 // Converts whole numbers between binary, decimal, and hexadecimal and records the
-// work as steps. Each step body is content markup for PromptBody, written the way
-// the exam solutions show it: place value tables, subtracting powers of 2,
-// dividing by 16, and four-bit groups.
+// work as steps. Each step body is content markup for PromptBody: place value
+// tables, subtracting powers of 2, filling in the hex places, and four-bit groups.
 
 export const NUMBER_BASES: NumberBase[] = [2, 10, 16];
 
@@ -214,25 +213,37 @@ function decimalToBinarySteps(value: number, binary: string): ConversionStep[] {
 }
 
 function decimalToHexSteps(value: number, hex: string): ConversionStep[] {
-  const rows: (string | number)[][] = [];
-  for (let n = value; n > 0; n = Math.floor(n / 16)) {
-    rows.push([n, Math.floor(n / 16), n % 16, DIGITS[n % 16]]);
-  }
+  const places: number[] = [];
+  for (let place = 1; place <= value; place *= 16) places.unshift(place);
+  const exponents = places.map((_, i) => places.length - 1 - i);
+  const next = places[0] * 16;
 
-  const read = rows.length === 1
-    ? `There is only one remainder, so the answer is **${hex}**.`
-    : `The last remainder is the leftmost digit, so reading the Hex digit column from the bottom up gives **${hex}**.
-
-Check: ${expansion(hex, 16).join(" = ")}.`;
+  let left = value;
+  const fillRows = places.map((place, i) => {
+    const before = left;
+    const count = Math.floor(before / place);
+    left = before - count * place;
+    return [place, before, count, `${before} - ${count}×${place} = ${left}`, hex[i]];
+  });
 
   return [
     {
-      title: "Divide by 16 and keep the remainder",
-      body: `Use integer division, just like Java's / and %. The remainder n % 16 is the next hex digit, starting from the rightmost one. Then divide the quotient n / 16 again, and stop when it reaches 0.${letterNote([...hex])}${table([["n", "n / 16", "n % 16", "Hex digit"], ...rows])}`,
+      title: "Write out the hex places",
+      body: `Each hex place is worth 16 times the one to its right: 1, 16, 256, 4096. Start at 1 and stop before you pass ${value}: the next place, ${next}, is too big.${table([
+        ["Place", ...exponents.map(e => `16${superscript(e)}`)],
+        ["Value", ...places],
+      ])}`,
     },
     {
-      title: "Read the remainders from bottom to top",
-      body: read,
+      title: "Fill each place, biggest first",
+      body: `For each place, ask how many times it fits into what is left. That count, from 0 to 15, is the digit for the place. Take that much away and move to the next place.${letterNote([...hex])}${table([
+        ["Place", "Left", "How many fit?", "Take away", "Digit"],
+        ...fillRows,
+      ])}`,
+    },
+    {
+      title: "Read the digits from the biggest place down",
+      body: `${table([["Place", ...places], ["Digit", ...hex]])}${expansion(hex, 16).join(" = ")}, so the answer is **${hex}**.`,
     },
   ];
 }

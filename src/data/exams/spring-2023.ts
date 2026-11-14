@@ -281,7 +281,7 @@ For **b**, E is 14 in hexadecimal. Multiply each digit by its power of 16.
 
 For **c**, one hex digit is exactly four binary digits. Split the number into groups of four starting from the right and convert each group.
 
-For **d**, see how many 16s fit into 77, then what is left over. This is the same divide and mod idea as converting inches to feet. Any leftover from 10 to 15 becomes a letter.
+For **d**, write out the hex places. 256 is bigger than 77, so we only need the 16s place and the ones place. Fill the 16s place with how many times 16 fits into 77, then put what is left in the ones place. A digit from 10 to 15 becomes a letter.
 
 **e is a trick question.** Binary only uses the digits 0 and 1, so "156" is not a valid base 2 number. Do not try to convert it. Say that it is invalid.
 
@@ -307,8 +307,12 @@ Hex digit | 8 | D
 1000 is 8, and 1101 is 13, which is D.
 
 **d. 4D**
-
-77 / 16 = 4, with 77 % 16 = 13 left over. 13 is D, so the answer is **4D**.
+[[table]]
+Place | Left | How many fit? | Take away | Digit
+16 | 77 | 4 | 77 - 4×16 = 13 | 4
+1 | 13 | 13 | 13 - 13×1 = 0 | D
+[[/table]]
+16 fits into 77 four times, since 4×16 = 64 and 5×16 = 80 is too big. That leaves 13 for the ones place, and 13 is D, so the answer is **4D**.
 
 Check: 4×16 + 13 = 64 + 13 = 77.
 
