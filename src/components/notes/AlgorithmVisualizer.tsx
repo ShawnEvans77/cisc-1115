@@ -158,7 +158,7 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
         <p className="viz-message" aria-live="polite">{step.message}</p>
 
         <div className="viz-controls">
-          <StepControls stepper={stepper} playable />
+          <StepControls stepper={stepper} playable endLabel="Skip to end ⏭" />
           <div className="tool-segmented" role="group" aria-label="Playback speed">
             {SPEEDS.map((option, i) => (
               <button
@@ -234,7 +234,7 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
             <p className="viz-panel-label">Trace chart</p>
             {visibleRows.length > 0 ? (
               <div className="content-table-wrap">
-                <table className="content-table viz-table">
+                <table className={cx("content-table viz-table", isSearch && "viz-table--search")}>
                   <thead>
                     <tr>{run.header.map(cell => <th key={cell}>{cell}</th>)}</tr>
                   </thead>

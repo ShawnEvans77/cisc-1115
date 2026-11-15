@@ -228,9 +228,13 @@
   }
   .viz-stats strong { color: var(--color-ink); font-weight: 500; }
 
-  .viz-table { font-size: 0.95rem; min-width: 0; }
+  /* sized with the window so the sort charts' array column fits beside the code */
+  .viz-table { font-size: clamp(0.95rem, 1.25vw, 1.3rem); min-width: 0; }
   .viz-table th,
-  .viz-table td { padding: 0.5rem 0.9rem; }
+  .viz-table td { padding: 0.65em 0.85em; }
+  .viz-table th { font-size: 0.78em; }
+  /* search charts hold only short numbers, so they fill the panel at a larger size */
+  .viz-table--search { width: 100%; font-size: clamp(1.15rem, 1.6vw, 1.6rem); }
   .viz-table tbody tr.viz-row--latest td { background-color: var(--color-orange-light); }
 
   .viz-empty {

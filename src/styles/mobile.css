@@ -75,14 +75,13 @@
   .viz-field--array,
   .viz-field--target   { flex: 1 1 100%; }
   .viz-input-actions,
-  .tool-transport,
   .tool-segmented           { width: 100%; }
   .viz-input-actions > *,
-  .tool-transport > *,
   .tool-segmented > *       { flex: 1; text-align: center; padding-left: 0.4rem; padding-right: 0.4rem; }
-  .tool-btn--play       { min-width: 0; }
-  .tool-transport       { gap: 0.4rem; }
-  .tool-transport .tool-btn { font-size: 0.7rem; letter-spacing: 0.03em; }
+  /* step buttons two to a row, with Play across the top */
+  .tool-transport       { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; width: 100%; }
+  .tool-transport .tool-btn { font-size: 0.7rem; letter-spacing: 0.03em; text-align: center; padding-left: 0.4rem; padding-right: 0.4rem; }
+  .tool-btn--play       { min-width: 0; grid-column: 1 / -1; order: -1; }
   .viz-stage           { padding: 1rem 0.5rem 0.25rem; }
   .viz-svg--many .viz-bar-value     { font-size: 34px; }
   .viz-svg--many .viz-index         { font-size: 26px; }
@@ -91,6 +90,10 @@
   .viz-panel           { padding: 1rem 0.75rem; }
   .viz-code            { font-size: 0.78rem; }
   .viz-code-row        { padding: 0 0.6rem; }
+  .viz-table           { font-size: 1.1rem; }
+  .viz-table--search   { font-size: 1.3rem; }
+  .viz-table th,
+  .viz-table td        { padding: 0.65em 0.45em; }
 
   .conv-field--number,
   .conv-inputs > .tool-field { flex: 1 1 100%; }
