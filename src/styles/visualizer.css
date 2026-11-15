@@ -1,17 +1,5 @@
 @layer components {
 
-  .viz { outline: none; }
-  .viz:focus-visible { outline: 2px solid var(--color-orange); outline-offset: 6px; border-radius: 4px; }
-
-  .viz-counter {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-subtle);
-    margin: 0;
-  }
-
   .viz-inputs {
     display: flex;
     align-items: flex-end;
@@ -20,69 +8,11 @@
     margin-bottom: 0.75rem;
   }
 
-  .viz-field { display: flex; flex-direction: column; gap: 0.35rem; }
   .viz-field--array  { flex: 1 1 20rem; }
   .viz-field--target { flex: 0 0 9.5rem; }
 
-  .viz-field-label {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--color-muted);
-  }
-
-  .viz-input {
-    font-family: var(--font-mono);
-    font-size: 1.4rem;
-    letter-spacing: 0.02em;
-    color: var(--color-ink);
-    background-color: var(--color-white);
-    border: 1.5px solid var(--color-border);
-    border-radius: 6px;
-    padding: 0 1.25rem;
-    height: 4rem;
-    width: 100%;
-    transition: border-color 0.18s, box-shadow 0.18s;
-  }
-  .viz-input:hover { border-color: rgba(var(--rgb-orange), 0.5); }
-  .viz-input:focus {
-    outline: none;
-    border-color: var(--color-orange);
-    box-shadow: 0 0 0 3px rgba(var(--rgb-orange), 0.18);
-  }
-
   .viz-input-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .viz-input-actions .viz-btn { height: 4rem; padding: 0 1.4rem; border-radius: 6px; }
-
-  .viz-notice {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--color-muted);
-    margin: 0 0 0.75rem;
-  }
-  .viz-notice--error { color: var(--color-error); }
-
-  .viz-btn {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-orange);
-    background-color: transparent;
-    border: 1px solid var(--color-orange);
-    border-radius: 3px;
-    padding: 0.65rem 1.1rem;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background-color 0.18s, color 0.18s, opacity 0.18s;
-  }
-  .viz-btn:hover:not(:disabled) { background-color: var(--color-orange-light); }
-  .viz-btn:disabled { opacity: 0.35; cursor: default; }
-
-  .viz-btn--solid { color: var(--color-pure-white); background-color: var(--color-orange); }
-  .viz-btn--solid:hover:not(:disabled) { background-color: var(--color-orange-hover); }
-  .viz-btn--play { min-width: 8.5rem; }
+  .viz-input-actions .tool-btn { height: 4rem; padding: 0 1.4rem; border-radius: 6px; }
 
 
   /* ── Stage ── */
@@ -169,31 +99,6 @@
     gap: 0.75rem;
     flex-wrap: wrap;
   }
-
-  .viz-transport { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-
-  .viz-speed {
-    display: flex;
-    border: 1px solid var(--color-border-strong);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .viz-speed-btn {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-    background-color: transparent;
-    border: none;
-    padding: 0.6rem 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.18s, color 0.18s;
-  }
-  .viz-speed-btn + .viz-speed-btn { border-left: 1px solid var(--color-border-strong); }
-  .viz-speed-btn:hover        { color: var(--color-orange); }
-  .viz-speed-btn--active      { color: var(--color-orange); background-color: var(--color-orange-light); }
 
   .viz-scrubber {
     width: 100%;

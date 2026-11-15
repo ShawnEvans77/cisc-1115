@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
+import { useMemo, useState } from "react";
+import { useStepper } from "../../hooks/useStepper";
 import type { ArithmeticPreset } from "../../types";
 import { runArithmetic, type ArithmeticOp, type ArithmeticStep } from "../../utils/binaryArithmetic";
 import { cx } from "../../utils/ui";
 import { ContentBlock } from "../ui/ContentBlock";
+import { StepControls, StepCounter } from "./StepControls";
 
 type BinaryArithmeticProps = ArithmeticPreset;
 
@@ -24,8 +26,6 @@ const PLAY_DELAY = 1400;
 
 // Random inputs stay small enough to read: up to six binary digits.
 const RANDOM_MAX = 63;
-
-const IGNORED_KEY_TARGETS = new Set(["INPUT", "SELECT", "TEXTAREA", "BUTTON"]);
 
 function randomInt(min: number, max: number): number {
   return min + Math.floor(Math.random() * (max - min + 1));
@@ -80,39 +80,12 @@ export function BinaryArithmetic({ op: initialOp, top: initialTop, bottom: initi
   const [op, setOp] = useState(initialOp);
   const [topText, setTopText] = useState(initialTop);
   const [bottomText, setBottomText] = useState(initialBottom);
-  // Position in the walkthrough, tied to the problem it belongs to, so changing the
-  // numbers or the operation starts over at the first step, paused.
-  const [view, setView] = useState({ key: "", index: 0, playing: false });
-
   const run = useMemo(() => runArithmetic(op, topText, bottomText), [op, topText, bottomText]);
   const steps = "error" in run ? [] : run.steps;
-  const lastIndex = steps.length - 1;
-  const key = `${op}|${topText}|${bottomText}`;
-  const current = view.key === key ? view : { index: 0, playing: false };
-  const index = Math.min(current.index, Math.max(lastIndex, 0));
-  const isPlaying = current.playing && index < lastIndex;
-  const done = steps.length > 0 && index === lastIndex;
-
-  useEffect(() => {
-    if (!isPlaying) return;
-    const timer = window.setTimeout(
-      () => setView(v => ({ key, index: Math.min(v.index + 1, lastIndex), playing: true })),
-      PLAY_DELAY,
-    );
-    return () => window.clearTimeout(timer);
-  }, [isPlaying, index, key, lastIndex]);
-
-  function goTo(next: number) {
-    setView({ key, index: Math.max(0, Math.min(lastIndex, next)), playing: false });
-  }
-
-  function togglePlay() {
-    if (isPlaying) {
-      setView({ key, index, playing: false });
-      return;
-    }
-    setView({ key, index: index >= lastIndex ? 0 : index, playing: true });
-  }
+  // changing the numbers or the operation starts the walkthrough over, paused
+  const stepper = useStepper(steps.length, `${op}|${topText}|${bottomText}`, PLAY_DELAY);
+  const { index } = stepper;
+  const done = steps.length > 0 && stepper.atEnd;
 
   function swap() {
     setTopText(bottomText);
@@ -126,32 +99,23 @@ export function BinaryArithmetic({ op: initialOp, top: initialTop, bottom: initi
     setBottomText(b.toString(2));
   }
 
-  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
-    if (IGNORED_KEY_TARGETS.has((event.target as HTMLElement).tagName)) return;
-    if (event.key === "ArrowRight") goTo(index + 1);
-    else if (event.key === "ArrowLeft") goTo(index - 1);
-    else if (event.key === " ") togglePlay();
-    else return;
-    event.preventDefault();
-  }
-
   const step = steps[index];
 
   return (
     <ContentBlock
       label="Binary calculator"
-      headerSlot={steps.length > 0 && <p className="viz-counter">Step {index + 1} / {steps.length}</p>}
+      headerSlot={steps.length > 0 && <StepCounter stepper={stepper} />}
     >
-      <div className="arith" tabIndex={0} onKeyDown={handleKeyDown} aria-label="Binary calculator. Use the arrow keys to step and space to play.">
+      <div className="arith tool-keys" tabIndex={0} onKeyDown={stepper.handleKeyDown} aria-label="Binary calculator. Use the arrow keys to step and space to play.">
         <div className="arith-inputs">
-          <div className="viz-field">
-            <span className="viz-field-label">operation</span>
-            <div className="viz-speed arith-ops" role="group" aria-label="Operation">
+          <div className="tool-field">
+            <span className="tool-field-label">operation</span>
+            <div className="tool-segmented arith-ops" role="group" aria-label="Operation">
               {OPERATIONS.map(option => (
                 <button
                   key={option.op}
                   type="button"
-                  className={cx("viz-speed-btn", option.op === op && "viz-speed-btn--active")}
+                  className={cx("tool-segmented-btn", option.op === op && "tool-segmented-btn--active")}
                   aria-pressed={option.op === op}
                   onClick={() => setOp(option.op)}
                 >
@@ -160,10 +124,10 @@ export function BinaryArithmetic({ op: initialOp, top: initialTop, bottom: initi
               ))}
             </div>
           </div>
-          <label className="viz-field arith-field">
-            <span className="viz-field-label">top number</span>
+          <label className="tool-field arith-field">
+            <span className="tool-field-label">top number</span>
             <input
-              className="viz-input"
+              className="tool-input"
               value={topText}
               onChange={event => setTopText(event.target.value)}
               placeholder="e.g. 1011"
@@ -172,10 +136,10 @@ export function BinaryArithmetic({ op: initialOp, top: initialTop, bottom: initi
               autoComplete="off"
             />
           </label>
-          <label className="viz-field arith-field">
-            <span className="viz-field-label">bottom number</span>
+          <label className="tool-field arith-field">
+            <span className="tool-field-label">bottom number</span>
             <input
-              className="viz-input"
+              className="tool-input"
               value={bottomText}
               onChange={event => setBottomText(event.target.value)}
               placeholder="e.g. 110"
@@ -185,13 +149,13 @@ export function BinaryArithmetic({ op: initialOp, top: initialTop, bottom: initi
             />
           </label>
           <div className="arith-input-actions">
-            <button type="button" className="viz-btn arith-action" onClick={swap}>⇅ Swap</button>
-            <button type="button" className="viz-btn arith-action" onClick={loadRandom}>Random</button>
+            <button type="button" className="tool-btn arith-action" onClick={swap}>⇅ Swap</button>
+            <button type="button" className="tool-btn arith-action" onClick={loadRandom}>Random</button>
           </div>
         </div>
 
         {"error" in run ? (
-          <p className="viz-notice viz-notice--error" role="alert">{run.error}</p>
+          <p className="tool-notice tool-notice--error" role="alert">{run.error}</p>
         ) : (
           <>
             <Sheet op={op} step={step} previous={steps[index - 1]} done={done} />
@@ -203,23 +167,15 @@ export function BinaryArithmetic({ op: initialOp, top: initialTop, bottom: initi
             </div>
 
             {done && (
-              <p className="conv-answer">
-                <span className="conv-answer-side">{run.topDigits} {SYMBOLS[op]} {run.bottomDigits}</span>
-                <span className="conv-answer-equals">=</span>
-                <strong className="conv-answer-side">{run.answer}<small>binary</small></strong>
+              <p className="tool-answer">
+                <span className="tool-answer-side">{run.topDigits} {SYMBOLS[op]} {run.bottomDigits}</span>
+                <span className="tool-answer-equals">=</span>
+                <strong className="tool-answer-side">{run.answer}<small>binary</small></strong>
                 <span className="arith-answer-decimal">{run.resultValue} in base 10</span>
               </p>
             )}
 
-            <div className="viz-transport arith-transport">
-              <button type="button" className="viz-btn" onClick={() => goTo(0)} disabled={index === 0}>⏮ Start over</button>
-              <button type="button" className="viz-btn" onClick={() => goTo(index - 1)} disabled={index === 0}>◀ Back</button>
-              <button type="button" className="viz-btn viz-btn--solid viz-btn--play" onClick={togglePlay}>
-                {isPlaying ? "❚❚ Pause" : done ? "↻ Replay" : "▶ Play"}
-              </button>
-              <button type="button" className="viz-btn" onClick={() => goTo(index + 1)} disabled={done}>Next ▶</button>
-              <button type="button" className="viz-btn" onClick={() => goTo(lastIndex)} disabled={done}>Show answer</button>
-            </div>
+            <StepControls stepper={stepper} className="arith-transport" playable endLabel="Show answer" />
           </>
         )}
       </div>

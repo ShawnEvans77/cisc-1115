@@ -16,7 +16,7 @@ src/
     exams/              question and solution screens shared by /questions and /solutions
     notes/              note search results and the interactive note tools
     layout/             Navbar, Footer, ScrollToTop
-  hooks/                search hooks, finished-question progress, theme
+  hooks/                search hooks, finished-question progress, theme, step-through playback
   utils/                pure functions: search, prompt parsing, highlighting
   styles/               plain CSS, split by area
 public/exams/           original exam PDFs
@@ -37,6 +37,8 @@ public/exams/           original exam PDFs
 | `/notes/:topicId/:entryId` | `NotesDetail` | `DetailPageLayout`, or `NoteEntryList` when the id is a note group |
 | `/contact` | `Contact` | |
 | `*` | `PageNotFound` | |
+
+Every page except `Home` is loaded with `React.lazy`, so each route is its own chunk and the landing page downloads only the app shell. `App` wraps the outlet in `Suspense`; React Router runs navigations as transitions, so the current page stays on screen while the next one loads.
 
 `/questions` and `/solutions` are the same screens over the same data. The shared components take a `section` prop (`"questions"` or `"solutions"`) and build every link from it. `vercel.json` rewrites all paths to `index.html` so deep links work.
 
@@ -114,7 +116,7 @@ Low | Mid | High
 - `"java"` (the default): shown verbatim as highlighted, copyable code. Use it for programs, methods, statements, and code fixes. When the code has comments, a **Remove comments** toggle hides them (`JavaCodeBlock`, `utils/javaComments.ts`), and Copy code copies whichever version is shown.
 - `"text"`: rendered with the markup above. Use it for traces, printed output, conversions, and short answers. It can still contain `[[code]]` blocks.
 
-Note sections with `type: "code"` are shown verbatim as Java, with the same Remove comments toggle. `Question.mathLatex` is rendered as a KaTeX display equation under the prompt; remember to double the backslashes inside template strings.
+Note sections with `type: "code"` are shown verbatim as Java, with the same Remove comments toggle. `Question.mathLatex` is rendered as a KaTeX display equation under the prompt; remember to double the backslashes inside template strings. Only a few questions have math, so `QuestionBlocks` loads `MathDisplay` lazily, and KaTeX, its stylesheet, and its fonts download only on those pages.
 
 `src/data/content.test.ts` enforces the markup: balanced block delimiters, every table row with the same number of cells as its header, and an even number of `*` and `__` on each prose line. An odd count means arithmetic like `a * b` leaked into prose; move it into a `[[code]]` block or write it as `×`.
 
@@ -129,6 +131,16 @@ Note sections with `type: "code"` are shown verbatim as Java, with the same Remo
 
 The Java highlighter (`utils/highlightJava.tsx`) is a small line tokenizer, not a parser. It does not handle block comments or char literals. It tags tokens with `tok-*` classes whose colors are the `--syntax-*` variables in `tokens.css`.
 
+## Note tools
+
+The visualizer, number converter, and binary calculator all walk through a run one step at a time, and share how they do it:
+
+- `hooks/useStepper.ts` holds the position and playback: Start over, Back, Next, jump to the end, Play and Pause on a timer, and the arrow keys and space. It takes a key that identifies the run, so changing the input starts the walkthrough over at step 1, paused. The state changes themselves are pure functions in `utils/stepper.ts`, tested in `stepper.test.ts`.
+- `components/notes/StepControls.tsx` draws the step counter and the row of buttons from a stepper. Pass `playable` for Play and Pause, and `endLabel` for a button that jumps to the last step.
+- A tool that takes the keyboard puts `tool-keys` on its focusable wrapper for the focus outline.
+
+All five tools share the field, input, button, segmented control, chip, notice, and answer classes (`tool-*`) in `styles/tools.css`. Each tool's own file adds only its layout.
+
 ## Algorithm visualizer
 
 A note entry with `visualizer` set (`"binarysearch"`, `"linearsearch"`, `"bubblesort"`, `"selectionsort"`) gets a **Watch it run** block above its sections. `NotesDetail` passes it the entry's code section.
@@ -136,7 +148,7 @@ A note entry with `visualizer` set (`"binarysearch"`, `"linearsearch"`, `"bubble
 - `utils/algorithmSteps.ts` records a run as a list of steps: the array, a state per bar (comparing, swapped, sorted, and so on), pointers such as `start` and `mid`, variable values, a message, and the rows of the trace chart so far. Each recorder follows the note's Java implementation line for line.
 - Each step names the code lines it is on by a piece of their text, such as `"if (nums[j] > nums[j+1])"`. The visualizer highlights the line that contains it. `algorithmSteps.test.ts` fails if an anchor matches zero lines or more than one, so **editing a visualized implementation means updating its anchors**.
 - The default inputs are the examples traced in each note, and the tests check that the binary search and selection sort charts match the tables in the notes.
-- `components/notes/AlgorithmVisualizer.tsx` holds the controls (custom array and target, Random, Play, Back, Next, speed, scrubber, arrow keys and space). `VisualizerBars.tsx` draws the bars in SVG, so bar sizes come from the data without inline styles. Styles are in `styles/visualizer.css`.
+- `components/notes/AlgorithmVisualizer.tsx` holds the controls (custom array and target, Random, speed, scrubber) around a `useStepper`. `VisualizerBars.tsx` draws the bars in SVG, so bar sizes come from the data without inline styles. Styles are in `styles/visualizer.css`.
 
 ## Number converter
 
@@ -144,7 +156,7 @@ A note entry with `converter` set gets a **Number converter** block below its se
 
 - `utils/baseConversion.ts` validates the input and records the steps. Each step body is content markup, rendered by `PromptBody`. The steps use a place value table for binary or hex to decimal, subtracting powers of 2 for decimal to binary, filling in the hex places (how many 256s, 16s, and 1s fit) for decimal to hex, and four-bit groups between binary and hex.
 - Each conversion guide works one example by hand, and `baseConversion.test.ts` lists those examples. The test fails if a table the converter draws for an example does not appear in its guide, so **editing a worked example means updating its entry in the test, and changing a step's table means updating the guides**. The same test checks the converter against every published exam answer.
-- `components/notes/BaseConverter.tsx` holds the controls. It reuses the visualizer's input and button classes; its own styles are in `styles/converter.css`.
+- `components/notes/BaseConverter.tsx` holds the controls. It steps with `useStepper` without playback, keeping every step up to the current one on screen. Its own styles are in `styles/converter.css`.
 
 ## Binary calculator
 
@@ -169,7 +181,7 @@ Search is synchronous and in-memory. `collectNestedSearchResults` (`utils/search
 
 ## Finished-question progress
 
-`useFinishedQuestions` stores a list of `"<examId>:<questionId>"` keys under `localStorage["cisc-1115-finished-questions"]` and listens for `storage` events so other tabs stay in sync. It also reads the old key `cisc-1115-visited-questions` when the current one is empty. Questions are only marked finished by the explicit toggle, and a semester shows a checkmark once all of its questions are finished.
+`utils/finishedQuestions.ts` is one store for the whole app: a set of `"<examId>:<questionId>"` keys saved under `localStorage["cisc-1115-finished-questions"]`. `useFinishedQuestions` reads it with `useSyncExternalStore`, so every component showing progress updates together, and the store listens for `storage` events so other tabs stay in sync. It also reads the old key `cisc-1115-visited-questions` when the current one is empty. Reads and writes go through `utils/storage.ts`, which treats blocked storage as empty instead of throwing; `useTheme` uses it too. Questions are only marked finished by the explicit toggle, and a semester shows a checkmark once all of its questions are finished.
 
 ## Theme
 
@@ -188,6 +200,7 @@ All styling is hand-written CSS in `src/styles`, imported through `styles/compon
 | `layout.css` | Page frame, header, breadcrumb, search input, progress filter |
 | `cards.css` | Semester, question, note, result, and contact cards; search highlight |
 | `details.css` | Detail pages, content blocks, code, math, buttons, 404 |
+| `tools.css` | Shared `tool-*` controls for the note tools: fields, inputs, buttons, segmented controls, chips, notices, step counter, answer line |
 | `visualizer.css` | Algorithm visualizer on note pages |
 | `converter.css` | Number converter on note pages |
 | `arithmetic.css` | Binary calculator on note pages |
@@ -202,4 +215,4 @@ Tailwind is imported in `src/index.css` only for its base reset. Components use 
 
 - No backend, so progress does not sync between devices or browsers.
 - Content changes require a code change and a deploy.
-- The app ships as one JavaScript chunk of about 630 kB, which triggers Vite's size warning. Route-level lazy loading would split it.
+- Exam and note content are bundled as data, so the first exam or note page loads the whole exam or note set (about 120 kB and 35 kB before gzip), not one question at a time.

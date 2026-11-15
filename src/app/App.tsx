@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
@@ -10,7 +11,10 @@ function App() {
       <ScrollToTop />
       <Navbar />
       <main className="app-main">
-        <Outlet />
+        {/* pages load lazily; navigations run as transitions, so the old page stays up while the next one loads */}
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
       <Analytics />

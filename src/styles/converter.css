@@ -11,7 +11,7 @@
   .conv-field--number { flex: 1 1 14rem; }
 
   .conv-bases { height: 4rem; }
-  .conv-bases .viz-speed-btn { padding: 0 1rem; }
+  .conv-bases .tool-segmented-btn { padding: 0 1rem; }
 
   .conv-swap,
   .conv-random { height: 4rem; border-radius: 6px; }
@@ -74,30 +74,4 @@
   .conv-step-body .content-table th,
   .conv-step-body .content-table td   { padding: 0.9rem 1.6rem; }
   .conv-step-body .content-table th   { font-size: 1rem; }
-
-  .conv-answer {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    font-family: var(--font-mono);
-    font-size: clamp(1.2rem, 3vw, 1.6rem);
-    color: var(--color-ink);
-    border: 1.5px solid var(--color-forest);
-    border-radius: 4px;
-    padding: 0.9rem 1.25rem;
-    margin: 0 0 1.25rem;
-    overflow-wrap: anywhere;
-  }
-
-  .conv-answer-side { display: inline-flex; align-items: baseline; gap: 0.5rem; }
-  .conv-answer-side small {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 400;
-    color: var(--color-muted);
-  }
-  strong.conv-answer-side { color: var(--color-forest); font-weight: 600; }
-  .conv-answer-equals { color: var(--color-subtle); }
 }

@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useMemo, useState, type FormEvent } from "react";
+import { useStepper } from "../../hooks/useStepper";
 import {
   ALGORITHMS,
   findLine,
@@ -12,6 +13,7 @@ import { highlightJava } from "../../utils/highlightJava";
 import { hasJavaComments, stripJavaComments } from "../../utils/javaComments";
 import { cx } from "../../utils/ui";
 import { ContentBlock } from "../ui/ContentBlock";
+import { StepControls, StepCounter } from "./StepControls";
 import { VisualizerBars } from "./VisualizerBars";
 
 type AlgorithmVisualizerProps = {
@@ -32,8 +34,6 @@ const LEGENDS: Record<AlgorithmId, [BarState, string][]> = {
   bubblesort: [["compare", "comparing"], ["swap", "just swapped"], ["sorted", "locked in"]],
   selectionsort: [["min", "smallest so far"], ["compare", "checking"], ["swap", "just swapped"], ["sorted", "final position"]],
 };
-
-const IGNORED_KEY_TARGETS = new Set(["INPUT", "SELECT", "TEXTAREA", "BUTTON"]);
 
 function randomInt(min: number, max: number) {
   return min + Math.floor(Math.random() * (max - min + 1));
@@ -56,46 +56,17 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
   const [targetText, setTargetText] = useState(String(config.defaultTarget ?? ""));
   const [notice, setNotice] = useState<{ text: string; error: boolean } | null>(null);
 
-  const [stepIndex, setStepIndex] = useState(0);
-  const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const [hideComments, setHideComments] = useState(false);
 
   const run = useMemo(() => config.record(input, target), [config, input, target]);
-  const lastIndex = run.steps.length - 1;
-  const step = run.steps[Math.min(stepIndex, lastIndex)];
-  const isPlaying = playing && stepIndex < lastIndex;
-
-  useEffect(() => {
-    if (!isPlaying) return;
-    const timer = window.setTimeout(() => setStepIndex(i => i + 1), SPEEDS[speed].delay);
-    return () => window.clearTimeout(timer);
-  }, [isPlaying, stepIndex, speed]);
+  const stepper = useStepper(run.steps.length, `${input.join(",")}|${target}`, SPEEDS[speed].delay);
+  const step = run.steps[stepper.index];
 
   // Anchors are pieces of code, never comments, so they still find their lines with comments hidden.
   const shownCode = hideComments ? stripJavaComments(code) : code;
   const codeLines = useMemo(() => highlightJava(shownCode), [shownCode]);
   const activeLines = new Set(step.lines.map(anchor => findLine(shownCode, anchor)));
-
-  function goTo(index: number) {
-    setPlaying(false);
-    setStepIndex(Math.max(0, Math.min(lastIndex, index)));
-  }
-
-  // relative moves read the latest index, so quick repeated clicks are not lost
-  function stepBy(delta: number) {
-    setPlaying(false);
-    setStepIndex(i => Math.max(0, Math.min(lastIndex, i + delta)));
-  }
-
-  function togglePlay() {
-    if (isPlaying) {
-      setPlaying(false);
-      return;
-    }
-    if (stepIndex >= lastIndex) setStepIndex(0);
-    setPlaying(true);
-  }
 
   // Load and Random put the input in at step 1, paused; Play starts it.
   function load(values: number[], nextTarget: number, message: string | null) {
@@ -104,8 +75,8 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
     setArrayText(values.join(", "));
     setTargetText(String(nextTarget));
     setNotice(message ? { text: message, error: false } : null);
-    setStepIndex(0);
-    setPlaying(false);
+    // new numbers start over on their own; this also restarts a reload of the same ones
+    stepper.goTo(0);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -146,38 +117,29 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
     load(values, isSearch && Math.random() < 0.25 ? randomInt(61, 99) : values[randomInt(0, values.length - 1)], null);
   }
 
-  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
-    if (IGNORED_KEY_TARGETS.has((event.target as HTMLElement).tagName)) return;
-    if (event.key === "ArrowRight") stepBy(1);
-    else if (event.key === "ArrowLeft") stepBy(-1);
-    else if (event.key === " ") togglePlay();
-    else return;
-    event.preventDefault();
-  }
-
   const visibleRows = run.rows.slice(0, step.rowCount);
 
   return (
     <ContentBlock
       label="Watch it run"
-      headerSlot={<p className="viz-counter">Step {Math.min(stepIndex, lastIndex) + 1} / {run.steps.length}</p>}
+      headerSlot={<StepCounter stepper={stepper} />}
     >
-      <div className="viz" tabIndex={0} onKeyDown={handleKeyDown} aria-label="Algorithm visualizer. Use the arrow keys to step and space to play.">
+      <div className="viz tool-keys" tabIndex={0} onKeyDown={stepper.handleKeyDown} aria-label="Algorithm visualizer. Use the arrow keys to step and space to play.">
         <form className="viz-inputs" onSubmit={handleSubmit}>
-          <label className="viz-field viz-field--array">
-            <span className="viz-field-label">int[] nums</span>
+          <label className="tool-field viz-field--array">
+            <span className="tool-field-label">int[] nums</span>
             <input
-              className="viz-input"
+              className="tool-input"
               value={arrayText}
               onChange={event => setArrayText(event.target.value)}
               spellCheck={false}
             />
           </label>
           {isSearch && (
-            <label className="viz-field viz-field--target">
-              <span className="viz-field-label">target</span>
+            <label className="tool-field viz-field--target">
+              <span className="tool-field-label">target</span>
               <input
-                className="viz-input"
+                className="tool-input"
                 value={targetText}
                 onChange={event => setTargetText(event.target.value)}
                 spellCheck={false}
@@ -185,31 +147,24 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
             </label>
           )}
           <div className="viz-input-actions">
-            <button type="submit" className="viz-btn viz-btn--solid">Load</button>
-            <button type="button" className="viz-btn" onClick={loadRandom}>Random</button>
+            <button type="submit" className="tool-btn tool-btn--solid">Load</button>
+            <button type="button" className="tool-btn" onClick={loadRandom}>Random</button>
           </div>
         </form>
-        {notice && <p className={cx("viz-notice", notice.error && "viz-notice--error")}>{notice.text}</p>}
+        {notice && <p className={cx("tool-notice", notice.error && "tool-notice--error")}>{notice.text}</p>}
 
         <VisualizerBars step={step} input={input} />
 
         <p className="viz-message" aria-live="polite">{step.message}</p>
 
         <div className="viz-controls">
-          <div className="viz-transport">
-            <button type="button" className="viz-btn" onClick={() => goTo(0)} disabled={stepIndex === 0}>⏮ Reset</button>
-            <button type="button" className="viz-btn" onClick={() => stepBy(-1)} disabled={stepIndex === 0}>◀ Back</button>
-            <button type="button" className="viz-btn viz-btn--solid viz-btn--play" onClick={togglePlay}>
-              {isPlaying ? "❚❚ Pause" : stepIndex >= lastIndex ? "↻ Replay" : "▶ Play"}
-            </button>
-            <button type="button" className="viz-btn" onClick={() => stepBy(1)} disabled={stepIndex >= lastIndex}>Next ▶</button>
-          </div>
-          <div className="viz-speed" role="group" aria-label="Playback speed">
+          <StepControls stepper={stepper} playable />
+          <div className="tool-segmented" role="group" aria-label="Playback speed">
             {SPEEDS.map((option, i) => (
               <button
                 key={option.label}
                 type="button"
-                className={cx("viz-speed-btn", i === speed && "viz-speed-btn--active")}
+                className={cx("tool-segmented-btn", i === speed && "tool-segmented-btn--active")}
                 aria-pressed={i === speed}
                 onClick={() => setSpeed(i)}
               >
@@ -222,9 +177,9 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
           type="range"
           className="viz-scrubber"
           min={0}
-          max={lastIndex}
-          value={Math.min(stepIndex, lastIndex)}
-          onChange={event => goTo(Number(event.target.value))}
+          max={stepper.stepCount - 1}
+          value={stepper.index}
+          onChange={event => stepper.goTo(Number(event.target.value))}
           aria-label="Step"
         />
 

@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
+import { useStepper } from "../../hooks/useStepper";
 import type { ConverterPreset, NumberBase } from "../../types";
 import { BASE_NAMES, convertNumber, NUMBER_BASES, toBase } from "../../utils/baseConversion";
 import { cx } from "../../utils/ui";
 import { ContentBlock } from "../ui/ContentBlock";
 import { PromptBody } from "../ui/PromptBody";
+import { StepControls, StepCounter } from "./StepControls";
 
 type BaseConverterProps = Omit<ConverterPreset, "above">;
 
@@ -22,14 +24,14 @@ const RANDOM_MAX = 255;
 
 function BasePicker({ label, value, onChange }: BasePickerProps) {
   return (
-    <div className="viz-field">
-      <span className="viz-field-label">{label}</span>
-      <div className="viz-speed conv-bases" role="group" aria-label={`Convert ${label}`}>
+    <div className="tool-field">
+      <span className="tool-field-label">{label}</span>
+      <div className="tool-segmented conv-bases" role="group" aria-label={`Convert ${label}`}>
         {NUMBER_BASES.map(base => (
           <button
             key={base}
             type="button"
-            className={cx("viz-speed-btn", base === value && "viz-speed-btn--active")}
+            className={cx("tool-segmented-btn", base === value && "tool-segmented-btn--active")}
             aria-pressed={base === value}
             onClick={() => onChange(base)}
           >
@@ -45,20 +47,14 @@ export function BaseConverter({ from: initialFrom, to: initialTo, value: initial
   const [text, setText] = useState(initialValue);
   const [from, setFrom] = useState(initialFrom);
   const [to, setTo] = useState(initialTo);
-  // How many steps are showing, tied to the conversion it was counted for, so any
-  // change to the number or the bases starts the walkthrough over at step 1.
-  const [revealed, setRevealed] = useState({ key: "", count: 1 });
-
   const conversion = useMemo(() => convertNumber(text, from, to), [text, from, to]);
   const isEmpty = text.trim() === "";
   const steps = "error" in conversion ? [] : conversion.steps;
-  const key = `${text}|${from}|${to}`;
-  const shown = revealed.key === key ? Math.min(revealed.count, steps.length) : 1;
-  const done = steps.length > 0 && shown >= steps.length;
-
-  function show(count: number) {
-    setRevealed({ key, count: Math.max(1, Math.min(steps.length, count)) });
-  }
+  // Steps up to the current one stay on screen. Any change to the number or the
+  // bases starts the walkthrough over at step 1.
+  const stepper = useStepper(steps.length, `${text}|${from}|${to}`);
+  const shown = stepper.index + 1;
+  const done = steps.length > 0 && stepper.atEnd;
 
   // Picking the base on the other side swaps the two, so from and to never match.
   function chooseFrom(base: NumberBase) {
@@ -85,14 +81,14 @@ export function BaseConverter({ from: initialFrom, to: initialTo, value: initial
   return (
     <ContentBlock
       label="Number converter"
-      headerSlot={steps.length > 0 && <p className="viz-counter">Step {shown} / {steps.length}</p>}
+      headerSlot={steps.length > 0 && <StepCounter stepper={stepper} />}
     >
       <div className="conv">
         <div className="conv-inputs">
-          <label className="viz-field conv-field--number">
-            <span className="viz-field-label">number in {BASE_NAMES[from]}</span>
+          <label className="tool-field conv-field--number">
+            <span className="tool-field-label">number in {BASE_NAMES[from]}</span>
             <input
-              className="viz-input"
+              className="tool-input"
               value={text}
               onChange={event => setText(event.target.value)}
               placeholder={PLACEHOLDERS[from]}
@@ -102,13 +98,13 @@ export function BaseConverter({ from: initialFrom, to: initialTo, value: initial
             />
           </label>
           <BasePicker label="from" value={from} onChange={chooseFrom} />
-          <button type="button" className="viz-btn conv-swap" onClick={swap} aria-label="Swap from and to">⇄</button>
+          <button type="button" className="tool-btn conv-swap" onClick={swap} aria-label="Swap from and to">⇄</button>
           <BasePicker label="to" value={to} onChange={chooseTo} />
-          <button type="button" className="viz-btn conv-random" onClick={loadRandom}>Random</button>
+          <button type="button" className="tool-btn conv-random" onClick={loadRandom}>Random</button>
         </div>
 
         {"error" in conversion ? (
-          <p className={cx("viz-notice", !isEmpty && "viz-notice--error")} role={isEmpty ? undefined : "alert"}>
+          <p className={cx("tool-notice", !isEmpty && "tool-notice--error")} role={isEmpty ? undefined : "alert"}>
             {conversion.error}
           </p>
         ) : (
@@ -128,19 +124,14 @@ export function BaseConverter({ from: initialFrom, to: initialTo, value: initial
             </ol>
 
             {done && (
-              <p className="conv-answer">
-                <span className="conv-answer-side">{conversion.digits}<small>{BASE_NAMES[from]}</small></span>
-                <span className="conv-answer-equals">=</span>
-                <strong className="conv-answer-side">{conversion.result}<small>{BASE_NAMES[to]}</small></strong>
+              <p className="tool-answer">
+                <span className="tool-answer-side">{conversion.digits}<small>{BASE_NAMES[from]}</small></span>
+                <span className="tool-answer-equals">=</span>
+                <strong className="tool-answer-side">{conversion.result}<small>{BASE_NAMES[to]}</small></strong>
               </p>
             )}
 
-            <div className="viz-transport conv-transport">
-              <button type="button" className="viz-btn" onClick={() => show(1)} disabled={shown <= 1}>⏮ Start over</button>
-              <button type="button" className="viz-btn" onClick={() => show(shown - 1)} disabled={shown <= 1}>◀ Back</button>
-              <button type="button" className="viz-btn viz-btn--solid" onClick={() => show(shown + 1)} disabled={done}>Next step ▶</button>
-              <button type="button" className="viz-btn" onClick={() => show(steps.length)} disabled={done}>Show all</button>
-            </div>
+            <StepControls stepper={stepper} className="conv-transport" endLabel="Show all" />
           </>
         )}
       </div>

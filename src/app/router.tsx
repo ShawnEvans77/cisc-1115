@@ -1,18 +1,22 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Home from "../pages/Home";
-import Contact from "../pages/Contact";
-import PageNotFound from "../pages/PageNotFound";
-import Exams from "../pages/exams/Exams";
-import Questions from "../pages/questions/Questions";
-import SemesterQuestions from "../pages/questions/SemesterQuestions";
-import QuestionDetail from "../pages/questions/QuestionDetail";
-import Solutions from "../pages/solutions/Solutions";
-import SemesterSolutions from "../pages/solutions/SemesterSolutions";
-import SolutionDetail from "../pages/solutions/SolutionDetail";
-import Notes from "../pages/notes/Notes";
-import NotesTopic from "../pages/notes/NotesTopic";
-import NotesDetail from "../pages/notes/NotesDetail";
+
+// Every page but Home loads on first visit, so the landing page does not download
+// the exams, the notes, and the note tools. App wraps the outlet in Suspense.
+const Contact = lazy(() => import("../pages/Contact"));
+const PageNotFound = lazy(() => import("../pages/PageNotFound"));
+const Exams = lazy(() => import("../pages/exams/Exams"));
+const Questions = lazy(() => import("../pages/questions/Questions"));
+const SemesterQuestions = lazy(() => import("../pages/questions/SemesterQuestions"));
+const QuestionDetail = lazy(() => import("../pages/questions/QuestionDetail"));
+const Solutions = lazy(() => import("../pages/solutions/Solutions"));
+const SemesterSolutions = lazy(() => import("../pages/solutions/SemesterSolutions"));
+const SolutionDetail = lazy(() => import("../pages/solutions/SolutionDetail"));
+const Notes = lazy(() => import("../pages/notes/Notes"));
+const NotesTopic = lazy(() => import("../pages/notes/NotesTopic"));
+const NotesDetail = lazy(() => import("../pages/notes/NotesDetail"));
 
 export const router = createBrowserRouter([
   {

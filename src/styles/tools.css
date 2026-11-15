@@ -1,0 +1,157 @@
+@layer components {
+
+  .tool-keys { outline: none; }
+  .tool-keys:focus-visible { outline: 2px solid var(--color-orange); outline-offset: 6px; border-radius: 4px; }
+
+  .tool-counter {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    margin: 0;
+  }
+
+  .tool-field { display: flex; flex-direction: column; gap: 0.35rem; }
+
+  .tool-field-label {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+  }
+
+  .tool-input {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    letter-spacing: 0.02em;
+    color: var(--color-ink);
+    background-color: var(--color-white);
+    border: 1.5px solid var(--color-border);
+    border-radius: 6px;
+    padding: 0 1.25rem;
+    height: 4rem;
+    width: 100%;
+    transition: border-color 0.18s, box-shadow 0.18s;
+  }
+  .tool-input:hover { border-color: rgba(var(--rgb-orange), 0.5); }
+  .tool-input:focus {
+    outline: none;
+    border-color: var(--color-orange);
+    box-shadow: 0 0 0 3px rgba(var(--rgb-orange), 0.18);
+  }
+
+  .tool-notice {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    margin: 0 0 0.75rem;
+  }
+  .tool-notice--error { color: var(--color-error); }
+
+  .tool-btn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-orange);
+    background-color: transparent;
+    border: 1px solid var(--color-orange);
+    border-radius: 3px;
+    padding: 0.65rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.18s, color 0.18s, opacity 0.18s;
+  }
+  .tool-btn:hover:not(:disabled) { background-color: var(--color-orange-light); }
+  .tool-btn:disabled { opacity: 0.35; cursor: default; }
+
+  .tool-btn--solid { color: var(--color-pure-white); background-color: var(--color-orange); }
+  .tool-btn--solid:hover:not(:disabled) { background-color: var(--color-orange-hover); }
+  .tool-btn--play { min-width: 8.5rem; }
+
+  .tool-transport { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .tool-segmented {
+    display: flex;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .tool-segmented-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    background-color: transparent;
+    border: none;
+    padding: 0.6rem 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.18s, color 0.18s;
+  }
+  .tool-segmented-btn + .tool-segmented-btn { border-left: 1px solid var(--color-border-strong); }
+  .tool-segmented-btn:hover        { color: var(--color-orange); }
+  .tool-segmented-btn--active      { color: var(--color-orange); background-color: var(--color-orange-light); }
+
+  .tool-quoted {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .tool-quote {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    color: var(--color-subtle);
+  }
+
+  .tool-chip {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    background-color: var(--color-white);
+    border: 1.5px solid var(--color-border-strong);
+    border-radius: 5px;
+    padding: 0.7rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .tool-chip:hover { color: var(--color-orange); border-color: var(--color-orange); }
+  .tool-chip--active {
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+    background-color: var(--color-orange-light);
+  }
+
+
+  .tool-answer {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    font-family: var(--font-mono);
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    color: var(--color-ink);
+    border: 1.5px solid var(--color-forest);
+    border-radius: 4px;
+    padding: 0.9rem 1.25rem;
+    margin: 0 0 1.25rem;
+    overflow-wrap: anywhere;
+  }
+
+  .tool-answer-side { display: inline-flex; align-items: baseline; gap: 0.5rem; }
+  .tool-answer-side small {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--color-muted);
+  }
+  strong.tool-answer-side { color: var(--color-forest); font-weight: 600; }
+  .tool-answer-equals { color: var(--color-subtle); }
+}

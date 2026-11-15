@@ -1,8 +1,5 @@
 @layer components {
 
-  .arith { outline: none; }
-  .arith:focus-visible { outline: 2px solid var(--color-orange); outline-offset: 6px; border-radius: 4px; }
-
   .arith-inputs {
     display: flex;
     align-items: flex-end;
@@ -14,7 +11,7 @@
   .arith-field { flex: 1 1 11rem; }
 
   .arith-ops { height: 4rem; }
-  .arith-ops .viz-speed-btn { padding: 0 1.1rem; }
+  .arith-ops .tool-segmented-btn { padding: 0 1.1rem; }
 
   .arith-input-actions { display: flex; gap: 0.5rem; }
   .arith-action { height: 4rem; border-radius: 6px; padding: 0 1.2rem; }

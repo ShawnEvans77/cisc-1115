@@ -139,31 +139,31 @@ export function StringExplorer({ text: initialText, method: initialMethod, args:
   return (
     <ContentBlock label="String explorer">
       <div className="str">
-        <label className="viz-field str-field--text">
-          <span className="viz-field-label">String s =</span>
-          <span className="str-quoted">
-            <span className="str-quote" aria-hidden="true">"</span>
+        <label className="tool-field str-field--text">
+          <span className="tool-field-label">String s =</span>
+          <span className="tool-quoted">
+            <span className="tool-quote" aria-hidden="true">"</span>
             <input
-              className="viz-input"
+              className="tool-input"
               value={text}
               onChange={event => setText(event.target.value)}
               spellCheck={false}
               autoComplete="off"
             />
-            <span className="str-quote" aria-hidden="true">"</span>
+            <span className="tool-quote" aria-hidden="true">"</span>
           </span>
         </label>
 
         <div className="str-methods">
           {METHOD_GROUPS.map(group => (
             <div key={group.label} className="str-method-group" role="group" aria-label={`${group.label} methods`}>
-              <span className="viz-field-label">{group.label}</span>
+              <span className="tool-field-label">{group.label}</span>
               <div className="str-method-buttons">
                 {group.methods.map(m => (
                   <button
                     key={m.id}
                     type="button"
-                    className={cx("str-method", m.id === method && "str-method--active")}
+                    className={cx("tool-chip", m.id === method && "tool-chip--active")}
                     aria-pressed={m.id === method}
                     onClick={() => pick(m.id)}
                   >
@@ -178,11 +178,11 @@ export function StringExplorer({ text: initialText, method: initialMethod, args:
         {info.params.length > 0 && (
           <div className="str-args">
             {info.params.map((param, i) => (
-              <label key={`${method}-${param.name}`} className={cx("viz-field", param.kind === "int" ? "str-field--int" : "str-field--string")}>
-                <span className="viz-field-label">{param.kind === "int" ? "int" : "String"} {param.name}</span>
+              <label key={`${method}-${param.name}`} className={cx("tool-field", param.kind === "int" ? "str-field--int" : "str-field--string")}>
+                <span className="tool-field-label">{param.kind === "int" ? "int" : "String"} {param.name}</span>
                 {param.kind === "int" ? (
                   <input
-                    className="viz-input"
+                    className="tool-input"
                     value={args[i] ?? ""}
                     onChange={event => setArg(i, event.target.value)}
                     inputMode="numeric"
@@ -190,16 +190,16 @@ export function StringExplorer({ text: initialText, method: initialMethod, args:
                     autoComplete="off"
                   />
                 ) : (
-                  <span className="str-quoted">
-                    <span className="str-quote" aria-hidden="true">"</span>
+                  <span className="tool-quoted">
+                    <span className="tool-quote" aria-hidden="true">"</span>
                     <input
-                      className="viz-input"
+                      className="tool-input"
                       value={args[i] ?? ""}
                       onChange={event => setArg(i, event.target.value)}
                       spellCheck={false}
                       autoComplete="off"
                     />
-                    <span className="str-quote" aria-hidden="true">"</span>
+                    <span className="tool-quote" aria-hidden="true">"</span>
                   </span>
                 )}
               </label>
@@ -208,7 +208,7 @@ export function StringExplorer({ text: initialText, method: initialMethod, args:
         )}
 
         {"error" in outcome ? (
-          <p className="viz-notice viz-notice--error" role="alert">{outcome.error}</p>
+          <p className="tool-notice tool-notice--error" role="alert">{outcome.error}</p>
         ) : (
           <>
             <div className="str-call" aria-live="polite">
@@ -238,7 +238,7 @@ export function StringExplorer({ text: initialText, method: initialMethod, args:
 
             {outcome.pieces && (
               <div className="str-pieces">
-                <span className="viz-field-label">String[] pieces, length {outcome.pieces.length}</span>
+                <span className="tool-field-label">String[] pieces, length {outcome.pieces.length}</span>
                 {outcome.pieces.length === 0 ? (
                   <p className="str-empty">The array is empty.</p>
                 ) : (

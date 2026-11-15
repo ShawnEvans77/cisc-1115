@@ -1,18 +1,25 @@
+import { lazy, Suspense } from "react";
 import type { Question } from "../../types";
 import { ContentBlock } from "../ui/ContentBlock";
 import { JavaCodeBlock } from "../ui/JavaCodeBlock";
-import { MathDisplay } from "../ui/MathDisplay";
 import { PromptBody } from "../ui/PromptBody";
 
 type QuestionBlockProps = {
   question: Question;
 };
 
+// KaTeX is large and only a few questions have math, so it loads on first use.
+const MathDisplay = lazy(() => import("../ui/MathDisplay").then(module => ({ default: module.MathDisplay })));
+
 export function QuestionPromptBlock({ question }: QuestionBlockProps) {
   return (
     <ContentBlock label="The Question">
       <PromptBody text={question.prompt} />
-      {question.mathLatex && <MathDisplay latex={question.mathLatex} />}
+      {question.mathLatex && (
+        <Suspense fallback={null}>
+          <MathDisplay latex={question.mathLatex} />
+        </Suspense>
+      )}
     </ContentBlock>
   );
 }

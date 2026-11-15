@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { readStorage, writeStorage } from "../utils/storage";
 
 type Theme = "light" | "dark";
 
@@ -13,20 +14,8 @@ const THEME_COLORS: Record<Theme, string> = {
 const THEME_TRANSITION_MS = 300;
 
 function getStoredTheme(): Theme | null {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored === "light" || stored === "dark" ? stored : null;
-  } catch {
-    return null;
-  }
-}
-
-function setStoredTheme(theme: Theme) {
-  try {
-    localStorage.setItem(STORAGE_KEY, theme);
-  } catch {
-    // Storage can be unavailable in strict privacy contexts.
-  }
+  const stored = readStorage(STORAGE_KEY);
+  return stored === "light" || stored === "dark" ? stored : null;
 }
 
 function getInitialTheme(): Theme {
@@ -65,7 +54,7 @@ export function useTheme() {
 
   useEffect(() => {
     applyTheme(theme, { animate: true });
-    setStoredTheme(theme);
+    writeStorage(STORAGE_KEY, theme);
   }, [theme]);
 
   // Sync with OS-level changes when no stored preference

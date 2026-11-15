@@ -85,12 +85,12 @@ export function PrintfPlayground({ format: initialFormat, args: initialArgs }: P
     <ContentBlock label="printf playground">
       <div className="printf">
         <div className="printf-examples" role="group" aria-label="Examples">
-          <span className="viz-field-label">try</span>
+          <span className="tool-field-label">try</span>
           {EXAMPLES.map(example => (
             <button
               key={example.label}
               type="button"
-              className={cx("str-method", example.format === format && example.args === args && "str-method--active")}
+              className={cx("tool-chip", example.format === format && example.args === args && "tool-chip--active")}
               onClick={() => {
                 setFormat(example.format);
                 setArgs(example.args);
@@ -102,24 +102,24 @@ export function PrintfPlayground({ format: initialFormat, args: initialArgs }: P
         </div>
 
         <div className="printf-inputs">
-          <label className="viz-field printf-field--format">
-            <span className="viz-field-label">format string</span>
-            <span className="str-quoted">
-              <span className="str-quote" aria-hidden="true">"</span>
+          <label className="tool-field printf-field--format">
+            <span className="tool-field-label">format string</span>
+            <span className="tool-quoted">
+              <span className="tool-quote" aria-hidden="true">"</span>
               <input
-                className="viz-input"
+                className="tool-input"
                 value={format}
                 onChange={event => setFormat(event.target.value)}
                 spellCheck={false}
                 autoComplete="off"
               />
-              <span className="str-quote" aria-hidden="true">"</span>
+              <span className="tool-quote" aria-hidden="true">"</span>
             </span>
           </label>
-          <label className="viz-field printf-field--args">
-            <span className="viz-field-label">arguments, separated by commas</span>
+          <label className="tool-field printf-field--args">
+            <span className="tool-field-label">arguments, separated by commas</span>
             <input
-              className="viz-input"
+              className="tool-input"
               value={args}
               onChange={event => setArgs(event.target.value)}
               spellCheck={false}
@@ -130,8 +130,8 @@ export function PrintfPlayground({ format: initialFormat, args: initialArgs }: P
 
         <code className="printf-code">System.out.printf("{format}"{argList});</code>
 
-        {result.kind === "error" && <p className="viz-notice viz-notice--error" role="alert">{result.message}</p>}
-        {result.kind === "unsupported" && <p className="viz-notice" role="status">{result.message}</p>}
+        {result.kind === "error" && <p className="tool-notice tool-notice--error" role="alert">{result.message}</p>}
+        {result.kind === "unsupported" && <p className="tool-notice" role="status">{result.message}</p>}
 
         {result.kind === "exception" && (
           <div className="printf-exception" role="alert">
@@ -148,12 +148,12 @@ export function PrintfPlayground({ format: initialFormat, args: initialArgs }: P
         )}
 
         {result.kind === "output" && format === "" && args.trim() === "" && (
-          <p className="viz-notice">Type a format string and its arguments, or pick an example above.</p>
+          <p className="tool-notice">Type a format string and its arguments, or pick an example above.</p>
         )}
 
         {result.kind === "output" && (format !== "" || args.trim() !== "") && (
           <>
-            <p className="viz-field-label printf-label">output, spaces drawn as ·</p>
+            <p className="tool-field-label printf-label">output, spaces drawn as ·</p>
             <OutputLines segments={result.segments} />
 
             {specs.length > 0 && (
@@ -185,7 +185,7 @@ export function PrintfPlayground({ format: initialFormat, args: initialArgs }: P
             )}
 
             {result.extraArgs > 0 && (
-              <p className="viz-notice">
+              <p className="tool-notice">
                 {result.extraArgs === 1 ? "There is 1 more argument than specifiers. Java ignores it." : `There are ${result.extraArgs} more arguments than specifiers. Java ignores them.`}
               </p>
             )}

@@ -64,12 +64,12 @@
 
   [data-theme="dark"] .viz-stage,
   [data-theme="dark"] .viz-code,
-  [data-theme="dark"] .viz-input { background-color: var(--color-surface); border-color: var(--color-border); }
+  [data-theme="dark"] .tool-input { background-color: var(--color-surface); border-color: var(--color-border); }
   [data-theme="dark"] .viz-bar-rect:not([class*="viz-bar--"]),
   [data-theme="dark"] .viz-swatch:not([class*="viz-swatch--"]) { fill: rgba(var(--rgb-ink), 0.3); background-color: rgba(var(--rgb-ink), 0.3); }
   [data-theme="dark"] .viz-bar--found { filter: drop-shadow(0 0 10px rgba(158, 206, 106, 0.55)); }
-  [data-theme="dark"] .viz-btn--solid       { background-color: transparent; color: var(--color-orange); }
-  [data-theme="dark"] .viz-btn--solid:hover:not(:disabled) { background-color: rgba(var(--rgb-orange), 0.1); }
+  [data-theme="dark"] .tool-btn--solid       { background-color: transparent; color: var(--color-orange); }
+  [data-theme="dark"] .tool-btn--solid:hover:not(:disabled) { background-color: rgba(var(--rgb-orange), 0.1); }
   [data-theme="dark"] .viz-table tbody tr.viz-row--latest td { background-color: var(--color-orange-light); }
   [data-theme="dark"] .conv-step--latest .conv-step-number { background-color: rgba(var(--rgb-orange), 0.15); color: var(--color-orange); }
 

@@ -176,6 +176,7 @@
     overflow-x: auto;
     font-size: 1.5rem;
   }
+  .math-error { font-family: var(--font-mono); font-size: 1rem; color: var(--color-error); margin: 0; }
 
   .code-scroll-wrapper {
     width: 100%;
