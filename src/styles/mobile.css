@@ -71,6 +71,10 @@
   .content-table th,
   .content-table td        { padding: 0.55rem 0.35rem; white-space: normal; }
   .content-table th        { letter-spacing: 0.02em; }
+  .solution-body .content-table    { font-size: 1.15rem; min-width: 0; }
+  .solution-body .content-table th { font-size: 0.85rem; }
+  .solution-body .content-table th,
+  .solution-body .content-table td { padding: 0.7rem 0.75rem; }
 
   .viz-field--array,
   .viz-field--target   { flex: 1 1 100%; }

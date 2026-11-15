@@ -165,14 +165,14 @@ Start: **x = 7, y = 3**.
 **Quick double check:** x + y goes up by exactly 1 per trip around the while loop. The first two lines change the sum by +2 - 1, and the do while changes it by -1 + 1. So the sum goes 10, 11, 12, 13, and the loop stops at 13.`,
       solutionType: "text",
       solution: `[[table]]
-x | y | Print point
-7 | 3 | before the while
-9 | 2 | while: x + 2, y - 1
-8 | 3 | do while: x--, y++
-10 | 2 | while: x + 2, y - 1
-9 | 3 | do while: x--, y++
-11 | 2 | while: x + 2, y - 1
-10 | 3 | do while: x--, y++ (both loops end)
+x | y
+7 | 3
+9 | 2
+8 | 3
+10 | 2
+9 | 3
+11 | 2
+10 | 3
 [[/table]]`,
     },
     {

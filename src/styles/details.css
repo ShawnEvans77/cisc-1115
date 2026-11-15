@@ -245,6 +245,11 @@
 
   .content-table tbody tr:nth-child(even) td { background-color: var(--color-surface); }
 
+  .solution-body .content-table      { font-size: 1.6rem; min-width: 20rem; }
+  .solution-body .content-table th,
+  .solution-body .content-table td   { padding: 1rem 2.5rem; }
+  .solution-body .content-table th   { font-size: 1.1rem; }
+
 
   /* ── Buttons ── */
 

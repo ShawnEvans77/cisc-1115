@@ -33,7 +33,9 @@ export function SolutionBlock({ question }: QuestionBlockProps) {
   if (question.solutionType === "text") {
     return (
       <ContentBlock id={SOLUTION_BLOCK_ID} label="Solution">
-        <PromptBody text={question.solution} />
+        <div className="solution-body">
+          <PromptBody text={question.solution} />
+        </div>
       </ContentBlock>
     );
   }

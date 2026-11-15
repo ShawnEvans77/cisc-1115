@@ -123,6 +123,7 @@ Note sections with `type: "code"` are shown verbatim as Java, with the same Remo
 ### Writing questions
 
 - Copy the prompt from the exam PDF faithfully, then format it: code in `[[code]]`, sample input and output in `[[text]]`, charts in `[[table]]`. Leave the answer out of the prompt even when the PDF shows it.
+- A trace solution is only the chart: one column per variable, one row per value change. No commentary columns ("What happened", "Print point"); the reasoning belongs in the explanation.
 - Split a multi-part question into separate entries (`5a`, `5b`) when the parts are independent. Keep it as one entry when later parts depend on earlier ones.
 - Explanations talk to the student ("we", "you"), walk through the reasoning in short paragraphs, and point out the trap the question is testing.
 - Stay inside what CISC 1115 covers: Scanner, File and PrintWriter, printf, arrays and parallel arrays, String methods, Math methods, loops, methods, and bubble or selection sort. No ArrayList, Arrays.sort, or other library shortcuts.

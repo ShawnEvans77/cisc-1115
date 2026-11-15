@@ -37,12 +37,12 @@ Increment and decrement: **x = 9, y = 5**. y is not greater than 8, so the inner
 Increment and decrement: **x = 10, y = 4**. The inner loop is skipped again. x = 10 is *not* less than 10, so the do while finally ends.`,
       solutionType: "text",
       solution: `[[table]]
-x | y | What happened
-5 | 10 | starting values
-6 | 9 | do while: x++, y--
-8 | 6 | inner while: x + 2, y - 3
-9 | 5 | do while: x++, y-- (inner while skipped)
-10 | 4 | do while: x++, y-- (both loops end)
+x | y
+5 | 10
+6 | 9
+8 | 6
+9 | 5
+10 | 4
 [[/table]]`,
     },
     {
