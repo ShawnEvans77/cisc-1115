@@ -244,6 +244,8 @@
   }
 
   .content-table tbody tr:nth-child(even) td { background-color: var(--color-surface); }
+  .content-table td:empty::after { content: "\00a0"; }
+  .content-table-wrap .content-table.content-table--numeric-head th { font-size: 1em; font-weight: 600; letter-spacing: 0; }
 
   .solution-body .content-table      { font-size: 1.6rem; min-width: 20rem; }
   .solution-body .content-table th,

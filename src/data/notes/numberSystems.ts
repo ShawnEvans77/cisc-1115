@@ -167,8 +167,8 @@ Let's convert **75**.
 
 First, write out the powers of 2, doubling from 1 and stopping before you pass 75. The next one, 128, is too big, so the biggest is 64:
 [[table]]
-Place | 2⁶ | 2⁵ | 2⁴ | 2³ | 2² | 2¹ | 2⁰
-Value | 64 | 32 | 16 | 8 | 4 | 2 | 1
+64 | 32 | 16 | 8 | 4 | 2 | 1
+ |  |  |  |  |  | 
 [[/table]]
 Now go from the biggest power to the smallest. If the power fits into what is left, take it and subtract it. If not, skip it:
 [[table]]
@@ -181,10 +181,10 @@ Power of 2 | Left | Fits? | Digit
 2 | 3 | yes: 3 - 2 = 1 | 1
 1 | 1 | yes: 1 - 1 = 0 | 1
 [[/table]]
-Reading the digits from top to bottom:
+Write each digit in the blank row, under its power:
 [[table]]
-Power of 2 | 64 | 32 | 16 | 8 | 4 | 2 | 1
-Used? | 1 | 0 | 0 | 1 | 0 | 1 | 1
+64 | 32 | 16 | 8 | 4 | 2 | 1
+1 | 0 | 0 | 1 | 0 | 1 | 1
 [[/table]]
 64 + 8 + 2 + 1 = 75, so the answer is **1001011**.
 

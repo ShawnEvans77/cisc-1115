@@ -34,10 +34,12 @@ function renderLine(line: string, key: string): ReactElement {
 
 function renderTable(content: string, key: number): ReactElement {
   const [header = [], ...rows] = parseTable(content);
+  // a header of plain numbers (128 | 64 | … | 1) is the chart itself, not column labels
+  const numericHeader = header.length > 0 && header.every(cell => /^\d+$/.test(cell));
 
   return (
     <div key={key} className="content-table-wrap">
-      <table className="content-table">
+      <table className={cx("content-table", numericHeader && "content-table--numeric-head")}>
         <thead>
           <tr>{header.map((cell, i) => <th key={i}>{renderInlineText(cell)}</th>)}</tr>
         </thead>

@@ -173,9 +173,16 @@ function toDecimalSteps(digits: string, base: 2 | 16, value: number): Conversion
 }
 
 function decimalToBinarySteps(value: number, binary: string): ConversionStep[] {
+  // a one-column chart has nothing to fill in, so 1 gets a single step
+  if (value === 1) {
+    return [{
+      title: "1 is the smallest power of 2",
+      body: "1 is 2⁰, the ones place, so the answer is **1**.",
+    }];
+  }
+
   const powers: number[] = [];
   for (let power = 1; power <= value; power *= 2) powers.unshift(power);
-  const exponents = powers.map((_, i) => powers.length - 1 - i);
   const next = powers[0] * 2;
 
   let left = value;
@@ -196,9 +203,9 @@ function decimalToBinarySteps(value: number, binary: string): ConversionStep[] {
   return [
     {
       title: "Write out the powers of 2",
-      body: `Start at 1 and keep doubling. Stop before you pass ${value}: the next power, ${next}, is too big.${table([
-  ["Place", ...exponents.map(e => `2${superscript(e)}`)],
-  ["Value", ...powers],
+      body: `Start at 1 and keep doubling, writing each power to the left of the last. Stop before you pass ${value}: the next power, ${next}, is too big. Leave the row underneath blank for the digits.${table([
+  powers,
+  powers.map(() => ""),
 ])}`,
     },
     {
@@ -206,8 +213,8 @@ function decimalToBinarySteps(value: number, binary: string): ConversionStep[] {
       body: `Start with all of ${value}. If a power fits into what is left, take it: write a 1 and subtract it. If it does not fit, write a 0 and move on.${table([["Power of 2", "Left", "Fits?", "Digit"], ...fitRows])}`,
     },
     {
-      title: "Read the digits from the biggest power down",
-      body: `${table([["Power of 2", ...powers], ["Used?", ...binary]])}${answer}`,
+      title: "Fill in the blank row",
+      body: `Write each digit under its power, then read the row from left to right.${table([powers, [...binary]])}${answer}`,
     },
   ];
 }

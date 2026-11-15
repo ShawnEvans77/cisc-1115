@@ -119,11 +119,11 @@ describe("convertNumber", () => {
 
   it("subtracts powers of 2 for decimal to binary", () => {
     const [powers, fits, digits] = converted("34", 10, 2).steps;
-    expect(powers.body).toContain("Value | 32 | 16 | 8 | 4 | 2 | 1");
+    expect(powers.body).toContain("[[table]]\n32 | 16 | 8 | 4 | 2 | 1\n |  |  |  |  | \n[[/table]]");
     expect(powers.body).toContain("the next power, 64, is too big");
     expect(fits.body).toContain("32 | 34 | yes: 34 - 32 = 2 | 1");
     expect(fits.body).toContain("16 | 2 | no: 16 > 2 | 0");
-    expect(digits.body).toContain("Used? | 1 | 0 | 0 | 0 | 1 | 0");
+    expect(digits.body).toContain("32 | 16 | 8 | 4 | 2 | 1\n1 | 0 | 0 | 0 | 1 | 0");
     expect(digits.body).toContain("32 + 2 = 34, so the answer is **100010**.");
     expect(converted("64", 10, 2).steps[2].body).toContain("64 is itself a power of 2");
   });
