@@ -247,10 +247,10 @@
   .content-table td:empty::after { content: "\00a0"; }
   .content-table-wrap .content-table.content-table--numeric-head th { font-size: 1em; font-weight: 600; letter-spacing: 0; }
 
-  .solution-body .content-table      { font-size: 1.6rem; min-width: 20rem; }
-  .solution-body .content-table th,
-  .solution-body .content-table td   { padding: 1rem 2.5rem; }
-  .solution-body .content-table th   { font-size: 1.1rem; }
+  .chart-body .content-table      { font-size: 1.6rem; min-width: 20rem; }
+  .chart-body .content-table th,
+  .chart-body .content-table td   { padding: 1rem 2.5rem; }
+  .chart-body .content-table th   { font-size: 1.1rem; }
 
 
   /* ── Buttons ── */

@@ -14,7 +14,9 @@ const MathDisplay = lazy(() => import("../ui/MathDisplay").then(module => ({ def
 export function QuestionPromptBlock({ question }: QuestionBlockProps) {
   return (
     <ContentBlock label="The Question">
-      <PromptBody text={question.prompt} />
+      <div className="chart-body">
+        <PromptBody text={question.prompt} />
+      </div>
       {question.mathLatex && (
         <Suspense fallback={null}>
           <MathDisplay latex={question.mathLatex} />
@@ -33,7 +35,7 @@ export function SolutionBlock({ question }: QuestionBlockProps) {
   if (question.solutionType === "text") {
     return (
       <ContentBlock id={SOLUTION_BLOCK_ID} label="Solution">
-        <div className="solution-body">
+        <div className="chart-body">
           <PromptBody text={question.solution} />
         </div>
       </ContentBlock>
