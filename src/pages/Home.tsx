@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type PointerEvent } from "react";
 import { Link } from "react-router-dom";
 import { cx } from "../utils/ui";
 
@@ -23,19 +23,20 @@ const ctaButtons = [
   { label: "notes",     path: "/notes",     variant: "neutral" },
 ];
 
-function HeroLine({ position }: { position: "top" | "bottom" }) {
-  const [loaded, setLoaded] = useState(false);
+type SplitWordProps = {
+  text: string;
+  className?: string;
+};
 
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 80);
-    return () => clearTimeout(t);
-  }, []);
-
+function SplitWord({ text, className }: SplitWordProps) {
   return (
-    <div
-      className={cx("hero-line", loaded && "hero-line--loaded")}
-      data-position={position}
-    />
+    <span className={cx("hero-split", className)} aria-hidden="true">
+      {[...text].map((char, i) => (
+        <span key={i} className="hero-split-mask">
+          <span className="hero-split-char">{char}</span>
+        </span>
+      ))}
+    </span>
   );
 }
 
@@ -62,21 +63,39 @@ function SectionRow({ label, description, path }: Section) {
 }
 
 function Home() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoaded(true), 80);
+    return () => clearTimeout(t);
+  }, []);
+
+  const onPointerMove = (e: PointerEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
+
   return (
     <div className="home-root">
 
-      <section className="hero-section">
-        <div className="hero-grid-bg" />
-        <HeroLine position="top" />
-        <HeroLine position="bottom" />
+      <section className={cx("hero-section", loaded && "is-loaded")} onPointerMove={onPointerMove}>
+        <div className="hero-aurora" aria-hidden="true">
+          <span className="hero-blob hero-blob--warm" />
+          <span className="hero-blob hero-blob--cool" />
+        </div>
+        <div className="hero-grid-bg" aria-hidden="true" />
+        <div className="hero-grid-spot" aria-hidden="true" />
+        <div className="hero-line hero-line--top" aria-hidden="true" />
+        <div className="hero-line hero-line--bottom" aria-hidden="true" />
 
         <div className="hero-content">
-          <h1 className="fade-up delay-1 hero-title">
-            cisc<br />
-            <span className="hero-title-accent">1115</span>
+          <h1 className="hero-title" aria-label="cisc 1115">
+            <SplitWord text="cisc" />
+            <SplitWord text="1115" className="hero-title-accent" />
           </h1>
 
-          <div className="fade-up delay-2 cta-group">
+          <div className="cta-group">
             {ctaButtons.map((btn) => (
               <CtaButton key={btn.path} {...btn} />
             ))}
