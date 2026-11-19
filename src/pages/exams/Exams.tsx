@@ -20,7 +20,6 @@ function Exams() {
     <div className="page-root">
       <PageHeader
         title="past exams"
-        subtitle="click any exam to open the pdf"
         query={query}
         placeholder="search exams..."
         resultLabel={showResults ? resultCountLabel(filtered.length, examPdfs.length, "exam") : undefined}

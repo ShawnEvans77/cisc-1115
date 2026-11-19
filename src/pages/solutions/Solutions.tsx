@@ -5,7 +5,6 @@ function Solutions() {
     <ExamIndexPage
       section="solutions"
       itemLabel="solution"
-      subtitle="select a semester to browse its solutions"
       placeholder="search solutions..."
     />
   );

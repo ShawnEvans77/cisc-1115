@@ -14,7 +14,6 @@ import { ProgressFilterControls } from "../ui/ProgressFilterControls";
 
 type QuestionListPageProps = {
   section: ExamSection;
-  subtitle: string;
 };
 
 function emptyMessage(filter: FinishedFilter, query: string): string {
@@ -24,7 +23,7 @@ function emptyMessage(filter: FinishedFilter, query: string): string {
 }
 
 // Question list for one semester, shared by /questions/:examId and /solutions/:examId.
-export function QuestionListPage({ section, subtitle }: QuestionListPageProps) {
+export function QuestionListPage({ section }: QuestionListPageProps) {
   const { examId } = useParams<{ examId: string }>();
   const exam = findExamById(examId);
   const [query, setQuery] = useState("");
@@ -59,7 +58,6 @@ export function QuestionListPage({ section, subtitle }: QuestionListPageProps) {
       <PageHeader
         detail
         title={exam.label}
-        subtitle={subtitle}
         query={query}
         placeholder="search questions, topics..."
         controls={<ProgressFilterControls value={progressFilter} onChange={setProgressFilter} />}

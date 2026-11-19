@@ -15,7 +15,6 @@ function Notes() {
     <div className="page-root">
       <PageHeader
         title="notes"
-        subtitle="select a topic to browse its notes"
         query={query}
         placeholder="search notes..."
         resultLabel={showResults ? resultCountLabel(results.length) : undefined}

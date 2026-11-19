@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { displayIndex } from "../../utils/ui";
 
 // A card links either inside the app (`to`) or to an external file (`href`).
 export type IndexedCardItem = {
@@ -13,10 +12,9 @@ type IndexedCardListProps = {
   items: IndexedCardItem[];
 };
 
-function IndexedCard({ item, index }: { item: IndexedCardItem; index: number }) {
+function IndexedCard({ item }: { item: IndexedCardItem }) {
   const inner = (
     <div className="semester-card-grid">
-      <span className="semester-card-index">{displayIndex(index)}</span>
       <div>
         <h2 className="semester-card-label">
           {item.label}
@@ -43,9 +41,9 @@ function IndexedCard({ item, index }: { item: IndexedCardItem; index: number }) 
   );
 }
 
-// Numbered list of cards: semesters, note topics, exam PDFs.
+// List of cards: semesters, note topics, exam PDFs.
 export function IndexedCardList({ items }: IndexedCardListProps) {
   return <>
-    {items.map((item, index) => <IndexedCard key={item.id} item={item} index={index} />)}
+    {items.map(item => <IndexedCard key={item.id} item={item} />)}
   </>;
 }

@@ -7,7 +7,6 @@ A static, frontend-only React app. Content is bundled at build time from typed T
 ```text
 src/
   main.tsx, app/        entry point, app shell (App.tsx), route table (router.tsx)
-  constants.ts          course name strings
   types/index.ts        Exam, Question, NoteTopic, NoteEntry, NoteSection, ExamSection
   data/                 all site content (see "Adding content")
   pages/                one default-exported component per route
@@ -48,7 +47,7 @@ Reach for these before writing new markup:
 
 | Component | Use |
 | --- | --- |
-| `PageHeader` | Title, subtitle, optional search box, filter controls, and result count |
+| `PageHeader` | Title, optional search box, filter controls, and result count |
 | `IndexedCardList` | Numbered list of cards (semesters, topics, PDFs) |
 | `EntryCard` | One row in a question list or note list |
 | `SearchResultList` | Cross-section search results; `ExamSearchResults` and `NoteSearchResults` adapt their data to it |

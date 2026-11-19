@@ -51,7 +51,7 @@ function SolutionDetail() {
             onToggle={() => toggleFinished(exam.id, question.id)}
           />
           <button className="skip-to-solution-btn" onClick={() => scrollToSolution("smooth")}>
-            Skip to Solution ↓
+            Skip to solution ↓
           </button>
         </div>
       }

@@ -195,7 +195,7 @@ export function AlgorithmVisualizer({ algorithm, code }: AlgorithmVisualizerProp
         <div className="viz-panels">
           <div className="viz-panel">
             <div className="viz-panel-header">
-              <p className="viz-panel-label">The code, line by line</p>
+              <p className="viz-panel-label">Code</p>
               {hasJavaComments(code) && (
                 <button
                   type="button"

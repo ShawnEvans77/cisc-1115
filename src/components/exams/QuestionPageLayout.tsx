@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { COURSE_CODE } from "../../constants";
 import type { Exam, ExamSection, Question } from "../../types";
 import { DetailPageLayout } from "../ui/DetailPageLayout";
 
@@ -27,7 +26,6 @@ export function QuestionPageLayout({
         { label: exam.label, to: `/${section}/${exam.id}` },
         { label: question.title },
       ]}
-      eyebrow={`${exam.label} · ${COURSE_CODE}`}
       title={question.title}
       tags={question.topics}
       headerAction={headerAction}

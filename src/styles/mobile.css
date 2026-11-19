@@ -160,7 +160,7 @@
   .cta-btn   { text-align: center; padding: 1rem 1.5rem; }
 
   .home-card-link  { padding: 2rem 1rem; margin-left: -2.5rem; margin-right: -2.5rem; }
-  .home-card-grid  { grid-template-columns: 2rem 1fr auto; gap: 1rem; }
+  .home-card-grid  { gap: 1rem; }
   .home-card-arrow { font-size: 1.25rem; }
 
   .contact-row        { grid-template-columns: 1fr; gap: 0.25rem; margin: 0 -1rem; padding: 1rem; }

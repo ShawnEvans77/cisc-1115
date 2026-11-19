@@ -36,16 +36,16 @@ function ContactRow({ label, href, value }: ContactLink) {
 function Contact() {
   return (
     <div className="page-root">
-      <PageHeader title="contact" subtitle="get in touch with me" compactSubtitle />
+      <PageHeader title="contact" />
 
       <div className="home-divider-wrap">
         <hr className="home-divider" />
       </div>
 
       <div className="page-section page-section--contact">
-        <ContentBlock label="the person">
+        <ContentBlock label="about">
           <p className="content-block-body">
-            Hi, I'm Shawn Evans, a CS Grad from Brooklyn College. I built this platform because I noticed a gap between what students know compared to what they are expected to know. This platform aims to be an all in one resource for freshman Computer Science students.
+            I'm Shawn Evans, a CS graduate from Brooklyn College. I built this site because I noticed a gap between what students know and what they are expected to know. It collects past exams, solutions, and notes for freshman Computer Science students.
           </p>
         </ContentBlock>
 
@@ -56,19 +56,14 @@ function Contact() {
         </ContentBlock>
 
         <ContentBlock label="contribute">
-          <p className="content-block-body">
-            Click here if you'd like to contribute to the site:
-          </p>
-          <div className="contribute-action">
-            <a
-              href="https://github.com/ShawnEvans77/cisc-1115"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="solution-link"
-            >
-              open a pull request
-            </a>
-          </div>
+          <a
+            href="https://github.com/ShawnEvans77/cisc-1115"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="solution-link"
+          >
+            open a pull request
+          </a>
         </ContentBlock>
 
       </div>

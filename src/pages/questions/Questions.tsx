@@ -5,7 +5,6 @@ function Questions() {
     <ExamIndexPage
       section="questions"
       itemLabel="question"
-      subtitle="select a semester to browse its questions"
       placeholder="search questions..."
     />
   );

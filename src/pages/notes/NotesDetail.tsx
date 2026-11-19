@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import { COURSE_CODE } from "../../constants";
 import { findTopicById } from "../../data/notes";
 import { AlgorithmVisualizer } from "../../components/notes/AlgorithmVisualizer";
 import { BaseConverter } from "../../components/notes/BaseConverter";
@@ -41,7 +40,6 @@ function NotesDetail() {
         ...(entryGroup ? [{ label: entryGroup.title, to: `/notes/${topic.id}/${entryGroup.id}` }] : []),
         { label: entry.title },
       ]}
-      eyebrow={`${COURSE_CODE} \u00A0·\u00A0 ${topic.label}`}
       title={entry.title}
       tags={entry.tags}
       bottomNav={

@@ -10,7 +10,7 @@ type CopyButtonProps = {
 export function CopyButton({
   content,
   idleLabel = "Copy code",
-  copiedLabel = "✓ Copied!",
+  copiedLabel = "✓ Copied",
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
 

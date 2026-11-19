@@ -57,16 +57,6 @@
     align-items: center;
   }
 
-  .hero-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-orange);
-    margin-bottom: 2rem;
-  }
-
   .hero-title {
     font-family: var(--font-display);
     font-size: clamp(4rem, 18vw, 13rem);
@@ -154,16 +144,6 @@
     z-index: 1;
   }
 
-  .home-sections-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-subtle);
-    margin-bottom: 3rem;
-  }
-
   .home-card-link {
     display: block;
     border-top: 1.5px solid var(--color-border);
@@ -181,16 +161,9 @@
 
   .home-card-grid {
     display: grid;
-    grid-template-columns: 3rem 1fr auto;
+    grid-template-columns: 1fr auto;
     align-items: center;
     gap: 2.5rem;
-  }
-
-  .home-card-index {
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--color-border-strong);
   }
 
   .home-card-label {

@@ -19,7 +19,7 @@ export function ExamSearchResults({ results, query, section, itemLabel, isFinish
         to: `/${section}/${result.examId}`,
         eyebrow: "semester",
         title: result.examLabel,
-        meta: `${pluralize(result.questionCount, itemLabel)} available`,
+        meta: pluralize(result.questionCount, itemLabel),
       }
     : {
         type: "item",

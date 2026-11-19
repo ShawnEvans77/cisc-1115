@@ -13,7 +13,7 @@ const MathDisplay = lazy(() => import("../ui/MathDisplay").then(module => ({ def
 
 export function QuestionPromptBlock({ question }: QuestionBlockProps) {
   return (
-    <ContentBlock label="The Question">
+    <ContentBlock label="Question">
       <div className="chart-body">
         <PromptBody text={question.prompt} />
       </div>

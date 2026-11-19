@@ -37,8 +37,6 @@
     background-color: var(--color-orange-light);
   }
 
-  [data-theme="dark"] .hero-eyebrow,
-  [data-theme="dark"] .page-eyebrow { color: var(--color-cyan); }
 
   /* each home button keeps its own color, as an outline */
   [data-theme="dark"] .cta-btn                { --cta-color: var(--color-orange); }

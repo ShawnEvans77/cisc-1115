@@ -28,16 +28,7 @@
   }
   .page-header--compact { padding-bottom: 1.25rem; }
   .page-header--detail  { padding-top: 1.75rem; }
-  .page-header--detail .page-subtitle { margin-bottom: 2rem; }
-
-  .page-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-orange);
-    margin-bottom: 1.25rem;
-  }
+  .page-header--detail .page-title { margin-bottom: 2rem; }
 
   .page-title {
     font-family: var(--font-display);
@@ -46,17 +37,9 @@
     color: var(--color-ink);
     letter-spacing: -0.02em;
     line-height: 1;
-    margin-bottom: 0.75rem;
-  }
-
-  .page-subtitle {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-style: italic;
-    color: var(--color-subtle);
     margin-bottom: 3rem;
   }
-  .page-subtitle--flush { margin-bottom: 0; }
+  .page-title:last-child { margin-bottom: 0; }
 
   .page-section {
     max-width: 1100px;

@@ -75,7 +75,6 @@ export function NoteEntryList({ topic, group }: NoteEntryListProps) {
       <PageHeader
         detail
         title={group ? group.title : topic.label}
-        subtitle="select a note to read it"
         query={query}
         placeholder="search notes..."
         resultLabel={hasQuery(query) ? resultCountLabel(cards.length, entries.length, "note") : undefined}

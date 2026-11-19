@@ -14,7 +14,6 @@ import { ExamSearchResults } from "./ExamSearchResults";
 type ExamIndexPageProps = {
   section: ExamSection;
   itemLabel: string; // singular noun for one entry, e.g. "question"
-  subtitle: string;
   placeholder: string;
 };
 
@@ -22,7 +21,7 @@ const allQuestionSearchResults = createAllQuestionSearchResults(exams);
 
 // Semester index for /questions and /solutions. Shows the semester list until the
 // user searches or picks a progress filter, then shows matching questions instead.
-export function ExamIndexPage({ section, itemLabel, subtitle, placeholder }: ExamIndexPageProps) {
+export function ExamIndexPage({ section, itemLabel, placeholder }: ExamIndexPageProps) {
   const [query, setQuery] = useState("");
   const [progressFilter, setProgressFilter] = useState<FinishedFilter>("all");
   const { isFinished, isExamFinished } = useFinishedQuestions();
@@ -41,7 +40,6 @@ export function ExamIndexPage({ section, itemLabel, subtitle, placeholder }: Exa
     <div className="page-root">
       <PageHeader
         title={section}
-        subtitle={subtitle}
         query={query}
         placeholder={placeholder}
         compact={showingResults}
