@@ -63,7 +63,6 @@
   [data-theme="dark"] .viz-stage,
   [data-theme="dark"] .viz-code,
   [data-theme="dark"] .tool-input { background-color: var(--color-surface); border-color: var(--color-border); }
-  [data-theme="dark"] .hero-sort-rect:not([class*="hero-sort-rect--"]) { fill: rgba(var(--rgb-ink), 0.3); }
   [data-theme="dark"] .viz-bar-rect:not([class*="viz-bar--"]),
   [data-theme="dark"] .viz-swatch:not([class*="viz-swatch--"]) { fill: rgba(var(--rgb-ink), 0.3); background-color: rgba(var(--rgb-ink), 0.3); }
   [data-theme="dark"] .viz-bar--found { filter: drop-shadow(0 0 10px rgba(158, 206, 106, 0.55)); }
