@@ -1,4 +1,5 @@
 import { highlightJava } from "../../utils/highlightJava";
+import { cx } from "../../utils/ui";
 
 type CodeBlockProps = {
   code: string;
@@ -7,7 +8,7 @@ type CodeBlockProps = {
 
 export function CodeBlock({ code, language = "java" }: CodeBlockProps) {
   return (
-    <div className="code-scroll-wrapper">
+    <div className={cx("code-scroll-wrapper", language === "text" && "code-scroll-wrapper--text")}>
       <pre>{language === "text" ? code : highlightJava(code)}</pre>
     </div>
   );

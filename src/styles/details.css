@@ -251,6 +251,7 @@
   .chart-body .content-table th,
   .chart-body .content-table td   { padding: 1rem 2.5rem; }
   .chart-body .content-table th   { font-size: 1.1rem; }
+  .chart-body .code-scroll-wrapper--text pre { font-size: 1.6rem; line-height: 1.7; }
 
 
   /* ── Buttons ── */

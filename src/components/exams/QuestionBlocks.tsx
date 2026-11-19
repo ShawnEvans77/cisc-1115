@@ -49,7 +49,9 @@ export function SolutionBlock({ question }: QuestionBlockProps) {
 export function ExplanationBlock({ question }: QuestionBlockProps) {
   return (
     <ContentBlock label="Explanation">
-      <PromptBody text={question.explanation} />
+      <div className="chart-body">
+        <PromptBody text={question.explanation} />
+      </div>
     </ContentBlock>
   );
 }

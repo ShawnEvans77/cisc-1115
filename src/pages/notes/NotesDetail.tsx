@@ -83,7 +83,9 @@ function NotesDetail() {
       {entry.sections.map((section, i) =>
         section.type === "text" ? (
           <ContentBlock key={i} label={section.label}>
-            <PromptBody text={section.content} />
+            <div className="chart-body">
+              <PromptBody text={section.content} />
+            </div>
           </ContentBlock>
         ) : (
           // keyed by note so the comment toggle resets when moving to another note
