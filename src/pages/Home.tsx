@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { HeroSort } from "../components/home/HeroSort";
 import { cx } from "../utils/ui";
 
 type Section = {
@@ -76,7 +77,11 @@ function Home() {
             <span className="hero-title-accent">1115</span>
           </h1>
 
-          <div className="fade-up delay-2 cta-group">
+          <div className="fade-up delay-2">
+            <HeroSort />
+          </div>
+
+          <div className="fade-up delay-3 cta-group">
             {ctaButtons.map((btn) => (
               <CtaButton key={btn.path} {...btn} />
             ))}
